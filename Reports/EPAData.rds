@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="EPAData">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=0811N000DL88LC2\MSSQLSERVER13;Initial Catalog=EPA</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>0a1b3804-a2af-476c-b53a-81d8c270106e</DataSourceID>
+</RptDataSource>

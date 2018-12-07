@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:PUBLISH
+PRODID:-//Microsoft Corporation//Outlook 11.0 MIMEDIR//EN
+BEGIN:VEVENT
+UID:150555b043d4b7321d
+DTSTAMP:20180522T155451Z
+DTSTART:20180531T170000Z
+DTEND:20180531T180000Z
+SUMMARY:CO-SQLDB-WBNR-FY18-05May-31-Accelerate your move to the Cloud with Azure Database Migration Service
+LOCATION:Webinar
+DESCRIPTION:https://event.on24.com/interface/registration/autoreg/index.html?eventid=1680829&sessionid=1&key=C5D0505B5F37BD7C09D0E32145C61DE8&firstname=Frank&lastname=Mi&company=TCDSB&email=frank_ml@hotmail.com&job_title=Developer+%2F+Engineer&country=Canada&zip=&work_phone=\n\n<p>Microsoft Azure Database Migration Service is a seamless\, end-to-end solution for moving on-premises SQL Server\, Oracle\, and other relational databases to the cloud. This service supports migrations of homogeneous/heterogeneous source-target pairs\, and the guided migration process is easy to understand and implement.</p>\n<p>Join this webinar to learn how to accelerate and simplify your move to the cloud by using a single comprehensive migration service. You&rsquo\;ll also learn:<br /></p>\n<ul>\n<li>How to finish your cloud migration process faster.</li>\n<li>The steps needed to shift your relational data platforms to Azure.</li>\n<li>How to run assessments against your on-prem environment and identify suitable Azure targets.</li>\n<li>About schema conversion\, seeding the target database\, and data movement with minimal downtime.<br /></li>\n</ul>
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F418026-47B3-49A6-BAD8-6D2B4B78F744}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess.Tests</RootNamespace>
+    <AssemblyName>DataAccess.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Pex.Framework, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="MyBaseClassC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DataAccess\bin\Debug\MyBaseClassC.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{CB4B0C6F-7FC8-467B-B484-4A1C55BAEBF7}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthenticationTest.cs" />
+    <Compile Include="AuthenticationTest.UserRole.g.cs">
+      <DependentUpon>AuthenticationTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateFCTest.AgeTest.g.cs">
+      <DependentUpon>DateFCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateFCTest.AgeTest01.g.cs">
+      <DependentUpon>DateFCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateFCTest.cs" />
+    <Compile Include="DateFCTest.FormatTest.g.cs">
+      <DependentUpon>DateFCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateFCTest.SchoolYearFromTest.g.cs">
+      <DependentUpon>DateFCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateFCTest.SchoolYearNextTest.g.cs">
+      <DependentUpon>DateFCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateFCTest.SchoolYearPreviousTest.g.cs">
+      <DependentUpon>DateFCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateFCTest.YearTOGOTest.g.cs">
+      <DependentUpon>DateFCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateFCTest.YMDTest.g.cs">
+      <DependentUpon>DateFCTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="iCalendarTest.cs" />
+    <Compile Include="iCalendarTest.getiCalendarbyStringBuiding.g.cs">
+      <DependentUpon>iCalendarTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MessagesTipsTest.cs" />
+    <Compile Include="MessagesTipsTest.Message.g.cs">
+      <DependentUpon>MessagesTipsTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="myBaseParametersATest.cs" />
+    <Compile Include="myBaseParametersBTest.cs" />
+    <Compile Include="myBaseParametersBTest.SetupBaseParameters.g.cs">
+      <DependentUpon>myBaseParametersBTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="myBaseParametersTest.cs" />
+    <Compile Include="myBaseParametersTest.SetupBaseParameters.g.cs">
+      <DependentUpon>myBaseParametersTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationBuildingTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\PexAssemblyInfo.cs" />
+    <Compile Include="ReportRenderTest.cs" />
+    <Compile Include="ReportRenderTest.MultiplePDF.g.cs">
+      <DependentUpon>ReportRenderTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportRenderTest.RenderReport.g.cs">
+      <DependentUpon>ReportRenderTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportRenderTest.setParameterArray.g.cs">
+      <DependentUpon>ReportRenderTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfileTest.cs" />
+    <Compile Include="UserProfileTest.UserLoginRole.g.cs">
+      <DependentUpon>UserProfileTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebConfigTest.cs" />
+    <Compile Include="WebConfigTest.getValuebyKey.g.cs">
+      <DependentUpon>WebConfigTest.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
