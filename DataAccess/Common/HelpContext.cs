@@ -14,7 +14,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleMessage";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersA.SetupBaseParameters(ref myPara, "UPA", _aID, _cID, _pID, _iID);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
             }
@@ -28,7 +28,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleMessage";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 5, 200, "@Value", _value);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
@@ -44,7 +44,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleTips";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersA.SetupBaseParameters(ref myPara, "UPA", _aID, _cID, _pID, _iID);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
             }
@@ -58,7 +58,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleTips";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 5, 200, "@Value", _value);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
@@ -139,7 +139,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_Title";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
             }
@@ -153,7 +153,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_Title";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 5, 200, "@Value", _value);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
@@ -169,7 +169,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleM";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
             }
@@ -183,7 +183,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleM";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 5, 200, "@Value", _value);
                 SetSQLParameter.getMyDataValue(_SP, myPara);
@@ -199,7 +199,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_Title2";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
             }
@@ -215,7 +215,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_Title2";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 5, 500, "@Value", _value);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
@@ -231,7 +231,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleHelp";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
             }
@@ -246,7 +246,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleHelp";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 5, 2000, "@Value", _value);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
@@ -262,7 +262,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleHelpShow";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
             }
@@ -277,7 +277,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_TitleHelpShow";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersA.SetupBaseParameters(ref myPara, _UserID, _aID, _cID, _pID, _iID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 5, 10, "@Value", _value);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
@@ -298,7 +298,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 10, "@HelpType", helpType);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
@@ -313,7 +313,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[7];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[7];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 10, "@HelpType", helpType);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 2000, "@Value", HttpContext.Current.Server.HtmlDecode(value));
@@ -337,7 +337,7 @@ namespace DataAccess
             try
             {
                 sp = "dbo.EPA_sys_HelpTextMessageForRole";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 20, "@UserRole", userrole);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
@@ -354,7 +354,7 @@ namespace DataAccess
             try
             {
                 sp = "dbo.EPA_sys_HelpTextMessageForRole";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[7];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[7];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5,20, "@UserRole", userrole);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 2000, "@Value", HttpContext.Current.Server.HtmlDecode(value));
@@ -371,7 +371,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
             }
@@ -386,7 +386,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 2000, "@Value", HttpContext.Current.Server.HtmlDecode(value));
                 return SetSQLParameter.getMyDataValue(sp, myPara);
@@ -403,7 +403,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_sys_HelpTextStatement";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, category);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 3, 8, "@SchoolYear" ,schoolYear);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 4, 8, "@SchoolCode",  schoolCode);
@@ -432,7 +432,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
             }
@@ -446,7 +446,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[7];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[7];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 200, "@Title", HttpContext.Current.Server.HtmlDecode(title));
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 500, "@SubTitle", HttpContext.Current.Server.HtmlDecode(subTitle));
@@ -462,7 +462,7 @@ namespace DataAccess
     {
         public Menus()
         { }
-        private static void SetupThisParameters(ref myCommon.MyParameterDB[] myPara, string _UserID, string _aID, string _mID, string _Type, string _cID, string _gID, string _iID, string _tID)
+        private static void SetupThisParameters(ref MyCommon.MyParameterDB[] myPara, string _UserID, string _aID, string _mID, string _Type, string _cID, string _gID, string _iID, string _tID)
         {
             SetSQLParameter.setParameterArray(myPara, DbType.String, 0, 50, "@UserID", _UserID);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 1, 20, "@AppCode", _aID);
@@ -478,7 +478,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_Menus";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[8];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[8];
                 SetupThisParameters(ref myPara, _UserID, _aID, _mID, _Type, _cID, _gID, _iID, _tID);
                 return SetSQLParameter.getMyDataValue(_SP, myPara);
             }
@@ -494,7 +494,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_Menus";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[9];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
                 SetupThisParameters(ref myPara, _UserID, _aID, _mID, _Type, _cID, _gID, _iID, _tID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 8, 500, "@Value", HttpContext.Current.Server.HtmlDecode(_value));
                 SetSQLParameter.getMyDataValue(_SP, myPara);
@@ -510,7 +510,7 @@ namespace DataAccess
             string sp = "dbo.EPA_sys_MenuItemName";
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[3];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[3];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
             }
@@ -525,7 +525,7 @@ namespace DataAccess
             string sp = "dbo.EPA_sys_MenuItemName";
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[4];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[4];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
             }
@@ -540,7 +540,7 @@ namespace DataAccess
             string sp = "dbo.EPA_sys_MenuItemName";
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
             }
@@ -560,7 +560,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[9];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 10, "@UserRole", userRole);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 10, "@SchoolYear", schoolyear);
@@ -578,7 +578,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[10];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[10];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID, categoryID, areaID, itemCode);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 10, "@UserRole", userRole);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 10, "@SchoolYear", schoolyear);

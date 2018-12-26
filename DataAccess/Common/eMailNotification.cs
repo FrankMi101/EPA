@@ -355,7 +355,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[3];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[3];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 2, 30, "@NoticeType", noticType);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
@@ -370,7 +370,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[4];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[4];
                 myBaseParametersB.SetupBaseParameters(ref myPara, operate, userID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 2, 30, "@NoticeType", noticeType);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 3, 250, "@eMailAddress", emailAddress);
@@ -387,7 +387,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_Notification";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[8];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[8];
                 myBaseParameters.SetupBaseParameters(ref myPara, operate, userID, schoolyear, schoolcode, employeeid, sessionID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 30, "@NoticeType", noticeType);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 7, 10, "@NoticeArea", noticeArea);
@@ -404,7 +404,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_Notification";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[12];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[12];
                 myBaseParameters.SetupBaseParameters(ref myPara, operate, userID, schoolyear, schoolcode, employeeid, sessionID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 30, "@NoticeType", noticeType);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 7, 10, "@NoticeArea", noticeArea);
@@ -425,7 +425,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_NotificationTemplate";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[8];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[8];
                 SetupThisParameters(ref myPara, operate, userID, category, noticType, noticeArea, noticeGo, noticeFrom, purpose);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
 
@@ -442,7 +442,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_NotificationTemplate";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[9];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
                 SetupThisParameters(ref myPara, operate, userID, category, noticType, noticeArea, noticeGo, noticeFrom, purpose);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 8, 250, "@Subject", subject);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
@@ -460,7 +460,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_NotificationTemplate";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[10];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[10];
                 SetupThisParameters(ref myPara, operate, userID, category, noticType, noticeArea, noticeGo, noticeFrom, purpose);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 8, 250, "@Subject", subject);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 9, 1000, "@Template", template);
@@ -479,7 +479,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_NotificationTemplatePersonal";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[8];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[8];
                 SetupThisParameters(ref myPara, operate, userID, category, noticType, noticeArea, noticeGo, noticeFrom, purpose);
                  return SetSQLParameter.getMyDataValue(sp, myPara);
             }
@@ -494,7 +494,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_NotificationTemplatePersonal";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[9];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
                 SetupThisParameters(ref myPara, operate, userID, category, noticType, noticeArea, noticeGo, noticeFrom, purpose);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 8, 20, "@TemplateType", templateType);
                 return SetSQLParameter.getMyDataValue(sp, myPara);
@@ -510,7 +510,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_NotificationTemplatePersonal";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[12];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[12];
                 SetupThisParameters(ref myPara, operate, userID, category, noticType, noticeArea, noticeGo, noticeFrom, purpose);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 8, 20, "@TemplateType", templateType);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 9, 250, "@Subject", subject);
@@ -524,7 +524,7 @@ namespace DataAccess
                 return "";
             }
         }
-        private static void SetupThisParameters(ref myCommon.MyParameterDB[] myPara, string operate, string userID, string category, string noticType, string noticArea, string noticeGo, string noticeFrom, string purpose)
+        private static void SetupThisParameters(ref MyCommon.MyParameterDB[] myPara, string operate, string userID, string category, string noticType, string noticArea, string noticeGo, string noticeFrom, string purpose)
         {
 
             myBaseParameters.SetupBaseParameters(ref myPara, operate, userID);

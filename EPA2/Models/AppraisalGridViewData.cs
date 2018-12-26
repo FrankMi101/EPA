@@ -7,6 +7,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using EPA2.Generic.LIB;
 using System.Collections.Generic;
+using ClassLibrary;
+using BLL;
 /// <summary>
 /// Summary description for WorkingProfile
 /// </summary>
@@ -60,23 +62,41 @@ namespace EPA2
                 string em = ex.Message;
             }
         }
-        private static void StaffListGridView(ref GridView myGridView, string method, string userID, string schoolyear, string schoolcode, string searchby, string searchvalue)
+        private static void StaffListGridView(ref GridView myGridView, string method, string userID, string schoolyear, string schoolcode, string searchby, string searchValue)
         {
             try
             {
+         
                 if (method == "DataSet")
                 {
-                     DataTable gridData = StaffList.SchoolStaffList(WorkingProfile.UserRole, userID,  schoolcode, searchby, searchvalue).Tables[0];
+                    DataTable gridData = StaffList.SchoolStaffList(WorkingProfile.UserRole, userID,  schoolcode, searchby, searchValue).Tables[0];
                     myGridView.DataSource = gridData;
                     myGridView.DataBind();
                 }
                 if (method == "iList")
                 {
                     IListRepository<Employee2, string> repository = Factory.Get<EmployeeList>(); 
-                    IList<Employee2> gridData = repository.GetListItems(WorkingProfile.UserRole, userID, schoolyear, schoolcode, searchby, searchvalue);
+                    IList<Employee2> gridData = repository.GetListItems(WorkingProfile.UserRole, userID, schoolyear, schoolcode, searchby, searchValue);
                     myGridView.DataSource = gridData;
                     myGridView.DataBind();
                 }
+                if (method == "dList")
+                {
+
+                    AppraisalListParameter parameter = CommonParameters.GetListParameters(WorkingProfile.UserRole, userID, schoolyear, schoolcode, searchby, searchValue);
+                    //{
+                    //    Operate = "Get",
+                    //    UserID = userID,
+                    //    SchoolYear = schoolyear,
+                    //    SchoolCode = schoolcode,
+                    //    SearchBy = searchby,
+                    //    SearchValue = searchvalue
+                    //};
+                    var gridData = BLL.AppraisalExecute<AppraisalStaffList>.AnyListofT(parameter); // BLL.AppraisalExecute.ApprList(parameter);
+                    myGridView.DataSource = gridData;
+                    myGridView.DataBind();
+              }
+   
 
             }
             catch (System.Exception ex)
@@ -98,6 +118,16 @@ namespace EPA2
                 {
                     IListRepository<Educator2, string> repository = Factory.Get<EducatorsList>();//  new EducatorsList();
                     IList<Educator2> gridData = repository.GetListItems(WorkingProfile.UserRole, userID, schoolyear, schoolcode, searchby, searchvalue);
+                    myGridView.DataSource = gridData;
+                    myGridView.DataBind();
+                }
+
+                if (method == "dList")
+                {
+
+                    AppraisalListParameter parameter = CommonParameters.GetListParameters("Get", userID, schoolyear, schoolcode, searchby, searchvalue);
+
+                    var gridData = BLL.AppraisalExecute<AppraisalList>.AnyList(parameter);
                     myGridView.DataSource = gridData;
                     myGridView.DataBind();
                 }
@@ -126,6 +156,16 @@ namespace EPA2
                     myGridView.DataSource = gridData;
                     myGridView.DataBind();
                 }
+                if (method == "dList")
+                {
+
+                    AppraisalListParameter parameter = CommonParameters.GetListParameters("Get", userID, schoolyear, schoolcode, searchby, searchvalue );
+                 
+                    var gridData = BLL.AppraisalExecute<AppraisalHistory>.AnyListofT(parameter);
+                    myGridView.DataSource = gridData;
+                    myGridView.DataBind();
+                }
+
             }
             catch (System.Exception ex)
             {
@@ -149,7 +189,15 @@ namespace EPA2
                     myGridView.DataSource = gridData;
                     myGridView.DataBind();
                 }
+                if (method == "dList")
+                {
 
+                    AppraisalNoticeParameter parameter = CommonParameters.GetNoticeParameters(WorkingProfile.UserRole, userID, schoolyear, schoolcode, searchby, searchvalue, noticeType, noticeArea);
+                  
+                    var gridData = BLL.AppraisalExecute<AppraisalNotice>.AnyListofT(parameter);
+                    myGridView.DataSource = gridData;
+                    myGridView.DataBind();
+                }
             }
             catch (System.Exception ex)
             {

@@ -196,7 +196,7 @@
                                     </asp:BoundField>
                                     <asp:TemplateField HeaderText="Appraisal Outcome"  >
                                         <ItemTemplate>
-                                            <asp:HyperLink ID="Link5" runat="server" Text='<%# Bind("Appraisaloutcome") %>'>  </asp:HyperLink>
+                                            <asp:HyperLink ID="Link5" runat="server" Text='<%# Bind("AppraisalOutcome") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
                                         <ItemStyle Width="10%" />
                                     </asp:TemplateField>

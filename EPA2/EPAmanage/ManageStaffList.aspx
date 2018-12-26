@@ -244,8 +244,14 @@
     var myKey;
     var currentTR;
     $(document).ready(function () {
-        MakeStaticHeader("GridView1", 650, 1300, 25, false);
+        try {
 
+            MakeStaticHeader("GridView1", 650, 1300, 25, false);
+        }
+        catch (ex )
+        {
+
+        }
         $("#closeActionPOP").click(function (event) {
             $("#ActionPOPDIV").fadeToggle("fast");
         });

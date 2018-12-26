@@ -152,7 +152,7 @@ namespace DataAccess
         {
             try
             {              
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[2];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
                 myBaseParameters.SetupBaseParameters(ref myPara, operate, HttpContext.Current.User.Identity.Name);
                return   SetSQLParameter.getMyDataValue(SP, myPara);
             }
@@ -167,7 +167,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[3];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[3];
                 myBaseParameters.SetupBaseParameters(ref myPara, operate, HttpContext.Current.User.Identity.Name);
                 SetSQLParameter.setParameterArray(myPara,  DbType.String, 2, 50, "@Value", value);
                 SetSQLParameter.getMyDataValue(SP, myPara);
@@ -182,7 +182,7 @@ namespace DataAccess
             try
             {
                 string SP = "dbo.EPA_sys_UserWorkingTrack";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[7];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[7];
                 SetupBaseParameters(ref myPara, "LastValue", userId);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 2, 50, "@Value", value);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 3, 30, "@MachinName", machin_name);
@@ -199,7 +199,7 @@ namespace DataAccess
             finally
             { }
         }
-        private static void SetupBaseParameters(ref myCommon.MyParameterDB[] myPara, string operate, string userID)
+        private static void SetupBaseParameters(ref MyCommon.MyParameterDB[] myPara, string operate, string userID)
         {
             SetSQLParameter.setParameterArray(myPara, DbType.String, 0, 30, "@Operate", operate);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 1, 30, "@UserID", userID);

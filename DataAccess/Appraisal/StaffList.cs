@@ -17,7 +17,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 SetupThisParameters(ref myPara, userRole, userID, schoolYear, schoolCode, searchby, searchValue);
                // myBaseParameters.SetupBaseParameters(ref myPara, userRole, userID,schoolYear,schoolCode);
                // SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 4, 30, "@Searchby", searchby);
@@ -36,7 +36,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalStaffListNotice";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[8];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[8];
                 SetupThisParameters(ref myPara, userRole, userID, schoolYear, schoolCode, searchby, searchValue);
                  SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 15, "@NoticeType", noticeType);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 7, 10, "@NoticeArea", noticeArea);
@@ -54,7 +54,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalStaffHistory";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 SetupThisParameters(ref myPara, userRole, userID, schoolYear, schoolCode, searchby, searchValue);
                 return SetSQLParameter.getMyDataSet(sp, myPara);
             }
@@ -70,7 +70,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Org_StaffList";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 SetupThisParameters(ref myPara, userRole, userID, "", schoolCode, searchby, searchValue);
                 return SetSQLParameter.getMyDataSet(sp, myPara);
             }
@@ -87,7 +87,7 @@ namespace DataAccess
             {
                
                 string sp = "dbo.EPA_Appr_AppraisalProcess_RollOver";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParameters.SetupBaseParameters(ref myPara, operate, userID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 2, 8, "@FromSchoolYear", schoolYear);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 3, 8, "@ToSchoolYear", schoolYearTo);
@@ -105,7 +105,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProcess_RollOver";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParameters.SetupBaseParameters(ref myPara, "RollOverList", userID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 2, 8, "@FromSchoolYear", schoolYear);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 3, 8, "@ToSchoolYear", schoolYearTo);
@@ -120,9 +120,9 @@ namespace DataAccess
 
         }
 
-        private static void SetupThisParameters(ref myCommon.MyParameterDB[] myPara, string userRole, string userID, string schoolYear, string schoolCode, string searchby, string searchValue )
+        private static void SetupThisParameters(ref MyCommon.MyParameterDB[] myPara, string userRole, string userID, string schoolYear, string schoolCode, string searchby, string searchValue )
         {
-           // myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+           // MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
             myBaseParameters.SetupBaseParameters(ref myPara, userRole, userID, schoolYear, schoolCode);
             SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 4, 30, "@Searchby", searchby);
             SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 30, "@SearchValue", searchValue);

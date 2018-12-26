@@ -126,7 +126,8 @@ namespace EPA2.EPAmanage
                     searchvalue = TextSearch.Text;
                 }
                 //  AppraisalGridViewData.BindMyGridView(ref GridView1,"AppraisalStaffList", "DataSet", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
-                AppraisalGridViewData.BindMyGridView(ref GridView1,"AppraisalStaffList", "iList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
+               // AppraisalGridViewData.BindMyGridView(ref GridView1, "AppraisalStaffList", "iList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
+                AppraisalGridViewData.BindMyGridView(ref GridView1,"AppraisalStaffList", "dList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
                 // GridView1.DataSource = educatorsList(true);// GetDataSource(true);
                 // GridView1.DataBind();
             }

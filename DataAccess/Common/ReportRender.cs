@@ -16,11 +16,11 @@ namespace DataAccess
         {
         }
 
-        public static void setParameterArray(myCommon.MyParameterRS[] _ParaArray, int X, string _Name, string _Value)
+        public static void setParameterArray(MyCommon.MyParameterRS[] _ParaArray, int X, string _Name, string _Value)
         {
             try
             {
-                _ParaArray[X] = new myCommon.MyParameterRS();
+                _ParaArray[X] = new MyCommon.MyParameterRS();
                 _ParaArray[X].pName = _Name;
                 _ParaArray[X].pValue = _Value;
             }
@@ -30,7 +30,7 @@ namespace DataAccess
             }
         }
 
-        public static void RenderReport(string _reportName, myCommon.MyParameterRS[] _reportParameter)
+        public static void RenderReport(string _reportName, MyCommon.MyParameterRS[] _reportParameter)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace DataAccess
         {
             try
             {
-                myCommon.MyParameterRS[] reportParameters = new myCommon.MyParameterRS[7];
+                MyCommon.MyParameterRS[] reportParameters = new MyCommon.MyParameterRS[7];
                 setParameterArray(reportParameters, 0, "Operate", apprRole);
                 setParameterArray(reportParameters, 1, "UserID", userID);
                 setParameterArray(reportParameters, 2, "SchoolYear", schoolyear);
@@ -95,7 +95,7 @@ namespace DataAccess
         }
 
 
-        public static Byte[] GetReportR2(string _reportName, myCommon.MyParameterRS[] _reportParameter)
+        public static Byte[] GetReportR2(string _reportName, MyCommon.MyParameterRS[] _reportParameter)
 
         {
             Byte[] result;
@@ -133,7 +133,7 @@ namespace DataAccess
 
 
                 int i = 0;
-                foreach (myCommon.MyParameterRS para in _reportParameter)
+                foreach (MyCommon.MyParameterRS para in _reportParameter)
                 {
                     rptParameters[i] = new ReportingWebService.ParameterValue();
                     rptParameters[i].Name = para.pName;
@@ -213,7 +213,7 @@ namespace DataAccess
 
         private static Byte[] GetOneReport(string reportName, string userID, string schoolyear, string schoolcode, string sessionID, string employeeID)
         {
-            myCommon.MyParameterRS[] reportParameters = new myCommon.MyParameterRS[7];
+            MyCommon.MyParameterRS[] reportParameters = new MyCommon.MyParameterRS[7];
             setParameterArray(reportParameters, 0, "Operate", "Report");
             setParameterArray(reportParameters, 1, "UserID", userID);
             setParameterArray(reportParameters, 2, "SchoolYear", schoolyear);

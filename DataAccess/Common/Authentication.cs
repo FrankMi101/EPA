@@ -105,7 +105,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_UserPermissionControl";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[2];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 0, 30, "@UserID", userID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 1, 20, "@Type", "Role");
                 return SetSQLParameter.getMyDataValue(_SP, myPara);

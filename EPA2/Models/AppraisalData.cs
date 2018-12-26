@@ -10,6 +10,8 @@ using DataAccess;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using EPA2.Generic.LIB;
+using ClassLibrary;
+using BLL;
 
 namespace EPA2
 {
@@ -131,6 +133,22 @@ namespace EPA2
                 string result = repository.GetResult(employeeID, appraisalnote,action);
              }
         }
+        public static void Comments(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
+        {
+            AppraisalComment comm = CommonParameters.GetCommentParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category); //  new AppraisalComment()
+ 
+            if (action == "Get" || action == "RollOver")
+            {
+                myText.Text = AppraisalExecute<AppraisalComment>.AnyValueofT(comm);// AppraisalExecute.Comments(comm);
+                myCount.Value = (textLength - myText.Text.Length).ToString();
+            }
+            else
+            {
+                comm.Comments = myText.Text;
+                string result = AppraisalExecute<AppraisalComment>.AnyValueofT(comm);//AppraisalExecute.Comments(comm);
+            }
+        }
+        
         public static string ITextContentDomain(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode, string domainID, string competencyID, string rate, string Value)
         {
             AppraisalNotes2 apprnote = new AppraisalNotes2()
@@ -274,18 +292,24 @@ namespace EPA2
         public static void DomainTextContent(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID)
         {
 
-            if (action == "Get")
+           var parameter = CommonParameters.GetDomainCommentParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode,category, domainID, competencyID,"");
+           if (action == "Get")
             {
               //  myText.Text = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID);
 
-                 myText.Text = ITextContentDomain(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID,"","");
-                myCount.Value = (textLength - myText.Text.Length).ToString();
-            }
+              //   myText.Text = ITextContentDomain(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID,"","");
+                 myText.Text = AppraisalExecute<AppraisalCommentOnDomain>.AnyValueofT(parameter);
+                 myCount.Value = (textLength - myText.Text.Length).ToString();
+           }
             else
             {
-                string value = myText.Text;
-              // string result = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, value);
-                string result = ITextContentDomain(action,userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, "",value);
+                 
+                parameter.Value = myText.Text;
+                // string result = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, value);
+                //  string result = ITextContentDomain(action,userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, "",value);
+                string result = AppraisalExecute<AppraisalCommentOnDomain>.AnyValueofT(parameter);
+              //  myCount.Value = (textLength - myText.Text.Length).ToString();
+
             }
         }
         public static void DomainTextContent(ref HtmlTextArea myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID)
@@ -304,16 +328,20 @@ namespace EPA2
         }
         public static void DomainListContent(ref RadioButtonList rList, string action, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID)
         {
+            var parameter = CommonParameters.GetDomainCommentParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, domainID, competencyID, "");
 
             if (action == "Get")
             {
-                string sValue = AppraisalDataDomain.DomainListContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID);
+                //   string sValue = AppraisalDataDomain.DomainListContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID);
+                string sValue = AppraisalExecute<AppraisalRateOnDomain>.AnyValueofT(parameter);
                 myList.SetListValue(rList, sValue);
             }
             else
             {
                 string sValue = rList.SelectedValue;
-                string result = AppraisalDataDomain.DomainListContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, sValue);
+                parameter.Value = sValue;
+                //  string result = AppraisalDataDomain.DomainListContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, sValue);
+                string result = AppraisalExecute<AppraisalRateOnDomain>.AnyValueofT(parameter);
             }
         }
         public static void DomainTextLOG(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID, string actionRole)

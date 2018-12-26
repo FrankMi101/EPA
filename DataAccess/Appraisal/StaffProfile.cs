@@ -18,7 +18,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProfileEdit";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 SetupThisParameters(ref myPara, action, IDs, userID, employeeID, schoolYear);    
                 return SetSQLParameter.getMyDataSet(sp, myPara);
             }
@@ -33,7 +33,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProfileEdit";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 SetupThisParameters(ref myPara, action, IDs, userID, employeeID, schoolYear);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 8, "@UnitID", unitID);
  
@@ -52,7 +52,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Appr_AppraisalProfileEdit";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[16];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[16];
                 SetupThisParameters(ref myPara, action, IDs, userID, employeeID, schoolYear);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 8, "@UnitID", unitID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 10, "@AppraisalStatus", apprStatus);
@@ -80,7 +80,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Org_StaffProfileEdit";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[4];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[4];
                 SetupThisParameters(ref myPara, action, IDs, userID, employeeID);
                 return SetSQLParameter.getMyDataSet(sp, myPara);     
             }
@@ -95,7 +95,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Org_StaffProfileEdit";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 SetupThisParameters(ref myPara, action, IDs, userID, employeeID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 4, 8, "@UnitID", unitID);
 
@@ -113,7 +113,7 @@ namespace DataAccess
             try
             {
                 string sp = "dbo.EPA_Org_StaffProfileEdit";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[16];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[16];
                 SetupThisParameters(ref myPara, action, IDs, userID, employeeID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 4, 10, "@UnitID", unitID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 30, "@FirstName", firstName);
@@ -137,12 +137,12 @@ namespace DataAccess
             }
 
         }
-        private static void SetupThisParameters(ref myCommon.MyParameterDB[] myPara, string action, string IDs, string userID, string employeeID, string appraisalYear)
+        private static void SetupThisParameters(ref MyCommon.MyParameterDB[] myPara, string action, string IDs, string userID, string employeeID, string appraisalYear)
         {
             SetupThisParameters(ref myPara, action, IDs, userID, employeeID);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 4, 8, "@AppraisalYear", appraisalYear);
         }
-        private static void SetupThisParameters(ref myCommon.MyParameterDB[] myPara, string action, string IDs, string userID, string employeeID )
+        private static void SetupThisParameters(ref MyCommon.MyParameterDB[] myPara, string action, string IDs, string userID, string employeeID )
         {
             SetSQLParameter.setParameterArray(myPara, DbType.String, 0, 30, "@Operate", action);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 1, 10, "@IDs", IDs);

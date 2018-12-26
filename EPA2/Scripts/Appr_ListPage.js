@@ -169,18 +169,21 @@ function openEditPage(vHeight, vWidth, goPage, pTitle) {
                 left: vLeft,
                 height: vHeight,
                 width: vWidth
-            })
+            });
             //   PopUpDIV2();
             $("#PopUpDIV", parent.document).fadeToggle("fast");
             $("#EditDIV", parent.document).fadeToggle("fast");
             $("#ActionMenuDIV").fadeToggle("fast");
         }
 
-        catch (e) { }
+        catch (e)
+        {
+            window.alert(e.mess);
+        }
 
     });
 }
-function openEditPage2(vHeight, vWidth, goPage, pTitle) {
+function openEditPage2(vHeight1, vWidth1, goPage, pTitle) {
     var vWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
     var vHeight = (window.innerHeight > 0) ? window.innerHeight : screen.height;
      var vLeft = (vWidth - 1024) / 2; 
@@ -216,10 +219,11 @@ function openEditPage2(vHeight, vWidth, goPage, pTitle) {
 
              $("#PopUpDIV", parent.document).fadeToggle("fast");
             $("#ApprDIV", parent.document).fadeToggle("fast");
-
         }
 
-        catch (e) { }
+        catch (e) {
+            window.alert(e.mess);
+        }
 
     });
 }
@@ -241,13 +245,10 @@ function openEditPage3(vHeight, vWidth, goPage, pTitle) {
                 height: vHeight,
                 width: vWidth
             })
-            $("#editiFrame", parent.document).css({
-               
+            $("#editiFrame", parent.document).css({             
                 height: vHeight ,
                 width: vWidth,
                 border:0
-           
-   
             })
             //   PopUpDIV2();
             $("#PopUpDIV", parent.document).fadeToggle("fast");
@@ -255,10 +256,11 @@ function openEditPage3(vHeight, vWidth, goPage, pTitle) {
           //  $("#ActionMenuDIV").fadeToggle("fast");
         }
 
-        catch (e) { }
+      catch (e) {
+          window.alert(e.mess);
+      }
     //$(document).ready(function () {
-  
-
+   
     //});
 }
 function openEditPage5(vHeight, vWidth, goPage, pTitle) {
@@ -277,7 +279,7 @@ function openEditPage5(vHeight, vWidth, goPage, pTitle) {
             left: 100,
             height: vHeight,
             width: vWidth
-        })
+        });
         $("#ActioniFramePage", parent.document).css({
 
             height: vHeight,
@@ -285,14 +287,16 @@ function openEditPage5(vHeight, vWidth, goPage, pTitle) {
             border: 0
 
 
-        })
+        });
         //   PopUpDIV2();
         $("#PopUpDIV", parent.document).fadeToggle("fast");
         $("#ActionPOPDIV", parent.document).fadeToggle("fast");
         //  $("#ActionMenuDIV").fadeToggle("fast");
     }
 
-    catch (e) { }
+    catch (e) {
+        window.alert(e.mess);
+    }
     //$(document).ready(function () {
 
 

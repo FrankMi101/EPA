@@ -65,19 +65,19 @@ namespace DataAccess
 
         private static string getProfile(string pType)
         {
-            myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[2];
+            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
             SetupBaseParameters(ref myPara, pType, HttpContext.Current.User.Identity.Name);
             return SetSQLParameter.getMyDataValue(SP, myPara);
         }
  
-        private static void SetupBaseParameters(ref myCommon.MyParameterDB[] myPara , string operate,string userID)
+        private static void SetupBaseParameters(ref MyCommon.MyParameterDB[] myPara , string operate,string userID)
         {
            SetSQLParameter.setParameterArray(myPara, DbType.String, 0, 30, "@Operate", operate);
            SetSQLParameter.setParameterArray(myPara, DbType.String, 1, 30, "@UserID", userID );
         }
         public static string UserLoginRole(string userId)
         {
-            myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[2];
+            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
             SetupBaseParameters(ref myPara, "Role", userId);
             return SetSQLParameter.getMyDataValue(SP, myPara);
         }
@@ -86,7 +86,7 @@ namespace DataAccess
         //    try
         //    {
         //        string SP = "dbo.EPA_sys_UserWorkingTrack";
-        //        myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[2];
+        //        MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
         //        SetupBaseParameters(ref myPara, operate, userID);
         //        return SetSQLParameter.getMyDataValue(SP, myPara);
         //    }
@@ -103,7 +103,7 @@ namespace DataAccess
         //    try
         //    {
         //        string SP = "dbo.EPA_sys_UserWorkingTrack";
-        //        myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[2];
+        //        MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
         //        SetupBaseParameters(ref myPara, operate, userID);
         //        SetSQLParameter.setParameterArray(myPara, DbType.String, 2, 50, "@Value", value);
         //        return SetSQLParameter.getMyDataValue(SP, myPara);
@@ -121,7 +121,7 @@ namespace DataAccess
         //    try
         //    {
         //        string SP = "dbo.EPA_sys_UserWorkingTrack";
-        //        myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[2];
+        //        MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
         //        SetupBaseParameters(ref myPara, operate, userId);
         //        return SetSQLParameter.getMyDataValue(SP, myPara);
         //    }
@@ -138,7 +138,7 @@ namespace DataAccess
         //    try
         //    {
         //        string SP = "dbo.EPA_sys_UserWorkingTrack";
-        //        myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[3];
+        //        MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[3];
         //        SetupBaseParameters(ref myPara, operate, userId);
         //        SetSQLParameter.setParameterArray(myPara, DbType.String, 2, 50, "@Value", value);
         //        return SetSQLParameter.getMyDataValue(SP, myPara);

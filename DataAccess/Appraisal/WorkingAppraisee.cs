@@ -244,7 +244,7 @@ namespace DataAccess
             {
                 string SP = "dbo.EPA_Appr_AppraisalProfile";
 
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
                 myBaseParameters.SetupBaseParameters(ref myPara, operate, HttpContext.Current.User.Identity.Name, AppraisalYear, "0000", EmployeeID);
                 return SetSQLParameter.getMyDataValue(SP, myPara);
             }
@@ -261,7 +261,7 @@ namespace DataAccess
             try
             {
                 string SP = "dbo.EPA_Appr_AppraisalProfile";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
                 myBaseParameters.SetupBaseParameters(ref myPara, operate, HttpContext.Current.User.Identity.Name, AppraisalYear, "0000", EmployeeID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 50, "@Value", value);
                 SetSQLParameter.getMyDataValue(SP, myPara);
@@ -276,7 +276,7 @@ namespace DataAccess
             try
             {
                 string SP = "dbo.EPA_Appr_AppraisalProfile";
-                myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[7];
+                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[7];
                 myBaseParameters.SetupBaseParameters(ref myPara, operate, HttpContext.Current.User.Identity.Name, AppraisalYear, "0000", EmployeeID);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 50, "@Value", value);
                 SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 6, 200, "@Value2", value2);
@@ -321,14 +321,14 @@ namespace DataAccess
         private static DataSet myListReader(string operate, string userID, string appraisalYear, string employeeID)
         {
             string SP = "dbo.EPA_Appr_AppraisalProfileList";
-            myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[5];
+            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
             myBaseParameters.SetupBaseParameters(ref myPara, operate, userID, appraisalYear, "0000", employeeID);
             return SetSQLParameter.getMyDataSet(SP, myPara);
         }
         private static DataSet myListReader(string operate, string userID, string appraisalYear, string employeeID, string appraisalCategory)
         {
             string SP = "dbo.EPA_Appr_AppraisalProfileList";
-            myCommon.MyParameterDB[] myPara = new myCommon.MyParameterDB[6];
+            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[6];
             myBaseParameters.SetupBaseParameters(ref myPara, operate, userID, appraisalYear, "0000", employeeID);
             SetSQLParameter.setParameterArray(myPara, System.Data.DbType.String, 5, 10, "@Category", appraisalCategory);
             return SetSQLParameter.getMyDataSet(SP, myPara);

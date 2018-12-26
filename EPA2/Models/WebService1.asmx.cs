@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using DataAccess;
+using ClassLibrary;
+using BLL;
+
 namespace EPA2.Models
 {
     /// <summary>
@@ -176,8 +179,9 @@ namespace EPA2.Models
         {
             try
             {   //  string rVal = AppraisalDataDomain.CompetencyTextContent(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode,domainID, competencyID);
-                string rVal = AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,"","");
-
+               // string rVal = AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,"","");
+                AppraisalCompetency parameter = CommonParameters.GeCompetencytParameter(operation, userID, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, ItemCode, CategoryID, domainID, competencyID, "", ""); //  new AppraisalComment()
+                string rVal = AppraisalExecute<AppraisalCompetency>.AnyValueofT(parameter);
                 return rVal;
             }
             catch (Exception ex)
@@ -192,8 +196,13 @@ namespace EPA2.Models
         {
             try
             {
-              //  return AppraisalDataDomain.CompetencyTextContent(operation,User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,rate,value);
-                return AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, rate, value);
+                //  return AppraisalDataDomain.CompetencyTextContent(operation,User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,rate,value);
+                //  return AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, rate, value);
+
+                AppraisalCompetency parameter = CommonParameters.GeCompetencytParameter(operation, userID, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID,ItemCode, CategoryID, domainID,competencyID, rate, value); //  new AppraisalComment()
+                string result = AppraisalExecute<AppraisalCompetency>.AnyValueofT(parameter);
+
+                return result;
             }
             catch (Exception ex)
             {

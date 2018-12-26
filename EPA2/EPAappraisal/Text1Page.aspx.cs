@@ -79,7 +79,8 @@ namespace EPA2.EPAappraisal
             string area = hfArea.Value;
             string code = hfCode.Value;
           //  AppraisalData.TextContent(ref myText, ref textCount, action, 5000, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
-            AppraisalData.ITextContent(ref myText, ref textCount, action, 5000, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+         //   AppraisalData.ITextContent(ref myText, ref textCount, action, 5000, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+            AppraisalData.Comments(ref myText, ref textCount, action, 5000, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
         }
         protected void checkPageReadonly()
 

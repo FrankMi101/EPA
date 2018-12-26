@@ -132,7 +132,8 @@ namespace EPA2.EPAmanage
                 string searchvalue = employeeID;
 
                 // AppraisalGridViewData.BindMyGridView(ref GridView1, "AppraisalStaffHistory", "DataSet", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
-                 AppraisalGridViewData.BindMyGridView(ref GridView1, "AppraisalStaffHistory", "iList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
+               //  AppraisalGridViewData.BindMyGridView(ref GridView1, "AppraisalStaffHistory", "iList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
+                AppraisalGridViewData.BindMyGridView(ref GridView1, "AppraisalStaffHistory", "dList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
             }
             catch (Exception ex)
             {
