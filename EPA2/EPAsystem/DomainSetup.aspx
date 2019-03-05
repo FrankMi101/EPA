@@ -62,7 +62,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Services>
                 <asp:ServiceReference Path="~/Models/WebService.asmx" />
-                <asp:ServiceReference Path="~/Models/WebService1.asmx" />
+             <%--   <asp:ServiceReference Path="~/Models/WebService1.asmx" />--%>
             </Services>
 
         </asp:ScriptManager>
@@ -96,7 +96,7 @@
                     </div>
 
                     <div style="overflow: scroll; width: 100%; height: 100%" onscroll="OnScrollDiv(this)" id="DivMainContent">
-                        <asp:GridView ID="GridView1" runat="server" CellPadding="1" Height="100%" Width="100%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="1" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
+                        <asp:GridView ID="GridView1" runat="server" CellPadding="1" Height="100%" Width="100%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="1" EmptyDataText="No domain items" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                             <Columns>
 
                                 <asp:BoundField DataField="RowNo" HeaderText="No." ItemStyle-CssClass="listRowNo">
@@ -224,29 +224,7 @@
     var eventCell;
     $(document).ready(function () {
         MakeStaticHeader("GridView1", 400, 850, 25, false);
-        //var vHeight = screen.height - 150 - 110 - 70;
-        //$("section").css("height", vHeight)
-
-        //$("#GridView1 tr").mouseleave(function () {
-        //    try {
-        //        if ($("#hfContentChange").val() == "1") {
-        //            eventCell = $(this);
-
-        //            // $(this).closest('tr').find('td.myDomain').text();
-
-        //            var IDs = $(this).closest('tr').find('td.listIDs').text();
-        //            var code = $(this).find('td > .myCode').val();
-        //            var name = $(this).find('td > .myName').val();
-        //            var comm = $(this).find('td > .myComment').val();
-        //            var check = $(this).find('td > .myCheck');
-        //            var active = (check[0].childNodes['0'].checked ? "1" : "0");
-        //            var result = EPA2.Models.WebService.SaveDomain("Update", UserID, CategoryID, AreaID, IDs, code, name, comm, active, onSuccess, onFailure);
-        //            $("#hfContentChange").val("0");
-        //        }
-        //    }
-        //    catch (ex)
-        //    { }
-        //})
+     
         $("#GridView1 tr").change(function () {
             try {
                   $("#hfContentChange").val("1");
@@ -269,6 +247,23 @@
                     var result = EPA2.Models.WebService.SaveDomain("Update", UserID, CategoryID, AreaID, IDs, code, name, comm, active, onSuccessUpdate, onFailureUpdate);
                     $("#hfContentChange").val("0");
                 }
+            }
+            catch (ex)
+            { }
+
+        });
+        $('td > .myAction').click(function (event) {
+            try {
+                 
+                    eventCell = $(this);
+                    var result = confirm("Do you want to delete this row?");
+                    if (result) {
+
+                        var IDs = $(this).closest('tr').find('td.listIDs').text();
+                        var code = $(this).closest('tr').find('td > .myCode').val(); 
+                        var result = EPA2.Models.WebService.SaveDomain("Delete", UserID, CategoryID, AreaID, IDs, code, "", "", 0, onSuccessDel, onFailureDel);
+                      
+                    }
             }
             catch (ex)
             { }
@@ -314,7 +309,7 @@
     function DeleteRecord(IDs, Code) {
         var result = confirm("Do you want to delete this row?");
         if (result) {
-            var result = EPA2.Models.WebService.SaveDomain("Delete", UserID, CategoryID, AreaID, IDs, Code, "", "", "", "0", onSuccessDel, onFailureDel);
+            var result = EPA2.Models.WebService.SaveDomain("Delete", UserID, CategoryID, AreaID, IDs, Code, "",  "", 0, onSuccessDel, onFailureDel);
         }
         else {
 

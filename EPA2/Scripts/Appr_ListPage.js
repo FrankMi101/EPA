@@ -297,10 +297,7 @@ function openEditPage5(vHeight, vWidth, goPage, pTitle) {
     catch (e) {
         window.alert(e.mess);
     }
-    //$(document).ready(function () {
-
-
-    //});
+  
 }
 /*
    function pageLoad(sender, args) {

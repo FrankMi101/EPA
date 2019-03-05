@@ -97,6 +97,14 @@ namespace EPA2.EPAappraisal
             string category = hfCategory.Value;
             string area = hfArea.Value;
             string code = hfCode.Value;
+            if (code == "OBS22")
+            {
+                chbCopyOver.Text = "Copy over comments of Competencies to Post Classroom Observation";
+            }
+            if (code =="OBS23")
+            {
+                chbCopyOver.Visible = false;
+            }
             domainID = hfDomainID.Value;
             competencyID = hfCompetencyID.Value;
             AppraisalData.ObservationDate(ref dateObservation, ref myText, ref textCount, action, 2000, category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value );

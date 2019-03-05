@@ -11,6 +11,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using EPA2.Generic.LIB;
 using System.Collections.Generic;
+using ClassLibrary;
+using BLL;
 
 namespace EPA2
 {
@@ -132,51 +134,106 @@ namespace EPA2
             }
         }
 
-        public static void DomainList(ref GridView myDataView, string action, string userID, string category, string area)
+  
+        public static List<DomainList> DomainListDataSource(string action, string userID, string category, string area)
+        {
+            SetupListParameter parameter = CommonParameters.GetSetupListParameters<DomainList>(action, userID, category, area);
+            return BLL.AppraisalExecute.ListofT<DomainList>(parameter);
+        }
+        public static string DomainListDataSave(string action, string userID, string category, string area, string ids)
+        {
+            SetupListParameter parameter = CommonParameters.GetSetupListParameters<DomainList>(action, userID, category, area, ids);
+
+            var result = BLL.AppraisalExecute.ValueofT<DomainList>(parameter, action);  
+            return result;
+        }
+        public static string DomainListDataSave(string action, string userID, string category, string area, string ids, string code, string name, string comments, int active)
+        {
+            SetupListParameter parameter = CommonParameters.GetSetupListParameters<DomainList>(action, userID, category, area, ids, code, name, comments, active);
+
+            var result = BLL.AppraisalExecute.ValueofT<DomainList>(parameter, action);  
+            return result;
+        }
+        public static void DomainListOld(ref GridView myDataView, string action, string userID, string category, string area)
         {
 
-            if (action == "Get")
-            {
-                IRepository<Domain2,int> repository = new GenericDomain2();
-                
-               IList<Domain2> mylsit = repository.GetListItems(action,userID,category,area);
+            IRepository<Domain2, int> repository = new GenericDomain2();
+            IList<Domain2> mylsit = repository.GetListItems(action, userID, category, area);
 
-
-               //   DataTable gridData = ApplicationSetupData.Domain(action, userID, category, area).Tables[0];
-                myDataView.DataSource = mylsit;// gridData;//
-                myDataView.DataBind();
-            }
+            DataTable gridData = ApplicationSetupData.Domain(action, userID, category, area).Tables[0];
+            myDataView.DataSource = gridData;// gridData;//
+            myDataView.DataBind();
         }
 
         public static void CompetencyList(ref GridView myDataView, string action, string userID, string category, string area)
         {
-            IRepository<Competency2, int> repository = new GenericCompetency2();
-            IList<Competency2> mylsit = repository.GetListItems(action, userID, category, area);
+            SetupListParameter parameter = CommonParameters.GetSetupListParameters<ClassLibrary.CompetencyList>(action, userID, category, area);
+
+            if (action == "AddNew")
+            {
+                parameter.IDs = "0";
+                string result = BLL.AppraisalExecute.ValueofT<CompetencyList>(parameter, action);
+                parameter.Operate = "Get";
+            }
+            // IRepository<Competency2, int> repository = new GenericCompetency2();
+            // IList<Competency2> mylsit = repository.GetListItems(action, userID, category, area);
+
+            // SetupListParameter parameter = CommonParameters.GetSetupListParameters(action, userID, category, area, "", "", "", "", 0, "");
+            var gridData = BLL.AppraisalExecute.ListofT<ClassLibrary.CompetencyList>(parameter, action); // BLL.AppraisalExecute.ApprList(parameter);
 
             //  DataTable gridData = ApplicationSetupData.Competency(action, userID, category, area).Tables[0];
-            myDataView.DataSource = mylsit; //gridData;
+            myDataView.DataSource = gridData; //gridData;
             myDataView.DataBind();
 
         }
-        public static void CompetencyList(ref GridView myDataView, string action, string userID, string category, string area,string lookfor)
+        public static string CompetencyList(string action, string userID, string category, string area, string ids, string code, string name, string comments, int active, string epa, string ntp, string lto)
         {
-            IRepository<Competency3, int> repository = new GenericCompetency3();
-            IList<Competency3> mylsit = repository.GetListItems(action, userID, category, area);
+            SetupListParameter parameter = CommonParameters.GetSetupListParameters<CompetencyList>(action, userID, category, area, ids, code, name, comments, active, "", epa, ntp, lto);
+
+            var result = BLL.AppraisalExecute.ValueofT<CompetencyList>(parameter, action); // BLL.AppraisalExecute.ApprList(parameter);
+            return result;
+        }
+        public static void CompetencyList(ref GridView myDataView, string action, string userID, string category, string area, string lookfor)
+        {
+            // IRepository<Competency3, int> repository = new GenericCompetency3();
+            //  IList<Competency3> mylsit = repository.GetListItems(action, userID, category, area);
+
+            SetupListParameter parameter = CommonParameters.GetSetupListParameters<ClassLibrary.CompetencyList>("LookFors", userID, category, area, "", "", "", "", 0, "");
+            var gridData = BLL.AppraisalExecute.ListofT<ClassLibrary.CompetencyList>(parameter, action); // BLL.AppraisalExecute.ApprList(parameter);
 
             //  DataTable gridData = ApplicationSetupData.Competency(action, userID, category, area).Tables[0];
-            myDataView.DataSource = mylsit; //gridData;
+            myDataView.DataSource = gridData; //gridData;
             myDataView.DataBind();
 
         }
         public static void LookForsList(ref GridView myDataView, string action, string userID, string category, string area, string competencyID)
         {
-            IRepository<Lookfors2, int> repository = new GenericLookfors2();
-            IList<Lookfors2> mylsit = repository.GetListItems(action, userID, category, area, competencyID);
+            SetupListParameter parameter = CommonParameters.GetSetupListParameters<LookForsList>(action, userID, category, area, "0", "", "", "", 0, competencyID);
 
-           // DataTable gridData = ApplicationSetupData.LookFors(action, userID, category, area, competencyID).Tables[0];
-            myDataView.DataSource = mylsit;//  gridData;
+            if (action == "AddNew")
+            {
+                string result = BLL.AppraisalExecute.ValueofT<LookForsList>(parameter, action);
+                parameter.Operate = "Get";
+            }
+
+            // IRepository<Lookfors2, int> repository = new GenericLookfors2();
+            // IList<Lookfors2> mylsit = repository.GetListItems(action, userID, category, area, competencyID);
+
+            //  SetupListParameter parameter = CommonParameters.GetSetupListParameters<LookForsList>(action, userID, category, area, competencyID);
+
+            var gridData = BLL.AppraisalExecute.ListofT<LookForsList>(parameter); // BLL.AppraisalExecute.ApprList(parameter);
+
+            //  DataTable gridData = ApplicationSetupData.Competency(action, userID, category, area).Tables[0];
+            myDataView.DataSource = gridData; //gridData;
             myDataView.DataBind();
+        }
+        public static string LookForsList(string action, string userID, string category, string area, string competencyID, string ids, string code, string name, string comments, int active)
+        {
+            SetupListParameter parameter = CommonParameters.GetSetupListParameters<LookForsList>(action, userID, category, area, ids, code, name, comments, active, competencyID);
 
+
+            var result = BLL.AppraisalExecute.ValueofT<LookForsList>(parameter, action); // BLL.AppraisalExecute.ApprList(parameter);
+            return result;
         }
         public static void CommentBankList(ref GridView myDataView, string action, string userID, string category, string area, string type, string owner)
         {
@@ -372,7 +429,7 @@ namespace EPA2
             {
                 string result = ApplicationSetupData.Statements(action, userID, schoolyear, schoolcode, statementType, area);
             }
-            else if (action == "Get" )
+            else if (action == "Get")
             {
                 DataTable DT = ApplicationSetupData.Statements(action, userID, schoolyear, schoolcode, statementType, area, IDs).Tables[0];
                 if (DT.Rows.Count > 0)

@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using DataAccess;
 using System.Data;
 using System.Web.UI.HtmlControls;
+using BLL;
+using ClassLibrary;
 
 namespace EPA2.EPAappraisal
 {
@@ -100,7 +102,11 @@ namespace EPA2.EPAappraisal
             else
             {
                 rblRateRubric.Visible = true;
-              myList.SetLists(rblRateRubric, "CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode);
+               // var parameter = CommonParameters.GetListParameters("CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode, "");
+               AppraisalData.BuildingListControl(rblRateRubric, "CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode, ""); 
+             //   myList.SetLists(rblRateRubric, "CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode);
+ 
+
           }
             // lblSatisfacotyRubric.Text = AppraisalProcess.Rubrics("Satisfactory", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.SessionID, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalSchoolCode, category, domainID,competencyID);
             // lblDevelopNeededRubric.Text = AppraisalProcess.Rubrics("DevelopNeeded", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.SessionID, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalSchoolCode, category, domainID, competencyID);
@@ -136,7 +142,7 @@ namespace EPA2.EPAappraisal
         protected void BindMyData()
         {
             OperationMyData("Get");
-            OperationMyList("Get");
+            OperationMyList("Rate");
         }
         protected void myText_TextChanged(object sender, EventArgs e)
         {

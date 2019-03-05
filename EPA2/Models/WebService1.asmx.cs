@@ -26,7 +26,7 @@ namespace EPA2.Models
             return "Hello World";
         }
         [WebMethod]
-        public string GetHelpContent(string operation, string userID, string CategoryID, string AreaID, string ItemCode,string helpType)
+        public string GetHelpContent(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string helpType)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace EPA2.Models
         {
             try
             {
-                return MessageContext.Message(operation, userID, CategoryID, AreaID, ItemCode, UserRole,value);
+                return MessageContext.Message(operation, userID, CategoryID, AreaID, ItemCode, UserRole, value);
             }
             catch (Exception ex)
             {
@@ -139,7 +139,7 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string VerifyUser(string operation, string domain, string userID, string password )
+        public string VerifyUser(string operation, string domain, string userID, string password)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace EPA2.Models
             try
             {
                 return AppraisalProcess.Rubrics(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.SessionID, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalSchoolCode, CategoryID, domainID, competencyID);
-             }
+            }
             catch (Exception ex)
             {
                 var em = ex.Message;
@@ -175,14 +175,52 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string GetCompetencyContent(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string domainID, string competencyID )
+        public string GetCompetencyContent(string operation, AppraisalCompetency parameter )
         {
             try
             {   //  string rVal = AppraisalDataDomain.CompetencyTextContent(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode,domainID, competencyID);
-               // string rVal = AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,"","");
-                AppraisalCompetency parameter = CommonParameters.GeCompetencytParameter(operation, userID, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, ItemCode, CategoryID, domainID, competencyID, "", ""); //  new AppraisalComment()
-                string rVal = AppraisalExecute<AppraisalCompetency>.AnyValueofT(parameter);
+                // string rVal = AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,"","");
+               // var parameter = AppraisalCompetencyCommentMethod.GetParameters(operation, userID, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, ItemCode, CategoryID, AreaID, domainID, competencyID); //  new AppraisalComment()
+                string rVal = AppraisalExecute.ValueofT<AppraisalCompetency>(parameter,operation);
                 return rVal;
+            }
+            catch (Exception ex)
+            {
+                var em = ex.Message;
+                return "";  
+            }
+
+        }
+        [WebMethod]
+        public string GetCompetencyContent(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string domainID, string competencyID)
+        {
+            try
+            {   //  string rVal = AppraisalDataDomain.CompetencyTextContent(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode,domainID, competencyID);
+                // string rVal = AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,"","");
+                var parameter = AppraisalCompetencyCommentMethod.GetParameters(operation, userID, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, ItemCode, CategoryID, AreaID, domainID, competencyID); //  new AppraisalComment()
+                string rVal = AppraisalExecute.ValueofT<AppraisalCompetency>(parameter, operation);
+                return rVal;
+            }
+            catch (Exception ex)
+            {
+                var em = ex.Message;
+                return "";
+            }
+
+        }
+
+        [WebMethod]
+        public string SaveCompetencyContent(string operation, AppraisalCompetency parameter)
+        {
+            try
+            {
+                //  return AppraisalDataDomain.CompetencyTextContent(operation,User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,rate,value);
+                //  return AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, rate, value);
+
+              //  var parameter = AppraisalCompetencyCommentMethod.GetParameters(operation, userID, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, ItemCode, CategoryID, AreaID, domainID, competencyID, rate, value); //  new AppraisalComment()
+                string result = AppraisalExecute.ValueofT<AppraisalCompetency>(parameter,operation);
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -199,8 +237,8 @@ namespace EPA2.Models
                 //  return AppraisalDataDomain.CompetencyTextContent(operation,User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,rate,value);
                 //  return AppraisalData.ITextContentDomain(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, rate, value);
 
-                AppraisalCompetency parameter = CommonParameters.GeCompetencytParameter(operation, userID, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID,ItemCode, CategoryID, domainID,competencyID, rate, value); //  new AppraisalComment()
-                string result = AppraisalExecute<AppraisalCompetency>.AnyValueofT(parameter);
+                var parameter = AppraisalCompetencyCommentMethod.GetParameters(operation, userID, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, ItemCode, CategoryID, AreaID, domainID, competencyID, rate, value); //  new AppraisalComment()
+                string result = AppraisalExecute.ValueofT<AppraisalCompetency>(parameter, operation);
 
                 return result;
             }
@@ -216,7 +254,7 @@ namespace EPA2.Models
         {
             try
             {
-                 string rVal = AppraisalDataDomain.DomainTextContentLOG(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID,ActionRole);
+                string rVal = AppraisalDataDomain.DomainTextContentLOG(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, ActionRole);
                 return rVal;
             }
             catch (Exception ex)
@@ -231,8 +269,8 @@ namespace EPA2.Models
         {
             try
             {
-                string rVal = AppraisalDataDomain.DomainTextEvidenceLog( User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, ActionRole);
- 
+                string rVal = AppraisalDataDomain.DomainTextEvidenceLog(User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, ActionRole);
+
                 return rVal;
             }
             catch (Exception ex)
@@ -243,7 +281,7 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveCompetencyContentLOG(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string domainID, string competencyID,  string ActionRole, string value)
+        public string SaveCompetencyContentLOG(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string domainID, string competencyID, string ActionRole, string value)
         {
             try
             {
@@ -269,7 +307,7 @@ namespace EPA2.Models
             }
         }
         [WebMethod]
-        public string SaveLookForsChoseLOG(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string domainID, string competencyID, string lookForsID, string ActionRole, string ObjRole, string mydate, string mycheck, string allowview,string comments)
+        public string SaveLookForsChoseLOG(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string domainID, string competencyID, string lookForsID, string ActionRole, string ObjRole, string mydate, string mycheck, string allowview, string comments)
         {
             try
             {
@@ -286,7 +324,8 @@ namespace EPA2.Models
         {
             try
             {
-                return AppraisalDataObservation.ObservationList(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, check, value);
+                //  return AppraisalDataObservation.ObservationList(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, check, value);
+                return AppraisalData.ObservationList(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, domainID, competencyID, check, value);
             }
             catch (Exception ex)
             {
@@ -300,7 +339,7 @@ namespace EPA2.Models
         {
             try
             {
-                return AppraisalDataAC.NotesContent(operation, User.Identity.Name,  WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode,  value);
+                return AppraisalDataAC.NotesContent(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, value);
             }
             catch (Exception ex)
             {
@@ -339,11 +378,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveAGPText(string operation, string UserID, string CategoryID, string AreaID, string ItemCode, string SeqNo,  string ActionItem, string value)
+        public string SaveAGPText(string operation, string UserID, string CategoryID, string AreaID, string ItemCode, string SeqNo, string ActionItem, string value)
         {
             try
             {
-                return AppraisalDataAGP.AGPWorkingListContent(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode,SeqNo, ActionItem, value);
+                return AppraisalDataAGP.AGPWorkingListContent(operation, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, CategoryID, AreaID, ItemCode, SeqNo, ActionItem, value);
             }
             catch (Exception ex)
             {
@@ -394,13 +433,13 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SendNotification(string eMailTo,   string eMailCC, string eMailBcc, string eMailFrom, string eMailSubject, string eMailBody)
+        public string SendNotification(string eMailTo, string eMailCC, string eMailBcc, string eMailFrom, string eMailSubject, string eMailBody)
         {
             try
             {
-  
+
                 string result = eMailNotification.SendeMail(eMailTo, eMailCC, eMailBcc, eMailFrom, eMailSubject, eMailBody, "HTML");
-                 return result;
+                return result;
             }
             catch (Exception ex)
             {
@@ -416,7 +455,7 @@ namespace EPA2.Models
             {
                 string noticeDate = DateTime.Now.ToString("yyyy/MM/dd");
                 emailBody = emailBody.Replace("{{PlaceHolder:OneLine}}", "");
-                string result = eMailNotification.NotificationeMail(operation, User.Identity.Name, schoolyear, schoolcode, employeeID,"", noticeType, noticeArea, noticeDate, deadlineDate, subject, emailBody);
+                string result = eMailNotification.NotificationeMail(operation, User.Identity.Name, schoolyear, schoolcode, employeeID, "", noticeType, noticeArea, noticeDate, deadlineDate, subject, emailBody);
                 return result;
             }
             catch (Exception ex)
@@ -430,8 +469,8 @@ namespace EPA2.Models
         {
             try
             {
-                 string result = GetNoticeFile.eMailContentByType(operation, User.Identity.Name, category, noticeType, noticeArea, "Appraisee", "Appraiser","Notice");
-                  return result;
+                string result = GetNoticeFile.eMailContentByType(operation, User.Identity.Name, category, noticeType, noticeArea, "Appraisee", "Appraiser", "Notice");
+                return result;
             }
             catch (Exception ex)
             {

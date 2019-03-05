@@ -47,12 +47,7 @@ namespace EPA2.EPAappraisal
 
             AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
             AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            //AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
-            //AppraisalData.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
-            //AppraisalData.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
-
-            //    AppraisalData.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
-            //    AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+   
 
             string SectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
             if (SectionStartPage.IndexOf(code) == -1)
@@ -79,60 +74,18 @@ namespace EPA2.EPAappraisal
             string category = hfCategory.Value;
             string area = hfArea.Value;
             string code = hfCode.Value;
-         
-            AppraisalData.AIPWorkingTemplate2(ref GridView1,action,category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+
+            GridView1.DataSource = AppraisalData.AIPWorkingTemplate2DataSource( action, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+            GridView1.DataBind();
+
+         //   AppraisalData.AIPWorkingTemplate2(ref GridView1,action,category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
         }
 
        
         protected void checkPageReadonly()
         {
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
-            //string category = WorkingAppraisee.AppraisalType;
-            //string area = WorkingAppraisee.AppraisalArea;
-            //string code = WorkingAppraisee.AppraisalCode;
-            //string pageFor = AppraisalProcess.AppraisalPageItem("PageActiveFor", User.Identity.Name, category, area, code);
-            //string pageRecover = AppraisalProcess.AppraisalPageItem("PageRecover", User.Identity.Name, category, area, code);
-            //string pageEP = AppraisalProcess.AppraisalPageItem("PageEP", User.Identity.Name, category, area, code);
-            //string pageHelpe = AppraisalProcess.AppraisalPageItem("PageHelp", User.Identity.Name, category, area, code);
-            //string AppraisalRole = WorkingProfile.UserAppraisalRole;//  AppraisalProcess.AppraisalActionRole(category, WorkingProfile.UserRole, WorkingAppraisee.UserID, User.Identity.Name);
-            //string SignOff = SignatureProcess.SignOffComplete(User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value,hfApprEmployeeID.Value, hfApprSession.Value,  category, area, WorkingProfile.UserRole);
-            //if (SignOff == "Complete")
-            //{
-            //    hfPageReadonly.Value = "Yes";
-            //    imgSignOff.Visible = true;
-            //}
-            //else
-            //{
-            //    imgSignOff.Visible = false;
-            //    if (pageFor == "Both")
-            //    { hfPageReadonly.Value = "No"; }
-            //    else
-            //    {
-            //        if (pageFor == AppraisalRole)
-            //        { hfPageReadonly.Value = "No"; }
-            //        else
-            //        { hfPageReadonly.Value = "Yes"; }
-            //        if (WorkingProfile.UserRoleLogin == "Admin")
-            //        { hfPageReadonly.Value = "No"; }
-            //    }
-            //}
-
-            //if (hfPageReadonly.Value == "Yes")
-            //{
-            //    imgRecovery.Visible = false;
-            //    imgCommentsMenu.Visible = false;
-            //}
-            //else
-            //{
-            //    imgCommentsMenu.Visible = true;
-            //    if (pageRecover == "Y")
-            //    { imgRecovery.Visible = true; }
-            //}
-            //if (pageEP == "Y")
-            //{
-            //    imgEP.Visible = true;
-            //}
-
+          
         }
         protected void btnNext_Click(object sender, EventArgs e)
         {

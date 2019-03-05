@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class AppraisalData
+    public class AppraisalText
     {
 
         public string Comment(AppraisalComment parameter)
@@ -24,11 +24,11 @@ namespace BLL
                 return null;
             }
         }
-        public string DomainComment(AppraisalCommentOnDomain parameter)
+        public string CompetencyComment(AppraisalCompetency parameter)
         {
             try
             {
-                string sp = SPandParameters.GetValue<AppraisalCommentOnDomain>();// getPositionsSP(className);
+                string sp = SPandParameters.GetValue<AppraisalCompetency>();// getPositionsSP(className);
                 var value = MyDapper.GeneralDataAccess.GetObjValue<string>(sp, parameter);
                 return value.ToString();
             }
@@ -38,11 +38,11 @@ namespace BLL
                 return null;
             }
         }
-        public string DomainRate(AppraisalRateOnDomain parameter)
+        public string CompetencyRate(AppraisalCompetency parameter)
         {
             try
             {
-                string sp = SPandParameters.GetValue<AppraisalRateOnDomain>();// getPositionsSP(className);
+                string sp = SPandParameters.GetValue<AppraisalCompetency>();// getPositionsSP(className);
                 var value = MyDapper.GeneralDataAccess.GetObjValue<string>(sp, parameter);
                 return value.ToString();
             }
@@ -54,14 +54,14 @@ namespace BLL
         }
 
     }
-    public class AppraisalData<T>
+    public class AppraisalText<T>
     {
-        public string MyComment(object parameter)
+        public string MyValue(object parameter)
         {
             try
             {
                 string sp = SPandParameters.GetValue<T>();
-                var value = MyDapper.GeneralDataAccess.GetObjValue<string>(sp, parameter);
+                var value = MyDapper.GeneralDataAccess.GetValueofTypeT<string>(sp, parameter);
                 return value.ToString();
             }
             catch (Exception ex)
@@ -70,7 +70,20 @@ namespace BLL
                 return "";
             }
         }
-        
+        public string MyValue(object parameter, string action)
+        {
+            try
+            {
+                string sp = SPandParameters.GetValue<T>(action);
+                var value = MyDapper.GeneralDataAccess.GetValueofTypeT<string>(sp, parameter);
+                return value.ToString();
+            }
+            catch (Exception ex)
+            {
+                var exm = ex.Message;
+                return "";
+            }
+        }
     }
 }
 

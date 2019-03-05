@@ -28,7 +28,11 @@ table tbody tr:nth-child(odd) {
     border: 1px solid #e1d9d9;
 }
 
-
+#GridView1 th {
+    border: 1px solid #e1d9d9;
+    font-family: Arial, sans-serif;
+    font-size: x-small;
+}
 
 #GridView2 tr {
     background: dodgerblue; /* For browsers that do not support gradients */
@@ -39,7 +43,8 @@ table tbody tr:nth-child(odd) {
 }
 #GridView2 th {
     border: 1px solid #e1d9d9;
-
+    font-family: Arial, sans-serif;
+    font-size: x-small;
 }
 
 #DivRoot {
@@ -58,4 +63,8 @@ table tbody tr:nth-child(odd) {
 }
 .HideColumn {
     display: none;
+}
+.iFrameDIV
+{
+    height:95%;
 }

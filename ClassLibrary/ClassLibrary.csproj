@@ -41,9 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppraisalComment.cs" />
+    <Compile Include="AppraisalIMP.cs" />
     <Compile Include="AppraisalList.cs" />
+    <Compile Include="SetupListPatameter.cs" />
     <Compile Include="AppraisalPatameter.cs" />
     <Compile Include="AppraisalStaffList.cs" />
+    <Compile Include="CommonList.cs" />
+    <Compile Include="SetupList.cs" />
+    <Compile Include="EmailNotice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

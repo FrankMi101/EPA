@@ -66,37 +66,37 @@ namespace EPA2.EPAappraisal
 
         protected void BindMyData()
         {
-            OperationMyDate(ref dateObservation, "Get");
-            OperationMyDate(ref dateObservationPre, "Get");
-            OperationMyDate(ref dateObservationPost, "Get");
+            OperationMyDate(ref dateObservation, "OBS21","GetDate");
+            OperationMyDate(ref dateObservationPre, "OBS22","GetDate");
+            OperationMyDate(ref dateObservationPost,"OBS23", "GetDate");
         }
 
         protected void dateObservation_change(object sender, EventArgs e)
         {
 
-            OperationMyDate(ref dateObservation, "Save");
+            OperationMyDate(ref dateObservation, "OBS21" ,"Save");
         }
 
         protected void dateObservationPre_change(object sender, EventArgs e)
         {
 
-            OperationMyDate(ref dateObservationPre, "Save");
+            OperationMyDate(ref dateObservationPre, "OBS22", "Save");
 
         }
         protected void dateObservationPost_change(object sender, EventArgs e)
         {
 
-            OperationMyDate(ref dateObservationPost, "Save");
+            OperationMyDate(ref dateObservationPost, "OBS23", "Save");
 
         }
 
-        protected void OperationMyDate(ref HtmlInputText myDate, string action)
+        protected void OperationMyDate(ref HtmlInputText myDate, string itemcode, string action)
         {
 
             string category = hfCategory.Value;
             string area = hfArea.Value;
             string code = hfCode.Value;
-            AppraisalData.ObservationDate(ref myDate, action, myDate.Name, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+            AppraisalData.ObservationDate(ref myDate, action, myDate.Name, category, area, itemcode, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
             //    AppraisalData.ObservationDate(ref dateObservation, action, type, category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
             //    AppraisalData.ObservationDate(ref dateObservationPost, action, type, category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
         }
@@ -126,9 +126,9 @@ namespace EPA2.EPAappraisal
         {
             if (hfContentChange.Value == "1")
             {
-                OperationMyDate(ref dateObservationPre, "Save");
-                OperationMyDate(ref dateObservation, "Save");
-                OperationMyDate(ref dateObservationPost, "Save");
+                OperationMyDate(ref dateObservationPre, "OBS21", "Save");
+                OperationMyDate(ref dateObservation,"OBS22", "Save");
+                OperationMyDate(ref dateObservationPost, "OBS23","Save");
             }
         }
         private void GoToNewPage(string action)

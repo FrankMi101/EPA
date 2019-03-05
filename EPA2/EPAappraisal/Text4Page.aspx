@@ -281,9 +281,9 @@
     }
     function updateTextCellAfterContentAction() {
         try {
-            //  var workingCell = $("#hfWorkingCell").val();
-            //  var value = $("#" + workingCell).val();
-            //   var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+             var workingCell = $("#hfWorkingCell").val();
+              var value = $("#" + workingCell).val();
+              var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
         }
         catch (e)
         { window.alert("Update Text Cell Failed!"); }

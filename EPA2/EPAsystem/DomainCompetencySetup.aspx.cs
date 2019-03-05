@@ -31,8 +31,10 @@ namespace EPA2.EPAsystem
             WorkingProfile.PageArea = "Competency";
             WorkingProfile.PageItem = "Competency";
             AppraisalPage.SetPageAttribute2(Page);
-            myList.SetLists(ddlDomain, "DomainList", User.Identity.Name);
-        
+         //   myList.SetLists(ddlDomain, "DomainList", User.Identity.Name);
+            AppraisalData.BuildingListControl(ddlDomain, "DomainList", User.Identity.Name);
+
+
         }
 
         private void AssemblingPageTitle()
@@ -72,8 +74,9 @@ namespace EPA2.EPAsystem
         {
             string category = hfCategory.Value;
             string area = ddlDomain.SelectedValue;
-            string result = ApplicationSetupData.Competency("AddNew", User.Identity.Name, category, area, "0", "", "", "", "0", "0", "0", "0");
-            BindMyData();
+            //  string result = ApplicationSetupData.Competency("AddNew", User.Identity.Name, category, area, "0", "", "", "", "0", "0", "0", "0");
+            //  BindMyData();
+            ApplicationSetup.CompetencyList(ref GridView1, "AddNew", User.Identity.Name, category, area);
         }
 
         protected void ddlDomiin_SelectedIndexChanged(object sender, EventArgs e)

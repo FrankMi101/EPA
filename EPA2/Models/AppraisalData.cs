@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using EPA2.Generic.LIB;
 using ClassLibrary;
 using BLL;
+using System.Collections.Generic;
 
 namespace EPA2
 {
@@ -20,6 +21,55 @@ namespace EPA2
         public AppraisalData()
         {
 
+        }
+        public static void BuildingListControlInitial(System.Web.UI.WebControls.ListControl myListControl, object initialValue)
+        {
+            AssemblyListControl<CommonList>.SetValue(myListControl, initialValue);
+        }
+        public static void BuildingListControl(System.Web.UI.WebControls.ListControl myListControl, string operate, string userID)
+        {
+            var parameter = CommonParameters.GetListParameters(operate, userID, "", "", "");
+
+            AssemblyListControl<CommonList>.SetList(myListControl, parameter);
+
+        }
+        public static void BuildingListControl(System.Web.UI.WebControls.ListControl myListControl, string operate, string userID, object initialvalue)
+        {
+            var parameter = CommonParameters.GetListParameters(operate, userID, "", "", "");
+
+            AssemblyListControl<CommonList>.SetList(myListControl, parameter, initialvalue);
+
+        }
+        public static void BuildingListControl(System.Web.UI.WebControls.ListControl myListControl, string operate, string userID, string para1, object initialvalue)
+        {
+            var parameter = CommonParameters.GetListParameters(operate, userID, para1, "", "");
+
+            AssemblyListControl<CommonList>.SetList(myListControl, parameter, initialvalue);
+
+        }
+        public static void BuildingListControl(System.Web.UI.WebControls.ListControl myListControl, string operate, string userID, string para1, string para2, string para3)
+        {
+            var parameter = CommonParameters.GetListParameters(operate, userID, para1, para2, para3);
+
+            AssemblyListControl<CommonList>.SetList(myListControl, parameter);
+
+        }
+        public static void BuildingListControl(System.Web.UI.WebControls.ListControl myListControl, string operate, string userID, string para1, string para2, string para3, object initialvalue)
+        {
+            var parameter = CommonParameters.GetListParameters(operate, userID, para1, para2, para3);
+            AssemblyListControl<CommonList>.SetList(myListControl, parameter, initialvalue);
+        }
+        public static void BuildingListControl2(System.Web.UI.WebControls.ListControl myListControl1, System.Web.UI.WebControls.ListControl myListControl2, string operate, string userID, string para1, string para2, string para3)
+        {
+            var parameter = CommonParameters.GetListParameters(operate, userID, para1, para2, para3);
+
+            AssemblyListControl<CommonListSchool>.SetList2(myListControl1, myListControl2, parameter);
+
+        }
+        public static void BuildingListControl2(System.Web.UI.WebControls.ListControl myListControl1, System.Web.UI.WebControls.ListControl myListControl2, string operate, string userID, string para1, string para2, string para3, string initialvalue)
+        {
+            var parameter = CommonParameters.GetListParameters(operate, userID, para1, para2, para3);
+            AssemblyListControl<CommonListSchool>.SetList2(myListControl1, myListControl2, parameter, initialvalue);
         }
         public static void BuildingTextTitle(ref Label myTitle, string type, string userID, string category, string area, string code)
         {
@@ -41,10 +91,10 @@ namespace EPA2
             }
 
         }
-        public static void BuildingTextMessage(ref TextBox myMessage, string type, string userID, string category, string area, string code,string userRole)
+        public static void BuildingTextMessage(ref TextBox myMessage, string type, string userID, string category, string area, string code, string userRole)
         {
 
-            myMessage.Text = MessageContext.Message(type, userID, category, area, code,userRole);
+            myMessage.Text = MessageContext.Message(type, userID, category, area, code, userRole);
             if (myMessage.Text.Length == 0)
             {
                 myMessage.Visible = true;// false;
@@ -95,14 +145,14 @@ namespace EPA2
         public static void TextContent(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
         {
             if (action == "Get" || action == "RollOver")
-            {   
-                   myText.Text = AppraisalDataAC.TextContent(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
+            {
+                myText.Text = AppraisalDataAC.TextContent(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
                 myCount.Value = (textLength - myText.Text.Length).ToString();
             }
             else
-            { 
-                 string value = myText.Text;
-               string result = AppraisalDataAC.TextContent(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, value);
+            {
+                string value = myText.Text;
+                string result = AppraisalDataAC.TextContent(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, value);
             }
         }
         public static void ITextContent(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
@@ -124,31 +174,32 @@ namespace EPA2
 
             if (action == "Get" || action == "RollOver")
             {
-                myText.Text = repository.GetResult(employeeID, appraisalnote,action);
-                 myCount.Value = (textLength - myText.Text.Length).ToString();
-            }
-            else
-            {
-                appraisalnote.Comments = myText.Text;
-                string result = repository.GetResult(employeeID, appraisalnote,action);
-             }
-        }
-        public static void Comments(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
-        {
-            AppraisalComment comm = CommonParameters.GetCommentParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category); //  new AppraisalComment()
- 
-            if (action == "Get" || action == "RollOver")
-            {
-                myText.Text = AppraisalExecute<AppraisalComment>.AnyValueofT(comm);// AppraisalExecute.Comments(comm);
+                myText.Text = repository.GetResult(employeeID, appraisalnote, action);
                 myCount.Value = (textLength - myText.Text.Length).ToString();
             }
             else
             {
-                comm.Comments = myText.Text;
-                string result = AppraisalExecute<AppraisalComment>.AnyValueofT(comm);//AppraisalExecute.Comments(comm);
+                appraisalnote.Comments = myText.Text;
+                string result = repository.GetResult(employeeID, appraisalnote, action);
             }
         }
-        
+        public static void Comments(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
+        {
+            AppraisalComment paramaters = AppraisalCommentMethod.GetParameters(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area); //  new AppraisalComment()
+
+            if (action == "Get" || action == "RollOver")
+            {
+                myText.Text = AppraisalExecute.ValueofT<AppraisalComment>(paramaters, action);// AppraisalExecute.Comments(comm);
+               // myText.Text = AppraisalExecute<AppraisalComment>.AnyValueofT(comm);// AppraisalExecute.Comments(comm);
+                myCount.Value = (textLength - myText.Text.Length).ToString();
+            }
+            else
+            {
+                paramaters.Value = myText.Text;
+                string result = AppraisalExecute.ValueofT<AppraisalComment>(paramaters, action);//AppraisalExecute.Comments(comm);
+            }
+        }
+
         public static string ITextContentDomain(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode, string domainID, string competencyID, string rate, string Value)
         {
             AppraisalNotes2 apprnote = new AppraisalNotes2()
@@ -162,15 +213,15 @@ namespace EPA2
                 SessionID = appraisalSession,
                 ItemCode = itemCode,
                 EmployeeID = employeeID,
-                DomainID =domainID,
+                DomainID = domainID,
                 CompetencyID = competencyID,
-                Rate =rate,
-                Comments =Value
+                Rate = rate,
+                Comments = Value
             };
 
             IAppraisal<AppraisalNotes2, string> repository = Factory.Get<IAppraisalNote2>(); // new IAppraisalNote();
-            string rValue = repository.GetResult(employeeID, apprnote,action);
-            return rValue  ;
+            string rValue = repository.GetResult(employeeID, apprnote, action);
+            return rValue;
         }
         public static void TextContentB(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string column)
         {
@@ -291,57 +342,61 @@ namespace EPA2
         }
         public static void DomainTextContent(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID)
         {
+            var paramaters = AppraisalCompetencyCommentMethod.GetParameters(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area, domainID, competencyID); //  new AppraisalComment()
 
-           var parameter = CommonParameters.GetDomainCommentParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode,category, domainID, competencyID,"");
-           if (action == "Get")
+            if (action == "Get" || action == "RollOver")
             {
-              //  myText.Text = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID);
-
-              //   myText.Text = ITextContentDomain(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID,"","");
-                 myText.Text = AppraisalExecute<AppraisalCommentOnDomain>.AnyValueofT(parameter);
-                 myCount.Value = (textLength - myText.Text.Length).ToString();
-           }
+                myText.Text = AppraisalExecute.ValueofT<AppraisalCompetency>(paramaters, action);// AppraisalExecute.Comments(comm);
+                                                                                              // myText.Text = AppraisalExecute<AppraisalComment>.AnyValueofT(comm);// AppraisalExecute.Comments(comm);
+                myCount.Value = (textLength - myText.Text.Length).ToString();
+            }
             else
             {
-                 
-                parameter.Value = myText.Text;
-                // string result = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, value);
+                paramaters.Value = myText.Text;
+                string result = AppraisalExecute.ValueofT<AppraisalCompetency>(paramaters, action);//AppraisalExecute.Comments(comm);
+                  // string result = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, value);
                 //  string result = ITextContentDomain(action,userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, "",value);
-                string result = AppraisalExecute<AppraisalCommentOnDomain>.AnyValueofT(parameter);
-              //  myCount.Value = (textLength - myText.Text.Length).ToString();
+          }
 
-            }
+              
         }
         public static void DomainTextContent(ref HtmlTextArea myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID)
         {
+          //  var parameter = CommonParameters.GetCompetencyParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area, domainID, competencyID, "", "");
+            var parameters = AppraisalCompetencyCommentMethod.GetParameters(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area, domainID, competencyID); //  new AppraisalComment()
+
 
             if (action == "Get")
             {
-                myText.Value = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID);
+                // myText.Value = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID);
+                myText.Value = AppraisalExecute.ValueofT<AppraisalCompetency>(parameters, action);
+
                 myCount.Value = (textLength - myText.Value.Length).ToString();
             }
             else
             {
-                string value = myText.Value;
-                string result = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, value);
+                //  string result = AppraisalDataDomain.DomainTextContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, myText.Value);
+                parameters.Value = myText.Value;
+                string result = AppraisalExecute.ValueofT<AppraisalCompetency>(parameters, action);
+
             }
         }
         public static void DomainListContent(ref RadioButtonList rList, string action, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID)
         {
-            var parameter = CommonParameters.GetDomainCommentParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, domainID, competencyID, "");
+            var parameter = CommonParameters.GetCompetencyParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area, domainID, competencyID, "", "");
 
-            if (action == "Get")
+            if (action == "Rate")
             {
                 //   string sValue = AppraisalDataDomain.DomainListContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID);
-                string sValue = AppraisalExecute<AppraisalRateOnDomain>.AnyValueofT(parameter);
+                string sValue = AppraisalExecute<AppraisalCompetency>.AnyValueofT(parameter);
                 myList.SetListValue(rList, sValue);
             }
             else
             {
                 string sValue = rList.SelectedValue;
-                parameter.Value = sValue;
+                parameter.Rate = sValue;
                 //  string result = AppraisalDataDomain.DomainListContent(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, sValue);
-                string result = AppraisalExecute<AppraisalRateOnDomain>.AnyValueofT(parameter);
+                string result = AppraisalExecute<AppraisalCompetency>.AnyValueofT(parameter);
             }
         }
         public static void DomainTextLOG(ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID, string actionRole)
@@ -375,41 +430,58 @@ namespace EPA2
         }
         public static void ObservationDate(ref HtmlInputText myDate, string action, string type, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
         {
+            AppraisalDate parameter = CommonParameters.GetDateParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area, "", ""); //  new AppraisalComment()
 
-            if (action == "Get")
+
+            if (action == "GetDate")
             {
-                myDate.Value = AppraisalDataObservation.ObservationDate(type, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
+                 myDate.Value = AppraisalExecute.ValueofT<AppraisalDate>(parameter);//  AppraisalDataObservation.ObservationDate(type, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
 
             }
             else
             {
                 string date = myDate.Value;
-                string result = AppraisalDataObservation.ObservationDate(type, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, date);
+                parameter.Date = date;
+                string result = AppraisalExecute.ValueofT<AppraisalDate>(parameter);
+                //   string result = AppraisalDataObservation.ObservationDate(type, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, date);
             }
         }
         public static void ObservationDate(ref HtmlInputText myDate, ref TextBox myText, ref HtmlInputText myCount, string action, int textLength, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
         {
+            AppraisalDate parameter = CommonParameters.GetDateParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area, "", ""); //  new AppraisalComment()
 
             if (action == "Get")
             {
-                myText.Text = AppraisalDataObservation.ObservationDate("Text", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
+                parameter.Operate = "GetDate";
+                myDate.Value = AppraisalExecute.ValueofT<AppraisalDate>(parameter);//  AppraisalDataObservation.ObservationDate(type, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
+                parameter.Operate = "GetText";
+                myText.Text = AppraisalExecute.ValueofT<AppraisalDate>(parameter);
+                //myText.Text = AppraisalDataObservation.ObservationDate("Text", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
+                //myDate.Value = AppraisalDataObservation.ObservationDate("Date", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
                 myCount.Value = (textLength - myText.Text.Length).ToString();
-                myDate.Value = AppraisalDataObservation.ObservationDate("Date", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode);
 
             }
             else
             {
+                parameter.Operate = "Save";
                 string value = myText.Text;
                 string date = myDate.Value;
-                string result = AppraisalDataObservation.ObservationDate("Save", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, date, value);
+                parameter.Date = date;
+                parameter.Value = value;
+                string result = AppraisalExecute.ValueofT<AppraisalDate>(parameter);
+                //    string result = AppraisalDataObservation.ObservationDate("Save", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, date, value);
             }
         }
         public static void ObservationList(ref GridView myDataView, string action, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID, string domainID, string competencyID)
         {
+            AppraisalObservation parameter = CommonParameters.GetObservationListParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area, domainID, competencyID, "", ""); //  new AppraisalComment()
 
             if (action == "Get")
             {
-                DataTable gridData = AppraisalDataObservation.ObservationList(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode).Tables[0];
+                // var gridData = BLL.AppraisalExecute<ObservationList>.AnyListofT(parameter); // BLL.AppraisalExecute.ApprList(parameter);
+                var gridData = BLL.AppraisalExecute.ListofT<ObservationList>(parameter); // works// BLL.AppraisalExecute.ApprList(parameter);
+
+                //  DataTable gridData = AppraisalDataObservation.ObservationList(userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode).Tables[0];
                 myDataView.DataSource = gridData;
                 myDataView.DataBind();
             }
@@ -417,9 +489,20 @@ namespace EPA2
             {
                 string check = myDataView.SelectedRow.DataItem.ToString();
                 string value = myDataView.SelectedRow.DataItem.ToString();
-
-                string result = AppraisalDataObservation.ObservationList("Save", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, check, value);
+                parameter.Check = check;
+                parameter.Value = value;
+                string result = AppraisalExecute.ValueofT<ObservationList>(parameter);
+                //  string result = AppraisalDataObservation.ObservationList("Save", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, check, value);
             }
+        }
+
+        public static string ObservationList(string action, string userID, string appraisalYear, string appraisalSchool, string employeeID, string appraisalSession, string category, string area, string itemCode, string domainID, string competencyID, string check, string value)
+        {
+            AppraisalObservation parameter = CommonParameters.GetObservationListParameter(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, itemCode, category, area, domainID, competencyID, check ,value); //  new AppraisalComment()
+            string result = AppraisalExecute.ValueofT<ObservationList>(parameter);
+            //  string result = AppraisalDataObservation.ObservationList("Save", userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode, domainID, competencyID, check, value);
+            return result;
+           
         }
         public static void AGPWorkingTemplate(ref GridView myDataView, string action, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
         {
@@ -442,11 +525,24 @@ namespace EPA2
             myDataView.DataBind();
 
         }
+        public static List<AppraisalDataAIP> AIPWorkingTemplateDataSource(string action, string userID, string category, string area)
+        {
+            SetupListParameter parameter =  CommonParameters.GetSetupListParameters<AppraisalDataAIP>(action, userID, category, area);
+            return AppraisalExecute.ListofT<AppraisalDataAIP>(parameter);
+        }
+
         public static void AIPWorkingTemplate2(ref GridView myDataView, string action, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
         {
             DataTable gridData = AppraisalDataAIP.WorkingList2(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area, itemCode).Tables[0];
+
             myDataView.DataSource = gridData;
             myDataView.DataBind();
+        }
+        public static List<AppraisalDataAIP> AIPWorkingTemplate2DataSource(  string action, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
+        {
+             AppraisalComment2 parameter = AppraisalIMP.GetParameters(action, userID, appraisalYear, appraisalSchool, employeeID, appraisalSession, category, area,itemCode);
+
+            return AppraisalExecute.ListofT<AppraisalDataAIP>(parameter);
         }
         public static void LTOAssignmentData(string action, ref HtmlInputText myDateS, ref HtmlInputText myDateE, ref HtmlInputText Month, ref TextBox subject, ref TextBox sapNo, string category, string area, string itemCode, string userID, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeID)
         {

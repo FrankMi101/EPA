@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 namespace BLL
 {
     public class AppraisalList<T>
-    { public List<T> Summary(AppraisalListParameter parameter)
+    {  
+        public List<T> MyList(object parameter)
         {
             try
             {
-                 
-                string sp = SPandParameters.GetList<T>(); 
+
+                string sp = SPandParameters.GetList<T>();
                 var list = MyDapper.GeneralDataAccess.GetListofTypeT<T>(sp, parameter);
                 return list;
             }
@@ -23,12 +24,12 @@ namespace BLL
                 return null;
             }
         }
-        public List<T> CommonList(object parameter)
+        public List<T> MyList(object parameter,string action)
         {
             try
             {
 
-                string sp = SPandParameters.GetList<T>();
+                string sp = SPandParameters.GetList<T>(action);
                 var list = MyDapper.GeneralDataAccess.GetListofTypeT<T>(sp, parameter);
                 return list;
             }

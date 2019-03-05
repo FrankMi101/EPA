@@ -14,11 +14,10 @@ namespace ClassLibrary
         public string TimeType { get; set; }
         public string EmployeeStatus { get; set; }
         public string EmployeePosition { get; set; }
-        public string MyProperty { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public string UnitID { get; set; }
-         public string FirstName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-   public  class AppraisalList : AppraisalListBase
+    public class AppraisalList : AppraisalListBase
     {
-    
+
         public string ALP { get; set; }
         public string EPA { get; set; }
         public string CurrentSession { get; set; }
@@ -24,12 +24,12 @@ namespace ClassLibrary
         public string Appraisal4 { get; set; }
         public string Mentor { get; set; }
         public string TeacherNameL { get; set; }
-        public string TeacherName { get; set; } 
+        public string TeacherName { get; set; }
     }
 
-    public class AppraisalHistory :AppraisalList
+    public class AppraisalHistory : AppraisalList
     {
-        public string  AppraisalYear { get; set; }
+        public string AppraisalYear { get; set; }
     }
     public class AppraisalNotice : AppraisalList
     {
@@ -38,5 +38,15 @@ namespace ClassLibrary
         public bool SelectedC { get; set; }
 
 
+    }
+
+    public class ObservationList
+    {
+        public string DomainID { get; set; }
+        public string CompetencyID { get; set; }
+        public string CompetencyName { get; set; }
+        public bool SelectedC { get; set; }
+        public string Comments { get; set; }
+        public string RowNo { get; set; }
     }
 }

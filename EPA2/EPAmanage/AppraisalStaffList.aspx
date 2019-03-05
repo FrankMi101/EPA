@@ -10,6 +10,10 @@
     <meta http-equiv="Cache-Control" content="no-Store,no-Cache" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="../Scripts/jquery-3.2.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <link href="../Content/BubbleHelp.css" rel="stylesheet" />
     <link href="../Content/ListPage.css" rel="stylesheet" />
 
@@ -173,67 +177,67 @@
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link4" runat="server" Text='<%# Bind("TeacherNameL") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="10%" />
+                                        <ItemStyle Width="150px" />
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="AppraisalType" HeaderText="Type">
-                                        <ItemStyle Width="30px" />
+                                        <ItemStyle Width="40px" />
                                     </asp:BoundField>
-                                     <asp:BoundField DataField="AppraisalStatus" HeaderText="Status">
-                                        <ItemStyle Width="50px" />
+                                     <asp:BoundField DataField="AppraisalStatus" HeaderText="Status" ItemStyle-CssClass  ="visible-sm visible-md visible-lg" HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
+                                        <ItemStyle Width="80px" Wrap="False"/>
                                     </asp:BoundField>
                                     <asp:BoundField DataField="AppraisalPhase" HeaderText="Appraisal Phase">
-                                        <ItemStyle Width="10%" />
+                                        <ItemStyle Width="100px" Wrap="true"/>
                                     </asp:BoundField>
 
-                                    <asp:BoundField DataField="Assignment" HeaderText="Assignment">
-                                        <ItemStyle Width="10%" />
+                                    <asp:BoundField DataField="Assignment" HeaderText="Assignment" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
+                                        <ItemStyle Width="100px" Wrap="True" />
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="Appraiser" HeaderText="Apprailser" ItemStyle-CssClass="myApprailser">
-                                        <ItemStyle Width="10%" />
+                                    <asp:BoundField DataField="Appraiser" HeaderText="Apprailser" ItemStyle-CssClass="myApprailser visible-sm visible-md visible-lg" HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
+                                        <ItemStyle Width="100px" wrap="true"/>
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="Mentor" HeaderText="Mentor" ItemStyle-CssClass="myMentor">
-                                        <ItemStyle Width="10%" />
+                                    <asp:BoundField DataField="Mentor" HeaderText="Mentor" ItemStyle-CssClass="myMentor visible-sm visible-md visible-lg" HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
+                                        <ItemStyle Width="100px"  Wrap="False"/>
                                     </asp:BoundField>
                                     <asp:TemplateField HeaderText="Appraisal Outcome"  >
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link5" runat="server" Text='<%# Bind("AppraisalOutcome") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="10%" />
+                                        <ItemStyle Width="100px"  Wrap="true"/>
                                     </asp:TemplateField>
-                                     <asp:BoundField DataField="CurrentSession" HeaderText="cSession">
-                                        <ItemStyle Width="5%" />
+                                     <asp:BoundField DataField="CurrentSession" HeaderText="cSession" ItemStyle-CssClass="visible-sm visible-md visible-lg"  HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
+                                        <ItemStyle Width="80px" Wrap="False"/>
                                     </asp:BoundField>
-                                       <asp:BoundField DataField="AppraisalProcess" HeaderText="process">
-                                        <ItemStyle Width="5%" />
+                                       <asp:BoundField DataField="AppraisalProcess" HeaderText="process" ItemStyle-CssClass="visible-sm visible-md visible-lg"  HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
+                                        <ItemStyle Width="80px" Wrap="true" />
                                     </asp:BoundField>
-                                 <asp:TemplateField HeaderText="Appraisal 1"  >
+                                 <asp:TemplateField HeaderText="Appraisal 1"  ItemStyle-CssClass="visible-sm visible-md visible-lg"  HeaderStyle-CssClass ="visible-sm visible-md visible-lg" >
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link6" runat="server" Text='<%# Bind("Appraisal1") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="10%" />
+                                        <ItemStyle Width="100px"  Wrap="True" />
                                     </asp:TemplateField>
                                 
-                                   <asp:TemplateField HeaderText="Appraisal 2" >
+                                   <asp:TemplateField HeaderText="Appraisal 2" ItemStyle-CssClass="visible-sm visible-md visible-lg"  HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link7" runat="server" Text='<%# Bind("Appraisal2") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="10%" />
+                                        <ItemStyle Width="100px" Wrap="True" />
                                       </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Appraisal 3"  >
+                                     <asp:TemplateField HeaderText="Appraisal 3"  ItemStyle-CssClass="visible-sm visible-md visible-lg"  HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link8" runat="server" Text='<%# Bind("Appraisal3") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="10%" />
+                                        <ItemStyle Width="100px" Wrap="True"/>
                                     </asp:TemplateField>
                                 
-                                   <asp:TemplateField HeaderText="Appraisal 4" >
+                                   <asp:TemplateField HeaderText="Appraisal 4" ItemStyle-CssClass="visible-sm visible-md visible-lg"  HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link9" runat="server" Text='<%# Bind("Appraisal4") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="10%" />
+                                        <ItemStyle Width="100px"  Wrap="True"/>
                                       </asp:TemplateField>
-                                    <asp:BoundField DataField="Comments" HeaderText="Comments">
-                                        <ItemStyle Width="15%" />
+                                    <asp:BoundField DataField="Comments" HeaderText="Comments" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass ="visible-sm visible-md visible-lg">
+                                        <ItemStyle Width="100px"  Wrap="True" />
                                     </asp:BoundField>
 
                                     <%--  <asp:BoundField DataField="School_Year" ReadOnly="True"  ItemStyle-CssClass="hfSchoolYear" />
@@ -295,7 +299,6 @@
 </body>
 </html>
 
-<script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/GridView.js"></script>
 <script src="../Scripts/Appr_ListPage.js"></script>
 <script type="text/javascript">
@@ -326,7 +329,7 @@
     var currentTR;
     $(document).ready(function () {
         var vHeight = window.innerHeight - 70;
-        MakeStaticHeader("GridView1", 650, 1300, 26, false);
+         MakeStaticHeader("GridView1", 600, 1500, 26, false);
 
         $("#closeActionPOP").click(function (event) {
             $("#ActionPOPDIV").fadeToggle("fast");

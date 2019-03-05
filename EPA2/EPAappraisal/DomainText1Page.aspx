@@ -66,9 +66,10 @@
         header {
             display: none;
         }
-         .HelpTextBox {
-        height:98%; 
-        width:100%;
+
+        .HelpTextBox {
+            height: 98%;
+            width: 100%;
         }
     </style>
 </head>
@@ -110,17 +111,17 @@
                 <ul id="ContentCompetency" runat="server">
                 </ul>
             </div>
-           
-                        <div class="ContentRubric" style="display: inline; float: left">
-                            <asp:RadioButtonList ID="rblRateRubric" runat="server" OnSelectedIndexChanged="rblRateRubric_SelectedIndexChanged" RepeatDirection="Horizontal" Width="500px"></asp:RadioButtonList>
-                        </div>
-                 
-                        <div id="ContentTitleRight" style=" width:100%; display: inline; float: right">
-                            Characters limit
+
+            <div class="ContentRubric" style="display: inline; float: left">
+                <asp:RadioButtonList ID="rblRateRubric" runat="server" OnSelectedIndexChanged="rblRateRubric_SelectedIndexChanged" RepeatDirection="Horizontal" Width="500px"></asp:RadioButtonList>
+            </div>
+
+            <div id="ContentTitleRight" style="width: 100%; display: inline; float: right">
+                Characters limit
                     <input id="textCount" type="text" maxlength="10" size="1" runat="server" readonly="readonly" />
-                            <img class="imgCommentsMenu" runat="server" id="imgCommentsMenu" src="../images/menu.png" title="Comment menu" />
-                        </div>
-               
+                <img class="imgCommentsMenu" runat="server" id="imgCommentsMenu" src="../images/menu.png" title="Comment menu" />
+            </div>
+
 
             <div class="ContentTextarea">
                 <asp:TextBox ID="myText" runat="server" OnTextChanged="myText_TextChanged" Height="400px" MaxLength="2000" TextMode="MultiLine" Width="99%"></asp:TextBox>
@@ -140,7 +141,7 @@
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" contenteditable="true" placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
         </div>
 
         <div id="TitleEditDIV" class="bubble epahide">
@@ -213,6 +214,22 @@
     var CompetencyID = $("#hfCompetencyID").val();
     var workingItem = $("#hfCompetencyID").val();
     var imgItem = "img_" + workingItem
+    var BasePara = {
+        UserID: $("#hfUserID").val(),
+        Category: $("#hfCategory").val(),
+        Area: $("#hfArea").val(),
+        ItemCode: $("#hfCode").val(),
+        DomainID: $("#hfDomainID").val(),
+        CompetencyID: $("#hfCompetencyID").val(),
+        WorkingItem: $("#hfCompetencyID").val(),
+        ImgItem: "img_" + $("#hfCompetencyID").val(),
+        SchoolYear: $("#hfApprYear").val(),
+        SchoolCode: $("#hfApprSchool").val(),
+        SessionID: $("#hfApprSession").val(),  
+        EmployeeID: $("#hfApprEmployeeID").val(),  
+        Value: "",
+        Rate: ""
+    }
     $(document).ready(function () {
         var vHeight = window.innerHeight - apprScreenH;
         $("section").css("height", vHeight)
@@ -224,9 +241,9 @@
         else { $("#myText").addClass("myEditItem"); }
 
         $('.cList').each(function () {
-            if ($(this)[0].id == workingItem) {
+            if ($(this)[0].id == BasePara.WorkingItem ) {
                 $(this).addClass("WorkingItem");
-                workingItem = $(this);
+                BasePara.WorkingItem = $(this);
 
             }
         });
@@ -246,33 +263,41 @@
             return true;
         });
         $("#myText").change(function (event) {
-            SaveCompentencyTextContent(event);
+
+            // SaveCompentencyTextContent(event); // using function call directly ****************
+            OperateData.SaveData(event); // using Javascript object method
+
         });
         $("#ContentCompetency a").click(function (event) {
             var competencyID = $(this)[0].id;
             $("#hfCompetencyID").val(competencyID);
-            CompetencyID = competencyID;
-            if (workingItem != undefined) {
-                workingItem.removeClass("WorkingItem");
+              if (BasePara.WorkingItem  != undefined) {
+                BasePara.WorkingItem .removeClass("WorkingItem");
             }
             $(this).addClass("WorkingItem");
-            workingItem = $(this);
-            imgItem = "img_" + competencyID;
-            GetCompentencyTextContent();
-            GetCompentencyRateContent();
+            BasePara.WorkingItem  = $(this);
+            BasePara.ImgItem  = "img_" + competencyID;
+            CompetencyID = competencyID
+            BasePara.CompetencyID = competencyID
+            OperateData.GetNote();
+            OperateData.GetRate();
+
             // var saveButton = $("#btnCompetency");
             //  saveButton.click();
         });
-        $("#rblRateRubric").click(function (event) {
+        //  $("#rblRateRubric").click(function (event)  this event will fire twice
+        $("#rblRateRubric input").click(function (event) {
             $("#hfContentChange").val("1");
             var rating = event.target.innerText;
             var pageReadonlyVal = $("#hfPageReadonly").val();
             if (pageReadonlyVal === "No") {
                 $("#" + imgItem).attr("src", "../images/Edit2_Hired.jpg");
                 var cID = $("#hfCompetencyID").val();
-                var checkID = "[1,5,9,14,16,20]";
+                var checkID = "[1,5,9,14,16,20]"; // for every first competency of domain check add the appraisee's First nme on comeents
                 var textPerson = "";
-                if (cID == "1" || cID == "5" || cID == "9" || cID == "14" || cID == "16" || cID == "20") {
+              //  window.alert(cID + "   " + checkID.indexOf(cID) );
+                if (checkID.indexOf(cID) >= 0)  // (cID == "1" || cID == "5" || cID == "9" || cID == "14" || cID == "16" || cID == "20")
+                {
                     textPerson = $("#hfFirstName").val() + "\n\n";
                 }
                 var LengthmyText = $("#myText").val().length;
@@ -289,18 +314,19 @@
                     { rubricText = "Infreqently " + rubricText; }
                     var firstLineTomyText = textPerson + rubricText + "\n\n" + "  Look Fors:";
                     $("#myText").val(firstLineTomyText);
-                    SaveCompentencyTextContent(event);
+                    //  SaveCompentencyTextContent(event); // if the myText content changed, will triger myText  change event to save the data. function in "#myText").change ***********
+                    OperateData.SaveData(event);
                 }
             }
-
-            event.stopPropagation();
+            //  event.stopPropagation();
+            //  event.preventDefault();
+            //  event.stopImmediatePropagation();
         });
         $("#rblRateRubric label").mouseenter(function (event) {
             //    var pID = $(this)[0].id;
             var rating = event.currentTarget.innerText;
-            var DomainID = ItemCode.replace("SUM5", "");
-            var CompetencyID = $("#hfCompetencyID").val();
-            var helptext = EPA2.Models.WebService1.GetRubricHelpContent(rating, UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, onSuccessRubirc, onFailure);
+            BasePara.DomainID = BasePara.ItemCode.replace("SUM5", "");
+             var helptext = EPA2.Models.WebService1.GetRubricHelpContent(rating, BasePara.UserID, BasePara.Category, BasePara.Area, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, onSuccessRubirc, onFailure);
 
             var vTop = event.originalEvent.clientY;//  event.originalEvent.clientX event.currentTarget.offsetTop;
             var vLeft = event.originalEvent.clientX // event.currentTarget.offsetLeft;
@@ -349,22 +375,29 @@
         //  var rateVaue = $("#rblRateRubric input:checked").val();
         //    $("#rblRateRubric").find("input[value='" + rateVaue + "']").attr("checked", "");
     }
+
+    var OperateData =
+        {
+            GetRate: function () { GetCompentencyRateContent(); },
+            GetNote: function () { GetCompentencyTextContent(); },
+            SaveData: function (event) { SaveCompentencyTextContent(event) }
+        };
+
     function GetCompentencyTextContent() {
-        var DomainID = $("#hfDomainID").val();
-        var CompetencyID = $("#hfCompetencyID").val();
-        var helptext = EPA2.Models.WebService1.GetCompetencyContent("Get", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, onSuccessDC, onFailure);
+      //   var helptext = EPA2.Models.WebService1.GetCompetencyContent("Get", BasePara.UserID, BasePara.CategoryID, BasePara.AreaID, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, onSuccessDC, onFailure);
+
+        var helptext = EPA2.Models.WebService1.GetCompetencyContent("Get", BasePara, onSuccessDC, onFailure);
     }
     function GetCompentencyRateContent() {
-        var DomainID = $("#hfDomainID").val();
-        var CompetencyID = $("#hfCompetencyID").val();
-        var helptext = EPA2.Models.WebService1.GetCompetencyContent("Rate", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, onSuccessRate, onFailure);
+    //     var helptext = EPA2.Models.WebService1.GetCompetencyContent("Rate", BasePara.UserID, BasePara.CategoryID, BasePara.AreaID, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, onSuccessRate, onFailure);
+         var helptext = EPA2.Models.WebService1.GetCompetencyContent("Rate", BasePara, onSuccessRate, onFailure);
     }
     function SaveCompentencyTextContent(event) {
         var appraisalPageTextChange = $("#hfContentChange").val();
         if (appraisalPageTextChange === "1") {
 
-            var DomainID = $("#hfDomainID").val();
-            var CompetencyID = $("#hfCompetencyID").val();
+          //  var DomainID = $("#hfDomainID").val();
+          //  var CompetencyID = $("#hfCompetencyID").val();
             var textValue = $("#myText").val();
             var rateVaue = $("#rblRateRubric input:checked").val();  //$('#radiobuttonListId').find(":checked").val();
             if (typeof rateVaue === 'undefined') {
@@ -375,10 +408,16 @@
                 else
                 { rateVaue = "4"; }
             }
-            var helptext = EPA2.Models.WebService1.SaveCompetencyContent("Save", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, rateVaue, textValue, onSuccess, onFailure);
+            BasePara.Rate = rateVaue
+            BasePara.Value = textValue
+         //   var helptext = EPA2.Models.WebService1.SaveCompetencyContent("Save", BasePara.UserID, BasePara.CategoryID, BasePara.AreaID, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, rateVaue, textValue, onSuccess, onFailure);
+            var helptext = EPA2.Models.WebService1.SaveCompetencyContent("Save", BasePara, onSuccess, onFailure);
+
             $("#hfContentChange").val("0");
             // var saveButton = $("#btnSave");
             // saveButton.click();
         }
     }
+
+
 </script>

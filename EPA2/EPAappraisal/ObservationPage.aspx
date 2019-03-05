@@ -129,6 +129,7 @@
             <br />
             <div class="ContentTitleLeft" style="display: block;">
                 <asp:Label ID="labelTitle2" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
+                <asp:CheckBox ID="chbCopyOver" runat="server" Text="Copy over comments of Competencies to Classroom Observation" Checked="true" />
             </div>
             <br />
             <div class="ContentCompetencyList" runat="server">

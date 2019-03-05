@@ -9,9 +9,12 @@
     <meta http-equiv="Pragma" content="No-cache" />
     <meta http-equiv="Cache-Control" content="no-Store,no-Cache" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <script src="Scripts/jquery-3.2.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+ 
     <script src="Scripts/NavTopList.js"></script>
     <link href="Content/DeviceMedia.css" rel="stylesheet" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
@@ -100,6 +103,10 @@
         .epahide {
             display: none;
         }
+
+        #rblLoginAS label {
+            font-weight:normal;
+         }
     </style>
 
 
@@ -216,7 +223,7 @@
 
         <section style="text-align: center;">
             <div class="iFrameDIV">
-                <iframe id="GoList" name="GoList" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+                <iframe id="GoList" name="GoList" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server" style="border:1px, red,solid"></iframe>
             </div>
             <div id="EditDIV" runat="server" class="EditDIV bubble epahide">
                 <div class="editTitle">

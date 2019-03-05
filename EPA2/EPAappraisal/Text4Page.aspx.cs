@@ -108,9 +108,10 @@ namespace EPA2.EPAappraisal
             string area = hfArea.Value;
             string code = hfCode.Value;
            
-             AppraisalData.TextContent(ref myText, ref textCount, action, 5000, category, area, code + textOrder, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
-    
-         }
+          //   AppraisalData.TextContent(ref myText, ref textCount, action, 5000, category, area, code + textOrder, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+             AppraisalData.Comments(ref myText, ref textCount, action, 5000, category, area, code + textOrder,  User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+
+        }
         protected void btnViewALP_onClick(object sender, EventArgs e)
         {
             if (btnViewALP.Text == "RollOver Last ALP")

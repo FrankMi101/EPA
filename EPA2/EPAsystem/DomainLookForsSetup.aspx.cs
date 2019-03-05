@@ -31,7 +31,8 @@ namespace EPA2.EPAsystem
             WorkingProfile.PageArea = "LookFors";
             WorkingProfile.PageItem = "LookFors";
             AppraisalPage.SetPageAttribute2(Page);
-            myList.SetLists(ddlDomain, "DomainList", User.Identity.Name);
+          //  myList.SetLists(ddlDomain, "DomainList", User.Identity.Name);
+            AppraisalData.BuildingListControl(ddlDomain, "DomainList", User.Identity.Name);
         
         }
 

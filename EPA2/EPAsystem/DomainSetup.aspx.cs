@@ -64,15 +64,19 @@ namespace EPA2.EPAsystem
 
             string category = "EPA";
             string area = "Domain";
-            ApplicationSetup.DomainList(ref GridView1, action, User.Identity.Name, category,  area);
+         //   ApplicationSetup.DomainList(ref GridView1, action, User.Identity.Name, category,  area);
+
+            GridView1.DataSource = ApplicationSetup.DomainListDataSource(action, User.Identity.Name, category, area);
+            GridView1.DataBind();
         }
   
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
             string category = hfCategory.Value;
             string area = hfArea.Value;
-             string result =   ApplicationSetupData.Domain(  "AddNew", User.Identity.Name, category, area,"0", "","", "","");
-            BindMyData();
+             string result = ApplicationSetup.DomainListDataSave( "AddNew", User.Identity.Name, category, area,"0");
+           BindMyData();
+          //  ApplicationSetup.DomainList(ref GridView1, "AddNew", User.Identity.Name, category, area);
         }
     }
 }

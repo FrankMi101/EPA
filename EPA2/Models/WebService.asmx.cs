@@ -194,11 +194,12 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveDomain(string operation, string userID, string CategoryID, string AreaID, string IDs, string domainCode, string domainName,   string comments, string active)
+        public string SaveDomain(string operation, string userID, string CategoryID, string AreaID, string IDs, string domainCode, string domainName,   string comments, int active)
         {
             try
             {
-                return ApplicationSetupData.Domain(operation, userID, CategoryID, AreaID, IDs, domainCode, domainName,  comments, active);
+              //  return ApplicationSetupData.Domain(operation, userID, CategoryID, AreaID, IDs, domainCode, domainName,  comments, active);
+                return ApplicationSetup.DomainListDataSave(operation, userID, CategoryID, AreaID, IDs, domainCode, domainName, comments, active);
             }
             catch (Exception ex)
             {
@@ -208,11 +209,12 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveCompetency(string operation, string userID, string CategoryID, string AreaID, string IDs, string Code, string Name, string comments, string active,string TPA, string NTP,string LTO)
+        public string SaveCompetency(string operation, string userID, string CategoryID, string AreaID, string IDs, string Code, string Name, string comments, int active,string TPA, string NTP,string LTO)
         {
             try
             {
-                return ApplicationSetupData.Competency(operation, userID, CategoryID, AreaID, IDs, Code, Name, comments, active,TPA,NTP,LTO);
+              //  return ApplicationSetupData.Competency(operation, userID, CategoryID, AreaID, IDs, Code, Name, comments, active,TPA,NTP,LTO);
+                return ApplicationSetup.CompetencyList(operation, userID, CategoryID, AreaID, IDs, Code, Name, comments, active, TPA, NTP, LTO);
             }
             catch (Exception ex)
             {
@@ -222,11 +224,12 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveLookFors(string operation, string userID, string CategoryID, string AreaID, string competencyID, string IDs, string Code, string Name, string comments, string active )
+        public string SaveLookFors(string operation, string userID, string CategoryID, string AreaID, string competencyID, string IDs, string Code, string Name, string comments, int active )
         {
             try
             {
-                return ApplicationSetupData.LookFors(operation, userID, CategoryID, AreaID, competencyID, IDs, Code, Name, comments, active );
+                //return ApplicationSetupData.LookFors(operation, userID, CategoryID, AreaID, competencyID, IDs, Code, Name, comments, active );
+                return ApplicationSetup.LookForsList(operation, userID, CategoryID, AreaID, competencyID, IDs, Code, Name, comments, active);
             }
             catch (Exception ex)
             {

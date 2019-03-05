@@ -19,21 +19,32 @@ namespace ClassLibrary
         public string EmployeeID { get; set; }
         public string SessionID { get; set; }
         public string Category {get; set; }
+        public string Area { get; set; }
         public string ItemCode { get; set; }
-        public string Comments { get; set; }
+        public string Value { get; set; }
 
     }
-    public class AppraisalCommentOnDomain : AppraisalComment
+    public class AppraisalComment2 : AppraisalComment
     {
-        public string DomainID { get; set; }
-        public string CompetencyID { get; set; }
-        public string Value{ get; set; }
+        public string IDs { get; set; }
+        public string GoalItem { get; set; }
     }
-    public class AppraisalRateOnDomain : AppraisalCommentOnDomain
-    { }
-    public class AppraisalCompetency : AppraisalCommentOnDomain
+    public class DomainCompetency : AppraisalComment
+    {   public string DomainID { get; set; }
+        public string CompetencyID { get; set; }
+
+    }
+    public class AppraisalDate : AppraisalComment
     {
-        public string Rate { get; set; }
+        public string Date { get; set; }
+    }
+    public class AppraisalCompetency: DomainCompetency
+    {  
+         public string Rate { get; set; }
+    }
+    public class AppraisalObservation : DomainCompetency
+    {
+        public string Check { get; set; }
     }
     public class AppraisalListBase : AppraisalBase
     {

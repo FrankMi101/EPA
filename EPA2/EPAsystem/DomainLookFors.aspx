@@ -280,6 +280,27 @@
             { }
 
         });
+        $('td > .myAction').click(function (event) {
+            try {
+
+                eventCell = $(this);
+                var result = confirm("Do you want to delete this row?");
+                if (result) {
+
+                    var IDs = $(this).closest('tr').find('td.listIDs').text();
+                    var code = $(this).closest('tr').find('td .myCode').val();
+                    
+                    var domainID = $("#ddlDomain").val();
+                    var competencyID = $("#ddlCompetency").val();
+                    var result = EPA2.Models.WebService.SaveLookFors("Delete", UserID, CategoryID, domainID, competencyID, IDs, code, "", "", "0", onSuccessDel, onFailureDel);
+
+                }
+            }
+            catch (ex)
+            { }
+
+        });
+
 
         $("#closeActionPOP").click(function (event) {
             $("#ActionPOPDIV").fadeToggle("fast");

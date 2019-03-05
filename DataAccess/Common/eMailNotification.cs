@@ -227,16 +227,10 @@ namespace DataAccess
                 if (eMailFormat == "HTML")
                 { Mailmsg.IsBodyHtml = true; }
                 Mailmsg.Body = eMailBody;
-                if (attachement1 != "")
-                {
-                    System.Net.Mail.Attachment myAttachment1 = new System.Net.Mail.Attachment(attachement1);
-                    Mailmsg.Attachments.Add(myAttachment1);
-                }
-                if (attachement2 != "")
-                {
-                    System.Net.Mail.Attachment myAttachment2 = new System.Net.Mail.Attachment(attachement2);
-                    Mailmsg.Attachments.Add(myAttachment2);
-                }
+                if (attachement1 != "") AddAttachments(attachement1, ref Mailmsg);
+  
+                if (attachement2 != "") AddAttachments(attachement2, ref Mailmsg);
+   
                 try
                 { myMail.Send(Mailmsg); }
                 catch
@@ -250,7 +244,11 @@ namespace DataAccess
             }
             return result;
         }
-
+        private static void AddAttachments(string atta, ref System.Net.Mail.MailMessage Mailmsg)
+        {
+            System.Net.Mail.Attachment myAttachment = new System.Net.Mail.Attachment(atta);
+            Mailmsg.Attachments.Add(myAttachment);
+        }
 
         private static void LoopAddress(string Type, string eMailADD, ref System.Net.Mail.MailMessage Mailmsg)
         {

@@ -30,10 +30,11 @@ namespace EPA2.EPAmanage
         }
         private void AssemblePage()
         {
-            myList.SetLists(ddlSchoolYear, "SchoolYear", User.Identity.Name);
-            myList.SetListValue(ddlSchoolYear, UserProfile.CurrentSchoolYear);
-
-            mySchoolList.SetLists2(ddlSchool, ddlSchoolCode, "SchoolList", User.Identity.Name, WorkingProfile.UserRole, ddlSchoolYear.SelectedValue, WorkingProfile.SchoolCode);
+           // myList.SetLists(ddlSchoolYear, "SchoolYear", User.Identity.Name);
+          //  myList.SetListValue(ddlSchoolYear, UserProfile.CurrentSchoolYear);
+            AppraisalData.BuildingListControl(ddlSchoolYear, "SchoolYear", User.Identity.Name, UserProfile.CurrentSchoolYear);
+            AppraisalData.BuildingListControl2(ddlSchoolCode, ddlSchool, "SchoolList", User.Identity.Name, WorkingProfile.UserRole, ddlSchoolYear.SelectedValue, WorkingProfile.SchoolCode);
+          //  mySchoolList.SetLists2(ddlSchool, ddlSchoolCode, "SchoolList", User.Identity.Name, WorkingProfile.UserRole, ddlSchoolYear.SelectedValue, WorkingProfile.SchoolCode);
             InitialPage();
         }
         private void InitialPage()
@@ -41,12 +42,15 @@ namespace EPA2.EPAmanage
             if (WorkingProfile.SchoolCode == "")
             {
                 ddlSchool.SelectedIndex = 0;
-                mySchoolList.SetListsValue(ddlSchoolCode, ddlSchool, ddlSchool.SelectedValue);
+                AppraisalData.BuildingListControlInitial(ddlSchoolCode, ddlSchool.SelectedValue);
+                // mySchoolList.SetListsValue(ddlSchoolCode, ddlSchool, ddlSchool.SelectedValue);
                 WorkingProfile.SchoolCode = ddlSchool.SelectedValue;
             }
             else
             {
-                mySchoolList.SetListsValue(ddlSchoolCode, ddlSchool, WorkingProfile.SchoolCode);
+                AppraisalData.BuildingListControlInitial(ddlSchool, WorkingProfile.SchoolCode);
+                AppraisalData.BuildingListControlInitial(ddlSchoolCode, WorkingProfile.SchoolCode);
+                //mySchoolList.SetListsValue(ddlSchoolCode, ddlSchool, WorkingProfile.SchoolCode);
 
             }
             ddlSearchby.SelectedIndex = 0;
@@ -177,13 +181,16 @@ namespace EPA2.EPAmanage
         protected void ddlSchool_SelectedIndexChanged(object sender, EventArgs e)
         {
             UserLastWorking.SchoolCode = ddlSchoolCode.SelectedValue;
-            myList.SetListValue(ddlSchoolCode, ddlSchool.SelectedValue);
+          //  myList.SetListValue(ddlSchoolCode, ddlSchool.SelectedValue);
+            AppraisalData.BuildingListControlInitial(ddlSchoolCode, ddlSchool.SelectedValue);
             BindGridViewData();
         }
         protected void ddlSchoolCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             UserLastWorking.SchoolCode = ddlSchoolCode.SelectedValue;
-            myList.SetListValue(ddlSchool, ddlSchoolCode.SelectedValue);
+            AppraisalData.BuildingListControlInitial(ddlSchool, ddlSchoolCode.SelectedValue);
+
+           // myList.SetListValue(ddlSchool, ddlSchoolCode.SelectedValue);
             BindGridViewData();
         }
 
@@ -194,13 +201,16 @@ namespace EPA2.EPAmanage
             switch (ddlSearchby.SelectedValue)
             {
                 case "ALP":
-                    myList.SetLists(ddlSearch, "ALP", User.Identity.Name);
+                   // myList.SetLists(ddlSearch, "ALP", User.Identity.Name);
+                    AppraisalData.BuildingListControl(ddlSearch, "ALP", User.Identity.Name);
                     break;
                 case "Phase":
-                    myList.SetLists(ddlSearch, "AppraisalPhase", User.Identity.Name);
+                   // myList.SetLists(ddlSearch, "AppraisalPhase", User.Identity.Name);
+                    AppraisalData.BuildingListControl(ddlSearch, "AppraisalPhase", User.Identity.Name);
                     break;
                 case "Process":
-                    myList.SetLists(ddlSearch, "AppraisalProcess", User.Identity.Name);
+                   // myList.SetLists(ddlSearch, "AppraisalProcess", User.Identity.Name);
+                    AppraisalData.BuildingListControl(ddlSearch, "AppraisalProcess", User.Identity.Name);
                     break;
                 default:
                     TextSearch.Visible = true;

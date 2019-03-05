@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,11 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppraisalData.cs" />
+    <Compile Include="AppraisalExecuteData.cs" />
+    <Compile Include="AppraisalText.cs" />
     <Compile Include="AppraisalExecute.cs" />
     <Compile Include="AppraisalList.cs" />
+    <Compile Include="AssemblyListControl.cs" />
     <Compile Include="CommonParameters.cs" />
+    <Compile Include="MethodAppraisalComment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MethodSetupList.cs" />
     <Compile Include="SPandParameters.cs" />
   </ItemGroup>
   <ItemGroup>
