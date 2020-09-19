@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Appraisal11_NotExists.aspx.cs" Inherits="EPA2.EPAappraisal.Appraisal11_NotExists" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Appraisal11_NotExists.aspx.cs" Inherits="EPA2.EPAappraisal.Appraisal11NotExists" %>
 
 <!DOCTYPE html>
 
@@ -49,7 +49,7 @@
                  <asp:Label ID="labelMessage" runat="server" CssClass="labelMessage">Text Box Message</asp:Label>
             </div>
             <div class="ContentTextarea">                        
-                <asp:TextBox ID="myText" runat="server" OnTextChanged="myText_TextChanged" Height="400px" MaxLength="5000" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                <asp:TextBox ID="myText" runat="server" OnTextChanged="MyText_TextChanged" Height="400px" MaxLength="5000" TextMode="MultiLine" Width="99%"></asp:TextBox>
             </div>
          <div style="display: inline; width: 100%; float: left;">
  
@@ -70,9 +70,9 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
         </footer>
         <%--   <div class="bottom">
             &nbsp;
@@ -126,7 +126,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
@@ -144,7 +144,7 @@
             $("section").css("height", vHeight)
             Highlight_LeftMenuSelectNode();
             if ($("#hfPageReadonly").val() == "Yes") {
-                DisableTextEdit();
+                disableTextEdit();
             }
             $("#closeActionPOP").click(function (event) {
                 $("#ActionPOPDIV").fadeToggle("fast");
@@ -155,7 +155,7 @@
 
         });
 
-        function DisableTextEdit() {
+        function disableTextEdit() {
             $('input[type="text"], textarea').attr('readonly', 'readonly');
         }
 

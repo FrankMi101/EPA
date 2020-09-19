@@ -1,27 +1,23 @@
-﻿using System;
+﻿
+using ClassLibrary;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
-
 namespace EPA2.EPAappraisal
 {
-    public partial class Content_EvidenceLog : System.Web.UI.Page
+    public partial class ContentEvidenceLog : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
-               
+                SetPageAttribution();
+
                 BindGridViewData("Appraiser");
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "AppraisalList";
@@ -29,14 +25,14 @@ namespace EPA2.EPAappraisal
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
             hfRunningModel.Value = WebConfig.RunningModel();
             hfObjRole.Value = "Appraiser";
- 
+
         }
-     
+
         private void BindGridViewData(string objRole)
         {
             try
             {
-                GridView1.DataSource = GetDataSource(true,objRole);
+                GridView1.DataSource = GetDataSource(true, objRole);
                 GridView1.DataBind();
             }
             catch (Exception ex)
@@ -45,27 +41,25 @@ namespace EPA2.EPAappraisal
             }
 
         }
-        private DataTable GetDataSource(Boolean goDatabase, string objRole)
+        private List<BuildLookForsList> GetDataSource(Boolean goDatabase, string objRole)
         {
-            string schoolyear = WorkingProfile.SchoolYear;
-            string schoolcode = WorkingAppraisee.AppraisalSchoolCode;
-            string employeeID = WorkingAppraisee.EmployeeID;
-            string sessionID = WorkingAppraisee.SessionID;
-            string category = Page.Request.QueryString["type"];
-            string area = Page.Request.QueryString["aID"];
-            string itemCode = Page.Request.QueryString["iCode"];
-            string domainID = Page.Request.QueryString["domainID"];
-            string competencyID = Page.Request.QueryString["competencyID"];
-            string seqNo = Page.Request.QueryString["SeqNo"];
-            string actionItem = Page.Request.QueryString["ActionItem"];
-            string actionRole = "Appraiser";
- 
             try
             {
-               // DataSet DS = new DataSet();
-                DataSet DS = AppraisalProcess.LookForsList("GetForSUM", User.Identity.Name, schoolyear, schoolcode, employeeID, sessionID, category, area, itemCode, domainID, competencyID, actionRole, objRole);
+                var parameter = new
+                {
+                    Operate = "Get",
+                    UserID = User.Identity.Name,
+                    WorkingProfile.SchoolYear,
+                    SchoolCode = WorkingAppraisee.AppraisalSchoolCode,
+                    WorkingAppraisee.EmployeeID,
+                    WorkingAppraisee.SessionID,
+                    DomainID = Page.Request.QueryString["domainID"],
+                    CompetencyID = Page.Request.QueryString["competencyID"],
+                    ObjRole = objRole
 
-                return DS.Tables[0];
+                };
+                 SetcurrentTab();
+               return AppraisalLibrary.LookForsList(parameter);
             }
             catch (Exception ex)
             {
@@ -76,19 +70,23 @@ namespace EPA2.EPAappraisal
 
         }
 
-      
+        //protected void DdlSearch_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    BindGridViewData("Appraiser");
+        //}
 
-
-
-
-        protected void ddlSearch_SelectedIndexChanged(object sender, EventArgs e)
+        //protected void BtnSearch_Click(object sender, EventArgs e)
+        //{
+        //    BindGridViewData("Appraiser");
+        //}
+        private void SetcurrentTab()
         {
-            BindGridViewData("Appraiser");
-        }
-
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
-            BindGridViewData("Appraiser");
+            string owner = User.Identity.Name;
+            if ( WorkingProfile.UserAppraisalRole =="Appraiser")
+                hfSelectedTab.Value = "Appraiser";
+            else
+                hfSelectedTab.Value = "Appraisee";
+          
         }
 
         protected void Appraiser_Click(object sender, EventArgs e)

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.IO;
+using System.Web.UI;
 
 namespace EPA2.EPAsystem
 {
@@ -14,100 +10,105 @@ namespace EPA2.EPAsystem
         {
             if (!Page.IsPostBack)
             {
-                string GoPage = Page.Request.QueryString["pID"];
-                string cID = "";
-                switch (GoPage)
-                {
-                    case "AppraisalCategory":
-                        GoPage = "AppraisalCategorySetup.aspx";
-                        break;
-                    case "ApplicationRole":
-                        GoPage = "ApplicationRoleManage.aspx";
-                        break;
-                    case "UserCategory":
-                        GoPage = "TabExample.aspx";
-                        break;
-                    case "UserManagement":
-                        GoPage = "ApplicationUsers.aspx";
-                        break;
-                    case "MultipleSchoolUser":
-                        GoPage = "ApplicationUsersMultipleSchools.aspx";
-                        break;
-                    case "SchoolDistrictSetup":
-                        GoPage = "SchoolDistrictSetup.aspx";
-                        break;
-                    case "SchoolRegionSetup":
-                        GoPage = "SchoolRegionSetup.aspx";
-                        break;
-                    case "SchoolManagement":
-                        GoPage = "SchoolManagement.aspx";
-                        break;
-                    case "SystemStatements":
-                        GoPage = "ApplicationStatement";
-                        break;
-                    case "EmailTemplate":
-                        GoPage = "EmailTemplateEdit.aspx";
-                        break;
-                    case "StaffRollOver":
-                        GoPage = "AppraisalStaffRollOver.aspx";
-                        break;
-                    case "Domain":
-                        GoPage = "DomainSetup.aspx";
-                        break;
-                    case "Competency":
-                        GoPage = "DomainCompetencySetup.aspx";
-                        break;
-                    case "LookFors":
-                        GoPage = "DomainLookForsSetup.aspx";
-                        break;
-                    case "PrincipalBank":
-                        cID = "Personal";
-                        GoPage = "CommentsBankSetup.aspx";
-                        break;
-                    case "SchoolBank":
-                        cID = "School";
-                        GoPage = "CommentsBankSetup.aspx";
-                        break;
-                    case "BoardBank":
-                        cID = "Board";
-                        GoPage = "CommentsBankSetup.aspx";
-                        break;
-                    case "BoardStatements":
-                        cID = "Board";
-                        GoPage = "StatementsSetup.aspx";
-                        break;
-                    case "SchoolStatements":
-                        cID = "School";
-                        GoPage = "StatementsSetup.aspx";
-                        break;
-                    case "TestPage.aspx":
-                        GoPage = "Appraisal00.aspx";
-                        break;
-                    default:
-                        cID = GoPage;
-                        GoPage = "ListItemsSetup.aspx";
-                        break;
-                }
-                GoPage = getGoPagebyCode(GoPage) + "?cID=" + cID;
-                PageURL.HRef = GoPage;
+                string goPage = Page.Request.QueryString["pID"];
+
+                PageURL.HRef = GetGoPage(goPage);
             }
+        }
+        private string GetGoPage(string goPage)
+        {
+            string cId = "";
+            switch (goPage)
+            {
+                case "AppraisalCategory":
+                    goPage = "AppraisalCategorySetup.aspx";
+                    break;
+                case "AppraisalArea":
+                    goPage = "AppraisalAreaSetup.aspx";
+                    break;
+                case "ApplicationRole":
+                    goPage = "ApplicationRoleManage.aspx";
+                    break;
+                case "UserCategory":
+                    goPage = "TabExample.aspx";
+                    break;
+                case "UserManagement":
+                    goPage = "ApplicationUsers.aspx";
+                    break;
+                case "MultipleSchoolUser":
+                    goPage = "ApplicationUsersMultipleSchools.aspx";
+                    break;
+                case "SchoolDistrictSetup":
+                    goPage = "SchoolDistrictSetup.aspx";
+                    break;
+                case "SchoolRegionSetup":
+                    goPage = "SchoolRegionSetup.aspx";
+                    break;
+                case "SchoolManagement":
+                    goPage = "SchoolManagement.aspx";
+                    break;
+                case "SystemStatements":
+                    goPage = "ApplicationStatement";
+                    break;
+                case "EmailTemplate":
+                    goPage = "EmailTemplateEdit.aspx";
+                    break;
+                case "StaffRollOver":
+                    goPage = "AppraisalStaffRollOver.aspx";
+                    break;
+                case "Domain":
+                    goPage = "DomainSetup.aspx";
+                    break;
+                case "Competency":
+                    goPage = "DomainCompetencySetup.aspx";
+                    break;
+                case "LookFors":
+                    goPage = "DomainLookForsSetup.aspx";
+                    break;
+                case "PrincipalBank":
+                    cId = "Personal";
+                    goPage = "CommentsBankSetup.aspx";
+                    break;
+                case "SchoolBank":
+                    cId = "School";
+                    goPage = "CommentsBankSetup.aspx";
+                    break;
+                case "BoardBank":
+                    cId = "Board";
+                    goPage = "CommentsBankSetup.aspx";
+                    break;
+                case "BoardStatements":
+                    cId = "Board";
+                    goPage = "StatementsSetup.aspx";
+                    break;
+                case "SchoolStatements":
+                    cId = "School";
+                    goPage = "StatementsSetup.aspx";
+                    break;
+                case "TestPage.aspx":
+                    goPage = "Appraisal00.aspx";
+                    break;
+                default:
+                    cId = goPage;
+                 //   goPage = "ListItemsSetup.aspx";
+                    break;
+            }
+            return CheckGoPagebyCode(goPage) + "?cID=" + cId;
 
 
         }
-        private string getGoPagebyCode(string GoPage)
+        private string CheckGoPagebyCode(string goPage)
         {
-            string rVal = GoPage;
-
+            string rVal = goPage;
             try
             {
-                if (!File.Exists(Server.MapPath(GoPage)))
+                if (!File.Exists(Server.MapPath(goPage)))
                 { rVal = "ListItemsSetup.aspx"; }
             }
             catch
             {
                 rVal = "ListItemsSetup.aspx";
             }
-
             return rVal;
         }
     }

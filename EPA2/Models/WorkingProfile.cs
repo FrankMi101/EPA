@@ -5,7 +5,7 @@ using System.Web.UI;
 /// Summary description for WorkingProfile
 /// </summary>
 /// 
-using DataAccess;
+using BLL;
 namespace EPA2
 {
     public class WorkingProfile : System.Web.UI.Page
@@ -16,16 +16,17 @@ namespace EPA2
             // TODO: Add constructor logic here
             //
         }
-        
-        public static string UserID
-        { get
-           
+
+        public static string UserId
+        {
+            get
+
             {
                 return HttpContext.Current.User.Identity.Name;
             }
-  
+
         }
-        public static string UserEmployeeID
+        public static string UserEmployeeId
         {
             get
 
@@ -59,7 +60,7 @@ namespace EPA2
                 HttpContext.Current.Session["userrole"] = value;
             }
         }
-        public static string UserRoleLogin
+         public static string UserRoleLogin
         {
             get
             {
@@ -74,7 +75,7 @@ namespace EPA2
                 HttpContext.Current.Session["userrolelogin"] = value;
             }
         }
-       public static string UserAppraisalRole
+        public static string UserAppraisalRole
         {
             get
             {
@@ -106,24 +107,24 @@ namespace EPA2
 
             }
         }
-         public static string ImageFileID 
+        public static string ImageFileId
         {
-            get 
+            get
             {
-                 return HttpContext.Current.Session["imagefileID"].ToString();
+                return HttpContext.Current.Session["imagefileID"].ToString();
             }
             set
             {
                 HttpContext.Current.Session["imagefileID"] = value;
-             }
-        }
-         public static string Model 
-        {
-            get 
-            {
-                 return WebConfig.getValuebyKey("ApplicationModel");
             }
-  
+        }
+        public static string Model
+        {
+            get
+            {
+                return WebConfig.getValuebyKey("ApplicationModel");
+            }
+
         }
         public static string PageCategory
         {
@@ -175,7 +176,7 @@ namespace EPA2
                 HttpContext.Current.Session["schoolyear"] = value;
             }
         }
-       public static string SchoolCode
+        public static string SchoolCode
         {
             get
             {
@@ -188,6 +189,21 @@ namespace EPA2
             set
             {
                 HttpContext.Current.Session["schoolcode"] = value;
+            }
+        }
+        public static string SchoolArea
+        {
+            get
+            {
+                if (HttpContext.Current.Session["schoolarea"] == null)
+                {
+                    HttpContext.Current.Session["schoolarea"] = UserLastWorking.SchoolArea;
+                }
+                return HttpContext.Current.Session["schoolarea"].ToString();
+            }
+            set
+            {
+                HttpContext.Current.Session["schoolarea"] = value;
             }
         }
         public static string OpenSchoolYear
@@ -206,5 +222,20 @@ namespace EPA2
             }
         }
 
+        public static string WorkingOnAppr
+        {
+            get
+            {
+                if (HttpContext.Current.Session["workingonappr"] == null)
+                {
+                    HttpContext.Current.Session["workingonappr"] = "TPA";
+                }
+                return HttpContext.Current.Session["workingonappr"].ToString();
+            }
+            set
+            {
+                HttpContext.Current.Session["workingonappr"] = value;
+            }
+        }
     }
 }

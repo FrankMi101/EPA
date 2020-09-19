@@ -180,7 +180,8 @@
 
         </div>
         <div id="HelpDIV" class="bubble epahide">
-            <div id="textHelp"></div>
+                       <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+
         </div>
 
 
@@ -218,7 +219,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -237,7 +238,7 @@
     var eventCell;
     var schoolyear = $("#hfSchoolYear").val();
     $(document).ready(function () {
-        MakeStaticHeader("GridView1", 650, 1250, 25, false);
+        MakeStaticHeader("GridView1", 650, 1250, 20, false);
         var vHeight = screen.height - 150 - 110 - 70;
         $("section").css("height", vHeight)
 
@@ -250,13 +251,13 @@
                 if ($("#hfContentChange").val() == "1") {
                     eventCell = $(this);
 
-                    var IDs = $(this).closest('tr').find('td.listIDs').text();
-                    var domainID = $(this).closest('tr').find('td.myDomainID').text();
+                    var iDs = $(this).closest('tr').find('td.listIDs').text();
+                    var domainId = $(this).closest('tr').find('td.myDomainID').text();
                     var shared = $(this).closest('tr').find('td > .myShared').val();
                     var comm = $(this).closest('tr').find('td > .myComment').val();
                     var check = $(this).closest('tr').find('td > .myCheck');
                     var active = (check[0].childNodes['0'].checked ? "1" : "0");
-                    var result = EPA2.Models.WebService.SaveCommentsBank("Update", UserID, CategoryID, AreaID,bankType,bankOwner, IDs, domainID, shared, comm, active, onSuccessUpdate, onFailureUpdate);
+                    var result = EPA2.Models.WebService.SaveCommentsBank("Update", UserID, CategoryID, AreaID,bankType,bankOwner, iDs, domainId, shared, comm, active, onSuccessUpdate, onFailureUpdate);
                     $("#hfContentChange").val("0");
                 }
             }
@@ -271,14 +272,14 @@
             workingCell = $(this).closest('tr').find('td.myDomainID');
             $("#ddlDomain").show();
             $("#ddlShared").hide();  
-            openDDL(event);
+            openDdl(event);
         });
         $('td > .myShared').click(function (event) {
             //    IDs = $(this).closest('tr').find('td .listIDs').text();
             eventCell = $(this);
              $("#ddlDomain").hide();
             $("#ddlShared").show();
-            openDDL(event);
+            openDdl(event);
         });
 
 
@@ -297,7 +298,7 @@
             $("#hfContentChange").val("1");
             $("#DDLDIV").fadeToggle("fast");
         });
-        function openDDL(event) {
+        function openDdl(event) {
             var vTop = event.currentTarget.parentNode.offsetTop + 43;
             var vLeft = event.currentTarget.parentNode.offsetLeft;
 
@@ -313,17 +314,17 @@
 
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
@@ -332,10 +333,10 @@
 
     });
 
-    function DeleteRecord(IDs, owner, domainID) {
+    function DeleteRecord(iDs, owner, domainId) {
         var result = confirm("Do you want to delete this row?");
         if (result) {
-            var result = EPA2.Models.WebService.SaveCommentsBank("Delete", UserID, CategoryID, AreaID, bankType, owner, IDs, domainID, "", "", "0", onSuccessDel, onFailureDel);
+            var result = EPA2.Models.WebService.SaveCommentsBank("Delete", UserID, CategoryID, AreaID, bankType, owner, iDs, domainId, "", "", "0", onSuccessDel, onFailureDel);
         }
         else {
 

@@ -40,13 +40,13 @@ namespace EPA2.EPAappraisal {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl PageTitle;
         
         /// <summary>
-        /// labelTitle control.
+        /// labelTitle1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelTitle;
+        protected global::System.Web.UI.WebControls.Label labelTitle1;
         
         /// <summary>
         /// rblViewPermission control.
@@ -56,6 +56,42 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rblViewPermission;
+        
+        /// <summary>
+        /// hfNoticePermission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfNoticePermission;
+        
+        /// <summary>
+        /// imgNoticePermission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgNoticePermission;
+        
+        /// <summary>
+        /// labelTitle2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelTitle2;
+        
+        /// <summary>
+        /// CheckBoxAutoEmailNotice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxAutoEmailNotice;
         
         /// <summary>
         /// btnPrevious control.
@@ -83,6 +119,15 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNext;
+        
+        /// <summary>
+        /// HelpTextContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox HelpTextContent;
         
         /// <summary>
         /// ActioniFramePage control.

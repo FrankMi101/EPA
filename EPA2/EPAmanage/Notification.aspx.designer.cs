@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPA2.EPAmanage {
-    
-    
-    public partial class Notification {
-        
+namespace EPA2.EPAmanage
+{
+
+
+    public partial class Notification
+    {
+
         /// <summary>
         /// Head1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-        
+
         /// <summary>
         /// form2 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form2;
-        
+
         /// <summary>
         /// rblNoticeType control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rblNoticeType;
-        
+
         /// <summary>
         /// TextAppraisalYear control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextAppraisalYear;
-        
+
         /// <summary>
         /// TextAppraisalSession control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextAppraisalSession;
-        
+
         /// <summary>
         /// TextCurrentCycle control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextCurrentCycle;
-        
+
         /// <summary>
         /// LableDeadLine control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LableDeadLine;
-        
+
         /// <summary>
         /// DeadLineDate control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText DeadLineDate;
-        
+
         /// <summary>
         /// TextSubject control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextSubject;
-        
+
         /// <summary>
         /// myText control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox myText;
-        
+
         /// <summary>
         /// btnSend control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSend;
-        
+
         /// <summary>
         /// chbICalendar control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chbICalendar;
-        
+
         /// <summary>
         /// btnRetrieve control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRetrieve;
-        
+
         /// <summary>
         /// btnAppointment control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAppointment;
-        
+
         /// <summary>
         /// hfCategory control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfCategory;
-        
+
         /// <summary>
         /// hfPageID control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfPageID;
-        
+
         /// <summary>
         /// hfUserID control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserID;
-        
+
         /// <summary>
         /// hfUserLoginRole control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserLoginRole;
-        
+
         /// <summary>
         /// hfRunningModel control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfRunningModel;
-        
+
         /// <summary>
         /// hfParameters control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfParameters;
-        
+
         /// <summary>
         /// txtResolution control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtResolution;
-        
+
         /// <summary>
         /// hfApprYear control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprYear;
-        
+
         /// <summary>
         /// hfApprSchool control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprSchool;
-        
+
         /// <summary>
         /// hfApprSession control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprSession;
-        
+
         /// <summary>
         /// hfApprEmployeeID control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprEmployeeID;
-        
+
         /// <summary>
         /// hfApprName control.
         /// </summary>
@@ -245,5 +247,14 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprName;
+
+        /// <summary>
+        /// hfWebSite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfWebSite;
     }
 }

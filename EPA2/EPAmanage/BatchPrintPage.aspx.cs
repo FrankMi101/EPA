@@ -1,4 +1,4 @@
-﻿using DataAccess;
+﻿using BLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +16,16 @@ namespace EPA2.EPAmanage
             {
                 Page.Response.Expires = 0;
                 string reportName = Page.Request.QueryString["rID"];
-                string selectedID = Page.Request.QueryString["eIDs"];
-                string[] arrayID = selectedID.Split(';'); // split string on comma space
-                Session["SelectedPrintID"] = arrayID;
+                string selectedId = Page.Request.QueryString["eIDs"];
+                string[] arrayId = selectedId.Split(';'); // split string on comma space
+                Session["SelectedPrintID"] = arrayId;
  
 
                 try
                 {
                     
                     string rFormat = WebConfig.ReportFormat();
-                    Byte[] result = ReportRender.MultiplePDF(arrayID, reportName, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode, "Appraisal1");
+                    Byte[] result = ReportRender.MultiplePDF(arrayId, reportName, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode, "Appraisal1");
 
                     if (result.Length != 0)
                     {

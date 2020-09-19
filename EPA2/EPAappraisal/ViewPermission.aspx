@@ -70,65 +70,78 @@
             </div>
 
         </header>
-        <section>
+        <section style="height: 500px;">
             <div class="ContentTitle">
                 <div id="ContentTitleLeft">
-                    <asp:Label ID="labelTitle" runat="server" CssClass="labelTitle">Text Box Title</asp:Label>
-                    <img class="imgHelp" src="../images/help2.png" title="Help Content" />
-                   
+                    <asp:Label ID="labelTitle1" runat="server" CssClass="labelTitle">Text Box Title</asp:Label>
+                    <img id ="img_1" class="imgHelp" src="../images/help2.png" title="Help Content" />
+
 
                 </div>
 
             </div>
             <div class="AppraisaleeSignOff">
-             
-                <table style="width: 500px">
-                   
-                   
-                    <tr>
-                        <td colspan="4" style="text-align: left; font-style: italic; color: orangered">
+                <br />
+                <br />
+                <table style="width: 100%;">
 
-                            <asp:RadioButtonList ID="rblViewPermission" runat="server" OnSelectedIndexChanged="rblViewPermission_SelectedIndexChanged">
+
+                    <tr>
+                        <td style="text-align: left; width: 70%; font-style: italic; color: orangered">
+
+                            <asp:RadioButtonList ID="rblViewPermission" runat="server" OnSelectedIndexChanged="RblViewPermission_SelectedIndexChanged">
                                 <asp:ListItem Value="NotAllow" Selected="true">Not Allow Appraisee to View Appraisal Content by Default</asp:ListItem>
                                 <asp:ListItem Value="Allow">Allow Appraisee View only</asp:ListItem>
                                 <asp:ListItem Value="SignOff">Allow Appraisee View and Sign off</asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
+                        <td>
+                            <asp:HiddenField ID="hfNoticePermission" runat="server" />
+                            <img height="30" width="35" class="imgNotice" runat="server" id="imgNoticePermission" src="../images/email.png" title="Email Notification" />
+
+                        </td>
                     </tr>
                 </table>
 
-
+                <br />
+                <br />
+                <br />
 
             </div>
 
+            <div id="ContentTitleLeft2">
+                <asp:Label ID="labelTitle2" runat="server" CssClass="labelTitle">Text Box Title</asp:Label>
+                <img id ="img_2" class="imgHelp" src="../images/help2.png" title="Help Content" />
 
-
+            </div>
+            <br />
+            <div  style="text-align: left; width:100%; font-style: italic; color: orangered">
+                <asp:CheckBox ID="CheckBoxAutoEmailNotice" runat="server"  Checked="true"  Text="Automatically send email notificaiton to your Appraisee/Appraiser when you sign off the Appraisal" OnCheckedChanged="CheckBoxAutoEmailNotice_CheckedChanged" />
+            </div>
         </section>
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" Visible="false" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" Visible="false" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
         </footer>
         <%--   <div class="bottom">
             &nbsp;
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <div id="textHelp"></div>
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine"  CssClass="HelpTextBox"></asp:TextBox>
         </div>
-
-      <div id="ActionPOPDIV" class="bubble epahide">
+        <div id="ActionPOPDIV" class="bubble epahide">
             <div class="editTitle" style="display: block; margin-top: 5px;">
-                <div id="ActionTitle" style="display: inline; float: left; width: 96%"></div>
-                <div style="display: inline; float: left;">
+                <div id="ActionTitle" style="display: inline; float: left; width: 95%"></div>
+                <div style="display: inline; width: 5%; float: right;">
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
             </div>
-            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%"   src="iBlankPage.html" runat="server"></iframe>
         </div>
- 
 
 
         <div>
@@ -155,7 +168,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
@@ -168,27 +181,27 @@
     var SignOffImg;
     function pageLoad(sender, args) {
         $(document).ready(function () {
-            
-
-            var vHeight = screen.height - 150 - 110 - 70;
-            $("section").css("height", vHeight)
-            Highlight_LeftMenuSelectNode();
-           
-
-            $("#closeActionPOP").click(function (event) {
-                $("#ActionPOPDIV").fadeToggle("fast");
-            });
 
 
-            $(".labelTitle").dblclick(function (event) {
-                EditPageItemTitle();
-            });
-            
+            // var vHeight = screen.height - 150 - 210 ;
+            // $("section").css("height", vHeight)
+            // Highlight_LeftMenuSelectNode();
+
+
+            //$("#closeActionPOP").click(function (event) {
+            //    $("#ActionPOPDIV").fadeToggle("fast");
+            //});
+
+
+            //$(".labelTitle").dblclick(function (event) {
+            //    EditPageItemTitle();
+            //});
+
         });
 
     }
-                  
-  
-    
+
+
+
 
 </script>

@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Text4PageBPA {
+    public partial class Text4PageBpa {
         
         /// <summary>
         /// form2 control.

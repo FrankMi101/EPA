@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text4PageBPA.aspx.cs" Inherits="EPA2.EPAappraisal.Text4PageBPA" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text4PageBPA.aspx.cs" Inherits="EPA2.EPAappraisal.Text4PageBpa" %>
 
 <!DOCTYPE html>
 
@@ -232,7 +232,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <%--<script src="../Scripts/GridView.js"></script>--%>
@@ -251,43 +251,58 @@
     var actionItem;
     var DomainID = "1";
     var CompetencyID = "1";
+     var BasePara = {
+        UserID: $("#hfUserID").val(),
+        Category: $("#hfCategory").val(),
+        Area: $("#hfArea").val(),
+        ItemCode: $("#hfCode").val(),
+        SchoolYear: $("#hfApprYear").val(),
+        SchoolCode: $("#hfApprSchool").val(),
+        SessionID: $("#hfApprSession").val(),
+        EmployeeID: $("#hfApprEmployeeID").val(),
+        Value: "",
+        SeqNo: "",
+        GoalItem:"",
+        Operate: "Comment"
+    }
+
     $(document).ready(function () {
         var vHeight = window.innerHeight - apprScreenH;
         $("section").css("height", vHeight)
         Highlight_LeftMenuSelectNode();
       
         $(".myTextEdit").click(function (event) {
-            var tID = $(this)[0].id;
-            $("#hfWorkingCell").val(tID);
-            DomainID = tID.replace("myText", "");
+            var tId = $(this)[0].id;
+            $("#hfWorkingCell").val(tId);
+            DomainID = tId.replace("myText", "");
         });
         $(".myTextEdit").keydown(function (event) {
             CountTextBoxCharactors();
         });
         $(".myTextEdit").change(function (event) {
             if ($("#hfPageReadonly").val() != "Yes") {
-                var tID = $(this)[0].id.replace("myText", "");
-                $("#hfContentChange" + tID).val("1");
+                var tId = $(this)[0].id.replace("myText", "");
+                $("#hfContentChange" + tId).val("1");
                 $("#hfContentChange").val("1");
             }
         });
         if ($("#hfPageReadonly").val() == "Yes") {
             DisableTextEdit();
         }
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
         $("table .labelTitle2").dblclick(function (event) {
-            var objID = $(this)[0].id;
-            ItemCode = ItemCode + objID.replace("labelTitle", "")
+            var objId = $(this)[0].id;
+            ItemCode = ItemCode + objId.replace("labelTitle", "")
             EditPageItemTitle();
             event.stopPropagation();
         });
@@ -313,8 +328,11 @@
     function updateTextCellAfterContentAction() {
         try {
             var workingCell = $("#hfWorkingCell").val();
-            var value = $("#" + workingCell).val();
-            var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+ 
+            BasePara.Operate = "Comment";
+            BasePara.Value = $("#" + workingCell).val();
+            EPA2.Models.WebService1.SaveGridCellText("AGP", BasePara, onSuccess, onFailure);
+         //   var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
         }
         catch (e)
         { window.alert("Update Text Cell Failed!"); }

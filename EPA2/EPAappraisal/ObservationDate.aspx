@@ -109,21 +109,21 @@
 
                 <div class="container visible-xs visible-sm visible-md visible-lg">
                     <div class="row" style="width: 100%">
-                        <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4">
+                        <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4" style="text-wrap:avoid; width:35%">
                             <asp:Label ID="labelTitle1" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
                             <br />
                             <input runat="server" type="text" id="dateObservationPre" name="PreObservation" class="ObservationDate" size="9" />
                             <br />
                             <asp:Label ID="labelTitle4" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
                         </div>
-                        <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4">
+                        <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4" style="text-wrap:avoid; width:30%">
                             <asp:Label ID="labelTitle2" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
                             <br />
                             <input runat="server" type="text" id="dateObservation" name="Observation" class="ObservationDate" size="9" />
                             <br />
                             <asp:Label ID="labelTitle5" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
                         </div>
-                        <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4">
+                        <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4" style="text-wrap:avoid; width:35%">
                             <asp:Label ID="labelTitle3" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
                             <br />
                             <input runat="server" type="text" id="dateObservationPost" name="PostObservation" class="ObservationDate" size="9" />
@@ -150,9 +150,9 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
             <%--     <asp:Button ID="btnCompetency" runat="server" Text="" OnClick="btnCompetency_Click" />--%>
         </footer>
         <%--   <div class="bottom">
@@ -214,7 +214,7 @@
 </body>
 </html>
 
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/Appr_ListPage.js"></script>
@@ -283,22 +283,22 @@
         }
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
-        $("#btnSave").click(function (event) {
-            // SaveCompentencyTextContent();
-            //   return true;
-        });
+        //$("#btnSave").click(function (event) {
+        //    // SaveCompentencyTextContent();
+        //    //   return true;
+        //});
         $(".ObservationDate").change(function (event) {
             $("#hfContentChange").val("1");
         });

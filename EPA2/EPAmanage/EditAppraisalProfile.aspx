@@ -9,9 +9,9 @@
     <meta http-equiv="Cache-Control" content="no-Store,no-Cache" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-     <link href="../Content/ContentPage.css" rel="stylesheet" />
+    <link href="../Content/ContentPage.css" rel="stylesheet" />
     <link href="../Content/BubbleHelp.css" rel="stylesheet" />
-     <link href="../Scripts/JqueryUI/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../Scripts/JqueryUI/jquery-ui.min.css" rel="stylesheet" />
 
     <style>
         body {
@@ -46,7 +46,12 @@
             background-color: whitesmoke;
         }
     </style>
-  
+    <script type="text/javascript">
+        function CallShowMessage(action, message) {
+            window.alert(action + " " + message);
+        }
+
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -63,10 +68,10 @@
              <div class="columnContent"> <asp:DropDownList ID="DropDownList1" runat="server" CssClass="EditItem"></asp:DropDownList></div>
         </div>--%>
         <div>
-          <table style="width: 100%">
+            <table style="width: 100%">
                 <tr>
                     <td style="width: 18%">User ID</td>
-                    <td style="width: 32%">
+                    <td style="width: 32%"> 
                         <asp:TextBox ID="TextUserID" runat="server" CssClass="ReadonlyItem"> </asp:TextBox></td>
                     <td style="width: 18%">Employee ID</td>
                     <td style="width: 32%">
@@ -106,9 +111,22 @@
                         <asp:DropDownList ID="ddlTimeType" runat="server" CssClass="EditItem"></asp:DropDownList></td>
                 </tr>
                 <tr>
+                    <td>Start Date:</td>
+                    <td>
+                        <input runat="server" type="text" id="DateStart" name="DateStart" size="9" />
+
+                    </td>
+                    <td>End date:</td>
+                    <td>
+                        <input runat="server" type="text" id="DateEnd" name="DateEnd" size="9" />
+
+                    </td>
+                </tr>
+
+                <tr>
                     <td>Appraisal School</td>
                     <td colspan="3">
-                        <asp:DropDownList ID="ddlSchoolCode" runat="server" CssClass="EditItem" Width="80px" ></asp:DropDownList>
+                        <asp:DropDownList ID="ddlSchoolCode" runat="server" CssClass="EditItem" Width="80px"></asp:DropDownList>
                         <asp:DropDownList ID="ddlSchoolName" runat="server" CssClass="EditItem" Width="430px"></asp:DropDownList>
                     </td>
 
@@ -137,12 +155,16 @@
             </table>
 
             <div style="text-align: center">
-                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
+                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
 
-                <asp:Button ID="btnRemove" runat="server" Text="Remove from Appraisal Lsit" Width="250px" CssClass="saveButton" OnClick="btnRemove_Click" />
+                <asp:Button ID="btnRemove" runat="server" Text="Remove from Appraisal Lsit" Width="200px" CssClass="saveButton" OnClick="BtnRemove_Click" />
+               <asp:Button ID="btnCopy" runat="server" Text="Copy to New Phase or School" Width="200px" CssClass="saveButton" OnClick="BtnCopy_Click" />
 
             </div>
-
+            <div style =" color:darkred">
+                <asp:Label ID="LabelForAppraisee" runat="server" Visible="false" Text="* Change school or phase and then click on the Copy to New button. Will creat new appraisal record for appraisee in new school or new phase. "></asp:Label>
+                 <asp:Label ID="LabelForAppraiser" runat="server" Visible ="false" Text="* Change school and then click on the Working for Multiple School button. Will add this principal to a new new school."></asp:Label>
+            </div>
         </div>
         <div>
             <asp:HiddenField ID="hfCategory" runat="server" />
@@ -156,10 +178,14 @@
 </body>
 </html>
 
-
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/GridView.js"></script>
-<script src="../Scripts/Appr_ListPage.js"></script>
+<script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
+<script src="../Scripts/CommonDOM.js"></script>
+
+
+
+<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 
 <script type="text/javascript">
     var rowNo;
@@ -173,15 +199,19 @@
     var currentTR;
     $(document).ready(function () {
 
-      
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
+        InitialDatePickerControl()
+
+
     });
 
-      
-        function CallShowMessage(action, message) {
-            window.alert(action + " " + message);
-        }
-   
+
+    function InitialDatePickerControl() {
+        var value = new Date().toDateString;
+        var minD;
+        var maxD;
+
+        JDatePicker.Initial($("#DateStart"), minD, maxD, value);
+        JDatePicker.Initial($("#DateEnd"), minD, maxD);
+    }
+
 </script>

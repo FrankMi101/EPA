@@ -8,14 +8,14 @@
 
         //*** Set divheaderRow Properties ****
         DivHR.style.height = headerHeight +5   + 'px';
-        DivHR.style.width = '99%'; // (parseInt(width) - 16) + 'px';
+        DivHR.style.width = (parseInt(width) - 16) + 'px'; // '99%'; //
         DivHR.style.position = 'relative';
         DivHR.style.top = '0px';
         DivHR.style.zIndex = '10';
         DivHR.style.verticalAlign = 'top';
 
         //*** Set divMainContent Properties ****
-        DivMC.style.width = '100%'; // width + 'px';
+        DivMC.style.width =  width + 'px';// '100%'; //
         DivMC.style.height =   height + 'px';
         DivMC.style.position = 'relative';
         DivMC.style.marginTop = -5 + 'px';  
@@ -57,7 +57,7 @@
 }
 
 function addGridViewHeader() {
-    var index = 0
+    var index = 0;
 
 
     $('#GridView1 > tbody  > tr:not(:first)').each(function () {
@@ -67,11 +67,7 @@ function addGridViewHeader() {
             window.alert(myHeaderStyle);
         });
         return false;
-    })
-
-
-
-
+    });
 }
 
 function OnScrollDiv(Scrollablediv) {

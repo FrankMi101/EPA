@@ -1,38 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
+using BLL;
+using ClassLibrary;
+using System;
+using System.Drawing.Imaging;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
-
 namespace EPA2.EPAappraisal
 {
     public partial class SignOffPage : System.Web.UI.Page
     {
+        string SignOffType = "II";
+        string ActionRole = "Appraisee";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                setPageAttribution();
+                if (WorkingAppraisee.AppraisalCode == "ALP95") SignOffType = "I";
+                // SignOffPermissionControl.Visible = false;
+                SetPageAttribution();
                 AllowViewPermissionCheck();
                 BindMyData();
-                setExtContentRow();
-
             }
             AssemblingPageTitle();
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             txtDomain.Text = WebConfig.DomainName();
             hfUserID.Value = User.Identity.Name;
             hfUserRole.Value = WorkingProfile.UserRole;
-            hfAppraiserID.Value = WorkingAppraisee.AppraiserID;
+            hfApprEmployeeID.Value = WorkingAppraisee.EmployeeID;
+            hfEmployeeID.Value = WorkingAppraisee.EmployeeID;
+            hfAppraiseeUserID.Value = WorkingAppraisee.UserID;
+            hfAppraiserUserID.Value = WorkingAppraisee.AppraiserID;
+            hfSignOffType.Value = SignOffType;
             AppraisalPage.SetPageAttribute(Page);
 
-            hfAppraisalActionRole.Value = AppraisalProcess.AppraisalActionRole(WorkingAppraisee.AppraisalType, WorkingProfile.UserRole, WorkingAppraisee.UserID, WorkingProfile.UserID);
-
+            hfAppraisalActionRole.Value = AppraisalProcess.AppraisalActionRole(WorkingAppraisee.AppraisalType, WorkingProfile.UserRole, WorkingAppraisee.UserID, WorkingProfile.UserId);
+            ActionRole = hfAppraisalActionRole.Value;
             if (hfAppraisalActionRole.Value == "Appraisee")
             { txtUserName.Text = WorkingAppraisee.UserID; }
             else
@@ -40,7 +43,7 @@ namespace EPA2.EPAappraisal
                 if (WorkingProfile.UserRole == "SO" || WorkingProfile.UserRole == "Admin")
                 {
                     CheckBoxEnforce.Visible = true;
-                    txtUserName.Text = User.Identity.Name;
+                    txtUserName.Text = User.Identity.Name; //  WorkingAppraisee.AppraiserID;
                 }
                 else
                 { txtUserName.Text = WorkingAppraisee.AppraiserID; }
@@ -53,22 +56,26 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
-            AppraisalData.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
-            AppraisalData.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
-            AppraisalData.BuildingTextTitle(ref labelTitle4, "Title", User.Identity.Name, category, area, code + "4");
-            AppraisalData.BuildingTextTitle(ref labelTitle5, "Title", User.Identity.Name, category, area, code + "5");
-            AppraisalData.BuildingTextTitle(ref labelTitle6, "Title", User.Identity.Name, category, area, code + "6");
-            AppraisalData.BuildingTextTitle(ref labelTitleX, "Title", User.Identity.Name, category, area, code + "X");
+            AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
+            AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
+            AppraisalPage.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
+            AppraisalPage.BuildingTextTitle(ref labelTitle4, "Title", User.Identity.Name, category, area, code + "4");
+            AppraisalPage.BuildingTextTitle(ref labelTitle5, "Title", User.Identity.Name, category, area, code + "5");
+            AppraisalPage.BuildingTextTitle(ref labelTitle6, "Title", User.Identity.Name, category, area, code + "6");
+            AppraisalPage.BuildingTextTitle(ref labelTitleX, "Title", User.Identity.Name, category, area, code + "X");
+
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
 
-            AppraisalData.BuildingTextMessage(ref labelMessage1, "Message", User.Identity.Name, category, area, code + "1");
-            AppraisalData.BuildingTextMessage(ref labelMessage3, "Message", User.Identity.Name, category, area, code + "3");
-            AppraisalData.BuildingTextMessage(ref labelMessage5, "Message", User.Identity.Name, category, area, code + "5");
 
-            hfDigitalSignatureReady.Value = SignatureProcess.DigitalSignature("Read", User.Identity.Name, WorkingProfile.UserEmployeeID);
+            AppraisalPage.BuildingTextMessage(ref labelMessage1, "Message", User.Identity.Name, category, area, code + "1");
+            AppraisalPage.BuildingTextMessage(ref labelMessage3, "Message", User.Identity.Name, category, area, code + "3");
+            AppraisalPage.BuildingTextMessage(ref labelMessage5, "Message", User.Identity.Name, category, area, code + "5");
+
+            hfDigitalSignatureReady.Value = SignatureProcess.DigitalSignature("Read", User.Identity.Name, WorkingProfile.UserEmployeeId);
             if (hfDigitalSignatureReady.Value == "Yes")
             {
                 chbCreateDS.Checked = false;
@@ -81,15 +88,30 @@ namespace EPA2.EPAappraisal
             }
 
         }
-        private void setExtContentRow()
+        private void SetExtContentRow()
         {
             string code = WorkingAppraisee.AppraisalCode;
             ExtContentRow.Visible = false;
-            //ExtContentRow2.Visible = false;
-            //ExtContentRow3.Visible = false;
+            ExtContentRow2.Visible = false;
+            ExtContentRow3.Visible = false;
             ExtContentRow4.Visible = false;
+            ExtContentRow5.Visible = false;
             MyDate.Visible = false;
             btnYesNo.Visible = false;
+            btnYesNo.SelectedIndex = 1;
+
+            var parameter = new AppraisalCommentSignOff()
+            {
+                Operate = "Date",
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ItemCode = hfCode.Value,
+            };
 
             switch (code)
             {
@@ -100,37 +122,56 @@ namespace EPA2.EPAappraisal
                     ExtContentRow4.Visible = true;
                     ExtContentRow.Visible = true;
                     MyDate.Visible = true;
-                    MyDate.Value = AppraisalDataAC.NotesContent("Date", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfArea.Value, hfCode.Value);
+                    MyDate.Value = AppraisalData.NotesContent(parameter);//  AppraisalDataAC.NotesContent("Date", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfArea.Value, hfCode.Value);
                     break;
                 case "ALP95":
-                    imgNoticePermission.Visible = false;
+                    // SignOffPermissionControl.Visible = false;
+                    // imgNoticePermission.Visible = false;
                     ExtContentRow.Visible = true;
-                    ExtContentRow2.Visible = false;
-                    ExtContentRow3.Visible = false;
-                    ExtContentRow5.Visible = false;
                     MyDate.Visible = true;
-                    MyDate.Value = AppraisalDataAC.NotesContent("Date", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfArea.Value, hfCode.Value);
+                    MyDate.Value = AppraisalData.NotesContent(parameter);//  AppraisalDataAC.NotesContent("Date", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfArea.Value, hfCode.Value);
                     break;
                 case "STR95":
                     ExtContentRow.Visible = true;
-                    ExtContentRow2.Visible = false;
                     btnYesNo.Visible = true;
-                    string selectValue = AppraisalDataAC.NotesContent("Chose", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfArea.Value, hfCode.Value);
-                    myList.SetListValue(btnYesNo, selectValue);
+                    parameter.Operate = "Chose";
+                    string twoSatisfactory = AppraisalData.IsTwoSatisfactory(parameter);//  AppraisalDataAC.NotesContent("Chose", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfArea.Value, hfCode.Value);
+                    AppraisalPage.BuildingListControlInitial(btnYesNo, twoSatisfactory);
                     if (WorkingAppraisee.AppraisalType == "LTO")
                     {
                         ExtContentRow.Visible = false;
                     }
-
+                    if (twoSatisfactory == "No")
+                    {
+                        if (ActionRole == "Appraisee") AppraiseeControl(false);
+                        if (ActionRole == "Appraiser") AppraiserControl(false);
+                    }
+                    else
+                    {
+                        var IsPrincipalInitial = AppraisalData.IsPrincipalInitialSTR(parameter);
+                        if (IsPrincipalInitial == "Done")
+                        {
+                            // if (ActionRole == "Appraisee") AppraiseeControl(true);
+                            if (ActionRole == "Appraiser") AppraiserControl(true);
+                        }
+                        else
+                        {
+                            // if (ActionRole == "Appraisee") AppraiseeControl(false);
+                            if (ActionRole == "Appraiser") AppraiserControl(false);
+                        }
+                    }
                     break;
                 default:
-                    ExtContentRow.Visible = false;
-                    MyDate.Visible = false;
                     btnYesNo.Visible = false;
-                    string AppraisalRate = AppraisalDataAC.RatingListContent(User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfArea.Value, hfCode.Value);
-                    if (AppraisalRate == "4")
+                    parameter.Operate = "Get";
+                    parameter.ItemCode = "SUM61";
+                    string appraisalRate = AppraisalData.RatingListContent(parameter);// AppraisalDataAC.RatingListContent(User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfArea.Value, hfCode.Value);
+                    if (appraisalRate == "4")
                     {
                         ExtContentRow2.Visible = true;
+                        ExtContentRow3.Visible = true;
+                        ExtContentRow4.Visible = true;
+                        ExtContentRow5.Visible = true;
                     }
                     break;
             }
@@ -140,67 +181,142 @@ namespace EPA2.EPAappraisal
         }
         protected void BindMyData()
         {
-            TextSignOffNameAppraisee.Text = SignatureProcess.SignOffName("Appraisee", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            TextSignOffNameAppraiser.Text = SignatureProcess.SignOffName("Appraiser", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            TextSignOffNameSupervisory.Text = SignatureProcess.SignOffName("Supervisory", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            TextSignOffDateAppraisee.Text = SignatureProcess.SignOffDate("Appraisee", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            TextSignOffDateAppraiser.Text = SignatureProcess.SignOffDate("Appraiser", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            TextSignOffDateSupervisory.Text = SignatureProcess.SignOffDate("Supervisory", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            var parameter = new AppraisalCommentSignOff()
+            {
+                Operate = "",
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                Category = hfCategory.Value,
+                ItemCode = hfCode.Value,
+                UserRole = hfUserRole.Value,
+                SignOffType = ActionRole
+            };
 
-            hfSignOffAppraisee.Value = SignatureProcess.SignOffComplete("Appraisee", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            hfSignOffAppraiser.Value = SignatureProcess.SignOffComplete("Appraiser", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            hfSignOffSupervisory.Value = SignatureProcess.SignOffComplete("Supervisory", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            hfSignOffComplete.Value = SignatureProcess.SignOffComplete("Both", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
-            hfSignOffAction.Value = SignatureProcess.SignOffName("Appraisal", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, hfAppraisalActionRole.Value);
-            hfNoticeAction.Value = SignatureProcess.SignOffName("NoticeAction", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, hfAppraisalActionRole.Value);
+            var signOffResult = SignatureProcess.SignOffContents("Appraisee", parameter)[0];
 
-            hfNoticeAppraisee.Value = SignatureProcess.NoticeDate("Appraisee", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "SignOff", hfArea.Value);
-            hfNoticeAppraiser.Value = SignatureProcess.NoticeDate("Appraiser", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "SignOff", hfArea.Value);
-            hfNoticeSupervisory.Value = SignatureProcess.NoticeDate("Supervisory", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "SignOff", hfArea.Value);
-            hfNoticePermission.Value = SignatureProcess.NoticeDate("Permission", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "AppraisalAction", hfArea.Value);
+            TextSignOffNameAppraisee.Text = signOffResult.SignOffName; //  SignatureProcess.SignOffName("Appraisee", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            TextSignOffDateAppraisee.Text = signOffResult.SignOffDate; //  SignatureProcess.SignOffDate("Appraisee", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            hfSignOffAppraisee.Value = signOffResult.SignOffComplete; // SignatureProcess.SignOffComplete("Appraisee", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            hfSignOffActionAppraisee.Value = signOffResult.SignOffAction; // SignatureProcess.SignOffAction("Appraisee", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            signOffResult = SignatureProcess.SignOffContents("Appraiser", parameter)[0];
+
+            TextSignOffNameAppraiser.Text = signOffResult.SignOffName; // SignatureProcess.SignOffName("Appraiser", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            TextSignOffDateAppraiser.Text = signOffResult.SignOffDate; // SignatureProcess.SignOffDate("Appraiser", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            hfSignOffAppraiser.Value = signOffResult.SignOffComplete; // SignatureProcess.SignOffComplete("Appraiser", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            hfSignOffActionAppraiser.Value = signOffResult.SignOffAction; // SignatureProcess.SignOffAction("Appraiser", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+
+            signOffResult = SignatureProcess.SignOffContents("Supervisory", parameter)[0];
+
+            TextSignOffNameSupervisory.Text = signOffResult.SignOffName; // SignatureProcess.SignOffName("Supervisory", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            TextSignOffDateSupervisory.Text = signOffResult.SignOffDate; //  SignatureProcess.SignOffDate("Supervisory", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            hfSignOffSupervisory.Value = signOffResult.SignOffComplete; // SignatureProcess.SignOffComplete("Supervisory", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+            hfSignOffActionSupervisory.Value = signOffResult.SignOffAction; //  SignatureProcess.SignOffAction("Supervisory", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+
+            hfSignOffComplete.Value = SignatureProcess.SignOffComplete("Both", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole);
+
+            hfSignOffAction.Value = SignatureProcess.SignOffName("Appraisal", parameter); //User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, hfAppraisalActionRole.Value);
+            hfNoticeAction.Value = SignatureProcess.SignOffName("NoticeAction", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, hfAppraisalActionRole.Value);
+            hfDemandUserRole.Value = SignatureProcess.SignOffName("DemandUserRole", parameter); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, hfAppraisalActionRole.Value);
+
+            var parameter2 = new AppraisalCommentNoticeDate()
+            {
+                Operate = "",
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                NoticeType = "SignOff",
+                NoticeArea = hfArea.Value
+            };
+
+            hfNoticeAppraisee.Value = SignatureProcess.NoticeDate("Appraisee", parameter2); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "SignOff", hfArea.Value);
+            hfNoticeAppraiser.Value = SignatureProcess.NoticeDate("Appraiser", parameter2); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "SignOff", hfArea.Value);
+            hfNoticeSupervisory.Value = SignatureProcess.NoticeDate("Supervisory", parameter2); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "SignOff", hfArea.Value);
+
+            parameter2.NoticeType = "AppraisalAction";
+            hfNoticePermission.Value = SignatureProcess.NoticeDate("Permission", parameter2); // User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "AppraisalAction", hfArea.Value);
+
+            var parameter3 = new SignOffAutoNotice
+            {
+                Operate = "Auto",
+                UserID = User.Identity.Name,
+                EmployeeID = hfApprEmployeeID.Value,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ActionRole = hfAppraisalActionRole.Value
+            };
+
+
+
+            var autonoticeaction = SignatureProcess.AutoNoticeAction("Get", parameter3);
+            if (autonoticeaction == "Auto" || autonoticeaction == "Yes")
+                CheckBoxAutoEmailNotice.Checked = true;
+            else
+                CheckBoxAutoEmailNotice.Checked = false;
+
+            parameter3.Operate = "Template";
+            var template = SignatureProcess.AutoNoticeAction("Get", parameter3);
+            if (template == "System")
+                rblTemplate.SelectedIndex = 0;
+            else
+                rblTemplate.SelectedIndex = 1;
+
             hfCurrentdatetime.Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-            string demandUnDosignOffRole = SignatureProcess.SignOffName("DemandUserRole", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, hfAppraisalActionRole.Value);
-            string SignOffCompleteIndicate = "InComplete";
 
             string noticeGo = "Appraisee";
             string noticeFrom = "Appraiser";
-            string purpose = "Notice";
             if (hfAppraisalActionRole.Value == "Appraisee")
             {
                 noticeGo = "Appraiser";
                 noticeFrom = "Appraisee";
             }
+            string purpose = "Notice";
             string category = WorkingAppraisee.AppraisalCategory;
-            string templateArea = (category == "PPA") ? "PPA" : "EPA";
-            hfNoticeAuto.Value = GetNoticeFile.eMailContentByTemplate("AutoNotice", User.Identity.Name, category, "SignOff", templateArea, noticeGo, noticeFrom, purpose);
+            string templateArea = hfArea.Value; // (category == "PPA") ? "PPA" : "TPA";
+            hfNoticeAuto.Value = GetNoticeFile.EMailContentByTemplate("AutoNotice", User.Identity.Name, category, "SignOff", templateArea, noticeGo, noticeFrom, purpose);
+
+            CheckSignOffControl();
+            SetExtContentRow();
+        }
+
+
+        protected void CheckSignOffControl()
+        {
 
             urlDemandAppraiseeRow.Visible = false;
             urlDemandAppraiserRow.Visible = false;
+
             if (hfSignOffAppraisee.Value == "Complete")
             {
-                if (demandUnDosignOffRole == "Appraisee")
+                if (hfDemandUserRole.Value == "Appraisee")
                 {
-                    imgsignoffAppraisee.Attributes.Add("src", "../images/signatureAsk.png");
+                    imgSignoffAppraisee.Attributes.Add("src", "../images/signatureAsk.png");
                     urlDemandAppraiserRow.Visible = true;
                 }
                 else
-                { imgsignoffAppraisee.Attributes.Add("src", "../images/signatureDone.png"); }
+                { imgSignoffAppraisee.Attributes.Add("src", "../images/signatureDone.png"); }
             }
+
             if (hfSignOffAppraiser.Value == "Complete")
             {
-                if (demandUnDosignOffRole == "Appraiser")
+                if (hfDemandUserRole.Value == "Appraiser")
                 {
-                    imgsignoffAppraiser.Attributes.Add("src", "../images/signatureAsk.png");
+                    imgSignoffAppraiser.Attributes.Add("src", "../images/signatureAsk.png");
                     urlDemandAppraiseeRow.Visible = true;
                 }
                 else
                 {
-                    imgsignoffAppraiser.Attributes.Add("src", "../images/signatureDone.png");
+                    imgSignoffAppraiser.Attributes.Add("src", "../images/signatureDone.png");
                 }
             }
+
             if (hfSignOffSupervisory.Value == "Complete")
             {
-                imgsignoffSupervisory.Attributes.Add("src", "../images/signatureDone.png");
+                imgSignoffSupervisory.Attributes.Add("src", "../images/signatureDone.png");
             }
             if (hfNoticeAppraisee.Value != "")
             {
@@ -217,103 +333,199 @@ namespace EPA2.EPAappraisal
                 imgNoticeSupervisory.Attributes.Add("src", "../images/emailok.png");
                 imgNoticeSupervisory.Attributes.Add("title", "Sign Off at " + hfNoticeSupervisory.Value);
             }
-            if (hfNoticePermission.Value != "")
+            //if (hfNoticePermission.Value != "")
+            //{
+            //    imgNoticePermission.Attributes.Add("src", "../images/emailok.png");
+            //    imgNoticePermission.Attributes.Add("title", "Sign Off at " + hfNoticePermission.Value);
+            //}
+
+
+
+            string signOffCompleteIndicate = "InComplete";
+
+            AppraiseeControl(false);
+            AppraiserControl(false);
+
+            if (ActionRole == "Appraisee")
             {
-                imgNoticePermission.Attributes.Add("src", "../images/emailok.png");
-                imgNoticePermission.Attributes.Add("title", "Sign Off at " + hfNoticePermission.Value);
-            }
-            if (hfAppraisalActionRole.Value == "Appraisee")
-            {
-                CheckBoxEnforce.Enabled = false;
-                hfCurrentUserName.Value = WorkingAppraisee.AppraiseeName; ;
-                btnYesNo.Enabled = false;
-                imgNoticePermission.Visible = false;
-                rblViewPermission.Enabled = false;
-                if (rblViewPermission.SelectedValue == "SignOff")
+                signOffCompleteIndicate = hfSignOffAppraisee.Value;
+                hfCurrentUserName.Value = WorkingAppraisee.AppraiseeName;
+                //  rblViewPermission.Enabled = false;
+                if (SignOffType == "I")
                 {
-                    imgsignoffAppraisee.Disabled = false;
-                }
-                SignOffCompleteIndicate = hfSignOffAppraisee.Value;
-            }
-            if (hfAppraisalActionRole.Value == "Appraiser")
-            {
-                hfCurrentUserName.Value = WorkingAppraisee.AppraiserName;
-                // imgsignoffAppraisee.Disabled = true;
-                if (hfCode.Value == "ALP95")
-                {
-                    if (hfSignOffAppraisee.Value == "Complete")
-                    {
-                        imgsignoffAppraiser.Disabled = false;
-                    }
-                    else
-                    { imgsignoffAppraiser.Disabled = true; }
+                    AppraiseeControl(true);
                 }
                 else
                 {
-                    imgsignoffAppraiser.Disabled = false;
-                    btnYesNo.Enabled = true;
-                }
-                SignOffCompleteIndicate = hfSignOffAppraiser.Value;
+                    if (hfSignOffAppraiser.Value == "Complete" || rblViewPermission.SelectedValue == "SignOff")
+                    { AppraiseeControl(true); }
 
+                }
             }
+
+            if (ActionRole == "Appraiser")
+            {
+                signOffCompleteIndicate = hfSignOffAppraiser.Value;
+                hfCurrentUserName.Value = WorkingAppraisee.AppraiserName;
+                //  rblViewPermission.Enabled = true;
+
+                if (SignOffType == "I" && hfSignOffAppraisee.Value == "Complete")
+                {
+                    AppraiserControl(true);
+                }
+                else
+                {
+                    AppraiserControl(true);
+                }
+            }
+
+            if (ActionRole == "Supervisory")
+            {
+                AppraiserControl(false);
+                AppraiseeControl(false);
+            }
+
+
+
             if (hfAppraisalActionRole.Value == "Supervisory")
             {
                 hfCurrentUserName.Value = WorkingProfile.UserName;
-                imgsignoffSupervisory.Disabled = false;
+                imgSignoffSupervisory.Disabled = false;
                 btnYesNo.Enabled = true;
-                SignOffCompleteIndicate = hfSignOffSupervisory.Value;
+                signOffCompleteIndicate = hfSignOffSupervisory.Value;
             }
             string showText = "Sign Off";
 
-            if (SignOffCompleteIndicate == "Complete")
+            if (signOffCompleteIndicate == "Complete")
             {
                 if (hfSignOffComplete.Value == "Complete")
                 {
                     showText = "Demand Undo Sign Off";
+                    if (ActionRole == "Appraisee")
+                    {
+                        urlDemandAppraiserRow.Visible = false;
+                        if (hfSignOffActionAppraisee.Value == "Demand Undo Sign Off")
+                        {
+                            showText = "Recall Undo Sign Off";
+                            hfSignOffAction.Value = "Recall Undo Sign Off";
+                        }
+                        else
+                        {
+                            if (hfSignOffActionAppraiser.Value == "Demand Undo Sign Off")
+                            {
+                                showText = "Authorize Undo Sign Off";
+                                hfSignOffAction.Value = "Authorize Undo Sign Off";
+                            }
+                        }
+                       
+                    }
+                    if (ActionRole == "Appraiser")
+                    {
+                        urlDemandAppraiseeRow.Visible = false;
+                        if (hfSignOffActionAppraiser.Value == "Demand Undo Sign Off")
+                        {
+                            showText = "Recall Undo Sign Off";
+                            hfSignOffAction.Value = "Recall Undo Sign Off";
+                        }
+                        else
+                        {
+                            if (hfSignOffActionAppraisee.Value == "Demand Undo Sign Off")
+                            {
+                                showText = "Authorize Undo Sign Off";
+                                hfSignOffAction.Value = "Authorize Undo Sign Off";
+                            }
+
+                        }
+                    }
+                    if (ActionRole == "Supervisory")
+                    {
+                        if (hfSignOffActionSupervisory.Value == "Demand Undo Sign Off")
+                        {
+                            showText = "Recall Undo Sign Off";
+                            hfSignOffAction.Value = "Recall Undo Sign Off";
+                        }
+                    }
                 }
                 else
                 { showText = "Undo Sign Off"; }
             }
-            if (urlDemandAppraiserRow.Visible == true || urlDemandAppraiseeRow.Visible == true)
-            {
-                showText = "Authorize Undo Sign Off";
-            }
+ 
             btnSignOff.Text = showText;
             LabelSignOffTitle.Text = showText + " - Verify User";
             hfSignOffAction.Value = showText;
         }
+        private void AppraiseeControl(bool value)
+        {
+            imgSignoffAppraisee.Disabled = !value;
+            imgNoticeAppraisee.Disabled = !value;
 
+            CheckBoxEnforce.Enabled = false;
+            btnYesNo.Enabled = false;
+            // imgNoticePermission.Visible = false;
+            // rblViewPermission.Enabled = false;
+        }
+        private void AppraiserControl(bool value)
+        {
 
-
-        protected void btnNext_Click(object sender, EventArgs e)
+            imgSignoffAppraiser.Disabled = !value;
+            imgNoticeAppraiser.Disabled = !value;
+            // rblViewPermission.Enabled = true;
+            btnYesNo.Enabled = value;
+        }
+        private void OpenAppraiseeControl()
+        { }
+        private void OpenAppraiserControl()
+        { }
+        protected void BtnNext_Click(object sender, EventArgs e)
         {
             GoToNewPage("Next");
         }
-        protected void btnPrevious_Click(object sender, EventArgs e)
+        protected void BtnPrevious_Click(object sender, EventArgs e)
         {
             GoToNewPage("Previous");
         }
 
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
         }
         protected void MyDateChange(object sender, EventArgs e)
         {
         }
-        protected void btnYesNo_SelectedIndexChange(object sender, EventArgs e)
+        protected void BtnYesNo_SelectedIndexChange(object sender, EventArgs e)
         {
-            string value = btnYesNo.SelectedValue;
-            string selectValue = AppraisalDataAC.NotesContent("Chose", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, WorkingAppraisee.AppraisalType, WorkingAppraisee.AppraisalArea, WorkingAppraisee.AppraisalCode, value);
+            // var value = btnYesNo.SelectedValue;
+
+            var parameter = new AppraisalCommentSignOff()
+            {
+                Operate = "Chose",
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ItemCode = hfCode.Value,
+                Value = btnYesNo.SelectedValue,
+            };
+
+            string selectValue = AppraisalData.NotesContentSave(parameter);
+            //   AppraisalDataAC.NotesContent("Chose", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, WorkingAppraisee.AppraisalType, WorkingAppraisee.AppraisalArea, WorkingAppraisee.AppraisalCode, value);
 
         }
 
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
 
+            string goPage = AppraisalPage.GoPage(parameter);
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 
         }
@@ -324,42 +536,67 @@ namespace EPA2.EPAappraisal
             {
                 if (chbCreateDS.Checked)
                 {
-                    string goEncryption = User.Identity.Name + hfCurrentdatetime.Value + hfApprEmployeeID.Value;
+                    string goEncryption = User.Identity.Name + hfCurrentdatetime.Value + hfEmployeeID.Value;
                     string digitalKey = mySymetricEncryption.GetEncryptedValue(goEncryption);
-                    SignatureProcess.DigitalSignature("Create", User.Identity.Name, hfApprEmployeeID.Value, hfCurrentdatetime.Value, digitalKey);
+                    SignatureProcess.DigitalSignature("Create", User.Identity.Name, hfEmployeeID.Value, hfCurrentdatetime.Value, digitalKey);
                 }
-                string signoffAction = hfSignOffAction.Value;// btnSignOff.Text;
                 string enforceSign = (CheckBoxEnforce.Checked) ? "1" : "0";
-                string result = SignatureProcess.SignOffName(hfAppraisalActionRole.Value, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole, hfCurrentUserName.Value, hfCurrentdatetime.Value, signoffAction, enforceSign);
+                var parameter = new AppraisalCommentSignOff()
+                {
+                    Operate = "Save",
+                    UserID = User.Identity.Name,
+                    SchoolYear = hfApprYear.Value,
+                    SchoolCode = hfApprSchool.Value,
+                    EmployeeID = hfEmployeeID.Value,
+                    SessionID = hfApprSession.Value,
+                    Category = hfCategory.Value,
+                    ItemCode = hfCode.Value,
+                    UserRole = WorkingProfile.UserRole,
+                    SignOffName = hfCurrentUserName.Value,
+                    SignOffDate = hfCurrentdatetime.Value,
+                    SignOffAction = hfSignOffAction.Value,
+                    SignOffType = hfAppraisalActionRole.Value,
+                    EnforceSignOff = enforceSign
+
+                };
+
+                string result = SignatureProcess.SignOffName(hfAppraisalActionRole.Value, parameter, "SignOff", "Enforce");
+                // string result = SignatureProcess.SignOffName(hfAppraisalActionRole.Value, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfEmployeeID.Value, hfApprSession.Value, hfCategory.Value, hfCode.Value, WorkingProfile.UserRole, hfCurrentUserName.Value, hfCurrentdatetime.Value, signoffAction, enforceSign);
                 // hfSignOffAction.Value = signoffAction;
 
-                switch (signoffAction)
+                switch (hfSignOffAction.Value)
                 {
                     case "Sign Off":
                         if (hfAppraisalActionRole.Value == "Appraisee")
-                        { imgsignoffAppraisee.Attributes.Add("src", "../images/signatureDone.png"); }
+                        { imgSignoffAppraisee.Attributes.Add("src", "../images/signatureDone.png"); }
                         else
-                        { imgsignoffAppraiser.Attributes.Add("src", "../images/signatureDone.png"); }
+                        { imgSignoffAppraiser.Attributes.Add("src", "../images/signatureDone.png"); }
                         break;
                     case "Undo Sign Off":
                         if (hfAppraisalActionRole.Value == "Appraisee")
-                        { imgsignoffAppraisee.Attributes.Add("src", "../images/signature.png"); }
+                        { imgSignoffAppraisee.Attributes.Add("src", "../images/signature.png"); }
                         else
-                        { imgsignoffAppraiser.Attributes.Add("src", "../images/signature.png"); }
+                        { imgSignoffAppraiser.Attributes.Add("src", "../images/signature.png"); }
 
                         break;
                     case "Demand Undo Sign Off":
                         if (hfAppraisalActionRole.Value == "Appraisee")
-                        { imgsignoffAppraisee.Attributes.Add("src", "../images/signatureAsk.png"); }
+                        { imgSignoffAppraisee.Attributes.Add("src", "../images/signatureAsk.png"); }
                         else
-                        { imgsignoffAppraiser.Attributes.Add("src", "../images/signatureAsk.png"); }
+                        { imgSignoffAppraiser.Attributes.Add("src", "../images/signatureAsk.png"); }
                         break;
                     default:
                         break;
                 }
-                if (hfNoticeAuto.Value == "Yes")
+                if (CheckBoxAutoEmailNotice.Checked)
                 {
                     SendEmailNotification();
+                }
+
+                string twoSatisfactoryComplete = btnYesNo.SelectedValue;
+                if (twoSatisfactoryComplete == "Yes")
+                {
+                    if (SignatureProcess.SignOffComplete("Both", parameter) == "Complete") SendEmailNotificationToHRAppAdmin();
                 }
 
                 BindMyData();
@@ -370,11 +607,11 @@ namespace EPA2.EPAappraisal
             }
         }
 
-        protected void rblViewPermission_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            OperationMyData("Save");
-            //  PrincipalAppraisalActionNotification();
-        }
+        //protected void RblViewPermission_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    OperationMyData("Save");
+        //    //  PrincipalAppraisalActionNotification();
+        //}
         private void AllowViewPermissionCheck()
         {
             OperationMyData("Get");
@@ -382,14 +619,25 @@ namespace EPA2.EPAappraisal
 
         protected void OperationMyData(string action)
         {
-            string schoolyear = hfApprYear.Value;
-            string schoolcode = hfApprSchool.Value;
-            string sessionid = hfApprSession.Value;
-            string employeeid = hfApprEmployeeID.Value;
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            AppraisalData.ListPermission(ref rblViewPermission, action, User.Identity.Name, schoolyear, schoolcode, sessionid, employeeid, category, area, code);
+
+            var parameter = new AppraisalCommentSignOff()
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ItemCode = hfCode.Value,
+                UserRole = WorkingProfile.UserRole,
+            };
+
+            rblViewPermission.Enabled = false;
+
+            AppraisalData.ListPermission(ref rblViewPermission, action, parameter);
+            //   AppraisalData.ListPermission(ref rblViewPermission, action, User.Identity.Name, schoolyear, schoolcode, sessionid, employeeid, category, area, code);
             if (action == "Get")
             {
                 if (hfAppraisalActionRole.Value == "Appraisee")
@@ -398,15 +646,15 @@ namespace EPA2.EPAappraisal
                 }
             }
         }
-        private void showMessage(string result, string action)
+        private void ShowMessage(string result, string action)
         {
             try
             {
-                 // string strScript = "CallShowMessage(" + "'" + action + "', '" + result + "'); ";
+                // string strScript = "CallShowMessage(" + "'" + action + "', '" + result + "'); ";
                 //  ClientScript.RegisterStartupScript(GetType(), "_savemessagescript", strScript, true);
 
                 string strScript = "window.alert(" + "'" + action + "', '" + result + "');";
-                 ClientScript.RegisterStartupScript(GetType(), "_script", strScript, true);
+                ClientScript.RegisterStartupScript(GetType(), "_script", strScript, true);
             }
             catch { }
         }
@@ -415,62 +663,10 @@ namespace EPA2.EPAappraisal
             string result = "";
             try
             {
-                string noticeType = "SignOff";
-                if (hfNoticeAction.Value == "Undo Sign Off")
-                {
-                    noticeType = "UndoSignOff";
-                }
-                if (hfNoticeAction.Value == "Demand Undo Sign Off")
-                {
-                    noticeType = "DemandUndoSignOff";
-                }
-                if (hfNoticeAction.Value == "Authorize Undo Sign Off")
-                {
-                    noticeType = "AuthorizeUndoSignOff";
-                }
+                string noticeType = hfSignOffAction.Value.Replace(" ", "");//   "SignOff";
                 string actionRole = hfAppraisalActionRole.Value;
                 string noticeArea = hfArea.Value;
 
-                string eMailTo = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser", noticeArea);
-                string eMailCC = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "CCUser", noticeArea);
-                string eMailBcc = "";
-                string eMailForm = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "OperateUser", noticeArea);
-                string eMailSubject = getEmailBodyInfo("GetSubject");// TextSubject.Text;
-                string eMailBody = getEmailBodyInfo("GetBody"); // getEmailBody(); //  myText.Text;
-                string eMailFormat = "HTML";
-                string noticeDate = DateTime.Now.ToString("yyyy/MM/dd");
-                eMailNotification.NotificationeMail(actionRole, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, noticeType, noticeArea, noticeDate, noticeDate, eMailSubject, eMailBody);
-
-                result = eMailNotification.SendeMail(eMailTo, eMailCC, eMailBcc, eMailForm, eMailSubject, eMailBody, eMailFormat);
-            }
-            catch
-            {
-                result = "Failed";
-            }
-            showMessage(result, "Send Email Notification");
-
-        }
-        private string getEmailBodyInfo(string contentType)
-        {
-            try
-            {
-                string actionRole = hfAppraisalActionRole.Value;
-                string noticeArea = hfArea.Value;
-                string noticeType = "SignOff";
-                if (hfNoticeAction.Value == "Undo Sign Off")
-                {
-                    noticeType = "UndoSignOff";
-                }
-                if (hfNoticeAction.Value == "Demand Undo Sign Off")
-                {
-                    noticeType = "DemandUndoSignOff";
-                }
-                if (hfNoticeAction.Value == "Authorize Undo Sign Off")
-                {
-                    noticeType = "AuthorizeUndoSignOff";
-                }
-
-                string permission = Page.Request.QueryString["permission"];
                 string signOffDate = TextSignOffDateSupervisory.Text;
                 if (actionRole == "Appraisee")
                 {
@@ -485,105 +681,261 @@ namespace EPA2.EPAappraisal
                 {
                     signOffDate = noticeDate;
                 }
-                string category = hfCategory.Value;
 
-                string purpose = "Notice";
-                string noticeGo = "Appraisee";
-                string noticeFrom = "Appraiser";
-                if (actionRole == "Appraisee")
+                var parameter = new EmailNoticePara()
                 {
-                    noticeGo = "Appraiser";
-                    noticeFrom = "Appraisee";
-                }
-                string templateArea = noticeArea;
-                string templateAction = noticeType;
-                if (noticeType == "SignOff" || noticeType == "UndoSignOff" || noticeType == "DemandUndoSignOff" || noticeType == "AuthorizeUndoSignOff")
-                {
-                    templateAction = "SignOff";
-                    templateArea = (category == "PPA") ? "PPA" : "EPA";
-                }
-                string cBody = GetNoticeFile.eMailContentByType(contentType, User.Identity.Name, category, templateAction, templateArea, noticeGo, noticeFrom, purpose);
+                    Operate = hfSignOffAction.Value,
+                    UserID = User.Identity.Name,
+                    SchoolYear = hfApprYear.Value,
+                    SchoolCode = hfApprSchool.Value,
+                    EmployeeID = hfEmployeeID.Value,
+                    SessionID = hfApprSession.Value,
+                    Category = hfCategory.Value,
+                    NoticeRole = actionRole,
+                    NoticeType = noticeType,
+                    NoticeArea = noticeArea,
+                    NoticeDate = DateTime.Now.ToString("yyyy/MM/dd"),
+                    DeadLineDate = DateTime.Now.ToString("yyyy/MM/dd"),
+                };
 
-                if (contentType == "GetSubject")
-                {
-                    cBody = cBody.Replace("{{PlaceHolder:SignOffAction}}", getTitle(noticeType));
-                    cBody = cBody.Replace("{{PlaceHolder:AppraisalArea}}", GetNoticeFile.eMailContentAppCategory("AppAreaTitle", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose));
-                }
-                else
-                {
-                    cBody = cBody.Replace("{{PlaceHolder:AppraisalYear}}", WorkingAppraisee.AppraisalYear);
-                    cBody = cBody.Replace("{{PlaceHolder:AppraisalSession}}", WorkingAppraisee.SessionID);
-                    cBody = cBody.Replace("{{PlaceHolder:AppraisalCategory}}", GetNoticeFile.eMailContentAppCategory("AppCategory", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose));
-                    cBody = cBody.Replace("{{PlaceHolder:SendName}}", WorkingProfile.UserName);
-                    cBody = cBody.Replace("{{PlaceHolder:SendDate}}", noticeDate);
-                    cBody = cBody.Replace("{{PlaceHolder:DeadLineDate}}", signOffDate);
-                    cBody = cBody.Replace("{{PlaceHolder:ActionDate}}", signOffDate);
-                    cBody = cBody.Replace("{{PlaceHolder:OneLine}}", " ");
-                    cBody = cBody.Replace("{{PlaceHolder:ReviewSignOff}}", permission);
-                    cBody = cBody.Replace("{{PlaceHolder:SignOffAction}}", getTitle(noticeType));
-                    cBody = cBody.Replace("{{PlaceHolder:AppraisalArea}}", GetNoticeFile.eMailContentAppCategory("AppAreaTitle", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose));
-                    if (actionRole == "Appraisee")
-                    {
-                        cBody = cBody.Replace("{{PlaceHolder:ToName}}", WorkingAppraisee.AppraiserName);
-                        cBody = cBody.Replace("{{PlaceHolder:AppraiserName}}", WorkingAppraisee.AppraiseeName);
-                        cBody = cBody.Replace("{{PlaceHolder:Whom}}", "my");
-                    }
-                    else
-                    {
-                        cBody = cBody.Replace("{{PlaceHolder:ToName}}", WorkingAppraisee.AppraiseeName);
-                        cBody = cBody.Replace("{{PlaceHolder:AppraiserName}}", WorkingAppraisee.AppraiserName);
-                        cBody = cBody.Replace("{{PlaceHolder:Whom}}", "your");
-                    }
-                    if (WebConfig.getValuebyKey("eMailTry") == "Test")
-                    {
-                        string eMailTo = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser", noticeArea);
-                        string eMailCC = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "CCUser", noticeArea);
+                string permission = Page.Request.QueryString["permission"];
+                string subject = GetNoticeFile.GetEmailBodyInfo("GetSubject", hfSignOffAction.Value, signOffDate, permission, parameter);
+                string cBody = GetNoticeFile.GetEmailBodyInfo("GetBody", hfSignOffAction.Value, signOffDate, permission, parameter);
 
-                        cBody = cBody.Replace("{{PlaceHolder:TestEmailTo}}", "Email To: " + eMailTo);
-                        cBody = cBody.Replace("{{PlaceHolder:TestEmailCC}}", "Email CC: " + eMailCC);
-                    }
-                    else
-                    {
-                        cBody = cBody.Replace("{{PlaceHolder:TestEmailTo}}", "");
-                        cBody = cBody.Replace("{{PlaceHolder:TestEmailCC}}", "");
-                    }
-                }
-                return cBody;
+                parameter.NoticeSubject = subject;
+                parameter.Comments = cBody;
+                parameter.NoticeType = noticeType;
+                result = MailNotification.NotificationeMailSave(parameter);//  actionRole, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, noticeType, noticeArea, noticeDate, noticeDate, eMailSubject, eMailBody);
+
+
+                var emailPara = new EmailNotice()
+                {
+                    EmailTo = MailNotification.NotificationeMailUser("NoticeUser", parameter),
+                    EmailCC = MailNotification.NotificationeMailUser("CCUser", parameter),
+                    EmailFrom = MailNotification.NotificationeMailUser("OperateUser", parameter),
+                    EmailBcc = "",
+                    EmailSubject = subject,
+                    EmailBody = cBody,
+                    EmailFormat = "HTML"
+                };
+
+
+                result = MailNotification.SendMail(emailPara);
+
+
             }
             catch
             {
-                return "";
+                result = "Failed";
             }
+            ShowMessage(result, "Send Email Notification");
 
         }
-        private string getTitle(string action)
+        private void SendEmailNotificationToHRAppAdmin()
         {
-            string rVal = "";
-            switch (action)
+            string result = "";
+            try
             {
-                case "SignOff":
-                    rVal = "Sign Off ";
-                    break;
-                case "UndoSignOff":
-                    rVal = "Undo Sign Off";
-                    break;
-                case "DemandUndoSignOff":
-                    rVal = "Demand Undo Sign Off";
-                    break;
-                case "AuthorizeUndoSignOff":
-                    rVal = "Authorize Undo Sign Off";
-                    break;
-                case "AppraisalAction":
-                    rVal = "Review Permission";
-                    break;
-                case "AppraisalStart":
-                    rVal = "Appraisal Start Notification";
-                    break;
-                default:
-                    rVal = "Sign Off ";
-                    break;
+                string noticeType = "CompleteNTIPStrategy"; //" hfSignOffAction.Value.Replace(" ", "");//   "SignOff";
+                string actionRole = hfAppraisalActionRole.Value;
+                string noticeArea = hfArea.Value;
+
+                string signOffDate = TextSignOffDateSupervisory.Text;
+                if (actionRole == "Appraisee")
+                {
+                    signOffDate = TextSignOffDateAppraisee.Text;
+                }
+                if (actionRole == "Appraiser")
+                {
+                    signOffDate = TextSignOffDateAppraiser.Text;
+                }
+                string noticeDate = DateTime.Now.ToString("yyyy/MM/dd");
+                if (signOffDate == "")
+                {
+                    signOffDate = noticeDate;
+                }
+
+                var parameter = new EmailNoticePara()
+                {
+                    Operate = hfSignOffAction.Value,
+                    UserID = User.Identity.Name,
+                    SchoolYear = hfApprYear.Value,
+                    SchoolCode = hfApprSchool.Value,
+                    EmployeeID = hfEmployeeID.Value,
+                    SessionID = hfApprSession.Value,
+                    Category = hfCategory.Value,
+                    NoticeRole = actionRole,
+                    NoticeType = noticeType,
+                    NoticeArea = noticeArea,
+                    NoticeDate = DateTime.Now.ToString("yyyy/MM/dd"),
+                    DeadLineDate = DateTime.Now.ToString("yyyy/MM/dd"),
+                };
+                string permission = Page.Request.QueryString["permission"];
+                string subject = GetNoticeFile.GetEmailBodyInfo("GetSubjectHR", hfSignOffAction.Value, signOffDate, permission, parameter);
+                string cBody = GetNoticeFile.GetEmailBodyInfo("GetBodyHR", hfSignOffAction.Value, signOffDate, permission, parameter);
+
+                parameter.NoticeSubject = subject;
+                parameter.Comments = cBody;
+                parameter.NoticeType = noticeType;
+                result = MailNotification.NotificationeMailSave(parameter);//  actionRole, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, noticeType, noticeArea, noticeDate, noticeDate, eMailSubject, eMailBody);
+
+
+                var emailPara = new EmailNotice()
+                {
+                    EmailTo = MailNotification.NotificationeMailUser("HRAdminUser", parameter),
+                    EmailCC = MailNotification.NotificationeMailUser("AppraisalCCUser", parameter),
+                    EmailFrom = MailNotification.NotificationeMailUser("SystemUser", parameter),
+                    EmailBcc = "",
+                    EmailSubject = subject,
+                    EmailBody = cBody,
+                    EmailFormat = "HTML"
+                };
+
+                result = MailNotification.SendMail(emailPara);
+
+
             }
-            return rVal;
+            catch
+            {
+                result = "Failed";
+            }
+            ShowMessage(result, "Send Email Notification");
+
         }
+        //private string GetEmailBodyInfo(string contentType)
+        //{
+        //    try
+        //    {
+        //        string actionRole = hfAppraisalActionRole.Value;
+        //        string noticeArea = hfArea.Value;
+        //        string noticeType = "SignOff";
+        //        if (hfNoticeAction.Value == "Undo Sign Off")
+        //        {
+        //            noticeType = "UndoSignOff";
+        //        }
+        //        if (hfNoticeAction.Value == "Demand Undo Sign Off")
+        //        {
+        //            noticeType = "DemandUndoSignOff";
+        //        }
+        //        if (hfNoticeAction.Value == "Authorize Undo Sign Off")
+        //        {
+        //            noticeType = "AuthorizeUndoSignOff";
+        //        }
+
+
+        //        string signOffDate = TextSignOffDateSupervisory.Text;
+        //        if (actionRole == "Appraisee")
+        //        {
+        //            signOffDate = TextSignOffDateAppraisee.Text;
+        //        }
+        //        if (actionRole == "Appraiser")
+        //        {
+        //            signOffDate = TextSignOffDateAppraiser.Text;
+        //        }
+        //        string noticeDate = DateTime.Now.ToString("yyyy/MM/dd");
+        //        if (signOffDate == "")
+        //        {
+        //            signOffDate = noticeDate;
+        //        }
+        //        string category = hfCategory.Value;
+
+        //        string purpose = "Notice";
+        //        string noticeGo = "Appraisee";
+        //        string noticeFrom = "Appraiser";
+        //        if (actionRole == "Appraisee")
+        //        {
+        //            noticeGo = "Appraiser";
+        //            noticeFrom = "Appraisee";
+        //        }
+        //        string templateArea = noticeArea;
+        //        string templateAction = noticeType;
+        //        if (noticeType == "SignOff" || noticeType == "UndoSignOff" || noticeType == "DemandUndoSignOff" || noticeType == "AuthorizeUndoSignOff")
+        //        {
+        //            templateAction = "SignOff";
+        //         //   templateArea = (category == "PPA") ? "PPA" : "EPA";
+        //        }
+        //        string cBody = GetNoticeFile.EMailContentByType(contentType, User.Identity.Name, category, templateAction, templateArea, noticeGo, noticeFrom, purpose);
+
+        //        if (contentType == "GetSubject")
+        //        {
+        //            cBody = cBody.Replace("{{PlaceHolder:SignOffAction}}", GetTitle(noticeType));
+        //            cBody = cBody.Replace("{{PlaceHolder:AppraisalArea}}", GetNoticeFile.EMailContentAppCategory("AppAreaTitle", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose));
+        //        }
+        //        else
+        //        {
+        //            cBody = cBody.Replace("{{PlaceHolder:AppraisalYear}}", WorkingAppraisee.AppraisalYear);
+        //            cBody = cBody.Replace("{{PlaceHolder:AppraisalSession}}", WorkingAppraisee.SessionID);
+        //            cBody = cBody.Replace("{{PlaceHolder:AppraisalCategory}}", GetNoticeFile.EMailContentAppCategory("AppCategory", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose));
+        //            cBody = cBody.Replace("{{PlaceHolder:SendName}}", WorkingProfile.UserName);
+        //            cBody = cBody.Replace("{{PlaceHolder:SendDate}}", noticeDate);
+        //            cBody = cBody.Replace("{{PlaceHolder:DeadLineDate}}", signOffDate);
+        //            cBody = cBody.Replace("{{PlaceHolder:ActionDate}}", signOffDate);
+        //            cBody = cBody.Replace("{{PlaceHolder:OneLine}}", " ");
+        //            cBody = cBody.Replace("{{PlaceHolder:ReviewSignOff}}", permission);
+        //            cBody = cBody.Replace("{{PlaceHolder:SignOffAction}}", GetTitle(noticeType));
+        //            cBody = cBody.Replace("{{PlaceHolder:AppraisalArea}}", GetNoticeFile.EMailContentAppCategory("AppAreaTitle", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose));
+        //            if (actionRole == "Appraisee")
+        //            {
+        //                cBody = cBody.Replace("{{PlaceHolder:ToName}}", WorkingAppraisee.AppraiserName);
+        //                cBody = cBody.Replace("{{PlaceHolder:AppraiserName}}", WorkingAppraisee.AppraiseeName);
+        //                cBody = cBody.Replace("{{PlaceHolder:Whom}}", "my");
+        //            }
+        //            else
+        //            {
+        //                cBody = cBody.Replace("{{PlaceHolder:ToName}}", WorkingAppraisee.AppraiseeName);
+        //                cBody = cBody.Replace("{{PlaceHolder:AppraiserName}}", WorkingAppraisee.AppraiserName);
+        //                cBody = cBody.Replace("{{PlaceHolder:Whom}}", "your");
+        //            }
+        //            if (WebConfig.getValuebyKey("eMailTry") == "Test")
+        //            {
+        //                string eMailTo = MailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfEmployeeID.Value, hfApprSession.Value, "NoticeUser", noticeArea);
+        //                string eMailCc = MailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfEmployeeID.Value, hfApprSession.Value, "CCUser", noticeArea);
+
+        //                cBody = cBody.Replace("{{PlaceHolder:TestEmailTo}}", "Email To: " + eMailTo);
+        //                cBody = cBody.Replace("{{PlaceHolder:TestEmailCC}}", "Email CC: " + eMailCc);
+        //            }
+        //            else
+        //            {
+        //                cBody = cBody.Replace("{{PlaceHolder:TestEmailTo}}", "");
+        //                cBody = cBody.Replace("{{PlaceHolder:TestEmailCC}}", "");
+        //            }
+        //        }
+        //        return cBody;
+        //    }
+        //    catch
+        //    {
+        //        return "";
+        //    }
+
+        //}
+        //private string GetTitle(string action)
+        //{
+        //    string rVal = "";
+        //    switch (action)
+        //    {
+        //        case "SignOff":
+        //            rVal = "Sign Off ";
+        //            break;
+        //        case "UndoSignOff":
+        //            rVal = "Undo Sign Off";
+        //            break;
+        //        case "DemandUndoSignOff":
+        //            rVal = "Demand Undo Sign Off";
+        //            break;
+        //        case "AuthorizeUndoSignOff":
+        //            rVal = "Authorize Undo Sign Off";
+        //            break;
+        //        case "AppraisalAction":
+        //            rVal = "Review Permission";
+        //            break;
+        //        case "AppraisalStart":
+        //            rVal = "Appraisal Start Notification";
+        //            break;
+        //        default:
+        //            rVal = "Sign Off ";
+        //            break;
+        //    }
+        //    return rVal;
+        //}
     }
 }

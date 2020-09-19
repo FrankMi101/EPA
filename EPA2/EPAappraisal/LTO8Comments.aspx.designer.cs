@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class LTO8Comments {
+    public partial class Lto8Comments {
         
         /// <summary>
         /// form2 control.

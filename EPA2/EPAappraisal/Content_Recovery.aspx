@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Recovery.aspx.cs" Inherits="EPA2.EPAappraisal.Content_Recovery" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Recovery.aspx.cs" Inherits="EPA2.EPAappraisal.ContentRecovery" %>
 
 <!DOCTYPE html>
 
@@ -107,11 +107,11 @@
                                 <ItemStyle Width="5%" Wrap="False" />
                             </asp:TemplateField>
 
-                            <asp:BoundField DataField="action_date" HeaderText="Date">
+                            <asp:BoundField DataField="ActionDate" HeaderText="Date">
                                 <ItemStyle Width="10%" />
                             </asp:BoundField>
 
-                            <asp:BoundField DataField="Appraisal_Note" HeaderText="Comments" ItemStyle-CssClass="myComment">
+                            <asp:BoundField DataField="Notes" HeaderText="Comments" ItemStyle-CssClass="myComment">
                                 <ItemStyle Width="80%" />
                             </asp:BoundField>
                         </Columns>
@@ -144,18 +144,9 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
+<script src="../Scripts/PointLocation.js"></script>
 <script src="../Scripts/GridView.js"></script>
-<script type="text/javascript">
-    var IE = document.all ? true : false
-    document.onmousemove = getMousepoints;
-    var mousex = 0;
-    var mousey = 0;
-    function getMousepoints() {
-        mousex = event.clientX + document.body.scrollLeft;
-        mousey = event.clientY + document.body.scrollTop;
-        return true;
-    }
-</script>
+ 
 <script type="text/javascript">
     var rowNo;
     var teachername;
@@ -199,22 +190,5 @@
 
     }
 
-    function IECompatibility() {
-        var agentStr = navigator.userAgent;
-        this.IsIE = false;
-        this.IsOn = undefined;  //defined only if IE
-        this.Version = undefined;
-        this.Compatible = undefined;
-
-        if (agentStr.indexOf("compatible") > -1) {
-            this.IsIE = true;
-            this.IsOn = true;
-            this.Compatible = true;
-        }
-        else {
-            this.Compatible = false;
-        }
-
-    }
 
 </script>

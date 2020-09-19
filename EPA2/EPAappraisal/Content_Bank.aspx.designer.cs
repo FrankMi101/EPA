@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_Bank {
+    public partial class ContentBank {
         
         /// <summary>
         /// form1 control.

@@ -5,7 +5,7 @@
         "url": "#",
         "target": "",
         "ID": "1",
-        "myClass": "current-menu-item",
+        "myClass": "Level-1",
         "subItems": [
             {
                 "display": "Appraisal Category Definition",
@@ -17,11 +17,20 @@
 
             },
             {
+                "display": "Appraisal Area Definition",
+                "role": "Admin",
+                "url": "EPAsystem/Loading.aspx?pID=AppraisalArea",
+                "target": "GoList",
+                "ID": "12",
+                "myClass": "Level-2"
+
+            },
+            {
                 "display": "Appraisal User Management",
                 "role": "Admin",
                 "url": "#",
                 "target": "",
-                "ID": "12",
+                "ID": "13",
                 "myClass": "Level-2",
                 "subItems": [
                     {
@@ -29,7 +38,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=ApplicationRole",
                         "target": "GoList",
-                        "ID": "121",
+                        "ID": "131",
                         "myClass": "Level-3"
                     },
                     {
@@ -37,7 +46,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=UserManagement",
                         "target": "GoList",
-                        "ID": "122",
+                        "ID": "132",
                         "myClass": "Level-3"
                     },
                     {
@@ -45,7 +54,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=MultipleSchoolUser",
                         "target": "GoList",
-                        "ID": "123",
+                        "ID": "133",
                         "myClass": "Level-3"
                     }
                 ]
@@ -55,7 +64,7 @@
                 "role": "Admin",
                 "url": "#",
                 "target": "",
-                "ID": "13",
+                "ID": "14",
                 "myClass": "Level-2",
                 "subItems": [
                     {
@@ -63,7 +72,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=Phase",
                         "target": "GoList",
-                        "ID": "131",
+                        "ID": "141",
                         "myClass": "Level-3"
                     },
 
@@ -72,16 +81,32 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=Rate",
                         "target": "GoList",
-                        "ID": "132",
+                        "ID": "142",
                         "myClass": "Level-3"
                     },
 
                     {
+                        "display": "Appraisal Steps Setup",
+                        "role": "Admin",
+                        "url": "EPAsystem/Loading.aspx?pID=Steps",
+                        "target": "GoList",
+                        "ID": "143",
+                        "myClass": "Level-3"
+                    },
+
+                    {
+                        "display": "Appraisal Cycle Setup",
+                        "role": "Admin",
+                        "url": "EPAsystem/Loading.aspx?pID=Cycle",
+                        "target": "GoList",
+                        "ID": "144",
+                        "myClass": "Level-3"
+                    }, {
                         "display": "Appraisal Progress",
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=Progress",
                         "target": "GoList",
-                        "ID": "133",
+                        "ID": "145",
                         "myClass": "Level-3"
                     }
 
@@ -93,7 +118,7 @@
                 "role": "Admin",
                 "url": "#",
                 "target": "",
-                "ID": "14",
+                "ID": "15",
                 "myClass": "Level-2",
                 "subItems": [
                     {
@@ -101,7 +126,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=SchoolDistrictSetup",
                         "target": "GoList",
-                        "ID": "141",
+                        "ID": "151",
                         "myClass": "Level-3"
                     },
                     {
@@ -109,7 +134,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=SchoolRegionSetup",
                         "target": "GoList",
-                        "ID": "142",
+                        "ID": "152",
                         "myClass": "Level-3"
                     },
                     {
@@ -117,7 +142,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=SchoolManagement",
                         "target": "GoList",
-                        "ID": "143",
+                        "ID": "153",
                         "myClass": "Level-3"
                     }
                 ]
@@ -127,7 +152,7 @@
                 "role": "Admin",
                 "url": "#",
                 "target": "",
-                "ID": "15",
+                "ID": "16",
                 "myClass": "Level-2",
                 "subItems": [
                     {
@@ -135,7 +160,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=Domain",
                         "target": "GoList",
-                        "ID": "151",
+                        "ID": "161",
                         "myClass": "Level-3"
                     },
                     {
@@ -143,7 +168,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=Competency",
                         "target": "GoList",
-                        "ID": "152",
+                        "ID": "162",
                         "myClass": "Level-3"
                     },
                     {
@@ -151,7 +176,7 @@
                         "role": "Admin",
                         "url": "EPAsystem/Loading.aspx?pID=LookFors",
                         "target": "GoList",
-                        "ID": "153",
+                        "ID": "163",
                         "myClass": "Level-3"
                     }
                 ]
@@ -161,7 +186,7 @@
                 "role": "Admin",
                 "url": "EPAsystem/Loading.aspx?pID=EmailTemplate",
                 "target": "GoList",
-                "ID": "16",
+                "ID": "17",
                 "myClass": "Level-2"
             },
             {
@@ -169,7 +194,7 @@
                 "role": "Admin",
                 "url": "EPAsystem/Loading.aspx?pID=BoardStatements",
                 "target": "GoList",
-                "ID": "17",
+                "ID": "18",
                 "myClass": "Level-2"
             },
             {
@@ -177,9 +202,18 @@
                 "role": "Admin",
                 "url": "EPAsystem/Loading.aspx?pID=StaffRollOver",
                 "target": "GoList",
-                "ID": "18",
+                "ID": "19",
+                "myClass": "Level-2"
+            },
+            {
+                "display": "Grid Sign up Form Test",
+                "role": "Admin",
+                "url": "EPAsystem/Loading.aspx?pID=GridPage.aspx",
+                "target": "GoList",
+                "ID": "20",
                 "myClass": "Level-2"
             }
+
         ]
     },
     {
@@ -317,7 +351,7 @@
             {
                 "display": "Appraisal Staff Roll Over",
                 "role": "Principal",
-                "url": "EPAsystem/Loading.aspx?pID=StaffRollOver",
+                "url": "EPAmanage/Loading.aspx?pID=StaffRollOver",
                 "target": "GoList",
                 "ID": "36",
                 "myClass": "Level-2"
@@ -467,11 +501,19 @@
                 "myClass": "Level-2"
             },
             {
+                "display": "Board Learning Plan Strategies",
+                "role": "All",
+                "url": "Documents/Loading.aspx?pID=BoardLearningPlan",
+                "target": "GoList",
+                "ID": "94",
+                "myClass": "Level-2"
+            },
+            {
                 "display": "Feed Back",
                 "role": "All",
                 "url": "Javascript:OpenPopPage('Feed Back');",
                 "target": "_self",
-                "ID": "94",
+                "ID": "95",
                 "myClass": "Level-2"
             },
             {
@@ -479,7 +521,7 @@
                 "role": "All",
                 "url": "Loading.aspx?pID=AppraisalSummary",
                 "target": "GoList",
-                "ID": "95",
+                "ID": "96",
                 "myClass": "Level-2"
             }
         ]
@@ -489,16 +531,16 @@
 function myTopNav(myMenuList) {
     //  var CurrentUserRole = $("#ctl00_hfCurrentUserRole").val();
     //  var menulist = myTopNavRecurse(myMenuList, "");
-    var menulist = myTopNavLoop2(myMenuList, "N");
+    var menulist = myTopNavLoopRecurse(myMenuList, "N");
     $("#TopNav").html("");
     $("#TopNav").html(menulist);
-    var menulistM = myTopNavLoop2(myMenuList, "M");
+    var menulistM = myTopNavLoopRecurse(myMenuList, "M");
     $("#TopNavM").html("");
     $("#TopNavM").html(menulistM);
 
 }
 function myTopNavM(myMenuList) {
-    var menulistM = myTopNavLoop2(myMenuList, "M");
+    var menulistM = myTopNavLoopRecurse(myMenuList, "M");
     $("#TopNavM").html("");
     $("#TopNavM").html(menulistM);
 }
@@ -538,19 +580,20 @@ function myTopNavLoop(myMenuList, mobile) {
 function myTopNavLoop2(myMenuList1, mobile) {
     var CurrentUserRole = $("#" + ctlID + "hfCurrentUserRole").val();
     if (myMenuList1.length > 0) {
-        var menulist1 = '<ul class="Level1" id="' + mobile + 'UA0' + '" > '; // "&nbsp |&nbsp";
+        var menulist1 = GetUL("Level1", 0, mobile); // '<ul class="Level1" id="' + mobile + 'UA0' + '" > '; // "&nbsp |&nbsp";
         for (var i = 0; i < myMenuList1.length; i++) {
             if (checkItemShowbyRole(CurrentUserRole, myMenuList1[i].role) === "Show") {
                 menulist1 += getMyALink(myMenuList1, i, 'A', mobile);
-                if ( typeof (myMenuList1[i].subItems) !== 'undefined' && myMenuList1[i].subItems.length > 0) {
+                if (typeof myMenuList1[i].subItems !== 'undefined' && myMenuList1[i].subItems.length > 0) {
                     var myMenuList2 = myMenuList1[i].subItems;
-                    var menulist2 = '<ul class="' + getULclass("Level2", mobile, 'UA' + myMenuList1[i].ID) + '" id="' + mobile + 'UA' + myMenuList1[i].ID + '" > ';
+                    var menulist2 = GetUL("Level2", myMenuList1[i].ID, mobile);  // '<ul class="' + getULclass("Level2", mobile, 'UA' + myMenuList1[i].ID) + '" id="' + mobile + 'UA' + myMenuList1[i].ID + '" > ';
                     for (var j = 0; j < myMenuList2.length; j++) {
                         if (checkItemShowbyRole(CurrentUserRole, myMenuList2[j].role) === "Show") {
                             menulist2 += getMyALink(myMenuList2, j, 'B', mobile);
-                            if (typeof (myMenuList2[j].subItems) !== 'undefined' && myMenuList2[j].subItems.length > 0  ) {
+                            if (typeof myMenuList2[j].subItems !== 'undefined' && myMenuList2[j].subItems.length > 0) {
+                                var menulist3 = GetUL("Level3", myMenuList2[j].ID, mobile);  // '<ul class="' + getULclass("Level3", mobile, 'UA' + myMenuList2[j].ID) + '" id="' + mobile + 'UB' + myMenuList2[j].ID + '" > ';
                                 var myMenuList3 = myMenuList2[j].subItems;
-                                var menulist3 = '<ul class="' + getULclass("Level3", mobile, 'UA' + myMenuList2[j].ID) + '" id="' + mobile + 'UB' + myMenuList2[j].ID + '" > ';
+                                menulist2 += menulist3 + '</ul>' + '</li> ';
                                 for (var l = 0; l < myMenuList3.length; l++) {
                                     menulist3 += getMyALink(myMenuList3, l, 'C', mobile);
                                 }
@@ -566,32 +609,64 @@ function myTopNavLoop2(myMenuList1, mobile) {
     }
     return menulist1;
 }
+function myTopNavLoop3(myMenuList1, mobile) {
+    let userRole = $("#" + ctlID + "hfCurrentUserRole").val();
+    if (myMenuList1.length > 0) {
 
-/* this is Recurse method to build menu list, but some how it does not work.*/
-
-function myTopNavRecurse(myMenuList, menulist) {
-    var CurrentUserRole = $("#" + ctlID + "hfCurrentUserRole").val();
-    if (myMenuList.length > 0) {
-        menulist += '<ul class="Level1" id="' + 'UA-0' + '" > '; // "&nbsp |&nbsp";
-        for (var i = 0; i < myMenuList.length; i++) {
-            if (checkItemShowbyRole(CurrentUserRole, myMenuList[i].role) === "Show") {
-                menulist += getMyALink(myMenuList, i, 'A');
-                if (typeof (myMenuList[i].subItems) === 'undefined') {
-                    // menulist += '</ul>' + '</li> ';
-                }
-                else {
-                    if (myMenuList[i].subItems.length > 0) {
-                        myTopNavRecurse(myMenuList[i].subItems, menulist);
-                    }
+        var menulist1 = GetUL("Level-1", 0, mobile); // '<ul class="Level1" id="' + mobile + 'UA0' + '" > '; // "&nbsp |&nbsp";
+        for (var i = 0; i < myMenuList1.length; i++) {
+            if (checkItemShowbyRole(userRole, myMenuList1[i].role) === "Show") {
+                menulist1 += getMyALink(myMenuList1, i, "A", mobile);
+                if (typeof myMenuList1[i].subItems !== 'undefined' && myMenuList1[i].subItems.length > 0) {
+                    menulist1 += NodeStrRecurse(userRole, myMenuList1[i].ID, myMenuList1[i].subItems, mobile, myMenuList1[i].myClass) + '</ul>' + '</li> ';
                 }
             }
         }
-        menulist += '</ul>';
+        menulist1 += '</ul>';
+
     }
-    return menulist;
+    return menulist1;
 }
 
 
+function myTopNavLoopRecurse(myMenuList1, mobile) {
+
+    if (myMenuList1.length > 0) {
+        var menulist1 = "";
+        menulist1 += NodeStrRecursion(0, myMenuList1, mobile, "Level-1") + '</ul>';
+    }
+    return menulist1;
+}
+
+function NodeStrRecursion(id, myMenuList, mobile, level) {
+    const userRole = $("#" + ctlID + "hfCurrentUserRole").val();
+    let nodeStr2 = GetUL(level, id, mobile);
+    for (var j = 0; j < myMenuList.length; j++) {
+        if (checkItemShowbyRole(userRole, myMenuList[j].role) === "Show") {
+            nodeStr2 += getMyALink(myMenuList, j, mobile);
+            if (typeof myMenuList[j].subItems !== 'undefined' && myMenuList[j].subItems.length > 0) {
+                nodeStr2 += NodeStrRecursion(myMenuList[j].ID, myMenuList[j].subItems, mobile, myMenuList[j].myClass) + '</ul>' + '</li> ';
+            }
+        }
+    }
+    return nodeStr2;
+}
+
+function GetUL(classLevel, id, mobile) {
+    if (classLevel === "Level-1")
+        return '<ul class="' + classLevel + '" id="' + mobile + 'UA0' + '" > ';
+    else
+        return '<ul class="' + getULclass(classLevel, mobile, 'UA' + id) + '" id="' + mobile + 'UA-' + id + '" > ';
+
+}
+
+function getULclass(level, mobile, id) {
+    var rClass = level;
+    if (mobile === "M") {
+        rClass = level + " hideMenuItem";
+    }
+    return rClass;
+}
 
 function checkItemShowbyRole(CurrentUserRole, RoleItem) {
     var roleStr = "";
@@ -613,88 +688,111 @@ function checkItemShowbyRole(CurrentUserRole, RoleItem) {
             break;
     }
 
-    if (roleStr.indexOf(RoleItem) === -1)
-    { return "Hide"; }
-    else
-    { return "Show"; }
+    //if (roleStr.indexOf(RoleItem) === -1) {
+    //    return "Hide";
+    //}
+    //else {
+    //    return "Show";
+    //}
+
+    return roleStr.indexOf(RoleItem) === -1 ? "Hide" : "Show";
+
+    //return roleStr.includes(RoleItem) ? "Show" : "Hide";
+
 
 }
 
-function getMyALink(myArray, k, level, mobile) {
-    var myString = ' <li> <a ' + 'id="' + level + '-' + myArray[k].ID + '" '
+function getShortLevel(myClass) {
+    switch (myClass) {
+        case "Level-1":
+            return "A";
+        case "Level-2":
+            return "B";
+        case "Level-3":
+            return "C";
+        default:
+            return "A";
+    }
+}
+
+function getMyALink(myArray, index, mobile) {
+    var myString = ' <li id="TopItem_' + myArray[index].ID + '" class= "TopMenuItem" > '
+        + '<a ' + 'id="' + getShortLevel(myArray[index].myClass) + '-' + myArray[index].ID + '" '
+        + 'class="' + myArray[index].myClass + '" '
+        + 'href="' + getUrl(myArray[index].url, myArray[index].subItems, mobile) + '" '
+        + 'target="' + getTarget(myArray[index].target, myArray[index].subItems, mobile) + '" >'
+        + myArray[index].display + '</a> ';
+
+    if (typeof myArray[index].subItems === 'undefined') {
+        myString += '</li> ';
+    }
+    else {
+        if (myArray[index].myClass === "Level-2") {
+            myString += ' <img style ="height:25px; width:30px; float:right; padding-top:-3px;" src="images/submenu.png" /> ';
+        }
+    }
+
+    return myString;
+}
+
+function getMyALinkOld(myArray, k, level, mobile) {
+    var myString = ' <li> <a ' + 'id="' + getShortLevel(myArray[k].myClass) + '-' + myArray[k].ID + '" '
         + 'class="' + myArray[k].myClass + '" '
         + 'href="' + getUrl(myArray[k].url, myArray[k].subItems, mobile) + '" '
         + 'target="' + getTarget(myArray[k].target, myArray[k].subItems, mobile) + '" >'
         + myArray[k].display + '</a> ';
     //    + getStr(myArray[k].subItems, "ImgStr", "</li>", level);
-    if (typeof (myArray[k].subItems) === 'undefined') {
+    if (typeof myArray[k].subItems === 'undefined') {
         myString += '</li> ';
     }
     else {
-        if (level === "B") {
+        if (myArray[k].myClass === "Level-2") {
             myString += ' <img style ="height:25px; width:30px; float:right; padding-top:-3px;" src="images/submenu.png" /> ';
         }
     }
     return myString;
 }
+
 function getTarget(target, subitem, mobile) {
-    if (mobile === "M") {
-        if (typeof (subitem) === "undefined") {
-            target = "GoList";
-        }
+    if (mobile === "M" && typeof subitem === "undefined") {
+        target = "GoList";
     }
+
     return target;
 }
+
 function getUrl(url, subitem, mobile) {
-    var rUrl = "";
+    var rUrl = url;
     if (mobile === "M") {
-        if (typeof (subitem) === "undefined")
-        { rUrl = url; }
-        else {
-            rUrl = "#";
-        }
+        rUrl = typeof subitem === "undefined" ? url : "#";
     }
-    else { rUrl = url; }
+
     return rUrl;
 }
-function getULclass(level, mobile, id) {
-    var rClass = level;
-    if (mobile === "M") {
-        rClass = level + " hideMenuItem";
-    }
-    return rClass
-}
+
 
 function getStr(mySubItem, sType, pValue, level) {
-    var rStr = "";
-    if (typeof (mySubItem) === 'undefined') {
-        rStr = pValue;
-    }
-    else {
-        if (level === "A") {
-            rStr = pValue;
+    var rStr = pValue;
+    if (typeof mySubItem !== 'undefined' && level !== "A") {
+        switch (sType) {
+            case "ImgStr":
+                rStr = '  <img src="images/submenu.png" /> ' + pValue;
+                break;
+            case "Href":
+                rStr = '#';
+                break;
+            case "Target":
+                rStr = '_self';
+                break;
+            default:
+                rStr = '_self';
+                break;
         }
-        else {
-            switch (sType) {
-                case "ImgStr":
-                    rStr = '  <img src="images/submenu.png" /> ' + pValue;
-                    break;
-                case "Href":
-                    rStr = '#';
-                    break;
-                case "Target":
-                    rStr = '_self';
-                    break;
-                default:
-                    rStr = '_self';
-                    break;
-            }
-        }
+
     }
     return rStr;
+
 }
-
-
 
 function OpenPopPage(goPage) {
     if (goPage === "Feed Back") {
@@ -708,11 +806,41 @@ function OpenPopPage(goPage) {
         window.open("CommonPage/PageLoading.aspx?Page=https://webapp.tcdsb.org/ssm/SecurityManage.aspx?aID=IEP%26uID=" + UserID, "FormFeedBack", "width=750 height=650, top=20, left=20, toolbars=no, scrollbars=no,status=no,resizable=no");
     }
 }
+var topSelectedMenuItem;
+function HighLightTopWorkingMenu() {
+   // alert(topSelectedMenuItem);
+    if (topSelectedMenuItem != 'undefined') $("#" + topSelectedMenuItem).addClass("TopSelectItem");
+}
+function SetWorkingMenuCell(cID) {
+    if (cID.substring(0, 8) == "TopItem_" && cID.length == 9) {
+        if (topSelectedMenuItem != "undefined") $("#" + topSelectedMenuItem).removeClass("TopSelectItem");
+        topSelectedMenuItem = cID;
+    }
+}
 
 $(document).ready(function () {
 
     try {
+    
 
+        $("#TopItem_1").mouseover(function (e) { SetWorkingMenuCell("TopItem_1"); });
+        $("#TopItem_2").mouseover(function (e) { SetWorkingMenuCell("TopItem_2"); });
+        $("#TopItem_3").mouseover(function (e) { SetWorkingMenuCell("TopItem_3"); });
+        $("#TopItem_4").mouseover(function (e) { SetWorkingMenuCell("TopItem_4"); });
+        $("#TopItem_9").mouseover(function (e) { SetWorkingMenuCell("TopItem_9"); });
+
+
+        //$(".Level-2").click(function (e) {
+        //    HighLightTopWorkingMenu();
+        //});
+        //$(".Level-3").click(function (e) {
+        //    HighLightTopWorkingMenu();
+        //    event.stopPropagation();
+        //});
+        $("#TopNav").mouseout(function (e) {
+            HighLightTopWorkingMenu();
+            event.stopPropagation();
+        });
         $("#TopMenuItems a").hover(
             function (e) {
                 var cEvantID = e.originalEvent.srcElement.id;
@@ -723,8 +851,7 @@ $(document).ready(function () {
             function (e) {
                 var cEvantID = e.originalEvent.srcElement.id;
                 var x = $("#" + cEvantID).position();
-                if (currentY > x.top)
-                { $("#TopSubMenuItems").hide(); }
+                if (currentY > x.top) { $("#TopSubMenuItems").hide(); }
 
             }
         );
@@ -748,10 +875,10 @@ $(document).ready(function () {
                     $("#" + currentNodeLevel2).removeClass("showMenuItem").addClass("hideMenuItem");
                 }
 
-
                 event.stopPropagation();
             }
             catch (e) {
+                var k = "";
             }
 
             //  window.alert(event.currentTarget.childNodes['3'].className);
@@ -761,7 +888,9 @@ $(document).ready(function () {
 
     }
     catch (ex)
-    { var exm = ex; }
+    {
+        var exm = ex; 
+    }
 });
 
 
@@ -775,8 +904,7 @@ function getMousepoints() {
 
 function openSupportInformation(vLoading, vH, actions) {
 
-    if ($("#ctl00_IframeSupport").attr("src") === "#")
-    { $("#ctl00_IframeSupport").attr("src", vLoading); }
+    if ($("#ctl00_IframeSupport").attr("src") === "#") { $("#ctl00_IframeSupport").attr("src", vLoading); }
 
     $("#SupportInfoDIV").css({
         top: mouse_y + 10,
@@ -841,7 +969,9 @@ function openTopSubMenuM(cEventID, Level) {
         }
 
     }
-    catch (e) { }
+    catch (e) {
+        var k = "";
+    }
     // window.alert(event.currentTarget.childNodes['3'].className);
     //window.alert(openObj[0].className);
     //window.alert(openObj[0].className);

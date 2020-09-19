@@ -55,25 +55,14 @@
             width: 25px;
         }
 
-        #HelpDIV {
-            border: 3px solid lightsalmon;
-            height: 180px;
-            width: 300px;
-            -o-border-top-right-bottom-left-radius: 12px;
-            -moz-border-radius-toprightbottonleft: 12px;
-            -webkit-border-top-right-bottom-left-radius: 12px;
-            border-top-right-radius: 12px;
-            border-top-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-            border-bottom-left-radius: 12px;
-        }
+  
 
         #textHelp {
             margin: 5px;
         }
 
         #HelpEditDIV {
-            border: 3px solid salmon;
+            border: 2px solid salmon;
             height: 200px;
             width: 300px;
             text-align: center;
@@ -156,7 +145,8 @@
         <asp:HiddenField ID="hfArea" runat="server" />
         <asp:HiddenField ID="hfUserLoginRole" runat="server" />
         <asp:HiddenField ID="hfRunningModel" runat="server" />
-
+        <asp:HiddenField ID="hfCode" runat="server" />
+        <asp:HiddenField ID="hfParameters" runat="server" />
 
         <div class="container visible-xs visible-sm visible-md visible-lg"></div>
         <div class="row" style="width: 100%">
@@ -172,19 +162,19 @@
                         <asp:Label ID="title_EPA11" runat="server" Text="Label" CssClass="Title1"></asp:Label>
                         <b>
                             <asp:Label ID="LabelRole" runat="server" Text="Application Role"></asp:Label>. </b>
-                        <img id="img_EPA11" src="images/help2.png" class="imgHelp" /><a href="#">Application Role  </a>
+                        <img id="img_11" src="images/help2.png" class="imgHelp" /><a href="#">Application Role  </a>
                         <br />
 
                         <asp:Label ID="title_EPA12" runat="server" Text="Label" CssClass="Title1"></asp:Label>
                         <b>
                             <asp:Label ID="LabelAppraisalPhase" runat="server" Text="Appraisal Phase"></asp:Label>. </b>
-                        <img id="img_EPA12" src="images/help2.png" class="imgHelp" /><a href="#"> Appraisal Phases  </a>
+                        <img id="img_12" src="images/help2.png" class="imgHelp" /><a href="#"> Appraisal Phases  </a>
                         <br />
 
                         <asp:Label ID="title_EPA13" runat="server" Text="Label" CssClass="Title1"></asp:Label>
                         <b>
                             <asp:Label ID="LabelAppraisalProcess" runat="server" Text="Appraisal Process Status"></asp:Label>. </b>
-                        <img id="img_EPA13" src="images/help2.png" class="imgHelp" /><a href="#">Appraisal Process  </a>
+                        <img id="img_13" src="images/help2.png" class="imgHelp" /><a href="#">Appraisal Process  </a>
                         <br />
                         <br />
                     </div>
@@ -195,7 +185,7 @@
                             <asp:Label ID="LabelWorkingItem" runat="server" Text="Working Item"></asp:Label>
                             of
                     <asp:Label ID="LabelWorkingUserName" runat="server" Text="Working User Name"></asp:Label>. </b>
-                        <img id="img_EPA21" src="images/help2.png" class="imgHelp" /><a href="#"> Continue Working on ...  </a>
+                        <img id="img_21" src="images/help2.png" class="imgHelp" /><a id="Link_21" runat="server" href="#"> Continue Working on ...  </a>
                         <br />
 
                         <asp:Label ID="title_EPA22" runat="server" Text="Label" CssClass="Title1"></asp:Label>
@@ -203,30 +193,30 @@
                             <asp:Label ID="LabelWorkingList" runat="server" Text="Last Working List Item"></asp:Label>
                             of
                     <asp:Label ID="LabelWorkingListArea" runat="server" Text="Working List Area"></asp:Label>. </b>
-                        <img id="img_EPA22" src="images/help2.png" class="imgHelp" /><a href="#">Continue Working on ...  </a>
+                        <img id="img_22" src="images/help2.png" class="imgHelp" /> <a id="Link_22" runat="server" href="#"> Continue Working on ...  </a>
                         <br />
                         <br />
                     </div>
                     <div class="TitleArea">Possible Working Items </div>
                     <div id="PossibleGoWorkingItem">
                         <asp:Label ID="title_EPA31" runat="server" Text="Label" CssClass="Title1"></asp:Label>
-                        <img id="img_EPA31" src="images/help2.png" class="imgHelp" />
+                        <img id="img_31" src="images/help2.png" class="imgHelp" />
                         <a href="EPAmanage/Loading.aspx?pID=AppraisalStaffList" target="_self">Select a new teacher from school staff list</a>
                         <br />
                         <asp:Label ID="subtitle_EPA31" runat="server" Text="Label" CssClass="Title2"></asp:Label>
                         <br />
                         <asp:Label ID="title_EPA32" runat="server" Text="Label" CssClass="Title1"></asp:Label>
-                        <img id="img_EPA32" src="images/help2.png" class="imgHelp" />
+                        <img id="img_32" src="images/help2.png" class="imgHelp" />
                         <a href="#">My Appraisal Process</a>
                         <br />
 
                         <asp:Label ID="title_EPA33" runat="server" Text="Label" CssClass="Title1"></asp:Label>
-                        <img id="img_EPA33" src="images/help2.png" class="imgHelp" />
+                        <img id="img_33" src="images/help2.png" class="imgHelp" />
                         <a href="#">School Level Reports</a>
                         <br />
 
                         <asp:Label ID="title_EPA34" runat="server" Text="Label" CssClass="Title1"></asp:Label>
-                        <img id="img_EPA34" src="images/help2.png" class="imgHelp" />
+                        <img id="img_34" src="images/help2.png" class="imgHelp" />
                         <a href="EPAmanage/Loading.aspx?pID=AppraisalNoticeList" target="_self">School Level Appraisal remaider email List</a>
                         <br />
                         <br />
@@ -234,7 +224,7 @@
 
                     <div class="TitleArea">
                         Application Message 
-                <img id="img_EPA91" src="images/help2.png" class="imgHelp" />
+                <img id="img_91" src="images/help2.png" class="imgHelp" />
                     </div>
 
                     <div id="BoardStatement" runat="server">
@@ -383,13 +373,22 @@
 
 <script src="Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
+<script src="../Scripts/Appr_ListPage.js"></script>
+
 <script type="text/javascript">
 
     var UserID = $("#hfUserID").val();
     var CategoryID = $("#hfCategory").val();
     var AreaID = $("#hfArea").val();
     var ItemCode = $("#hfCode").val();
-
+    var teachername;
+    var schoolyear;
+    var schoolcode;
+    var employeeid;
+    var sessionid;
+    var phase;
+    var category;
     $(document).ready(function () {
         //var vHeight = screen.height - 260;// window.screenY
         //var vWidth = screen.width;
@@ -468,17 +467,17 @@
         function onSuccess4(result) { }
 
         $("#ButtonHelpSave").click(function (event) {
-            var Value = $("#TextHelpEdit").val();
-            var helptext = EPA2.Models.WebService1.SaveHelpContent("Save", UserID, CategoryID, AreaID, ItemCode, Value, onSuccess3, onFailure);
+            var value = $("#TextHelpEdit").val();
+            var helptext = EPA2.Models.WebService1.SaveHelpContent("Save", UserID, CategoryID, AreaID, ItemCode, value, onSuccess3, onFailure);
             $("#HelpEditDIV").fadeToggle("fast");
         });
 
         $("#ButtonTitleSave").click(function (event) {
-            var Value = $("#TextHelpEditL").val();
-            var helptext = EPA2.Models.WebService1.SaveHelpContent("Save", UserID, CategoryID, AreaID, ItemCode, Value, onSuccess4, onFailure);
-            var Title = $("#TextTitleEdit").val();
-            var SubTitle = $("#TextSubTitleEdit").val();
-            var Titletext = EPA2.Models.WebService1.SaveTitleContent("Save", UserID, CategoryID, AreaID, ItemCode, Title, SubTitle, onSuccess3, onFailure);
+            var value = $("#TextHelpEditL").val();
+            var helptext = EPA2.Models.WebService1.SaveHelpContent("Save", UserID, CategoryID, AreaID, ItemCode, value, onSuccess4, onFailure);
+            var title = $("#TextTitleEdit").val();
+            var subTitle = $("#TextSubTitleEdit").val();
+            var titletext = EPA2.Models.WebService1.SaveTitleContent("Save", UserID, CategoryID, AreaID, ItemCode, title, subTitle, onSuccess3, onFailure);
             $("#TitleEditDIV").fadeToggle("fast");
         });
 
@@ -510,6 +509,32 @@
                 $("#ActionPOPDIV").fadeToggle("fast");
             }
         }
+    }
+    function OpenALPTop(employeeID, schoolYear, schoolCode, apprType, apprPhase, teacherName,apprarea,itemCode) {
+        teachername = teacherName;
+        schoolyear = schoolYear;
+        schoolcode = schoolCode;
+        employeeid = employeeID;
+        category = apprType;
+        phase = apprPhase;
+        var goPage = "EPAappraisal/Loading.aspx?pID=Appraisal"; //&yID=" + schoolYear + "&dID=" + schoolCode + "&eID=" + employeeID + "&phase=" + apprPhase;
+        var vHeight = screen.height - 210;
+        var vWidth = screen.width - 25;// - 500;
+        var pTitle = "Appraisal Annual Learnning Plan";
+        openEditPage2(vHeight, vWidth, goPage, pTitle);
+    }
+    function OpenAppraisalTop(employeeID, schoolYear, schoolCode, apprType, apprPhase, teacherName, apprarea, itemCode) {
+        teachername = teacherName;
+        schoolyear = schoolYear;
+        schoolcode = schoolCode;
+        employeeid = employeeID;
+        category = apprType;
+        phase = apprPhase;
+        var goPage = "EPAappraisal/Loading.aspx?pID=Appraisal"; //&yID=" + schoolYear + "&dID=" + schoolCode + "&eID=" + employeeID + "&phase=" + apprPhase;
+        var vHeight = screen.height - 210;
+        var vWidth = screen.width - 25;// - 500;
+        var pTitle = "Appraisal";
+        openEditPage2(vHeight, vWidth, goPage, pTitle);
     }
 
 </script>

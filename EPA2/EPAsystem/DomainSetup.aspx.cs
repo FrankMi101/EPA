@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
+using BLL;
 
 namespace EPA2.EPAsystem
 {
@@ -17,7 +17,7 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
                 BindMyData();
                
@@ -25,7 +25,7 @@ namespace EPA2.EPAsystem
           
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "Domain";
@@ -46,8 +46,8 @@ namespace EPA2.EPAsystem
             hfArea.Value = "Domain";
   
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
          }
 
 

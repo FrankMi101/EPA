@@ -26,4 +26,14 @@ namespace ClassLibrary
         public string Para2 { get; set; }
         public string Para3 { get; set; }
     }
+
+    //public class PageHelp
+    //{
+    //    public string Operate { get; set; }
+    //    public string UserID { get; set; }
+    //    public string Category { get; set; }
+    //    public string Area { get; set; }
+    //    public string Code { get; set; }
+    //}
+
 }

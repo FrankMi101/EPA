@@ -4,24 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
+using ClassLibrary; 
 
 namespace EPA2.EPAappraisal
 {
-    public partial class Content_LookFors : System.Web.UI.Page
+    public partial class ContentLookFors : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblePage();
                 BindGridViewData();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "AppraisalList";
@@ -32,8 +31,7 @@ namespace EPA2.EPAappraisal
         }
         private void AssemblePage()
         {
-            myList.SetLists(ddlSchoolYear, "SchoolYear", User.Identity.Name);
-            myList.SetListValue(ddlSchoolYear, WorkingAppraisee.AppraisalYear);
+            AppraisalPage.BuildingListControl(ddlSchoolYear, "SchoolYear", User.Identity.Name, WorkingProfile.SchoolYear); 
             InitialPage();
         }
         private void InitialPage()
@@ -53,26 +51,29 @@ namespace EPA2.EPAappraisal
             }
 
         }
-        private DataTable GetDataSource(Boolean goDatabase)
+        private List<LookFors> GetDataSource(Boolean goDatabase)
         {
-            string schoolyear = ddlSchoolYear.SelectedValue;
-            string schoolcode = WorkingAppraisee.AppraisalSchoolCode;
-            string employeeID = WorkingAppraisee.EmployeeID;
-            string sessionID = WorkingAppraisee.SessionID;
-            string category = Page.Request.QueryString["type"];
-            string area = Page.Request.QueryString["aID"];
-            string itemCode = Page.Request.QueryString["iCode"];
-            string domainID = Page.Request.QueryString["domainID"];
-            string competencyID = Page.Request.QueryString["competencyID"];
-
 
             try
             {
-                DataSet myDS = new DataSet();
-                
-                    myDS = AppraisalDataDomain.DomainTextContentLookFors(User.Identity.Name, schoolyear, schoolcode, employeeID, sessionID, category, area, itemCode, domainID, competencyID);
+                var parameter = new BuildLookForsList()
+                {
+                     
+                Operate = "Get",
+                UserID = User.Identity.Name,
+                SchoolYear = ddlSchoolYear.SelectedValue,
+                SchoolCode = WorkingAppraisee.AppraisalSchoolCode,
+                EmployeeID = WorkingAppraisee.EmployeeID,
+                SessionID = WorkingAppraisee.SessionID,
+                Category = Page.Request.QueryString["type"],
+                Area = Page.Request.QueryString["aID"],
+                DomainID = Page.Request.QueryString["domainID"],
+                CompetencyID = Page.Request.QueryString["competencyID"]
+            };
+        
+                return AppraisalData.LookForsList(parameter);// Domain.DomainTextContentLookFors(User.Identity.Name, schoolyear, schoolcode, employeeId, sessionId, category, area, itemCode, domainId, competencyId);
                
-                return myDS.Tables[0];
+              
             }
             catch (Exception ex)
             {

@@ -26,6 +26,12 @@
     <script type="text/javascript">
         var myHref = document.getElementById("PageURL").getAttribute("href");
         window.location.href = myHref;
+   //       function pageLoad(sender, args) {
+   //         alert(topSelectedMenuItem);
+   //         //if (topSelectedMenuItem != "undefined") $("#" + topSelectedMenuItem, parent.document).addClass("TopSelectItem");
+   ////      window.parent.document.scripts.HighLighTopWorkingMenu();
+ 
+   //     }
     </script>
 
 

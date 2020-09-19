@@ -13,7 +13,8 @@
 
     <style>
         body {
-            width: 99.9%;
+            width: 99.5%;
+             font-family: Arial, sans-serif;
         }
 
         .labelTitle {
@@ -55,7 +56,7 @@
         }
 
         #GridView1 textarea {
-            height: 200px;
+            height: 240px;
             width: 80%;
             border: 1px solid #b6b4b4;
             border-bottom: 0px;
@@ -92,6 +93,10 @@
             .saveButton1:hover {
                 background-color: lightsalmon;
             }
+        .onlineCommons {
+        color:red;
+        font-size:0.8em;
+        }
     </style>
 </head>
 <body>
@@ -109,12 +114,12 @@
             </div>
 
         </header>
-        <section>
+        <section style ="height:580px">
             <div class="ContentTitle">
                 <div id="ContentTitleLeft" class="ContentTitleLeft">
                     <asp:Label ID="labelTitle" runat="server" CssClass="labelTitle">Text Box Title</asp:Label>
                     <img class="imgHelp" src="../images/help2.png" title="Help Content" />
-                    <img class="imgChat" src="../images/help.png" title="Help Workflow" id="AGP" />
+                    <%--<img class="imgChat" src="../images/help.png" title="Help Workflow" id="AGP" visible="false"  />--%>
                     <img class="imgEP" runat="server" id="imgEP" src="../images/ep.png" title="Effective Practice" visible="false" />
                     <img class="imgRecovery" runat="server" id="imgRecovery" src="../images/recover.png" title="Recovery the Text content" visible="false" />
                     <img class="imgSignoff" runat="server" id="imgSignOff" src="../images/signature.png" title="Sign Off Completed" />
@@ -128,17 +133,12 @@
             </div>
 
             <div class="ContentCompetencyList" runat="server">
-                <div id="DivRoot" style="width: 100%; height: 660px;">
-                    <%-- <div style="overflow: hidden;" id="DivHeaderRow">
-                        <table id="GridView2" style="border: 1px ridge gray; width: 99%; height: 30px; background-color: white;" rules="all" cellspacing="0" cellpadding="0">
-                        </table>
-                    </div>--%>
-
-                    <div style="overflow: scroll; width: 99.5%; height: 100%" id="DivMainContent">
-                        <asp:GridView ID="GridView1" runat="server" CellPadding="0" Height="100%" Width="99%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="0" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
+                <div id="DivRoot" style="width: 100%; height: 520px;">
+                    <div style="overflow: auto; width: 100%; height: 100%" id="DivMainContent">
+                        <asp:GridView ID="GridView1" runat="server" CellPadding="0" Height="100%" Width="100%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="0" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                             <Columns>
-                                <asp:BoundField DataField="SequenceNo" HeaderText="No." ItemStyle-CssClass="SequenceNo">
-                                    <ItemStyle Width="1%" />
+                                <asp:BoundField DataField="SeqNo" HeaderText="No." ItemStyle-CssClass="SequenceNo">
+                                    <ItemStyle Width="2%" />
                                 </asp:BoundField>
 
 
@@ -149,7 +149,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Growth Strategies/Supports">
-                                    <ItemStyle Width="44%" Wrap="True" />
+                                    <ItemStyle Width="43%" Wrap="True" />
                                     <ItemTemplate>
                                         <asp:TextBox ID="editTextGrowthStrategy" runat="server" Text='<%# Eval("GrowthStrategy") %>' CssClass="GrowthStrategy, textAreaEdit" Width="100%" TextMode="MultiLine">  </asp:TextBox>
                                     </ItemTemplate>
@@ -180,17 +180,14 @@
                             <SortedDescendingHeaderStyle BackColor="#33276A" />
                         </asp:GridView>
                     </div>
+                  
                 </div>
             </div>
             <br />
             <br />
-            <asp:Button ID="btnAddNewAGP" runat="server" Text="Add New AGP" OnClick="btnAddNewAGP_Click" />
-
-
-
+            <asp:Button ID="btnAddNewAGP" runat="server" Text="Add New AGP" OnClick="btnAddNewAGP_Click" /> 
+              <span class="onlineCommons">  * Click on the No. to delete the Row </span>
         </section>
-
-
         <footer>
             <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
@@ -265,6 +262,7 @@
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <%--<script src="../Scripts/GridView.js"></script>--%>
@@ -276,16 +274,36 @@
     var CategoryID = $("#hfCategory").val();
     var AreaID = $("#hfArea").val();
     var ItemCode = $("#hfCode").val();
+    var DomainID = "0";
+    var CompetencyID = "0";
 
     var currentTR;
     var eventCell;
     var seqNo;
     var actionItem;
 
+    var BasePara = {
+        UserID: $("#hfUserID").val(),
+        Category: $("#hfCategory").val(),
+        Area: $("#hfArea").val(),
+        ItemCode: $("#hfCode").val(),
+        SchoolYear: $("#hfApprYear").val(),
+        SchoolCode: $("#hfApprSchool").val(),
+        SessionID: $("#hfApprSession").val(),
+        EmployeeID: $("#hfApprEmployeeID").val(),
+        Value: "",
+        SeqNo: "",
+        ActionItem: "",
+        Operate: "Comment"
+    };
+
+
     $(document).ready(function () {
         var vHeight = window.innerHeight - apprScreenH;
         $("section").css("height", vHeight) 
         Highlight_LeftMenuSelectNode();
+        $("#GridView1_editTextAreaForGrowth_0").focus();
+
         //   var minD = new Date($("#hfSchoolyearStartDate").val());
         //    var maxD = new Date($("#hfSchoolyearEndDate").val()); 
 
@@ -299,6 +317,7 @@
         $('.SequenceNo').click(function (event) {
             eventCell = $(this);
             seqNo = $(this).closest('tr').find('td.SequenceNo').text();
+            BasePara.SeqNo = seqNo
             var vTop = mousey; // event.clientY; event.currentTarget.offsetTop;
 
             $("#ActionDeleteDIV").css({
@@ -310,13 +329,27 @@
 
         });
         $("#labelDelete").click(function (event) {
-            var rValue = EPA2.Models.WebService1.SaveAGPText("Delete", UserID, CategoryID, AreaID, ItemCode, seqNo, "AGP", "", onSuccess, onFailure);
+            BasePara.Operate = "Delete";
+            BasePara.Value = ""
+            BasePara.GoalItem = "AGP"
+              var rValue = EPA2.Models.WebService1.SaveGridCellText("AGP", BasePara, onSuccess, onFailure);
+          //  var rValue = EPA2.Models.WebService1.SaveAGPText("Delete", UserID, CategoryID, AreaID, ItemCode, seqNo, "AGP", "", onSuccess, onFailure);
             $("#ActionDeleteDIV").fadeToggle("fast");
             //  location.reload();
             $("#btnSave").click();
+            location.reload();
         });
         $("#labelCancel").click(function (event) {
             $("#ActionDeleteDIV").fadeToggle("fast");
+        });
+        $('td > .textAreaEdit').focus(function (event) {
+            eventCell = $(this);
+            $("#hfWorkingCell").val(eventCell[0].id);
+            seqNo = $(this).closest('tr').find('td.SequenceNo').text();
+            actionItem = eventCell[0].className.replace(", textAreaEdit", "");
+            BasePara.SeqNo = seqNo; 
+            BasePara.ActionItem = actionItem
+
         });
 
         $('td > .textAreaEdit').click(function (event) {
@@ -324,14 +357,19 @@
             $("#hfWorkingCell").val(eventCell[0].id);
             seqNo = $(this).closest('tr').find('td.SequenceNo').text();
             actionItem = eventCell[0].className.replace(", textAreaEdit", "");
+            BasePara.SeqNo = seqNo; 
+            BasePara.ActionItem = actionItem
 
         });
         $('td > .textAreaEdit').change(function (event) {
             eventCell = $(this);
             //  seqNo = $(this).closest('tr').find('td.SequenceNo').text();
             //   actionItem = eventCell[0].className.replace(", textAreaEdit", "");
-            var value = eventCell[0].value;
-            var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+            
+            BasePara.Value = eventCell[0].value;
+            BasePara.Operate = "Comment";
+          //  var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+            var rValue = EPA2.Models.WebService1.SaveGridCellText("AGP",BasePara, onSuccess, onFailure);
         });
         //$("textarea").change(function (event) {
         //    eventCell = $(this);
@@ -348,17 +386,17 @@
 
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
@@ -382,8 +420,10 @@
     function updateTextCellAfterContentAction() {
         try {
             var workingCell = $("#hfWorkingCell").val();
-            var value = $("#" + workingCell).val();
-            var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+            BasePara.Operate ="Comment"
+            BasePara.Value = $("#" + workingCell).val();
+           // var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+             var rValue = EPA2.Models.WebService1.SaveGridCellText("AGP",BasePara, onSuccess, onFailure);
         }
         catch (e)
         { window.alert("Update Text Cell Failed!"); }
@@ -393,5 +433,10 @@
     function DisableTextEdit() {
         $('input[type="text"], textarea').attr('readonly', 'readonly');
     }
+    function onSuccess() {
 
+    }
+     function onFailure() {
+
+    }
 </script>

@@ -58,15 +58,13 @@
         }
 
         .WorkingItem {
-           
             color: blue !important;
             font-weight: 600;
             height: 25px;
         }
-
     </style>
 </head>
-<body  onkeydown="if(event.keyCode==8 &amp;&amp; (!(event.srcElement.tagName=='INPUT' || event.srcElement.tagName=='TEXTAREA'))){return false}">
+<body onkeydown="if(event.keyCode==8 &amp;&amp; (!(event.srcElement.tagName=='INPUT' || event.srcElement.tagName=='TEXTAREA'))){return false}">
     <form id="form2" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Services>
@@ -103,23 +101,23 @@
                 <ul id="ContentCompetency" runat="server">
                 </ul>
             </div>
-           
-            <div id="ContentTitleRight" style=" width:300px; inline-block; float: right">
+
+            <div id="ContentTitleRight" style="width: 300px; display: inline-block; float: right">
                 Characters limit
                     <input id="textCount" type="text" maxlength="10" size="1" runat="server" readonly="readonly" />
                 <img class="imgCommentsMenu" runat="server" id="imgCommentsMenu" src="../images/menu.png" title="Comment menu" />
             </div>
             <div class="ContentTextarea">
-                <asp:TextBox ID="myText" runat="server" OnTextChanged="myText_TextChanged" Height="400px" MaxLength="2000" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                <asp:TextBox ID="myText" runat="server" OnTextChanged="MyText_TextChanged" Height="400px" MaxLength="2000" TextMode="MultiLine" Width="99%"></asp:TextBox>
             </div>
         </section>
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
-            <asp:Button ID="btnCompetency" runat="server" Text="" OnClick="btnCompetency_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
+            <asp:Button ID="btnCompetency" runat="server" Text="" OnClick="BtnCompetency_Click" />
 
         </footer>
         <%--   <div class="bottom">
@@ -127,13 +125,13 @@
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
         </div>
 
         <div id="TitleEditDIV" class="bubble epahide">
-            <asp:TextBox ID="TextTitleEdit" runat="server" Width="98%" Height="40px" TextMode="MultiLine" contenteditable="true" spellcheck="true" placeholder="Title"></asp:TextBox>
-            <asp:TextBox ID="TextSubTitleEdit" runat="server" Width="98%" Height="80px" TextMode="MultiLine" contenteditable="true" spellcheck="true" placeholder="Sub Title"></asp:TextBox>
-            <asp:TextBox ID="TextHelpEditL" runat="server" Width="98%" Height="320px" TextMode="MultiLine" contenteditable="true" spellcheck="true" placeholder="Help Content"></asp:TextBox>
+            <asp:TextBox ID="TextTitleEdit" runat="server" Width="98%" Height="40px" TextMode="MultiLine" spellcheck="true" placeholder="Title"></asp:TextBox>
+            <asp:TextBox ID="TextSubTitleEdit" runat="server" Width="98%" Height="80px" TextMode="MultiLine" spellcheck="true" placeholder="Sub Title"></asp:TextBox>
+            <asp:TextBox ID="TextHelpEditL" runat="server" Width="98%" Height="320px" TextMode="MultiLine" spellcheck="true" placeholder="Help Content"></asp:TextBox>
             <asp:Button ID="ButtonTitleSave" runat="server" Text="Save" />
             <asp:CheckBox ID="chbMessage" runat="server" Text="Message Content" Checked="false" />
         </div>
@@ -151,13 +149,13 @@
         <div id="ActionPOPDIV" class="bubble epahide">
             <div class="editTitle" style="display: block; margin-top: 5px;">
                 <div id="ActionTitle" style="display: inline; float: left; width: 96%"></div>
-                <div style="display: inline; float: left; ">
+                <div style="display: inline; float: left;">
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
             </div>
-            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" src="iBlankPage.html" runat="server"></iframe>
         </div>
-      
+
         <div>
             <asp:HiddenField ID="hfSignOff" runat="server" />
             <asp:HiddenField ID="hfCategory" runat="server" />
@@ -175,7 +173,7 @@
             <asp:HiddenField ID="hfFirstName" runat="server" />
             <asp:HiddenField ID="hfPageReadonly" runat="server" />
             <asp:HiddenField ID="hfRubricText" runat="server" />
-            <asp:HiddenField ID="hfAppraisalActionRole" runat="server" Value="" /> 
+            <asp:HiddenField ID="hfAppraisalActionRole" runat="server" Value="" />
             <asp:HiddenField ID="hfApprYear" runat="server" />
             <asp:HiddenField ID="hfApprSchool" runat="server" />
             <asp:HiddenField ID="hfApprSession" runat="server" />
@@ -188,22 +186,33 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
 
-    var UserID = $("#hfUserID").val();
-    var CategoryID = $("#hfCategory").val();
-    var AreaID = $("#hfArea").val();
-    var ItemCode = $("#hfCode").val();
-    var DomainID = $("#hfDomainID").val();
-    var CompetencyID = $("#hfCompetencyID").val();
+
+
+    var parameter = {
+        UserID = $("#hfUserID").val(),
+        CategoryID = $("#hfCategory").val(),
+        AreaID = $("#hfArea").val(),
+        ItemCode = $("#hfCode").val(),
+        DomainID = $("#hfDomainID").val(),
+        CompetencyID = $("#hfCompetencyID").val(),
+        ItemCode = $("#hfCompetencyID").val(),
+        ActionRole = $("#hfAppraisalActionRole").val(),
+        SchoolYear: $("#hfApprYear").val(),
+        SchoolCode: $("#hfApprSchool").val(),
+        SessionID: $("#hfApprSession").val(),
+        EmployeeID: $("#hfApprEmployeeID").val(),
+        Value: "",
+        Operate: "Get"
+    };
     var workingItem = $("#hfCompetencyID").val();
     var imgItem = "img_" + workingItem;
-    var ActionRole = $("#hfAppraisalActionRole").val();
-  
     $(document).ready(function () {
-        var vHeight = window.innerHeight - apprScreenH; 
+        var vHeight = window.innerHeight - apprScreenH;
         $("section").css("height", vHeight)
 
         Highlight_LeftMenuSelectNode();
@@ -220,12 +229,12 @@
         });
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    EditPageItemTitle();
+        //});
         $(".ContentCompetency").mouseenter(function (event) {
             SaveCompentencyTextContent();
         });
@@ -234,45 +243,46 @@
             return false;
         });
         $("#ContentCompetency a").click(function (event) {
-            var competencyID = $(this)[0].id;
-            $("#hfCompetencyID").val(competencyID);
-            CompetencyID = competencyID;
+            parameter.CompetencyID = $(this)[0].id;
+            $("#hfCompetencyID").val(parameter.CompetencyID);
+
             if (workingItem != undefined) {
                 workingItem.removeClass("WorkingItem");
             }
             $(this).addClass("WorkingItem");
             workingItem = $(this);
-            imgItem = "img_" + competencyID;
+            imgItem = "img_" + parameter.CompetencyID;
             GetCompentencyTextContent();
-          //  GetCompentencyRateContent();
+            //  GetCompentencyRateContent();
             // var saveButton = $("#btnCompetency");
             //  saveButton.click();
         });
- 
+
     });
 
     function DisableTextEdit() {
         $('input[type="text"], textarea').attr('readonly', 'readonly');
     }
- 
+
     function onSuccessDC(result) {
         $("#myText").val(result);
     }
-   
+
     function GetCompentencyTextContent() {
-        var DomainID = $("#hfDomainID").val();
-        var CompetencyID = $("#hfCompetencyID").val();
-        var helptext = EPA2.Models.WebService1.GetCompetencyContentLOG("Get", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, ActionRole, onSuccessDC, onFailure);
+        parameter.DomainID = $("#hfDomainID").val();
+        parameter.CompetencyID = $("#hfCompetencyID").val();
+        var returntext = EPA2.Models.WebService1.GetCompetencyContentLog1("GetLog", parameter, onSuccessDC, onFailure);
+       // var helptext = EPA2.Models.WebService1.GetCompetencyContentLog("Get", UserID, CategoryID, AreaID, ItemCode, domainId, competencyId, ActionRole, onSuccessDC, onFailure);
     }
-  
+
     function SaveCompentencyTextContent() {
         var appraisalPageTextChange = $("#hfContentChange").val();
         if (appraisalPageTextChange === "1") {
-
-            var DomainID = $("#hfDomainID").val();
-            var CompetencyID = $("#hfCompetencyID").val();
-            var textValue = $("#myText").val();
-            var helptext = EPA2.Models.WebService1.SaveCompetencyContentLOG("Save", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, ActionRole, textValue, onSuccess, onFailure);
+            parameter.DomainID = $("#hfDomainID").val();
+            parameter.CompetencyID = $("#hfCompetencyID").val();
+            parameter.Value =  $("#myText").val(); 
+            var returntext = EPA2.Models.WebService1.SaveCompetencyContentLog1("SaveLog", parameter,  onSuccess, onFailure);
+          //  var returntext = EPA2.Models.WebService1.SaveCompetencyContentLog("Save", UserID, CategoryID, AreaID, ItemCode, domainId, competencyId, ActionRole, textValue, onSuccess, onFailure);
             $("#hfContentChange").val("0")
             // var saveButton = $("#btnSave");
             // saveButton.click();

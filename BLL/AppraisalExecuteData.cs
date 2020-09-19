@@ -66,5 +66,29 @@ namespace BLL
                 return null;
             }
         }
+        public static List<T> ListOfT(string sp, object parameter)
+        {
+            try
+            {
+                return CommonExecute<T>.ListOfT(sp, parameter);
+            }
+            catch (Exception ex)
+            {
+                string em = ex.StackTrace;
+                throw;
+            }
+        }
+        public static T ValueOfT(string sp, object parameter)
+        {
+            try
+            {
+                return CommonExecute<T>.ValueOfT(sp, parameter);
+            }
+            catch (Exception ex)
+            {
+                string em = ex.StackTrace;
+                throw;
+            }
+        }
     }
 }

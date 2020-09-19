@@ -5,10 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ClassLibrary
-{
+{ public class AppraisalIMP5
+    {
+        public int SeqNo { get; set; }
+        public string Criteria { get; set; }
+        public string Concern { get; set; }
+
+        public string Practices { get; set; }
+
+        public string Steps { get; set; }
+
+        public string Indicators { get; set; }
+
+        public string Completed { get; set; }
+ 
+    }
     public class AppraisalIMP
     {
-        public int RowNo { get; set; }
+        public int SeqNo { get; set; }
         public string  Needs { get; set; }
         public string Strategies { get; set; }
 
@@ -46,11 +60,11 @@ namespace ClassLibrary
             {
                 if (operate == "Delete")
                 {
-                    parameters.IDs = ids;
+                    parameters.IDs = ids;// Int32.Parse(ids);
                 }
                 else
                 {
-                    parameters.IDs = ids;
+                    parameters.IDs = ids;//  Int32.Parse(ids);
                     parameters.GoalItem = goalItem;
                     parameters.Value = value;  
                 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
+using ClassLibrary;
+using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
@@ -15,26 +11,26 @@ namespace EPA2.EPAappraisal
         {
             if (!Page.IsPostBack)
             {
-                setPageAttribution();
+                SetPageAttribution();
                 AllowViewPermissionCheck();
-            
+
 
             }
             AssemblingPageTitle();
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
-            hfCategory.Value = "EPA";
-            hfPageID.Value = WorkingAppraisee.AppraisalArea;
-            hfCode.Value = "ViewP";
-            hfArea.Value = "SUM";
+            hfCategory.Value = "TPA";
+            hfPageID.Value = "ViewP";
+            hfCode.Value = Page.Request.QueryString["aID"] + "View";
+            hfArea.Value = Page.Request.QueryString["aID"];
             hfUserID.Value = User.Identity.Name;
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
             hfRunningModel.Value = WebConfig.RunningModel();
             hfContentChange.Value = "0";  // initila page content for not a change statue
-            hfAppraisalActionRole.Value = AppraisalProcess.AppraisalActionRole(WorkingAppraisee.AppraisalType, WorkingProfile.UserRole, WorkingAppraisee.UserID, WorkingProfile.UserID);
+            hfAppraisalActionRole.Value = AppraisalProcess.AppraisalActionRole(WorkingAppraisee.AppraisalType, WorkingProfile.UserRole, WorkingAppraisee.UserID, User.Identity.Name);
+ 
 
-         
 
         }
 
@@ -44,67 +40,93 @@ namespace EPA2.EPAappraisal
             string area = hfArea.Value;
             string code = hfCode.Value;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-           
+            AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code  );
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code +"1"  );
+            AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code +"2");
+
 
         }
-  
 
-        protected void btnNext_Click(object sender, EventArgs e)
+
+        protected void BtnNext_Click(object sender, EventArgs e)
         {
             GoToNewPage("Next");
         }
-        protected void btnPrevious_Click(object sender, EventArgs e)
+        protected void BtnPrevious_Click(object sender, EventArgs e)
         {
             GoToNewPage("Previous");
         }
 
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
         }
-      
+
 
         private void GoToNewPage(string action)
         {
             string category = hfCategory.Value;
             string area = hfArea.Value;
             string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+
+            string goPage = AppraisalPage.GoPage(parameter);// AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
 
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 
         }
- 
-
-        protected void rblViewPermission_SelectedIndexChanged(object sender, EventArgs e)
+        protected void CheckBoxAutoEmailNotice_CheckedChanged(object sender, EventArgs e)
         {
-            OperationMyData("Save");
+            OperationMyData("Save","Auto");
+        }
+
+        protected void RblViewPermission_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OperationMyData("Save","View");
         }
         private void AllowViewPermissionCheck()
         {
-            OperationMyData("Get");
+            OperationMyData("Get","View");
+            OperationMyData("Get", "Auto");
         }
 
-        protected void OperationMyData(string action)
+        protected void OperationMyData(string action, string type)
         {
-            string schoolyear = WorkingAppraisee.AppraisalYear;
-            string schoolcode = WorkingAppraisee.AppraisalSchoolCode;
-            string sessionid = WorkingAppraisee.SessionID;
-            string employeeid = WorkingAppraisee.EmployeeID;
-            string phase = WorkingAppraisee.AppraisalPhase;
-            string category = WorkingAppraisee.AppraisalType;
-            string area = WorkingAppraisee.AppraisalArea;
-            string code = WorkingAppraisee.AppraisalCode;
-            string userRole = WorkingProfile.UserAppraisalRole;
-            AppraisalData.ListPermission(ref rblViewPermission, action, User.Identity.Name, schoolyear, schoolcode, sessionid, employeeid, category, area, code);
+
+
+            var parameter = new AppraisalCommentSignOff()
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                SchoolYear = WorkingAppraisee.AppraisalYear,
+                SchoolCode = WorkingAppraisee.AppraisalSchoolCode,
+                EmployeeID = WorkingAppraisee.EmployeeID,
+                SessionID = WorkingAppraisee.SessionID,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ItemCode = hfCode.Value,
+                UserRole = WorkingProfile.UserAppraisalRole,
+            };
+            if (type == "View")
+                AppraisalData.ListPermission(ref rblViewPermission, action, parameter); //ref rblViewPermission, action, User.Identity.Name, schoolyear, schoolcode, sessionid, employeeid, category, area, code);
+            else
+                AppraisalData.AutoNoticeSignOffAction(ref CheckBoxAutoEmailNotice,  action, parameter); //ref rblViewPermission, action, User.Identity.Name, schoolyear, schoolcode, sessionid, employeeid, category, area, code);
             if (action == "Get")
             {
                 if (hfAppraisalActionRole.Value == "Appraisee")
                 {
                     rblViewPermission.Enabled = false;
+                    CheckBoxAutoEmailNotice.Enabled = false;
                 }
             }
         }
+
+  
     }
 }

@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_Strategy {
+    public partial class ContentStrategy {
         
         /// <summary>
         /// form1 control.

@@ -49,7 +49,7 @@
         }
 
         .appheader {
-            height: 100px;
+            height: 85px;
             width: 100%;
             border-top: 2px solid #56c0e9;
         }
@@ -147,7 +147,7 @@
         <header>
             <div class="appheader ">
                 <div id="LogoCol" style="display: inline; width: 10%; float: left;" class="pull-left visible-sm visible-md visible-lg">
-                       <img id="Image3" src="../images/boardlogo.gif" alt="TCDSB Logo" border="0" style="width: 200px; height: 85px" />
+                       <img id="Image3" src="../images/boardlogo.gif" alt="TCDSB Logo" border="0" style="width: 200px; height: 80px" />
                 </div>
                 <div id="messageCol" style="display: inline; text-align: right; width: 40%; float: left" class="visible-md visible-lg">
                      <asp:Label ID="LabelTrain" Width="106px" runat="server" Height="32px" Visible="False"
@@ -275,6 +275,7 @@
         var screenWidth = screen.width;
         var screenHeight = screen.height;
         $("#txtResolution").val(screenWidth + "x" + screenHeight);
+        
     });
     //function pageLoad(sender, args) {   }
 

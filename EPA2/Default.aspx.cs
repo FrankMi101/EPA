@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
+using BLL;
 using System.Data;
 
 namespace EPA2
@@ -17,11 +17,12 @@ namespace EPA2
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
+                WorkingProfile.WorkingOnAppr = "TPA";
                 SaveUserWorkingEnvironment();
                 string deviceScreen = WorkingProfile.ClientUserScreen;
                 int xInt = deviceScreen.IndexOf("x");
                 string devicewidth = deviceScreen.Substring(0, xInt);
-
+              
                 int dWidth = int.Parse(devicewidth);
                 //if (dWidth < 800)
                 //{
@@ -37,6 +38,7 @@ namespace EPA2
         }
         private void DefaultLoad()
         {
+
             WorkingProfile.PageCategory = "Summary";
             WorkingProfile.PageArea = "General";
             WorkingProfile.PageItem = "EPA00";
@@ -46,8 +48,9 @@ namespace EPA2
             hfRunningModel.Value = WebConfig.RunningModel();
             hfApprYear.Value = WorkingProfile.SchoolYear;
             hfApprSchool.Value = WorkingProfile.SchoolCode;
-            hfApprEmployeeID.Value = WorkingProfile.UserEmployeeID;
+            hfApprEmployeeID.Value = WorkingProfile.UserEmployeeId;
             hfTeacherName.Value = WorkingProfile.UserName;
+            hfWorkingOn.Value = WorkingProfile.WorkingOnAppr;
 
             if (DBConnection.CurrentDB != "Live")
             {
@@ -65,8 +68,8 @@ namespace EPA2
 
 
 
-            myList.SetLists(rblLoginAS, "UserRole", User.Identity.Name);
-            myList.SetListValue(rblLoginAS, WorkingProfile.UserRole);
+            AppraisalPage.BuildingListControl(rblLoginAS, "UserRole", User.Identity.Name);
+            AppraisalPage.BuildingListControlInitial(rblLoginAS, WorkingProfile.UserRole);
 
             LoginUserRole.InnerText = UserProfile.LoginUserName + " as " + rblLoginAS.SelectedItem.Text;
 
@@ -74,28 +77,37 @@ namespace EPA2
 
             GetUserLastWorkingValue();
 
-            string pID = Page.Request.QueryString["pID"];
+            string pId = Page.Request.QueryString["pID"];
             if (WorkingProfile.UserRole == "Teacher")
             {
-                pID = "EPAmanage/Loading.aspx?pID=AppraisalHistory";
+                pId = "EPAmanage/Loading.aspx?pID=AppraisalHistory";
+                LinkBtnWorkingOn.Visible = false;
             }
             else
             {
-                if (pID == "Summary")
-                { pID = "Loading.aspx?pID=Summary"; }
+                LinkBtnWorkingOn.Visible = true;
+                if (WorkingProfile.UserRole == "VP" && WorkingProfile.WorkingOnAppr == "PPA")
+                {
+                    pId = "EPAmanage/Loading.aspx?pID=AppraisalHistory";
+                }
                 else
                 {
-                    if (Session["HomePage"] != null)
-                    {
-                        pID = Session["HomePage"].ToString();
-                    }
+                    if (pId == "Summary")
+                    { pId = "Loading.aspx?pID=Summary"; }
                     else
                     {
-                        pID = "Loading.aspx?pID=Summary";
+                        if (Session["HomePage"] != null)
+                        {
+                            pId = Session["HomePage"].ToString();
+                        }
+                        else
+                        {
+                            pId = "Loading.aspx?pID=Summary";
+                        }
                     }
                 }
             }
-            GoList.Attributes.Add("src", pID);
+            GoList.Attributes.Add("src", pId);
         }
         protected void btnLogout_Click(object sender, EventArgs e)
         {
@@ -116,17 +128,37 @@ namespace EPA2
             LabelSchoolYear.Text = UserProfile.CurrentSchoolYear;
             LabelSchoolCode.Text = UserLastWorking.SchoolCode;
             LabelSchool.Text = UserLastWorking.SchoolName;
-
+            hfSchoolArea.Value = UserLastWorking.SchoolArea;
+            WorkingProfile.SchoolArea = hfSchoolArea.Value;
         }
         private void SaveUserWorkingEnvironment()
         {
-            string ScreenSize = WorkingProfile.ClientUserScreen;
-            string machine_name = Server.MachineName;
-            string browser_type = HttpContext.Current.Request.Browser.Type;
-            string browser_version = HttpContext.Current.Request.Browser.Version;
+            string screenSize = WorkingProfile.ClientUserScreen;
+            string machineName = Server.MachineName;
+            string browserType = HttpContext.Current.Request.Browser.Type;
+            string browserVersion = HttpContext.Current.Request.Browser.Version;
 
-            string lastValue = UserLastWorking.LastValue(User.Identity.Name, "LastValue", WorkingProfile.UserRole, machine_name, ScreenSize, browser_type, browser_version);
+            string lastValue = UserLastWorking.LastValue(User.Identity.Name, "LastValue", WorkingProfile.UserRole, machineName, screenSize, browserType, browserVersion);
 
+        }
+
+        protected void LinkBtnWorkingOn_Click(object sender, EventArgs e)
+        {
+             LinkBtnWorkingOn.Text ="Go " +  WorkingProfile.WorkingOnAppr;
+           if (WorkingProfile.WorkingOnAppr == "TPA")
+                WorkingProfile.WorkingOnAppr = "PPA";
+            else
+                WorkingProfile.WorkingOnAppr = "TPA";
+
+            lblApplication.Text = WorkingProfile.WorkingOnAppr == "TPA" ? "Teacher Performance Appraisal" : "Principal Performance Appraisal";
+            appLink.InnerText = WorkingProfile.WorkingOnAppr;
+
+            if (WorkingProfile.UserRoleLogin == "VP" && WorkingProfile.WorkingOnAppr == "TPA")
+            { 
+                  Session["HomePage"] = "EPAmanage/Loading.aspx?pID=AppraisalStaffList"; ;
+            }
+
+            DefaultLoad();
         }
     }
 }

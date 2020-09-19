@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PDFPage.aspx.cs" Inherits="EPA2.EPAappraisal.PDFPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PDFPage.aspx.cs" Inherits="EPA2.EPAappraisal.PdfPage" %>
 
 <!DOCTYPE html>
 
@@ -66,7 +66,7 @@
                 <asp:Label ID="labelMessage" runat="server" CssClass="labelMessage">Report is not ready</asp:Label>
             </div>
             <div id="iFrameForPDF" style="height: 540px; width:100%">
-                <iframe id="PDFiFramePage" name="PDFiFramePage" style="height: 100%; width: 100%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+                <iframe id="PDFiFramePage" name="PDFiFramePage" style="height: 100%; width: 100%" src="iBlankPage.html" runat="server"></iframe>
 
             </div>
 
@@ -74,12 +74,12 @@
 
         <footer>
             <br />     <br />
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" Enabled="false" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" Enabled="false" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" Enabled="false" />
         </footer>
           <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine"   CssClass="HelpTextBox"></asp:TextBox>
            <%-- <div id="textHelp"></div>--%>
          </div>
 
@@ -90,7 +90,7 @@
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
             </div>
-            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%"   src="iBlankPage.html" runat="server"></iframe>
         </div>
         <div>
             <asp:HiddenField ID="hfCategory" runat="server" />
@@ -117,7 +117,7 @@
  
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 
 <script>
@@ -129,14 +129,14 @@
 
         Highlight_LeftMenuSelectNode();
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
 
 
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();
-        });
+        //$(".labelTitle").dblclick(function (event) {
+        //    EditPageItemTitle();
+        //});
     });
 
 </script>

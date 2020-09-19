@@ -21,4 +21,31 @@ namespace ClassLibrary
         public string Attachment3 { get; set; }
 
     }
+    public class EmailNoticePara
+    {
+        public string Operate { get; set; }
+        public string UserID { get; set; }
+        public string SchoolYear { get; set; }
+        public string SchoolCode { get; set; }
+        public string EmployeeID { get; set; }
+        public string SessionID { get; set; }
+        public string NoticeType { get; set; }
+        public string Category { get; set; }
+        public string NoticeArea { get; set; }
+        public string NoticeRole { get; set; }
+        public string NoticeDate { get; set; }
+        public string DeadLineDate { get; set; }
+        public string NoticeSubject { get; set; }
+        public string Comments { get; set; }
+        public string eMailAddress { get; set; }
+        public string eMailSubject { get; set; }
+        public string eMailBody { get; set; }
+        public string Template { get; set; }
+        public string TemplateType { get; set; }
+        public string AutoNotice { get; set; }
+         
+
+    }
+     
+
 }

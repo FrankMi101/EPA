@@ -16,7 +16,7 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
                 BindMyData();
                
@@ -24,7 +24,7 @@ namespace EPA2.EPAsystem
           
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "District";
@@ -43,9 +43,9 @@ namespace EPA2.EPAsystem
             hfArea.Value = "District";
   
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1"); 
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1"); 
         }
 
 

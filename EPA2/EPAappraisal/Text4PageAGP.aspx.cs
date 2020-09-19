@@ -4,9 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 using System.Web.UI.HtmlControls;
+using ClassLibrary;
 
 namespace EPA2.EPAappraisal
 {
@@ -20,20 +19,32 @@ namespace EPA2.EPAappraisal
             {
                 Page.Response.Expires = 0;
           
-               setPageAttribution();
+               SetPageAttribution();
                
                 BindMyData();
-                checkPageReadonly();
-                checkGAPExists();
+                CheckPageReadonly();
+                CheckGapExists();
             }
        
 
         }
-        private void checkGAPExists()
+        private void CheckGapExists()
         {
-            btnViewAGP.Text = AppraisalDataAGP.AGPWorkingListContent("CheckAGP", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode,WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID,  WorkingAppraisee.AppraisalType, WorkingAppraisee.AppraisalArea, WorkingAppraisee.AppraisalCode);
+            var parameter = new AppraisalComment {
+               Operate ="CheckAGP",
+               UserID = User.Identity.Name,
+               SchoolYear = WorkingAppraisee.AppraisalYear,
+               SchoolCode = WorkingAppraisee.AppraisalSchoolCode,
+               EmployeeID = WorkingAppraisee.EmployeeID,
+               SessionID = WorkingAppraisee.SessionID,
+               Category = WorkingAppraisee.AppraisalType,
+               Area = WorkingAppraisee.AppraisalArea,
+               ItemCode = WorkingAppraisee.AppraisalCode
+
+            };
+            btnViewAGP.Text =  AppraisalProcess.ViewAGPButtonText("CheckAGP",parameter); // AppraisalDataAGP.AGPWorkingListContent("CheckAGP", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode,WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, WorkingAppraisee.AppraisalType, WorkingAppraisee.AppraisalArea, WorkingAppraisee.AppraisalCode);
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             hfFirstName.Value = WorkingAppraisee.AppraiseeName;
@@ -48,17 +59,17 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            //AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
-            //AppraisalData.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
-            //AppraisalData.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            //AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
+            //AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
+            //AppraisalPage.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
 
-            //    AppraisalData.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
-            //    AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+            //    AppraisalPage.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
+            //    AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
-            string SectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
-            if (SectionStartPage.IndexOf(code) == -1)
+            string sectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
+            if (sectionStartPage.IndexOf(code) == -1)
             { btnPrevious.Enabled = true; }
             else
             {
@@ -83,7 +94,22 @@ namespace EPA2.EPAappraisal
             string area = hfArea.Value;
             string code = hfCode.Value;
          
-            AppraisalData.AGPWorkingTemplate(ref  GridView1,action,category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+          //  AppraisalData.AGPWorkingTemplate(ref  GridView1,action,category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+
+            var parameter = new ClassLibrary.AppraisalComment()
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfApprEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ItemCode = hfCode.Value
+            };
+            AppraisalData.AGPWorkingTemplate(ref GridView1, parameter);//  action, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+
         }
 
         protected void btnViewAGP_onClick(object sender, EventArgs e)
@@ -93,7 +119,7 @@ namespace EPA2.EPAappraisal
              OperationMyList("RollOver");
            }
         }
-        protected void checkPageReadonly()
+        protected void CheckPageReadonly()
         {
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
         }
@@ -111,11 +137,15 @@ namespace EPA2.EPAappraisal
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
-
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+             string goPage = AppraisalPage.GoPage(parameter);
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 
         }

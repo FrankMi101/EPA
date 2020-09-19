@@ -1,20 +1,17 @@
-﻿using System;
+﻿using BLL;
+using ClassLibrary;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.IO;
-using System.Net.Mail;
 using System.Globalization;
+using System.IO;
 using System.Text;
-//using System.IO;
-//using System.Text;
+using System.Web.UI;
 namespace EPA2.EPAmanage
 {
     public partial class Notification : System.Web.UI.Page
     {
+        string webSite = WebConfig.getValuebyKey("ApplicationSite");//  " <a href=' " + WebConfig.getValuebyKey("ApplicationSite") + "' target='_blank'>  Teacher Performance Appraisal </a>";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -23,18 +20,18 @@ namespace EPA2.EPAmanage
                 hfApprYear.Value = Page.Request.QueryString["yID"];
                 hfApprSchool.Value = Page.Request.QueryString["cID"];
                 hfApprEmployeeID.Value = Page.Request.QueryString["tID"];
-                string sID = Page.Request.QueryString["sID"];
-                if (sID == "undefined")
+                string sId = Page.Request.QueryString["sID"];
+                if (sId == "undefined")
                 {
-                    sID = "Appraisal0";
+                    sId = "Appraisal0";
                 }
-                hfApprSession.Value = sID;
+                hfApprSession.Value = sId;
                 hfApprName.Value = Page.Request.QueryString["tName"];
-                setPageAttribution();
+                SetPageAttribution();
                 GetNoticeForUserInforamtion();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "Feedback";
@@ -48,7 +45,8 @@ namespace EPA2.EPAmanage
                 if (Session["NoticeType"].ToString() == "EPA")
                 { rblNoticeType.SelectedIndex = 1; }
                 if (Session["NoticeType"].ToString() == "OBS")
-                { rblNoticeType.SelectedIndex = 2;
+                {
+                    rblNoticeType.SelectedIndex = 2;
                     chbICalendar.Visible = true;
                 }
             }
@@ -67,27 +65,21 @@ namespace EPA2.EPAmanage
             {
                 LableDeadLine.Text = "Classroom Obervation Date:";
             }
-            //if (WorkingAppraisee.AppraisalPhase == "LTO" || WorkingAppraisee.AppraisalPhase == "NTP")
-            //{
-            //    rblNoticeType.SelectedIndex = 2;
-            //    LableDeadLine.Text = "Classroom Obervation Date:";
-            //}
-            //else
-            //{
-            //    rblNoticeType.SelectedIndex = 0;
-            //}
-            myText.Text = getBodyByType();
-            TextSubject.Text = getDefaultSubjectbyNoticeType();
+        
+            myText.Text = GetBodyByType();
+            TextSubject.Text = GetDefaultSubjectbyNoticeType();
+            myText.Text = myText.Text.Replace("{{PlaceHolder:WebSite}}", webSite);
+
 
         }
         protected void rblNoticeType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (rblNoticeType.SelectedValue == "OBS")
             { LableDeadLine.Text = "Classroom Obervation Date:"; }
-            myText.Text = getBodyByType();
-            TextSubject.Text = getDefaultSubjectbyNoticeType();
+            myText.Text = GetBodyByType();
+            TextSubject.Text = GetDefaultSubjectbyNoticeType();
         }
-        private string getDefaultSubjectbyNoticeType()
+        private string GetDefaultSubjectbyNoticeType()
         {
             string category = hfCategory.Value;
             string noticeType = "AppraisalStart";
@@ -95,69 +87,91 @@ namespace EPA2.EPAmanage
             string noticeGo = "Appraisee";
             string noticeFrom = "Appraiser";
             string purpose = "Notice";
-            string subject = GetNoticeFile.eMailContentByType("GetSubject", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose);
+            string subject = GetNoticeFile.EMailContentByType("GetSubject", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose);
 
             return subject;
         }
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
-            string noticeType = "AppraisalStart";
-            string noticeArea = rblNoticeType.SelectedValue;
-            string eMailTo = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser",noticeArea);
-            string eMailCC = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "CCUser", noticeArea);
-            string eMailBcc = "";
-            string eMailForm = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "OperateUser", noticeArea);
-            string eMailSubject = TextSubject.Text;
-            string eMailBody = getEmailBody(); //  myText.Text;
-            string eMailFormat = "HTML";
-            string noticeDate = DateTime.Now.ToString("yyyy/MM/dd");
-            string  eMailBodySave = eMailBody.Replace("{{PlaceHolder:WebSite}}", " <a href=' " + WebConfig.getValuebyKey("ApplicationSite") + "' target='_blank'>  Teacher Performance Appraisal </a>");
 
-            eMailNotification.NotificationeMail("Appraiser", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, noticeType, noticeArea, noticeDate, DeadLineDate.Value, eMailSubject, eMailBodySave);
-            string result = "";
-            if ( chbICalendar.Checked ) // rblNoticeType.SelectedValue == "OBS")
-            {             
-                System.Net.Mail.Attachment iCalendar = getiCalendar();
-                 result = eMailNotification.SendeMail(eMailTo, eMailCC, eMailBcc, eMailForm, eMailSubject, eMailBody, eMailFormat, iCalendar);
+            string noticeArea = rblNoticeType.SelectedValue;
+    
+            string noticeType = "AppraisalStart"; 
+            string eMailBody = GetEmailBody(); //  myText.Text;        
+            string eMailBodySave = eMailBody.Replace(webSite, " <a href=' " + webSite + "' target='_blank'>  Teacher Performance Appraisal </a>");
+
+            var parameter = new EmailNoticePara()
+            {
+                Operate = "Appraiser",
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfApprEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                NoticeType = noticeType,
+                NoticeArea = noticeArea,
+                NoticeDate = DateTime.Now.ToString("yyyy/MM/dd"),
+                DeadLineDate = DeadLineDate.Value,
+                NoticeSubject = TextSubject.Text,
+                Comments = eMailBodySave
+            };
+
+
+            string result = MailNotification.NotificationeMailSave(parameter);//"Appraiser", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, noticeType, noticeArea, noticeDate, DeadLineDate.Value, eMailSubject, eMailBodySave);
+
+           var eMailPara = new EmailNotice()
+            {
+                EmailTo = MailNotification.NotificationeMailUser("NoticeUser", parameter),
+                EmailCC = MailNotification.NotificationeMailUser("CCUser", parameter),
+                EmailFrom = MailNotification.NotificationeMailUser("OperateUser", parameter),
+                EmailBcc = "",
+                EmailSubject = TextSubject.Text,
+                EmailBody = GetEmailBody(),
+                EmailFormat = "HTML"
+            };
+
+ 
+
+            if (chbICalendar.Checked) // rblNoticeType.SelectedValue == "OBS")
+            {
+                System.Net.Mail.Attachment iCalendar = GetiCalendar();
+                result = MailNotification.SendMailWithiCalendar( eMailPara,iCalendar);
             }
             else
             {
-                result = eMailNotification.SendeMail(eMailTo, eMailCC, eMailBcc, eMailForm, eMailSubject, eMailBody, eMailFormat);
-                if (rblNoticeType.SelectedValue == "OBS" && !chbICalendar.Checked )
-                {    btnAppointment.Visible =true;
+                result = MailNotification.SendMail(eMailPara);
+                if (rblNoticeType.SelectedValue == "OBS" && !chbICalendar.Checked)
+                {
+                    btnAppointment.Visible = true;
                 }
             }
-            showMessage(result, "Send Email Notification");
+            ShowMessage(result, "Send Email Notification");
 
         }
-        private System.Net.Mail.Attachment getiCalendar()
+        private System.Net.Mail.Attachment GetiCalendar()
         {
             DateTime sDate = DateTime.ParseExact(DeadLineDate.Value + " 09:30", "yyyy/MM/dd hh:mm", CultureInfo.InvariantCulture);
             DateTime eDate = DateTime.ParseExact(DeadLineDate.Value + " 12:30 PM", "yyyy/MM/dd hh:mm tt", CultureInfo.InvariantCulture);
-            // string sTime = "";
-            // string eTime = "";
-            // string  sDate = "";
-            //  string eDate = "";
             string teacherName = hfApprName.Value;
-            string toMail = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser","EPA");
+            string toMail = MailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser", "EPA");
             string location = "Class Room/Principal's Office";
             string subject = "Performance Appraisal Class Room Observation";
             string appraiser = User.Identity.Name;
             string description = "Teacher Performance Appraisal in Class Room Observation ";
             byte[] calendarBytes = iCalendar.getiCalendarbyStringBuiding(User.Identity.Name, sDate, eDate, teacherName, subject, description, location, toMail, appraiser);
             MemoryStream ms = new MemoryStream(calendarBytes);
-            System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(ms, "event.ics", "text/calendar");
-            return attachment;
+            return new System.Net.Mail.Attachment(ms, "event.ics", "text/calendar");
+          
         }
-        private string getEmailBody()
+        private string GetEmailBody()
         {
             string htmlfile = GetNoticeFile.FileContentByType("EPA");
             htmlfile = htmlfile.Replace("{{HTMLeMailBodyPlaceHolder}}", myText.Text);
             return htmlfile;
         }
 
-        private void showMessage(string result, string action)
+        private void ShowMessage(string result, string action)
         {
             try
             {
@@ -172,7 +186,7 @@ namespace EPA2.EPAmanage
         {
 
         }
-        private string getBodyByType()
+        private string GetBodyByType()
         {
             string noticeType = "AppraisalStart";
             string noticeArea = rblNoticeType.SelectedValue;
@@ -181,10 +195,10 @@ namespace EPA2.EPAmanage
             string noticeGo = "Appraisee";
             string noticeFrom = "Appraiser";
             string purpose = "Notice";
-            string cBody = GetNoticeFile.eMailContentByType("GetBody", User.Identity.Name, category, noticeType, noticeArea,noticeGo, noticeFrom, purpose);
+            string cBody = GetNoticeFile.EMailContentByType("GetBody", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose);
             cBody = cBody.Replace("{{PlaceHolder:ToName}}", WorkingAppraisee.AppraiseeName);
             cBody = cBody.Replace("{{PlaceHolder:AppraisalYear}}", WorkingAppraisee.AppraisalYear);
-            cBody = cBody.Replace("{{PlaceHolder:AppraisalCategory}}", GetNoticeFile.eMailContentAppCategory("AppCategory", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose));
+            cBody = cBody.Replace("{{PlaceHolder:AppraisalCategory}}", GetNoticeFile.EMailContentAppCategory("AppCategory", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose));
             cBody = cBody.Replace("{{PlaceHolder:AppraiserName}}", WorkingAppraisee.AppraiserName);
             cBody = cBody.Replace("{{PlaceHolder:SendName}}", WorkingProfile.UserName);
             cBody = cBody.Replace("{{PlaceHolder:SendDate}}", noticeDate);
@@ -196,11 +210,11 @@ namespace EPA2.EPAmanage
 
             if (WebConfig.getValuebyKey("eMailTry") == "Test")
             {
-                string eMailTo = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser", noticeArea);
-                string eMailCC = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "CCUser", noticeArea);
+                string eMailTo = MailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser", noticeArea);
+                string eMailCc = MailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "CCUser", noticeArea);
 
                 cBody = cBody.Replace("{{PlaceHolder:TestEmailTo}}", "Email To: " + eMailTo);
-                cBody = cBody.Replace("{{PlaceHolder:TestEmailCC}}", "Email CC: " + eMailCC);
+                cBody = cBody.Replace("{{PlaceHolder:TestEmailCC}}", "Email CC: " + eMailCc);
             }
             else
             {
@@ -222,14 +236,14 @@ namespace EPA2.EPAmanage
             //  string eDate = "";
             string noticeArea = rblNoticeType.SelectedValue;
             string teacherName = hfApprName.Value;
-            string toMail = eMailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser", noticeArea);
+            string toMail = MailNotification.NotificationeMail("Get", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, "NoticeUser", noticeArea);
             string location = "Class Room/Principal's Office";
             string subject = "Performance Appraisal Class Room Observation";
             string appraiser = User.Identity.Name;
             string description = "Teacher Performance Appraisal in Class Room Observation ";
 
 
-            MakeiCalendarSB(sDate, eDate, teacherName, subject, description, location, toMail, appraiser);
+            MakeiCalendarSb(sDate, eDate, teacherName, subject, description, location, toMail, appraiser);
         }
 
 
@@ -250,7 +264,7 @@ namespace EPA2.EPAmanage
 
         }
 
-        private void MakeiCalendarSB(DateTime sDate, DateTime eDate, string teacherName, string subject, string description, string location, string toMail, string appraiser)
+        private void MakeiCalendarSb(DateTime sDate, DateTime eDate, string teacherName, string subject, string description, string location, string toMail, string appraiser)
         {
             byte[] calendarBytes = iCalendar.getiCalendarbyStringBuiding(User.Identity.Name, sDate, eDate, teacherName, subject, description, location, toMail, appraiser);
             MemoryStream ms = new MemoryStream(calendarBytes);
@@ -262,7 +276,7 @@ namespace EPA2.EPAmanage
             Response.End();
 
         }
-        public static List<string> iCals(List<iCalendar2> iCals)
+        public static List<string> ICals(List<iCalendar2> iCals)
         {
             List<string> calendars = new List<string>();
 
@@ -278,15 +292,15 @@ namespace EPA2.EPAmanage
 
                 //Event
                 sb.AppendLine("BEGIN:VEVENT");
-                sb.AppendLine("DTSTART:" + toUniversalTime(iCal.EventStartDateTime));
-                sb.AppendLine("DTEND:" + toUniversalTime(iCal.EventEndDateTime));
-                sb.AppendLine("DTSTAMP:" + toUniversalTime(iCal.EventTimeStamp));
+                sb.AppendLine("DTSTART:" + ToUniversalTime(iCal.EventStartDateTime));
+                sb.AppendLine("DTEND:" + ToUniversalTime(iCal.EventEndDateTime));
+                sb.AppendLine("DTSTAMP:" + ToUniversalTime(iCal.EventTimeStamp));
                 sb.AppendLine("ORGANIZER;CN=John Doe:mailto:johndoe@company.com");
                 sb.AppendLine("UID:" + iCal.UID);
                 //sb.AppendLine("ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN=marydoe@company.com;X-NUM-GUESTS=0:mailto:marydoe@company.com");
-                sb.AppendLine("CREATED:" + toUniversalTime(iCal.EventCreatedDateTime));
+                sb.AppendLine("CREATED:" + ToUniversalTime(iCal.EventCreatedDateTime));
                 sb.AppendLine("X-ALT-DESC;FMTTYPE=text/html:" + iCal.EventDescription);
-                sb.AppendLine("LAST-MODIFIED:" + toUniversalTime(iCal.EventLastModifiedTimeStamp));
+                sb.AppendLine("LAST-MODIFIED:" + ToUniversalTime(iCal.EventLastModifiedTimeStamp));
                 sb.AppendLine("LOCATION:" + iCal.EventLocation);
                 sb.AppendLine("SEQUENCE:0");
                 sb.AppendLine("STATUS:CONFIRMED");
@@ -311,11 +325,11 @@ namespace EPA2.EPAmanage
             return calendars;
         }
 
-        public static string toUniversalTime(DateTime dt)
+        public static string ToUniversalTime(DateTime dt)
         {
-            string DateFormat = "yyyyMMddTHHmmssZ";
+            string dateFormat = "yyyyMMddTHHmmssZ";
 
-            return dt.ToUniversalTime().ToString(DateFormat);
+            return dt.ToUniversalTime().ToString(dateFormat);
         }
     }
 }

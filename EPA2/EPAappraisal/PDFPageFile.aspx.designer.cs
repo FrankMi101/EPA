@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class PDFPageFile {
+    public partial class PdfPageFile {
         
         /// <summary>
         /// form2 control.
@@ -38,6 +38,15 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor PageURL;
+        
+        /// <summary>
+        /// LabelNoPDFFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelNoPDFFile;
         
         /// <summary>
         /// PDFiFramePage control.

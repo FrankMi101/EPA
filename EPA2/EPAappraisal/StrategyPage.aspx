@@ -182,16 +182,16 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
         </footer>
         <%--   <div class="bottom">
             &nbsp;
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine"  CssClass="HelpTextBox"></asp:TextBox>
         </div>
 
 
@@ -212,7 +212,7 @@
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
             </div>
-            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%"   src="iBlankPage.html" runat="server"></iframe>
         </div>
         <div>
              <asp:HiddenField ID="hfCategory" runat="server" />
@@ -244,7 +244,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
@@ -261,9 +261,10 @@
         var vHeight = window.innerHeight - apprScreenH;
         $("section").css("height", vHeight)
         Highlight_LeftMenuSelectNode();
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+
 
 
         if ($("#hfSignOff").val() == "Complete") {
@@ -278,9 +279,9 @@
             }
         }
         $(".myTextEdit").click(function (event) {
-            var tID = $(this)[0].id;
-            DomainID = tID.replace("myText", "");
-            $("#hfWorkingCell").val(tID);
+            var tId = $(this)[0].id;
+            DomainID = tId.replace("myText", "");
+            $("#hfWorkingCell").val(tId);
         });
         $(".myTextEdit").keydown(function (event) {
             CountTextBoxCharactors();
@@ -302,8 +303,8 @@
         });
 
         $("table .labelTitle2").dblclick(function (event) {
-            var objID = $(this)[0].id;
-            ItemCode = ItemCode + objID.replace("labelTitle", "")
+            var objId = $(this)[0].id;
+            ItemCode = ItemCode + objId.replace("labelTitle", "")
             EditPageItemTitle();
             event.stopPropagation();
         });

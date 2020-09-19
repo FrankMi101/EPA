@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
+
+using ClassLibrary;
+using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
+
 namespace EPA2.EPAmanage
 {
     public partial class Feedback : System.Web.UI.Page
@@ -13,12 +12,12 @@ namespace EPA2.EPAmanage
         {
             if (!Page.IsPostBack)
             {
-               // LabelName.Text = Page.Request.QueryString["tName"];
-                setPageAttribution();
+                // LabelName.Text = Page.Request.QueryString["tName"];
+                SetPageAttribution();
                 GetFeedUserInforamtion();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "Feedback";
@@ -30,41 +29,58 @@ namespace EPA2.EPAmanage
         }
         private void GetFeedUserInforamtion()
         {
-            TextSection.Text = Menus.ItemNamebyCode("", User.Identity.Name, WorkingProfile.PageCategory, WorkingProfile.PageArea);
-            TextPage.Text =  Menus.ItemNamebyCode("",User.Identity.Name, WorkingProfile.PageCategory,WorkingProfile.PageArea,WorkingProfile.PageItem);
+            TextSection.Text = AppraisalPage.ItemNamebyCode("", User.Identity.Name, WorkingProfile.PageCategory, WorkingProfile.PageArea);
+            TextPage.Text = AppraisalPage.ItemNamebyCode("", User.Identity.Name, WorkingProfile.PageCategory, WorkingProfile.PageArea, WorkingProfile.PageItem);
             TextRole.Text = WorkingProfile.UserRole;
             TextName.Text = WorkingProfile.UserName;
             TextTopic.Text = "Page Layout / functions / message ";
         }
-        protected void btnSend_Click(object sender, EventArgs e)
-        {   string eMailTo = eMailNotification.FeedBackeMail("Get",User.Identity.Name,"FeedBack");
-            string eMailCC = "";
-            string eMailBcc = "";
-            string eMailForm = eMailNotification.FeedBackeMail("Get", User.Identity.Name, "OperateUser");
-            string eMailSubject =  TextTopic.Text;
-            string eMailBody =     myText.Text;
-            string eMailFormat = "HTML";
-            string purpose = DropDownListPurpose.SelectedValue;
-            FeedBack.Content("Save", User.Identity.Name, WorkingProfile.PageCategory, WorkingProfile.PageArea, WorkingProfile.PageItem, WorkingProfile.UserRole, WorkingProfile.SchoolYear, eMailSubject, eMailBody, purpose);
-            string result =  eMailNotification.SendeMail(eMailTo, eMailCC, eMailBcc,eMailForm, eMailSubject, eMailBody, eMailFormat);
-            showMessage(result, "Send Feedback");
+        protected void BtnSend_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string purpose = DropDownListPurpose.SelectedValue;
+                string result1 = AppraisalProcess.FeedBackContent("Save", User.Identity.Name, WorkingProfile.PageCategory, WorkingProfile.PageArea, WorkingProfile.PageItem, WorkingProfile.UserRole, WorkingProfile.SchoolYear, this.TextTopic.Text, this.myText.Text , purpose);
+
+
+                var emailPara = new EmailNotice()
+                {
+                    EmailTo = MailNotification.FeedBackeMail("Get", User.Identity.Name, "FeedBack"),
+                    EmailCC = "",
+                    EmailFrom = MailNotification.FeedBackeMail("Get", User.Identity.Name, "OperateUser"),
+                    EmailBcc = "",
+                    EmailSubject = TextTopic.Text,
+                    EmailBody = myText.Text,
+                    EmailFormat = "HTML"
+                };
+
+               string  result = MailNotification.SendMail(emailPara);
+                ShowMessage(result, "Send Feedback");
+
+            }
+            catch (Exception)
+            {
+
+                ShowMessage("Failed", "Send Feedback");
+            }
 
         }
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
             string eMailTo = TextName.Text;
             if (eMailTo == "")
             {
-                TextName.Text = eMailNotification.FeedBackeMail("Add", User.Identity.Name, "FeedBack");
+                TextName.Text = MailNotification.FeedBackeMail("Add", User.Identity.Name, "FeedBack");
             }
             else
             {
-            string result =  eMailNotification.FeedBackeMail("Add", User.Identity.Name, "FeedBack", eMailTo);
-            showMessage(result, "Add Feedback to User");
+                string result = MailNotification.FeedBackeMail("Add", User.Identity.Name, "FeedBack", eMailTo);
+                ShowMessage(result, "Add Feedback to User");
             }
         }
 
-        private void showMessage(string result, string action)
+        private void ShowMessage(string result, string action)
         {
             try
             {
@@ -75,6 +91,6 @@ namespace EPA2.EPAmanage
 
         }
 
-     
+
     }
 }

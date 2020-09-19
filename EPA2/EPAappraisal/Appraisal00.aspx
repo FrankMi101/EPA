@@ -15,6 +15,7 @@
     <link href="../Content/DeviceMedia.css" rel="stylesheet" />
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <link href="../Content/BubbleHelp.css" rel="stylesheet" />
+    <link href="../Content/ContentPage.css" rel="stylesheet" />
 
     <style>
         html, body {
@@ -37,7 +38,7 @@
         }
 
         .TopMessagebar {
-            height: 30px;
+            height: 33px;
             width: 100%;
             border-bottom: 2px solid lightsalmon;
             /*background-image: url(images/menubar.png);*/
@@ -59,8 +60,14 @@
         .topMessageDDL {
             background-color: aquamarine;
             color: yellow;
-            font-weight: 500;
+            font-weight: 400;
+            margin-top: -5px;
+            padding-top: 0;
         }
+
+            .topMessageDDL option {
+                background: lightblue;
+            }
 
         .iFrameDIV {
             width: 100%;
@@ -123,6 +130,9 @@
 
         .TopMessagebar .imgOver {
             border: 1px solid darkblue;
+            font-family: 'Arial Narrow', Arial;
+            font-size:10px;
+
             /*margin:-3px;*/
         }
 
@@ -188,7 +198,7 @@
     </style>
 
     <script src="../Scripts/jquery-3.2.1.min.js"></script>
-    <script src="../Scripts/Appr_img_title.js"></script>
+    <script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
     <script type="text/javascript">
         function getResolution() {
             try {
@@ -223,13 +233,28 @@
             <div style="display: inline; float: left; width: 35%; text-align: left;">
                 <asp:Label ID="LabelGreetingUser" runat="server" Text="Welcome User" Height="25px"></asp:Label>
             </div>
-            <div class="visible-md visible-lg" style="display: inline; float: right; width: 60%; text-align: right; font-size: small">
-                <a id="DocLink1" runat="server" href="javascript:OpenAppraisalDocument('OLF')">Ontario Leadership Framework</a>  &nbsp;  &nbsp;&nbsp;
-               <a id="DocLink2" runat="server" href="javascript:OpenAppraisalDocument('PPAManual')">Performance Appraisal Manual</a>
-                <br />
-                <a id="DocLink3" runat="server" href="javascript:OpenAppraisalDocument('BLIP')">Board Learning Improvement Plan</a>  &nbsp;  &nbsp;&nbsp;
-                <a id="DocLink4" runat="server" href="javascript:OpenAppraisalDocument('SLIP')">School Learning Improvement Plan</a>
+            <div style="display: inline; float: right; text-align: right; font-size: small; ">
+                <a id="MinistryDocumentsLink" runat="server" href="#">Ministry Documents 
+                    <img src="../images/ministryDoc2.png" style="height: 20px; width: 20px; margin-top:-8px;" /></a>
             </div>
+            <div id="MinistryDocuments" runat="server" class="bubble epahide HelpMenuDIV">
+                <div class="visible-md visible-lg" style="display: inline; width: 100%; text-align: left; font-size: small">
+                   <br /> <ul>
+                        <li> 
+                            <a id="DocLink1" runat="server" href="javascript:OpenAppraisalDocument('OLF')">Ontario Leadership Framework</a> </li>
+
+                        <li><a id="DocLink2" runat="server" href="javascript:OpenAppraisalDocument('PPAManual')">Performance Appraisal Manual</a></li>
+
+                        <li><a id="DocLink3" runat="server" href="javascript:OpenAppraisalDocument('BLIP')">Board Learning Improvement Plan</a>   </li>
+
+                        <li><a id="DocLink4" runat="server" href="javascript:OpenAppraisalDocument('SLIP')">School Learning Improvement Plan</a></li>
+                        <li><a id="DocLink5" runat="server" href="javascript:OpenAppraisalDocument('Process')">Working Process</a></li>
+                   </ul>
+
+
+                </div>
+            </div>
+
 
             <%--      <div id="ProgressSteps">
                 <table id="ProgressStepsShow" runat="server" title="Clcik to hidden progress bar." style="width: 100%; border: 0px;" cellspacing="0" cellpadding="0">
@@ -276,11 +301,11 @@
 
         <div class="TopMessagebar" style="display: inline-block">
             <div style="float: left; display: inline; padding-top: 5px;">
-                <img id="LeftMenuShow" src="../images/menu2.png" style="margin-bottom:5px" />
+                <img id="LeftMenuShow" src="../images/menu2.png" style="margin-bottom: 5px" class="topMessageDDL" />
                 Year:
-                <asp:DropDownList ID="ddlSchoolYear" runat="server" CssClass="topMessageDDL" OnSelectedIndexChanged="DdlSchoolYear_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>&nbsp;  &nbsp;
+                <asp:DropDownList ID="ddlSchoolYear" runat="server" CssClass="topMessageDDL" OnSelectedIndexChanged="DdlSchoolYear_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList> 
              Session: 
-                <asp:DropDownList ID="ddlSession" runat="server" CssClass="topMessageDDL" OnSelectedIndexChanged="DdlSession_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>&nbsp;  &nbsp;
+                <asp:DropDownList ID="ddlSession" runat="server" CssClass="topMessageDDL" OnSelectedIndexChanged="DdlSession_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList> 
              
                  School:
                 <asp:Label ID="LabelSchoolCode" runat="server" Text="Label" CssClass="topMessage"></asp:Label>
@@ -310,7 +335,7 @@
 
         <div id="ActionPOPDIV" class="bubble epahide">
             <div class="editTitle" style="display: block">
-                <div id="ActionTitle" style="display: inline; float: left; width: 92% ; font-weight:600; "></div>
+                <div id="ActionTitle" style="display: inline; float: left; width: 92%; font-weight: 600;"></div>
                 <div style="display: inline; float: left;">
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
@@ -349,7 +374,7 @@
     $(document).ready(function () {
 
         var vHeight = window.innerHeight - apprScreenH2;
-       
+
         $("#iFrameGoItem").css("height", vHeight)
         if (screen.width > 1024) {
             $(".container").attr("width", "1024px");
@@ -360,6 +385,25 @@
             $("#ApprDIV", parent.document).fadeToggle("fast");
             $("#PopUpDIV", parent.document).fadeToggle("fast");
         });
+
+
+        $("#MinistryDocumentsLink").click(function (event) {
+
+            var vTop = event.currentTarget.offsetTop;
+            var vLeft = event.currentTarget.offsetLeft - 300;
+            $("#MinistryDocuments").css({
+                top: vTop + 20,
+                left: vLeft,
+                height: 150,
+                width: 380
+            });
+            $("#MinistryDocuments").fadeToggle("fast");
+        });
+        $("#MinistryDocuments").click(function (event) {
+            $("#MinistryDocuments").hide();
+        });
+
+
 
         $("img").mouseenter(function (event) {
             ItemCode = $(this)[0].id;
@@ -405,7 +449,7 @@
                     $(".editTitle").css({ "display": "none" });
                     openEditPageA('560', '800', '../EPAmanage/Loading2.aspx?pID=Feedback', 'FeedBack');
                     break;
-                 default:
+                default:
                     //if ($("#EditDIV").css('display') === "block") {
                     //    $("#EditDIV").hide();
                     //}
@@ -455,28 +499,25 @@
     function getTitlebyCode(code, type) {
         var rVal = ""
         if (type === "Title") {
-            if (code === "imgfeedback")
-            { rVal = "Application Feedback"; }
+            if (code === "imgfeedback") { rVal = "Application Feedback"; }
             else {
                 rVal = "Appraisal Notes";
             }
         }
         else {
-            if (code === "imgfeedback")
-            { rVal = "Feedback"; }
+            if (code === "imgfeedback") { rVal = "Feedback"; }
             else {
                 rVal = "Notes";
             }
         }
         return rVal;
     }
-    function OpenAppraisalDocument(DocID) {
-        window.open("Loading3.aspx?pID=" + DocID, "", "width=900 height=700, top=10, left=10, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,");
+    function OpenAppraisalDocument(docId) {
+        window.open("Loading3.aspx?pID=" + docId, "", "width=900 height=700, top=10, left=10, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,");
     }
-    function openAssignment(employeeID)
-    {
-       //  window.open("Loading3.aspx?pID=Assignment&tID=" + employeeID, "", "width=500 height=300, top=10, left=10, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,");
-       var goPage = "Loading3.aspx?pID=Assignment&tID=" + employeeID;
+    function openAssignment(employeeId) {
+        //  window.open("Loading3.aspx?pID=Assignment&tID=" + employeeID, "", "width=500 height=300, top=10, left=10, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,");
+        var goPage = "Loading3.aspx?pID=Assignment&tID=" + employeeId;
         var pTitle = "Assignment Update";
         openEditPageA(200, 400, goPage, pTitle);
     }
@@ -505,7 +546,7 @@
 
 
                 })
-              //  $("#PopUpDIV").fadeToggle("fast");
+                //  $("#PopUpDIV").fadeToggle("fast");
                 $("#ActionPOPDIV").fadeToggle("fast");
             }
 
@@ -516,7 +557,7 @@
     function openEditPageA(vHeight, vWidth, goPage, pTitle) {
         var vLeft = (screen.width / 2) - (vWidth / 2) - 100;
         var vTop = (screen.height / 2) - (vHeight / 2) - 100;
-         goPage = goPage + "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + teachername + "&pageID=" + pageid;
+        goPage = goPage + "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + teachername + "&pageID=" + pageid;
         $(document).ready(function () {
             try {
 
@@ -529,19 +570,19 @@
                     left: 150,
                     height: vHeight,
                     width: vWidth,
-                    "border-width" : "2px",
-                     "border-color" : "Orange",                   
+                    "border-width": "2px",
+                    "border-color": "Orange",
                     "border-style": "solid"
-                 })
+                })
                 $("#ActioniFramePage").css({
 
-                    height: vHeight -3,
-                    width: vWidth -5,
+                    height: vHeight - 3,
+                    width: vWidth - 5,
                     border: 0
 
 
                 })
-              //  $("#PopUpDIV").fadeToggle("fast");
+                //  $("#PopUpDIV").fadeToggle("fast");
                 $("#ActionPOPDIV").fadeToggle("fast");
             }
 

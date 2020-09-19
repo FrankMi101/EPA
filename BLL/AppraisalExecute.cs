@@ -1,9 +1,6 @@
 ﻿using ClassLibrary;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -46,17 +43,17 @@ namespace BLL
         public static List<T> ListofT<T>(object parameter, string action)
         {
             var list = new AppraisalExecuteData<T>();
-            return list.MyList(parameter,action);
+            return list.MyList(parameter, action);
         }
         public static string ValueofT<T>(object parameter)
         {
             var value = new AppraisalExecuteData<T>();
-            return  value.MyValue(parameter);
+            return value.MyValue(parameter);
         }
         public static string ValueofT<T>(object parameter, string action)
         {
             var value = new AppraisalExecuteData<T>();
-            return value.MyValue(parameter,action);
+            return value.MyValue(parameter, action);
         }
 
     }
@@ -74,7 +71,7 @@ namespace BLL
             var list = new AppraisalExecuteData<T>();
             return list.MyList(parameter);
         }
-      
+
 
         public static string AnyValue(AppraisalComment parameter)
         {
@@ -86,6 +83,47 @@ namespace BLL
             var value = new AppraisalExecuteData<T>();
             return value.MyValue(parameter);
         }
-       
+
+
+        public static List<T> ListOfT(string sp, object parameter)
+        {
+            try
+            {
+                return CommonExecute<T>.ListOfT(sp, parameter);
+            }
+            catch (Exception ex)
+            {
+                string em = ex.StackTrace;
+                throw;
+            }
+        }
+        public static T ValueOfT(string sp, object parameter)
+        {
+            try
+            {
+                return CommonExecute<T>.ValueOfT(sp, parameter);
+            }
+            catch (Exception ex)
+            {
+                string em = ex.StackTrace;
+                throw;
+            }
+        }
+
+        public static List<T> ListofT(string action, string sp, object parameter)
+        {
+            switch (action)
+            {
+                case "AppraisalActivity":
+                    return AppraisalGeneralData.AppraisalActivity<T>.ListOfT(sp, parameter);
+
+                case "AppraisalContents":
+                    return AppraisalGeneralData.AppraisalContents<T>.ListOfT(sp, parameter);
+                default:
+                    return AppraisalGeneralData.AppraisalContents<T>.ListOfT(sp, parameter);
+            }
+        }
+
     }
+
 }

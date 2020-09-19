@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPA2.EPAappraisal {
-    
-    
-    public partial class SignOffPage {
-        
+namespace EPA2.EPAappraisal
+{
+
+
+    public partial class SignOffPage
+    {
+
         /// <summary>
         /// form2 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form2;
-        
+
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
+
         /// <summary>
         /// PageTitle control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl PageTitle;
-        
+
         /// <summary>
         /// labelTitle control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelTitle;
-        
+
         /// <summary>
         /// imgSignOff control.
         /// </summary>
@@ -56,7 +58,52 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlImage imgSignOff;
-        
+
+        /// <summary>
+        /// labelSubTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelSubTitle;
+
+        /// <summary>
+        /// labelMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelMessage;
+
+        /// <summary>
+        /// CheckBoxAutoEmailNotice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxAutoEmailNotice;
+
+        /// <summary>
+        /// CheckBoxTemplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxTemplete;
+
+        /// <summary>
+        /// rblTemplate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rblTemplate;
+
         /// <summary>
         /// ExtContentRow control.
         /// </summary>
@@ -65,7 +112,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow ExtContentRow;
-        
+
         /// <summary>
         /// labelTitleX control.
         /// </summary>
@@ -74,7 +121,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelTitleX;
-        
+
         /// <summary>
         /// MyDate control.
         /// </summary>
@@ -83,7 +130,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText MyDate;
-        
+
         /// <summary>
         /// btnYesNo control.
         /// </summary>
@@ -92,97 +139,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList btnYesNo;
-        
-        /// <summary>
-        /// hfDigtialSignatureAppraisee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfDigtialSignatureAppraisee;
-        
-        /// <summary>
-        /// hfSignOffAppraisee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfSignOffAppraisee;
-        
-        /// <summary>
-        /// hfNoticeAppraisee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfNoticeAppraisee;
-        
-        /// <summary>
-        /// TextSignOffNameAppraisee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextSignOffNameAppraisee;
-        
-        /// <summary>
-        /// TextSignOffDateAppraisee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextSignOffDateAppraisee;
-        
-        /// <summary>
-        /// imgsignoffAppraisee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgsignoffAppraisee;
-        
-        /// <summary>
-        /// imgNoticeAppraisee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgNoticeAppraisee;
-        
-        /// <summary>
-        /// labelTitle1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelTitle1;
-        
-        /// <summary>
-        /// labelTitle2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelTitle2;
-        
-        /// <summary>
-        /// labelMessage1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelMessage1;
-        
+
         /// <summary>
         /// urlDemandAppraiseeRow control.
         /// </summary>
@@ -191,7 +148,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow urlDemandAppraiseeRow;
-        
+
         /// <summary>
         /// urlDemandUndoSignOffAppraisee control.
         /// </summary>
@@ -200,97 +157,124 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor urlDemandUndoSignOffAppraisee;
-        
+
         /// <summary>
-        /// hfDigtialSignatureAppraiser control.
+        /// RowOfAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfDigtialSignatureAppraiser;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow RowOfAppraisee;
+
         /// <summary>
-        /// hfSignOffAppraiser control.
+        /// hfDigtialSignatureAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfSignOffAppraiser;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hfDigtialSignatureAppraisee;
+
         /// <summary>
-        /// hfNoticeAppraiser control.
+        /// hfSignOffAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfNoticeAppraiser;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hfSignOffAppraisee;
+
         /// <summary>
-        /// TextSignOffNameAppraiser control.
+        /// hfNoticeAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextSignOffNameAppraiser;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hfNoticeAppraisee;
+
         /// <summary>
-        /// TextSignOffDateAppraiser control.
+        /// hfSignOffActionAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextSignOffDateAppraiser;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hfSignOffActionAppraisee;
+
         /// <summary>
-        /// imgsignoffAppraiser control.
+        /// TextSignOffNameAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgsignoffAppraiser;
-        
+        protected global::System.Web.UI.WebControls.TextBox TextSignOffNameAppraisee;
+
         /// <summary>
-        /// imgNoticeAppraiser control.
+        /// TextSignOffDateAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgNoticeAppraiser;
-        
+        protected global::System.Web.UI.WebControls.TextBox TextSignOffDateAppraisee;
+
         /// <summary>
-        /// labelTitle3 control.
+        /// imgSignoffAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelTitle3;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgSignoffAppraisee;
+
         /// <summary>
-        /// labelTitle4 control.
+        /// imgNoticeAppraisee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelTitle4;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgNoticeAppraisee;
+
         /// <summary>
-        /// labelMessage3 control.
+        /// labelTitle1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelMessage3;
-        
+        protected global::System.Web.UI.WebControls.Label labelTitle1;
+
+        /// <summary>
+        /// labelTitle2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelTitle2;
+
+        /// <summary>
+        /// labelMessage1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelMessage1;
+
+        /// <summary>
+        /// hfDemandUserRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfDemandUserRole;
+
         /// <summary>
         /// urlDemandAppraiserRow control.
         /// </summary>
@@ -299,7 +283,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow urlDemandAppraiserRow;
-        
+
         /// <summary>
         /// urlDemandUndoSignOffAppraiser control.
         /// </summary>
@@ -308,7 +292,115 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor urlDemandUndoSignOffAppraiser;
-        
+
+        /// <summary>
+        /// RowOfAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow RowOfAppraiser;
+
+        /// <summary>
+        /// hfDigtialSignatureAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfDigtialSignatureAppraiser;
+
+        /// <summary>
+        /// hfSignOffAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSignOffAppraiser;
+
+        /// <summary>
+        /// hfSignOffActionAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSignOffActionAppraiser;
+
+        /// <summary>
+        /// hfNoticeAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfNoticeAppraiser;
+
+        /// <summary>
+        /// TextSignOffNameAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextSignOffNameAppraiser;
+
+        /// <summary>
+        /// TextSignOffDateAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextSignOffDateAppraiser;
+
+        /// <summary>
+        /// imgSignoffAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgSignoffAppraiser;
+
+        /// <summary>
+        /// imgNoticeAppraiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgNoticeAppraiser;
+
+        /// <summary>
+        /// labelTitle3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelTitle3;
+
+        /// <summary>
+        /// labelTitle4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelTitle4;
+
+        /// <summary>
+        /// labelMessage3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelMessage3;
+
         /// <summary>
         /// ExtContentRow2 control.
         /// </summary>
@@ -317,7 +409,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow ExtContentRow2;
-        
+
         /// <summary>
         /// hfDigtialSignatureSupervisory control.
         /// </summary>
@@ -326,7 +418,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfDigtialSignatureSupervisory;
-        
+
         /// <summary>
         /// hfSignOffSupervisory control.
         /// </summary>
@@ -335,7 +427,16 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfSignOffSupervisory;
-        
+
+        /// <summary>
+        /// hfSignOffActionSupervisory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSignOffActionSupervisory;
+
         /// <summary>
         /// hfNoticeSupervisory control.
         /// </summary>
@@ -344,7 +445,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfNoticeSupervisory;
-        
+
         /// <summary>
         /// TextSignOffNameSupervisory control.
         /// </summary>
@@ -353,7 +454,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextSignOffNameSupervisory;
-        
+
         /// <summary>
         /// TextSignOffDateSupervisory control.
         /// </summary>
@@ -362,16 +463,16 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextSignOffDateSupervisory;
-        
+
         /// <summary>
-        /// imgsignoffSupervisory control.
+        /// imgSignoffSupervisory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgsignoffSupervisory;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgSignoffSupervisory;
+
         /// <summary>
         /// imgNoticeSupervisory control.
         /// </summary>
@@ -380,7 +481,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlImage imgNoticeSupervisory;
-        
+
         /// <summary>
         /// ExtContentRow3 control.
         /// </summary>
@@ -389,7 +490,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow ExtContentRow3;
-        
+
         /// <summary>
         /// labelTitle5 control.
         /// </summary>
@@ -398,7 +499,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelTitle5;
-        
+
         /// <summary>
         /// labelTitle6 control.
         /// </summary>
@@ -407,7 +508,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelTitle6;
-        
+
         /// <summary>
         /// ExtContentRow4 control.
         /// </summary>
@@ -416,7 +517,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow ExtContentRow4;
-        
+
         /// <summary>
         /// labelMessage5 control.
         /// </summary>
@@ -425,7 +526,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelMessage5;
-        
+
         /// <summary>
         /// ExtContentRow5 control.
         /// </summary>
@@ -434,7 +535,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow ExtContentRow5;
-        
+
         /// <summary>
         /// CheckBoxEnforce control.
         /// </summary>
@@ -443,7 +544,16 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBoxEnforce;
-        
+
+        /// <summary>
+        /// SignOffPermissionControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow SignOffPermissionControl;
+
         /// <summary>
         /// rblViewPermission control.
         /// </summary>
@@ -452,7 +562,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rblViewPermission;
-        
+
         /// <summary>
         /// hfNoticePermission control.
         /// </summary>
@@ -461,7 +571,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfNoticePermission;
-        
+
         /// <summary>
         /// imgNoticePermission control.
         /// </summary>
@@ -470,7 +580,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlImage imgNoticePermission;
-        
+
         /// <summary>
         /// btnPrevious control.
         /// </summary>
@@ -479,7 +589,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPrevious;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -488,7 +598,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// btnNext control.
         /// </summary>
@@ -497,7 +607,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNext;
-        
+
         /// <summary>
         /// HelpTextContent control.
         /// </summary>
@@ -506,7 +616,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox HelpTextContent;
-        
+
         /// <summary>
         /// ActioniFramePage control.
         /// </summary>
@@ -515,7 +625,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlIframe ActioniFramePage;
-        
+
         /// <summary>
         /// LabelSignOffTitle control.
         /// </summary>
@@ -524,7 +634,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelSignOffTitle;
-        
+
         /// <summary>
         /// txtDomain control.
         /// </summary>
@@ -533,7 +643,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDomain;
-        
+
         /// <summary>
         /// txtUserName control.
         /// </summary>
@@ -542,7 +652,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUserName;
-        
+
         /// <summary>
         /// txtPassword control.
         /// </summary>
@@ -551,7 +661,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
+
         /// <summary>
         /// btnVerifyUser control.
         /// </summary>
@@ -560,7 +670,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnVerifyUser;
-        
+
         /// <summary>
         /// hfDigitalSignatureReady control.
         /// </summary>
@@ -569,7 +679,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfDigitalSignatureReady;
-        
+
         /// <summary>
         /// errorlabel control.
         /// </summary>
@@ -578,7 +688,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label errorlabel;
-        
+
         /// <summary>
         /// LabelSginOffDate control.
         /// </summary>
@@ -587,7 +697,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelSginOffDate;
-        
+
         /// <summary>
         /// LabelSignOffName control.
         /// </summary>
@@ -596,7 +706,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelSignOffName;
-        
+
         /// <summary>
         /// btnSignOff control.
         /// </summary>
@@ -605,7 +715,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSignOff;
-        
+
         /// <summary>
         /// chbCreateDS control.
         /// </summary>
@@ -614,7 +724,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chbCreateDS;
-        
+
         /// <summary>
         /// hfSignOff control.
         /// </summary>
@@ -623,7 +733,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfSignOff;
-        
+
         /// <summary>
         /// hfCategory control.
         /// </summary>
@@ -632,7 +742,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfCategory;
-        
+
         /// <summary>
         /// hfArea control.
         /// </summary>
@@ -641,7 +751,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfArea;
-        
+
         /// <summary>
         /// hfCode control.
         /// </summary>
@@ -650,7 +760,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfCode;
-        
+
         /// <summary>
         /// hfPageID control.
         /// </summary>
@@ -659,7 +769,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfPageID;
-        
+
         /// <summary>
         /// hfUserID control.
         /// </summary>
@@ -668,7 +778,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserID;
-        
+
         /// <summary>
         /// hfUserRole control.
         /// </summary>
@@ -677,7 +787,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserRole;
-        
+
         /// <summary>
         /// hfUserLoginRole control.
         /// </summary>
@@ -686,7 +796,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserLoginRole;
-        
+
         /// <summary>
         /// hfRunningModel control.
         /// </summary>
@@ -695,7 +805,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfRunningModel;
-        
+
         /// <summary>
         /// hfParameters control.
         /// </summary>
@@ -704,7 +814,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfParameters;
-        
+
         /// <summary>
         /// hfContentChange control.
         /// </summary>
@@ -713,7 +823,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfContentChange;
-        
+
         /// <summary>
         /// hfTextLength control.
         /// </summary>
@@ -722,7 +832,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfTextLength;
-        
+
         /// <summary>
         /// hfAppraisalActionRole control.
         /// </summary>
@@ -731,7 +841,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfAppraisalActionRole;
-        
+
         /// <summary>
         /// hfCurrentdatetime control.
         /// </summary>
@@ -740,7 +850,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfCurrentdatetime;
-        
+
         /// <summary>
         /// hfCurrentUserName control.
         /// </summary>
@@ -749,7 +859,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfCurrentUserName;
-        
+
         /// <summary>
         /// hfApprYear control.
         /// </summary>
@@ -758,7 +868,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprYear;
-        
+
         /// <summary>
         /// hfApprSchool control.
         /// </summary>
@@ -767,7 +877,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprSchool;
-        
+
         /// <summary>
         /// hfApprSession control.
         /// </summary>
@@ -776,7 +886,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprSession;
-        
+
         /// <summary>
         /// hfApprEmployeeID control.
         /// </summary>
@@ -785,16 +895,43 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprEmployeeID;
-        
+
         /// <summary>
-        /// hfAppraiserID control.
+        /// hfEmployeeID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfAppraiserID;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hfEmployeeID;
+
+        /// <summary>
+        /// hfAppraiseeUserID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfAppraiseeUserID;
+
+        /// <summary>
+        /// hfAppraiserUserID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfAppraiserUserID;
+
+        /// <summary>
+        /// hfSignOffType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSignOffType;
+
         /// <summary>
         /// hfSignOffAction control.
         /// </summary>
@@ -803,7 +940,16 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfSignOffAction;
-        
+
+        /// <summary>
+        /// HiddenField1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+
         /// <summary>
         /// hfNoticeAction control.
         /// </summary>
@@ -812,7 +958,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfNoticeAction;
-        
+
         /// <summary>
         /// hfSignOffComplete control.
         /// </summary>
@@ -821,7 +967,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfSignOffComplete;
-        
+
         /// <summary>
         /// hfNoticeAuto control.
         /// </summary>
@@ -830,7 +976,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfNoticeAuto;
-        
+
         /// <summary>
         /// hfPageReadonly control.
         /// </summary>

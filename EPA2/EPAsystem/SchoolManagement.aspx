@@ -104,8 +104,7 @@
     <form id="form2" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Services>
-                <asp:ServiceReference Path="~/Models/WebService.asmx" />
-                <asp:ServiceReference Path="~/Models/WebService1.asmx" />
+                <asp:ServiceReference Path="~/Models/WebService.asmx" /> 
             </Services>
 
         </asp:ScriptManager>
@@ -163,7 +162,7 @@
                                 <asp:TemplateField HeaderText="Name">
                                     <ItemStyle Width="20%" Wrap="True" />
                                     <ItemTemplate>
-                                        <asp:TextBox ID="editText" runat="server" Text='<%# Eval("NameText") %>' CssClass="myName" Width="100%" Height="100%">  </asp:TextBox>
+                                        <asp:TextBox ID="editText" runat="server" Text='<%# Eval("Name") %>' CssClass="myName" Width="100%" Height="100%">  </asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Principal">
@@ -254,7 +253,7 @@
         </section>
 
 
-        <footer>
+        <footer style="display:none; ">
             <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
             <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
@@ -263,7 +262,8 @@
 
 
         <div id="HelpDIV" class="bubble epahide">
-            <div id="textHelp"></div>
+                      <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+
         </div>
         <div id="DDLDIV" class="bubble epahide">
             <asp:DropDownList ID="ddlDistrictList" runat="server" Height="25px"></asp:DropDownList>
@@ -304,7 +304,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -323,22 +323,22 @@
     var WorkingCell;
     var IDs;
     $(document).ready(function () {
-        MakeStaticHeader("GridView1", 550, 1250, 25, false);
+        MakeStaticHeader("GridView1", 550, 1250, 20, false);
         var vHeight = screen.height - 150-300;
         $("section").css("height", vHeight)
 
      
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
@@ -347,10 +347,10 @@
 
     });
 
-    function DeleteRecord(IDs, roleCode) {
+    function DeleteRecord(iDs, roleCode) {
         var result = confirm("Do you want to delete this row?");
         if (result) {
-            var result = EPA2.Models.WebService.School("Delete", UserID, CategoryID, AreaID, IDs, roleCode, onSuccessDel, onFailureDel);
+            var result = EPA2.Models.WebService.School("Delete", UserID, CategoryID, AreaID, iDs, roleCode, onSuccessDel, onFailureDel);
         }
         else {
 
@@ -373,11 +373,11 @@
         alert("Data Update " + result);
     }
 
-    function EditRecord(Ids, schoolcode)
+    function EditRecord(ids, schoolcode)
     {
         var vLeft = 100;
         var vTop = 200;
-        goPage = "SchoolManagementEdit.aspx?IDs=" + Ids +  "&sID=" + schoolcode; 
+        goPage = "SchoolManagementEdit.aspx?IDs=" + ids +  "&sID=" + schoolcode; 
             try {              
                 $("#ActioniFramePage").attr('src', goPage);
                 $("#ActionTitle").html("School Profile Edit");

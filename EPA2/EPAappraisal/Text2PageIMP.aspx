@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text2PageIMP.aspx.cs" Inherits="EPA2.EPAappraisal.Text2PageIMP" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text2PageIMP.aspx.cs" Inherits="EPA2.EPAappraisal.Text2PageImp" %>
 
 <!DOCTYPE html>
 
@@ -63,7 +63,6 @@
             margin: 0px;
             padding: 0px;
             background-color: transparent;
-
         }
 
         #btnViewAGP {
@@ -73,7 +72,7 @@
 
         #GridView1 {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size:small;
+            font-size: small;
         }
 
             #GridView1 th {
@@ -118,11 +117,11 @@
                 <div id="ContentTitleLeft" class="ContentTitleLeft">
                     <asp:Label ID="labelTitle" runat="server" CssClass="labelTitle">Text Box Title</asp:Label>
                     <img class="imgHelp" src="../images/help2.png" title="Help Content" />
-                    <img class="imgChat" src="../images/help.png" title="Help Workflow" id="APP"  visible="false" />
+                    <img class="imgChat" src="../images/help.png" title="Help Workflow" id="APP" visible="false" />
                     <img class="imgEP" runat="server" id="imgEP" src="../images/ep.png" title="Effective Practice" visible="false" />
                     <img class="imgRecovery" runat="server" id="imgRecovery" src="../images/recover.png" title="Recovery the Text content" visible="false" />
                     <img class="imgSignoff" runat="server" id="imgSignOff" src="../images/signature.png" title="Sign Off Completed" />
-                   <%-- <asp:Button ID="btnViewAGP" runat="server" Visible="false" Text="RollOver Last Year AGP" OnClick="btnViewAGP_onClick" />--%>
+                    <%-- <asp:Button ID="btnViewAGP" runat="server" Visible="false" Text="RollOver Last Year AGP" OnClick="btnViewAGP_onClick" />--%>
                 </div>
                 <div id="ContentTitleRight" style="display: inline; float: right">
                     Characters limit
@@ -132,18 +131,18 @@
             </div>
 
             <div class="ContentCompetencyList" runat="server">
-                <div id="DivRoot" style="width:100%; height:580px;">
+                <div id="DivRoot" style="width: 100%; height: 580px;">
                     <%-- <div style="overflow: hidden;" id="DivHeaderRow">
                         <table id="GridView2" style="border: 1px ridge gray; width: 99%; height: 30px; background-color: white;" rules="all" cellspacing="0" cellpadding="0">
                         </table>
                     </div>--%>
 
-                    <div style="overflow:scroll; width:100%; height:100%" id="DivMainContent">
+                    <div style="overflow: scroll; width: 100%; height: 100%" id="DivMainContent">
                         <asp:GridView ID="GridView1" runat="server" CellPadding="0" Height="100%" Width="100%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="0" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                             <Columns>
-                                <asp:BoundField DataField="SequenceNo" HeaderText="No" ItemStyle-CssClass="SequenceNo">
+                                <asp:BoundField DataField="SeqNo" HeaderText="No" ItemStyle-CssClass="SequenceNo">
                                     <ItemStyle Width="1%" />
-                                </asp:BoundField>                      
+                                </asp:BoundField>
                                 <asp:TemplateField HeaderText="Needs">
                                     <ItemStyle Width="49%" Wrap="True" />
                                     <ItemTemplate>
@@ -173,14 +172,14 @@
             </div>
             <br />
             <br />
-            <asp:Button ID="btnAddNewAGP" runat="server" Text="Add New AGP" OnClick="btnAddNewAGP_Click" />
+            <asp:Button ID="btnAddNewAGP" runat="server" Text="Add New AGP" OnClick="BtnAddNewAGP_Click" />
         </section>
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
             <%--     <asp:Button ID="btnCompetency" runat="server" Text="" OnClick="btnCompetency_Click" />--%>
         </footer>
         <%--   <div class="bottom">
@@ -188,7 +187,7 @@
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" contenteditable="true" placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
         </div>
 
 
@@ -223,7 +222,7 @@
             &nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="labelCancel" runat="server" CssClass="saveButton1" Width="100px">Cancel</asp:Label>
         </div>
-     
+
         <div>
             <asp:HiddenField ID="hfSignOff" runat="server" />
             <asp:HiddenField ID="hfCategory" runat="server" />
@@ -253,6 +252,7 @@
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <%--<script src="../Scripts/GridView.js"></script>--%>
@@ -270,6 +270,21 @@
     var eventCell;
     var seqNo;
     var actionItem;
+
+    var BasePara = {
+        UserID: $("#hfUserID").val(),
+        Category: $("#hfCategory").val(),
+        Area: $("#hfArea").val(),
+        ItemCode: $("#hfCode").val(),
+        SchoolYear: $("#hfApprYear").val(),
+        SchoolCode: $("#hfApprSchool").val(),
+        SessionID: $("#hfApprSession").val(),
+        EmployeeID: $("#hfApprEmployeeID").val(),
+        Value: "",
+        SeqNo: "",
+        GoalItem ="",
+        Operate: "Comment"
+    }
 
     $(document).ready(function () {
         //  MakeStaticHeader("GridView1", 590, 900, 40, false);
@@ -298,33 +313,35 @@
                 $("#HelpDIV").fadeToggle("fast");
 
             }
-            catch (ex)
-            { }
+            catch (ex) { }
         })
 
         $("#GridView1 tr").each(function () {
             try {
 
             }
-            catch (ex)
-            { }
+            catch (ex) { }
         })
 
         $('td > .textAreaEdit').click(function (event) {
             eventCell = $(this);
             $("#hfWorkingCell").val(eventCell[0].id);
             seqNo = $(this).closest('tr').find('td.SequenceNo').text();
-            actionItem = eventCell[0].className.replace(", textAreaEdit", "");
+            BasePara.SeqNo = seqNo;
+            BasePara.GoalItem = eventCell[0].className.replace(", textAreaEdit", "");
 
         });
         $('td > .textAreaEdit').change(function (event) {
             eventCell = $(this);
-            //  seqNo = $(this).closest('tr').find('td.SequenceNo').text();
-            //   actionItem = eventCell[0].className.replace(", textAreaEdit", "");
             var value = eventCell[0].value;
-            var rValue = EPA2.Models.WebService1.SaveIMPText2("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+            //  var rValue = EPA2.Models.WebService1.SaveIMPText2("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+            BasePara.Operate = "Comment";
+            BasePara.Value = eventCell[0].value;
+            var rValue = EPA2.Models.WebService1.SaveGridCellText("IMP2", BasePara, onSuccess, onFailure);
+
+
         });
-  
+
         if ($("#hfPageReadonly").val() == "Yes") {
             DisableTextEdit();
         }
@@ -333,6 +350,7 @@
         $('.SequenceNo').click(function (event) {
             eventCell = $(this);
             seqNo = $(this).closest('tr').find('td.SequenceNo').text();
+            BasePara.SeqNo = seqNo;
             var vTop = mousey; // event.clientY; event.currentTarget.offsetTop;
 
             $("#ActionDeleteDIV").css({
@@ -345,7 +363,12 @@
         });
 
         $("#labelDelete").click(function (event) {
-            var rValue = EPA2.Models.WebService1.SaveIMPText2("Delete", UserID, CategoryID, AreaID, ItemCode, seqNo, "AGP", "", onSuccess, onFailure);
+
+            BasePara.Operate = "Delete";
+            BasePara.Value = "";
+
+            var rValue = EPA2.Models.WebService1.SaveGridCellText("IMP2", BasePara, onSuccess, onFailure);
+            //  var rValue = EPA2.Models.WebService1.SaveIMPText2("Delete", UserID, CategoryID, AreaID, ItemCode, seqNo, "AGP", "", onSuccess, onFailure);
             $("#ActionDeleteDIV").fadeToggle("fast");
             //  location.reload();
             $("#btnSave").click();
@@ -355,32 +378,35 @@
         });
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
             //   return true;
         });
-        
+
     });
     function updateTextCellAfterContentAction() {
         try {
             var workingCell = $("#hfWorkingCell").val();
             var value = $("#" + workingCell).val();
-            var rValue = EPA2.Models.WebService1.SaveIMPText2("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+
+            BasePara.Operate = "Comment";
+            BasePara.Value = value;
+            var rValue = EPA2.Models.WebService1.SaveGridCellText("IMP2", BasePara, onSuccess, onFailure);
+            //  var rValue = EPA2.Models.WebService1.SaveIMPText2("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
         }
-        catch (e)
-        { window.alert("Update Text Cell Failed!"); }
+        catch (e) { window.alert("Update Text Cell Failed!"); }
 
 
     }
@@ -394,7 +420,7 @@
     function getTitleTips(xTitle) {
         var rVal = "";
         switch (xTitle) {
-         
+
             case "To Be Completed by":
                 rVal = " Name of Appraiser";
                 break;

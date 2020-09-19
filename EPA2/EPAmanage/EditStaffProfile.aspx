@@ -156,9 +156,9 @@
                     <td></td><td colspan="3">
 
                     <div style="text-align: center">
-                  <asp:Button ID="btnAddNew" runat="server" Text="Add New" CssClass="saveButton" OnClick="btnNew_Click" />   
-                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />   
-                   <asp:Button ID="btnAddTo" runat="server" Text="Add to Appraisal List" Width="150px" CssClass="saveButton" OnClick="btnAddTo_Click" />
+                  <asp:Button ID="btnAddNew" runat="server" Text="Add New" CssClass="saveButton" OnClick="BtnNew_Click" />   
+                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />   
+                   <asp:Button ID="btnAddTo" runat="server" Text="Add to Appraisal List" Width="150px" CssClass="saveButton" OnClick="BtnAddTo_Click" />
             </div>
                              </td></tr>
             </table>
@@ -197,34 +197,42 @@
     var myKey;
     var currentTR;
     $(document).ready(function () {
-        $("#dateStart").datepicker(
-            {
-                dateFormat: 'yy/mm/dd',
-                showOn: "button",
-                buttonImage: "../images/calendar.gif",
-                buttonImageOnly: true,
-                changeMonth: true,
-                changeYear: true,
-                //minDate: minD,
-                //maxDate: maxD,
-                val: new Date().toDateString
-            });
-        $("#dateEnd").datepicker(
-              {
-                  dateFormat: 'yy/mm/dd',
-                  showOn: "button",
-                  buttonImage: "../images/calendar.gif",
-                  buttonImageOnly: true,
-                  changeMonth: true,
-                  changeYear: true,
-                  //minDate: minD,
-                  //maxDate: maxD,
-                  val: new Date().toDateString
-              });
+        InitialDatePickerControl
+        //$("#dateStart").datepicker(
+        //    {
+        //        dateFormat: 'yy/mm/dd',
+        //        showOn: "button",
+        //        buttonImage: "../images/calendar.gif",
+        //        buttonImageOnly: true,
+        //        changeMonth: true,
+        //        changeYear: true,
+        //        //minDate: minD,
+        //        //maxDate: maxD,
+        //        val: new Date().toDateString
+        //    });
+        //$("#dateEnd").datepicker(
+        //      {
+        //          dateFormat: 'yy/mm/dd',
+        //          showOn: "button",
+        //          buttonImage: "../images/calendar.gif",
+        //          buttonImageOnly: true,
+        //          changeMonth: true,
+        //          changeYear: true,
+        //          //minDate: minD,
+        //          //maxDate: maxD,
+        //          val: new Date().toDateString
+        //      });
         $("#closeActionPOP").click(function (event) {
             $("#ActionPOPDIV").fadeToggle("fast");
         });
     });
 
+     function InitialDatePickerControl() {
+        var value = new Date().toDateString;
+        var minD;
+        var maxD;
 
+        JDatePicker.Initial($("#dateStart"), minD, maxD, value);
+        JDatePicker.Initial($("#dateEnd"), minD, maxD);
+    }
 </script>

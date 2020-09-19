@@ -4,23 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class Content_Assignment : System.Web.UI.Page
+    public partial class ContentAssignment : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblePage(); 
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "AppraisalList";

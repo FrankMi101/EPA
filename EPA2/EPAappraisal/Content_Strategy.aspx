@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Strategy.aspx.cs" Inherits="EPA2.EPAappraisal.Content_Strategy" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Strategy.aspx.cs" Inherits="EPA2.EPAappraisal.ContentStrategy" %>
 
 <!DOCTYPE html>
 
@@ -6,6 +6,7 @@
 <head runat="server">
     <title>Content Recovery</title>
     <link href="../Content/ListPage.css" rel="stylesheet" />
+    <link href="../Content/ContentPage_tab.css" rel="stylesheet" />
 
     <style type="text/css">
         body {
@@ -63,29 +64,7 @@
             margin-top: 0px;
         }
 
-        .BottonTab {
-            height: 25px;
-            display: inline;
-            margin: 1px 0px 1px 0px;
-            margin-right: -3px;
-            padding: 3px 5px 0px 5px;
-            border: 1px solid lightsalmon;
-            border-top-left-radius: 9px;
-            border-top-right-radius: 9px;
-            border-radius: 9px 9px 0px 0px;
-            background-color: transparent;
-        }
-
-        .selectedTab {
-            color: white;
-            border-top: 3px solid orange;
-            border-bottom: 2px solid dodgerblue;
-            background: dodgerblue; /* For browsers that do not support gradients */
-            background: -webkit-linear-gradient(lightblue,dodgerblue ); /* For Safari 5.1 to 6.0 */
-            background: -o-linear-gradient(lightblue,dodgerblue ); /* For Opera 11.1 to 12.0 */
-            background: -moz-linear-gradient(lightblue,dodgerblue); /* For Firefox 3.6 to 15 */
-            background: linear-gradient( lightblue,dodgerblue); /* Standard syntax */
-        }
+       
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -99,9 +78,9 @@
         <div style="margin-bottom: -1px;">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <asp:Button ID="btnBoard" runat="server" Text="All Panel" CssClass="BottonTab" OnClick="btnBoard_Click" />
-                    <asp:Button ID="btnSchool" runat="server" Text="Elementary" CssClass="BottonTab" OnClick="btnSchool_Click" />
-                    <asp:Button ID="btnPersonal" runat="server" Text="Secondary" CssClass="BottonTab" OnClick="btnPersonal_Click" />
+                    <asp:Button ID="btnBoard" runat="server" Text="All Panel" CssClass="BottonTab" OnClick="BtnBoard_Click" />
+                    <asp:Button ID="btnSchool" runat="server" Text="Elementary" CssClass="BottonTab" OnClick="BtnSchool_Click" />
+                    <asp:Button ID="btnPersonal" runat="server" Text="Secondary" CssClass="BottonTab" OnClick="BtnPersonal_Click" />
                     <asp:Label runat="server" Font-Size="X-Small" ForeColor="Red" ID="remaind22" Text="*Click on the button to add selected comments. "> </asp:Label>
                     <asp:HiddenField ID="hfSelectedTab" runat="server" />
                 </ContentTemplate>
@@ -109,7 +88,7 @@
 
         </div>
 
-        <div style="height: 340px; overflow: auto;">
+        <div style="height: 370px; overflow: auto;">
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
                     <asp:TreeView ID="TreeView1" runat="server" Width="1500px" ImageSet="Simple" ShowLines="True">

@@ -67,7 +67,7 @@
            <div class="ContentSubTitle">
                 <asp:Label ID="labelSubTitle" runat="server" CssClass="labelSubTitle">Text Box Sub Title</asp:Label>
                 <br />
-                <asp:CheckBoxList ID="cblParticipation" runat="server" OnSelectedIndexChanged="cblParticipation_SelectedIndexChanged" >
+                <asp:CheckBoxList ID="cblParticipation" runat="server" OnSelectedIndexChanged="CblParticipation_SelectedIndexChanged" >
                     <asp:ListItem Value="1">Orientation</asp:ListItem>
                     <asp:ListItem Value="2">Professional Development</asp:ListItem>
                     <asp:ListItem Value="3">Mentoring</asp:ListItem>
@@ -80,9 +80,9 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
         </footer>
         <%--   <div class="bottom">
             &nbsp;
@@ -126,7 +126,7 @@
             <asp:HiddenField ID="hfTextLength" runat="server" Value="5000" />
 
             <asp:HiddenField ID="hfPageReadonly" runat="server" />
-              <asp:HiddenField ID="hfApprYear" runat="server" />
+            <asp:HiddenField ID="hfApprYear" runat="server" />
             <asp:HiddenField ID="hfApprSchool" runat="server" />
             <asp:HiddenField ID="hfApprSession" runat="server" />
             <asp:HiddenField ID="hfApprEmployeeID" runat="server" />
@@ -137,7 +137,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
@@ -158,12 +158,21 @@
             DisableTextEdit();
         }
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
+
+        $("#cblParticipation").change(function (event) {
+            if ($("#hfPageReadonly").val() !== "Yes") {
+                $("#hfContentChange").val("1");
+            }
         });
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();
-        });
+
+
+
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    EditPageItemTitle();
+        //});
 
         //$('#myText').bind('paste', function (event) {
         //    alert('pasting!')

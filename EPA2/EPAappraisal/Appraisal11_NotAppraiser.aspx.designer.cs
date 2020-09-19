@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Appraisal11_NotAppraiser {
+    public partial class Appraisal11NotAppraiser {
         
         /// <summary>
         /// form1 control.

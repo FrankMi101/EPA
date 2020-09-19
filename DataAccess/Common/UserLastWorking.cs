@@ -8,10 +8,10 @@ using System.Web;
 
 namespace DataAccess 
 {
-   public class UserLastWorking
+   public class UserLastWorkingOLD
     {
         static string SP = "dbo.EPA_sys_UserWorkingTrack";
-       public UserLastWorking()
+       public UserLastWorkingOLD()
         { }
         public static string EmployeeID
         {
@@ -55,6 +55,17 @@ namespace DataAccess
             set
             {
                 LastValue("WorkUnit", value);
+            }
+        }
+        public static string SchoolArea
+        {
+            get
+            {
+                return LastValue("WorkArea");
+            }
+            set
+            {
+                LastValue("WorkArea", value);
             }
         }
         public static string SchoolName

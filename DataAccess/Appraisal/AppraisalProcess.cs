@@ -82,7 +82,7 @@ namespace DataAccess
             string SP = "dbo.EPA_Appr_AppraisalProcess_StepMenu";
             MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
             myBaseParameters.SetupBaseParameters(ref myPara, operate, userID, schoolYear, schoolCode, employeeID, sessionID, appraisalCategory, appraisalArea);
-            SetSQLParameter.setParameterArray(myPara, DbType.String, 8, 10, "@Phase", appraisalPhase);
+            SetSQLParameter.setParameterArray(myPara, DbType.String, 8, 10, "@ItemCode", appraisalPhase);
             return SetSQLParameter.getMyDataSet(SP, myPara);
         }
        public static string AppraisalAreaTitle(string operate, string userID, string appraisalCategory, string appraisalArea)
@@ -215,7 +215,7 @@ namespace DataAccess
             SetupThisParameters(ref myPara, operate, userID, schoolYear, schoolCode, employeeID, sessionID, category,area,itemCode, domainID, competencyID,lookForID, actionRole, actionRole);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 14, 10, "@LogDate", logDate);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 15, 1, "@LogCheck", check);
-            SetSQLParameter.setParameterArray(myPara, DbType.String, 16, 1, "@allowView", allowview);
+            SetSQLParameter.setParameterArray(myPara, DbType.String, 16, 1, "@AllowView", allowview);
 
             return SetSQLParameter.getMyDataValue(SP, myPara);
         }
@@ -226,7 +226,7 @@ namespace DataAccess
             SetupThisParameters(ref myPara, operate, userID, schoolYear, schoolCode, employeeID, sessionID, category, area, itemCode, domainID, competencyID, lookForID, actionRole, actionRole);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 14, 10, "@LogDate", logDate);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 15, 1, "@LogCheck", check);
-            SetSQLParameter.setParameterArray(myPara, DbType.String, 16, 1, "@allowView", allowview);
+            SetSQLParameter.setParameterArray(myPara, DbType.String, 16, 1, "@AllowView", allowview);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 17, 500, "@Comments", comments);
 
             return SetSQLParameter.getMyDataValue(SP, myPara);

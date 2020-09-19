@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
 
 namespace EPA2.EPAsystem
 {
@@ -17,7 +12,7 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
                 BindMyData();
 
@@ -25,16 +20,16 @@ namespace EPA2.EPAsystem
 
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
-            string domainID = Page.Request.QueryString["dID"];
-            string competencyID = Page.Request.QueryString["cID"];
+            string domainId = Page.Request.QueryString["dID"];
+            string competencyId = Page.Request.QueryString["cID"];
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "LookFors";
             WorkingProfile.PageItem = "LookFors";
             AppraisalPage.SetPageAttribute2(Page);
-            AppraisalData.BuildingListControl(ddlDomain, "DomainList", User.Identity.Name,domainID);
-            AppraisalData.BuildingListControl(ddlCompetency, "CompetencyList", User.Identity.Name, domainID, competencyID);
+            AppraisalPage.BuildingListControlAndInitialValue(ddlDomain, "DomainList", User.Identity.Name, domainId);
+            AppraisalPage.BuildingListControlAndInitialValue(ddlCompetency, "CompetencyList", User.Identity.Name, domainId, competencyId);
 
             //myList.SetLists(ddlDomain, "DomainList", User.Identity.Name);
             //myList.SetListValue(ddlDomain, domainID);
@@ -51,11 +46,11 @@ namespace EPA2.EPAsystem
             hfCategory.Value = category;
             hfArea.Value = area;
 
-                                                           
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code+"1");
-            AppraisalData.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code+"2");
+
+            AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
+            AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
         }
 
 
@@ -72,8 +67,8 @@ namespace EPA2.EPAsystem
 
             string category = "EPA";
             string area = ddlDomain.SelectedValue;
-            string competencyID = ddlCompetency.SelectedValue;
-            ApplicationSetup.LookForsList(ref GridView1, action, User.Identity.Name, category, area, competencyID);
+            string competencyId = ddlCompetency.SelectedValue;
+            ApplicationSetup.LookForsList(ref GridView1, action, User.Identity.Name, category, area, competencyId);
         }
 
 
@@ -82,21 +77,21 @@ namespace EPA2.EPAsystem
         {
             string category = hfCategory.Value;
             string area = ddlDomain.SelectedValue;
-            string competencyID = ddlCompetency.SelectedValue;
-            ApplicationSetup.LookForsList(ref GridView1, "AddNew", User.Identity.Name, category, area, competencyID);
+            string competencyId = ddlCompetency.SelectedValue;
+            ApplicationSetup.LookForsList(ref GridView1, "AddNew", User.Identity.Name, category, area, competencyId);
             //   string result = ApplicationSetupData.LookFors("AddNew", User.Identity.Name, category, area, competency, "0", "", "", "","1");
             //  BindMyData();
         }
 
         protected void ddlDomiin_SelectedIndexChanged(object sender, EventArgs e)
         {
-          //  myList.SetLists(ddlCompetency, "CompetencyList", User.Identity.Name, ddlDomain.SelectedValue);
-             AppraisalData.BuildingListControl(ddlCompetency, "CompetencyList", User.Identity.Name, ddlDomain.SelectedValue,0);
-         ddlCompetency.SelectedIndex = 0;
+            //  myList.SetLists(ddlCompetency, "CompetencyList", User.Identity.Name, ddlDomain.SelectedValue);
+            AppraisalPage.BuildingListControlAndInitialValue(ddlCompetency, "CompetencyList", User.Identity.Name, ddlDomain.SelectedValue, 0);
+            ddlCompetency.SelectedIndex = 0;
 
-  
+
             BindMyData();
-       }
+        }
         protected void ddlCompetency_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindMyData();

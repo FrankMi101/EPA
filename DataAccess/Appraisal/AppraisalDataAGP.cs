@@ -63,7 +63,7 @@ namespace DataAccess
             MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[12];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 9, 10, "@SeqNo", SeqNo);
-            SetSQLParameter.setParameterArray(myPara, DbType.String, 10, 20, "@GoalItem", GoalItem);
+            SetSQLParameter.setParameterArray(myPara, DbType.String, 10, 20, "@ActionItem", GoalItem);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 11, 2500, "@Value", HttpContext.Current.Server.HtmlDecode(Value));
             return SetSQLParameter.getMyDataValue(SP, myPara);
         }

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
+using System.Web.UI.WebControls; 
 using System.Web.UI.HtmlControls;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class Text2PageIMP : System.Web.UI.Page
+    public partial class Text2PageImp : System.Web.UI.Page
     {
        
         protected void Page_Load(object sender, EventArgs e)
@@ -19,19 +17,19 @@ namespace EPA2.EPAappraisal
            if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;         
-                setPageAttribution();              
+                SetPageAttribution();              
                 BindMyData();
-                checkPageReadonly();
+                CheckPageReadonly();
               //  checkGAPExists();
             }
        
 
         }
-        private void checkGAPExists()
+        private void CheckGapExists()
         {
            // btnViewAGP.Text = AppraisalDataAGP.AGPWorkingListContent("CheckAGP", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode,WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID,  WorkingAppraisee.AppraisalType, WorkingAppraisee.AppraisalArea, WorkingAppraisee.AppraisalCode);
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             hfFirstName.Value = WorkingAppraisee.AppraiseeName;
@@ -45,19 +43,19 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
    
 
-            string SectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
-            if (SectionStartPage.IndexOf(code) == -1)
+            string sectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
+            if (sectionStartPage.IndexOf(code) == -1)
             { btnPrevious.Enabled = true; }
             else
             {
                 btnPrevious.Enabled = false;
             }
         }
-        protected void btnAddNewAGP_Click(object sender, EventArgs e)
+        protected void BtnAddNewAGP_Click(object sender, EventArgs e)
         {
             OperationMyList("AddNewGoal");
         }
@@ -71,41 +69,57 @@ namespace EPA2.EPAappraisal
         protected void OperationMyList(string action)
         {
 
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
+         //   string category = hfCategory.Value;
+          //  string area = hfArea.Value;
+          //  string code = hfCode.Value;
 
-            GridView1.DataSource = AppraisalData.AIPWorkingTemplate2DataSource( action, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
-            GridView1.DataBind();
+         //  GridView1.DataSource = AppraisalData.AIPWorkingTemplate2DataSource( action, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+            //   GridView1.DataBind();
 
-         //   AppraisalData.AIPWorkingTemplate2(ref GridView1,action,category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+            var parameter = new ClassLibrary.AppraisalComment()
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfApprEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ItemCode = hfCode.Value
+            };
+            AppraisalData.IMPWorkingTemplate2(ref GridView1, parameter);
         }
 
        
-        protected void checkPageReadonly()
+        protected void CheckPageReadonly()
         {
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
           
         }
-        protected void btnNext_Click(object sender, EventArgs e)
+        protected void BtnNext_Click(object sender, EventArgs e)
         {
             GoToNewPage("Next");
         }
-        protected void btnPrevious_Click(object sender, EventArgs e)
+        protected void BtnPrevious_Click(object sender, EventArgs e)
         {
             GoToNewPage("Previous");
         }
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
             BindMyData();
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
-
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+             string goPage = AppraisalPage.GoPage(parameter);//    AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 
         }

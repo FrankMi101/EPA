@@ -273,7 +273,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -350,10 +350,10 @@
 
         $('td > .myCheck').click(function (event) {
             eventCell = $(this);
-            var DomainID = $(this).closest('tr').find('td.myDomain').text();
-            var CompetencyID = $(this).closest('tr').find('td.myCompetency').text();
+            var domainId = $(this).closest('tr').find('td.myDomain').text();
+            var competencyId = $(this).closest('tr').find('td.myCompetency').text();
             var checkValu = (eventCell[0].childNodes['0'].checked ? "1" : "0");
-            var checkvalue = EPA2.Models.WebService1.SaveObseverationSelect("Check", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, checkValu, "", onSuccessOBS, onFailure);
+            var checkvalue = EPA2.Models.WebService1.SaveObseverationSelect("Check", UserID, CategoryID, AreaID, ItemCode, domainId, competencyId, checkValu, "", onSuccessOBS, onFailure);
             var mytextColumn = $(this).closest('tr').find('td > .myCommentsText');
             if (checkValu == "1") {
                 mytextColumn[0].readOnly = false;
@@ -364,11 +364,11 @@
         });
         $('td > .myCommentsText').change(function (event) {
             var eventCell = $(this);
-            var DomainID = $(this).closest('tr').find('td.myDomain').text();
-            var CompetencyID = $(this).closest('tr').find('td.myCompetency').text();
+            var domainId = $(this).closest('tr').find('td.myDomain').text();
+            var competencyId = $(this).closest('tr').find('td.myCompetency').text();
             var checkValu = "0";
             var value = eventCell[0].value;
-            var checkvalue = EPA2.Models.WebService1.SaveObseverationSelect("Comment", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, checkValu, value, onSuccessOBS, onFailure);
+            var checkvalue = EPA2.Models.WebService1.SaveObseverationSelect("Comment", UserID, CategoryID, AreaID, ItemCode, domainId, competencyId, checkValu, value, onSuccessOBS, onFailure);
         });
 
         if ($("#hfPageReadonly").val() == "Yes") {
@@ -385,22 +385,22 @@
         });
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
-        $("#btnSave").click(function (event) {
-            // SaveCompentencyTextContent();
-            //   return true;
-        });
+        //$("#btnSave").click(function (event) {
+        //    // SaveCompentencyTextContent();
+        //    //   return true;
+        //});
 
     });
 

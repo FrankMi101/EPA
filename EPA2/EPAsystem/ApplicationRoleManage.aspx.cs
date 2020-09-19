@@ -16,7 +16,7 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
                 BindMyData();
                
@@ -24,7 +24,7 @@ namespace EPA2.EPAsystem
           
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "UserSetup";
@@ -43,9 +43,9 @@ namespace EPA2.EPAsystem
             hfArea.Value = "UserSetup";
   
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1"); 
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1"); 
         }
 
 
@@ -62,7 +62,7 @@ namespace EPA2.EPAsystem
 
             string category = "EPA";
             string area = "UserSetup";
-            ApplicationSetup.OBJList(ref GridView1, action, User.Identity.Name, category,  area);
+            ApplicationSetup.ObjList(ref GridView1, action, User.Identity.Name, category,  area);
         }
 
       
@@ -83,7 +83,7 @@ namespace EPA2.EPAsystem
         {
             string category = hfCategory.Value;
             string area = hfArea.Value;
-            string result =   ApplicationSetup.OBJList(ref GridView1, "AddNew", User.Identity.Name, category, area,"0","","","","");
+            string result =   ApplicationSetup.ObjList(ref GridView1, "AddNew", User.Identity.Name, category, area,"0","","","","");
             BindMyData();
         }
     }

@@ -225,7 +225,7 @@ img {
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -244,7 +244,7 @@ img {
     var WorkingCell;
     var IDs;
     $(document).ready(function () {
-       MakeStaticHeader("GridView1", 500, 800, 25, false);
+       MakeStaticHeader("GridView1", 500, 800, 20, false);
         var vHeight = screen.height - 150 - 110 - 70;
         $("section").css("height", vHeight)
 
@@ -258,17 +258,17 @@ img {
 
         //});
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
@@ -282,12 +282,12 @@ img {
 
     }
    
-    function openLookFors(IDs, DomainID,CompetencyID)
+    function openLookFors(iDs, domainId,competencyId)
     {
-        var GoPage = "DomainLookFors.aspx?dID=" + DomainID + "&cID=" + CompetencyID;
+        var goPage = "DomainLookFors.aspx?dID=" + domainId + "&cID=" + competencyId;
         // windows.location = GoPage;
         // window.location.replace(GoPage);
-        location.href = GoPage;
+        location.href = goPage;
     }
  
 </script>

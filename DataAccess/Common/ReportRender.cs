@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Web;
-using System.Data;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Web;
 namespace DataAccess
 {
 
@@ -52,21 +49,14 @@ namespace DataAccess
         }
 
 
-        public static void RenderReport(string reportName, string schoolyear, string schoolcode, string employeeID, string sessionID, string userID, string category, string apprRole)
+        public static void RenderReport(string reportName, string reportFormat, List<ReportParameter> myParameter )
         {
             try
             {
-                MyCommon.MyParameterRS[] reportParameters = new MyCommon.MyParameterRS[7];
-                setParameterArray(reportParameters, 0, "Operate", apprRole);
-                setParameterArray(reportParameters, 1, "UserID", userID);
-                setParameterArray(reportParameters, 2, "SchoolYear", schoolyear);
-                setParameterArray(reportParameters, 3, "SchoolCode", schoolcode);
-                setParameterArray(reportParameters, 4, "EmployeeID", employeeID);
-                setParameterArray(reportParameters, 5, "SessionID", sessionID);
-                setParameterArray(reportParameters, 6, "Category", category);
-
+               
+ 
                 string rFormat = WebConfig.ReportFormat();
-                Byte[] result = GetReportR2(reportName, reportParameters);
+                Byte[] result = GetReportR2(reportName, reportFormat, myParameter);
 
                 if (result.Length != 0)
                 {
@@ -94,7 +84,29 @@ namespace DataAccess
 
         }
 
+        public static void RenderDocument(Byte[] _document, string _reportName, string _reportFormat)
+        {
+            try
+            {
+                string fileName = $"filename= { _reportName }" + getFileExtension(_reportFormat);
 
+                HttpContext.Current.Response.AppendHeader("content-disposition", fileName);  // "filename=" + _reportName + ".xls");
+                HttpContext.Current.Response.ContentType = getReportContentType(_reportFormat);
+                // output the actual document contents to the response output stream
+                HttpContext.Current.Response.OutputStream.Write(_document, 0, _document.GetLength(0));
+                // end the response
+                HttpContext.Current.Response.Flush();
+                HttpContext.Current.Response.End();
+
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+
+            }
+
+        }
         public static Byte[] GetReportR2(string _reportName, MyCommon.MyParameterRS[] _reportParameter)
 
         {
@@ -108,7 +120,7 @@ namespace DataAccess
                 string accessRWSPW = WebConfig.ReportPW();
                 string accessDomain = WebConfig.DomainName();
                 string reportingServices = WebConfig.ReportServices();
-                string report = WebConfig.ReportPathWS() + _reportName;
+                string report = WebConfig.ReportPathWS() + "/" + _reportName;
                 string format = WebConfig.ReportFormat();
 
                 RS.Url = reportingServices;
@@ -161,6 +173,79 @@ namespace DataAccess
                 result = RS.Render(format, devInfo, out extension, out encoding, out mimeType, out warnings, out streamIDs);
 
                 return result;
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                return new Byte[0];
+            }
+        }
+        public static Byte[] GetReportR2(string _reportName, string reportFormat, List<ReportParameter> _reportParameter)  
+
+        {
+          //  Byte[] result;
+            try
+            {
+                ReportingWebService.ReportExecutionService RS = new ReportingWebService.ReportExecutionService();
+                //  CredentialCache cache = new CredentialCache();
+                string accessUser = DataAccess.WebConfig.ReportUser();
+                string accessRWSPW = WebConfig.ReportPW();
+                string accessDomain = WebConfig.DomainName();
+                string reportingServices = WebConfig.ReportServices();
+               // string currentDB = DBConnectionHelper.CurrentDB();
+                string report = WebConfig.ReportPathWS()  + "/" + _reportName;
+                string format = reportFormat; // getReportContentType(reportFormat); //WebConfigValue.ReportFormat();
+
+                RS.Url = reportingServices;
+                RS.Credentials = new System.Net.NetworkCredential(accessUser, accessRWSPW, accessDomain);
+
+
+                string historyID = null;
+                string devInfo = "<DeviceInfo><Toolbar>False</Toolbar></DeviceInfo>";
+
+                string encoding = "";
+                string mimeType = "";
+                ReportingWebService.Warning[] warnings = new ReportingWebService.Warning[0];
+                string[] streamIDs = null;
+
+
+                ReportingWebService.ServerInfoHeader sh = new ReportingWebService.ServerInfoHeader();   //'ServerInfoHeader  
+                RS.ServerInfoHeaderValue = sh;  //'ServerInfoHeaderValue = sh  
+                                                // ReportingWebService.Warning warning = new ReportingWebService.Warning();
+
+                // MyCommon.MyParameterRS[] _reportParameter = GetReportParameters(_reportName, parameters);
+                // List<NVListItem> _reportParameter = GetReportParameters(_reportName, parameters);
+                int pLeng = _reportParameter.Count; //  .Length;
+                ReportingWebService.ParameterValue[] rptParameters = new ReportingWebService.ParameterValue[pLeng];
+
+
+                int i = 0;
+                foreach (var item in _reportParameter)
+                {
+                    rptParameters[i] = new ReportingWebService.ParameterValue();
+                    rptParameters[i].Name = item.ParaName;
+                    rptParameters[i].Value = item.ParaValue.ToString(); // para.pValue.ToString();
+                    i += 1;
+                }
+
+                // ReDim rptParameters(cnt - 1)
+
+                ReportingWebService.ExecutionInfo execInfo = new ReportingWebService.ExecutionInfo();
+                ReportingWebService.ExecutionHeader execHeader = new ReportingWebService.ExecutionHeader();
+
+
+                execInfo = RS.LoadReport(report, historyID);
+
+                RS.SetExecutionParameters(rptParameters, "en-us");
+
+                string extension = "";
+                string SessionId = RS.ExecutionHeaderValue.ExecutionID;
+                //   Console.WriteLine("SessionID: {0}", RS.ExecutionHeaderValue.ExecutionID);
+
+              return RS.Render(format, devInfo, out extension, out encoding, out mimeType, out warnings, out streamIDs);
+             
+                //    return result;
 
             }
             catch (Exception ex)
@@ -299,6 +384,52 @@ namespace DataAccess
             return rValue;
 
         }
+
+        public static ReportParameter GetParameter(Int16 Seq, string pName, string pValue)
+        {
+            ReportParameter para1 = new ReportParameter();
+            para1.ParaName = pName;
+            para1.ParaValue = pValue;
+            return para1;
+        }
+      
+        public static string getFileExtension(string _reportFormat)
+        {
+
+            string rValue = "";
+            switch (_reportFormat)
+            {
+                case "PDF":
+                    rValue = ".pdf";
+                    break;
+                case "CSV":
+                    rValue = ".csv";
+                    break;
+                case "EXCEL":
+                     rValue = ".xls";
+                    break;
+                case "IMAGE":
+                    rValue = ".gif";
+                    break;
+                case "HTML":
+                    rValue = ".html";
+                    break;
+                case "XML":
+                    rValue = ".xml";
+                    break;
+                default:
+                    rValue = ".pdf";
+
+                    break;
+            }
+            return rValue;
+
+        }
+    }
+    public class ReportParameter
+    {
+        public string ParaName { get; set; }
+        public string ParaValue { get; set; }
 
 
     }

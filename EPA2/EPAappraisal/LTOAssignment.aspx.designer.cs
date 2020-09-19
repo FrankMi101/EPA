@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class LTOAssignment {
+    public partial class LtoAssignment {
         
         /// <summary>
         /// form2 control.

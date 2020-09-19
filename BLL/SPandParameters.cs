@@ -115,6 +115,76 @@ namespace BLL
                     return "dbo.EPA_sys_getSchoolList" + " @Operate, @UserID, @Para1, @Para2, @Para3";
                 case "ObservationList":
                     return "dbo.EPA_Appr_AppraisalData_ObservationList" + pCompetencyComments;
+                case "AppraisalCompetency":
+                    return "dbo.EPA_Appr_AppraisalData_TextCompetency" + pCompetencyComments  ;
+                case "DomainList":
+                    return DomainListMethod.GetSP(action); //  "dbo.EPA_sys_DomainList" + pSystemSetup;
+                case "CompetencyList":
+                    return CompetencyListMethod.GetSP(action); // "dbo.EPA_sys_DomainCompetencyList" + pSystemSetup;
+                case "LookForsList":
+                    return LookForsListMethod.GetSP(action);//  "dbo.EPA_sys_DomainCompetencyLookForsList" + pSystemSetup + ", @CompetencyID";
+                default:
+                    return "";
+            }
+        }
+        public static string GetSPNameAndParameters(string page, string action)
+        {
+            switch (page)
+            {
+                case "AppList":
+                    return GetSP_AppraisalList(action);
+                case "AppContent":
+                    return GetSP_AppraisalContent(action);
+              
+                case "General":
+                    return GetSP_GenderalList(action);
+                default:
+                    return page; // direct stored and parameters
+            }
+
+
+        }
+        private static string GetSP_GenderalList(string action)
+        {
+            string parameter = " @Operate,@UserID,@Para1,@Para2,@Para3";
+
+            switch (action)
+            {
+
+                case "DDList":
+                    return "dbo.EPA_sys_getListsValuePara" + parameter;
+                case "Schools":
+                    return "dbo.EPA_sys_getSchoolList" + parameter;
+                default:
+                    return "";
+
+            }
+
+        }
+
+        private static string GetSP_AppraisalList(string action)
+        {
+            string pForList = " @Operate, @UserID, @SchoolYear, @SchoolCode, @SearchBy, @SearchValue";
+            string pCompetencyComments = " @Operate,@UserID,@SchoolYear,@SchoolCode,@EmployeeID,@SessionID,@Category, @Area, @ItemCode, @DomainID, @CompetencyID";
+ 
+            switch (action)
+            {
+                case "AppraisalList":
+                    return "dbo.EPA_Appr_AppraisalStaffList" + pForList;
+                case "AppraisalStaffList":
+                    return "dbo.EPA_ORG_StaffList" + pForList;
+                case "AppraisalHistory":
+                    return "dbo.EPA_Appr_AppraisalStaffHistory" + pForList;
+                case "AppraisalNotice":
+                    return "dbo.EPA_Appr_AppraisalStaffListNotice" + pForList + ", @NoticeType, @NoticeArea";
+                case "CommonList":
+                    return "dbo.EPA_sys_getListsValuePara" + " @Operate, @UserID, @Para1, @Para2, @Para3";
+                case "CommonListSchool":
+                    return "dbo.EPA_sys_getSchoolList" + " @Operate, @UserID, @Para1, @Para2, @Para3";
+                case "ObservationList":
+                    return "dbo.EPA_Appr_AppraisalData_ObservationList" + pCompetencyComments;
+                case "AppraisalCompetency":
+                    return "dbo.EPA_Appr_AppraisalData_TextCompetency" + pCompetencyComments;
                 case "DomainList":
                     return DomainListMethod.GetSP(action); //  "dbo.EPA_sys_DomainList" + pSystemSetup;
                 case "CompetencyList":
@@ -126,33 +196,90 @@ namespace BLL
             }
         }
 
-        public static string GetSingle<T>()
+        private static string GetSP_AppraisalContent(string action)
         {
-            var typeName = (typeof(T)).Name;
-            string pForSingle = " @SchoolYear,@PositionID";
-            switch (typeName)
+            string parameter = " @Operate, @UserID, @SchoolYear, @SchoolCode, @PositionID";
+            string parameters = parameter + ", @PositionType";
+            string pForComments = " @Operate,@UserID,@SchoolYear,@SchoolCode,@EmployeeID,@SessionID,@Category, @Area, @ItemCode";
+            string pForDomain = pForComments + ",@DomainID, @CompetencyID";
+            switch (action)
             {
-                case "PositionPublish":
-                    return "dbo.tcdsb_LTO_PagePublish_Position" + pForSingle;
-                case "PositionRequest":
-                    return "dbo.tcdsb_LTO_PageApprove_Position" + pForSingle;
-                case "PositionConfirmHire":
-                    return "dbo.tcdsb_LTO_PageConfrimForHire_Position" + pForSingle;
-                case "PositionPosting":
-                    return "dbo.tcdsb_LTO_PagePosting_Position" + pForSingle;
-
-                case "QualificationSelected":
-                    return "dbo.tcdsb_LTO_QualificationSelectedList" + pForSingle;
-                case "LimitDate":
-                    return "dbo.tcdsb_LTO_PagePublish_DefaultDate @Operate, @AppType, @SchoolYear, @DatePublish";
-
+                case "AppraisalComment":
+                    return "dbo.EPA_Appr_AppraisalData_Text" + pForComments + ", @Value";
+                case "AppraisalCompetency":
+                    return "dbo.EPA_Appr_AppraisalData_TextCompetency" + pForDomain + ", @Rate, @Value";
+                case "AppraisalDate":
+                    return "dbo.EPA_Appr_AppraisalData_ObservationDate2" + pForComments + ", @Date, @Value";
+                case "ObservationList":
+                    return "dbo.EPA_Appr_AppraisalData_ObservationList" + pForDomain + ", @Check, @Value";
                 default:
                     return "";
-
             }
 
         }
 
 
+
+
+        public string GetSP(string pageName, string action)
+        {
+            switch (pageName)
+            {
+                case "Publish":
+                    return GetSP_Publish(action);
+                case "Interview":
+                    return GetSP_Interview(action);
+                case "General":
+                    return GetSP_General(action);
+                default:
+                    return GetSP_General(action);
+
+            }
+        }
+
+        private string GetSP_Publish(string action)
+        {
+            string pForSingle = " @SchoolYear,@PositionID";
+            string pForList = " @Operate,@UserID,@SchoolYear,@PositionType,@Panel,@Status,@SearchBy, @SearchValue1, @SearchValue2";
+            switch (action)
+            {
+                case "Position":
+                    return "dbo.tcdsb_LTO_PagePublish_Position" + pForSingle;
+                case "Positions":
+                    return "dbo.tcdsb_LTO_PagePublish_Positions" + pForList;
+                default:
+                    return "dbo.tcdsb_LTO_PagePublish_Position" + pForSingle;
+
+            }
+        }
+        private string GetSP_General(string action)
+        {
+            string pForSingle = " @Operate,@Para1,@Para2,@Para3,@Para4";
+            switch (action)
+            {
+                case "DDList":
+                    return "dbo.EPA_sys_getListsValuePara" + pForSingle;
+                case "Schools":
+                    return "dbo.EPA_sys_getSchoolList" + pForSingle;
+                default:
+                    return "";
+
+
+            }
+        }
+        private string GetSP_Interview(string action)
+        {
+            string pForSingle = " @Operate,@Para1,@Para2,@Para3,@Para4";
+            switch (action)
+            {
+                case "DDList":
+                    return "dbo.tcdsb_LTO_PageGeneral_List" + pForSingle;
+                case "Positions":
+                    return "dbo.tcdsb_LTO_PageGeneral_Schools" + pForSingle;
+                default:
+                    return "dbo.tcdsb_LTO_PageGeneral_List" + pForSingle;
+
+            }
+        }
     }
 }

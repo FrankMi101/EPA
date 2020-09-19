@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
+using System.Web.UI.WebControls; 
 
 namespace EPA2.EPAsystem
 {
@@ -17,7 +16,7 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
                 BindMyData();
                
@@ -25,15 +24,15 @@ namespace EPA2.EPAsystem
           
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "CommentBank";
             WorkingProfile.PageItem = "CommentBank";
             AppraisalPage.SetPageAttribute2(Page);
             
-           myList.SetLists(ddlDomain, "DomainListcBank", User.Identity.Name);
-            myList.SetLists(ddlShared, "SharedListcBank", User.Identity.Name);
+           AppraisalPage.BuildingList(ddlDomain, "DomainListcBank", User.Identity.Name,"","","");
+            AppraisalPage.BuildingList(ddlShared, "SharedListcBank", User.Identity.Name,"","","");
 
 
         }
@@ -48,14 +47,14 @@ namespace EPA2.EPAsystem
             hfArea.Value = "CommentBank";
   
 
-           // AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+           //AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
             hfBankType.Value = Page.Request.QueryString["cID"];
-            hfBankOwner.Value = getOwnerCodebyType(Page.Request.QueryString["cID"]);
+            hfBankOwner.Value = GetOwnerCodebyType(Page.Request.QueryString["cID"]);
 
         }
 
-        private string getOwnerCodebyType(string type)
+        private string GetOwnerCodebyType(string type)
         {
             string owner = "0000";
          
@@ -113,7 +112,7 @@ namespace EPA2.EPAsystem
             string area = hfArea.Value;
             string type = hfBankType.Value;
             string owner = hfBankOwner.Value;
-            string result =   ApplicationSetupData.CommentsBank(  "AddNew", User.Identity.Name, category, area, type,owner, "0", "0","","","0");
+            string result =   ApplicationSetup.CommentsBankSave(  "AddNew", User.Identity.Name, category, area, type,owner, "0", "0","","","0");
             BindMyData();
         }
     }

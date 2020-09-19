@@ -1,37 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 using System.Web.UI.HtmlControls;
-using BLL;
-using ClassLibrary;
 
 namespace EPA2.EPAappraisal
 {
     public partial class DomainText1Page : System.Web.UI.Page
     {
-        string domainID;
-        string competencyID;
+        string _domainId;
+        string _competencyId;
         protected void Page_Load(object sender, EventArgs e)
         {
             AssemblingPageTitle();
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblingCompetencyList();
                 AssembingRubricList();
                 BindMyData();
-                checkPageReadonly();
+                CheckPageReadonly();
             }
             hfDomainID.Value = WorkingAppraisee.AppraisalCode.Replace("SUM5", "");
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             hfFirstName.Value = WorkingAppraisee.AppraiseeName;
@@ -46,29 +38,29 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
 
         }
         private void AssemblingCompetencyList()
         {
 
-            domainID = hfDomainID.Value;
+            _domainId = hfDomainID.Value;
             string category = WorkingAppraisee.AppraisalType;
             //string domainID =   "1";
-            CompetencyList.BuildingList(ref ContentCompetency, User.Identity.Name, hfApprYear.Value, hfApprSession.Value, hfApprEmployeeID.Value, hfApprSchool.Value, category, domainID);
+            CompetencyList.BuildingList(ref ContentCompetency, User.Identity.Name, hfApprYear.Value, hfApprSession.Value, hfApprEmployeeID.Value, hfApprSchool.Value, category, _domainId);
 
-            hfCompetencyID.Value = CompetencyList.CurrerntCompetencyID(ref ContentCompetency, domainID);// currerntCompetencyID();
+            hfCompetencyID.Value = CompetencyList.CurrerntCompetencyId(ref ContentCompetency, _domainId);// currerntCompetencyID();
 
-            competencyID = hfCompetencyID.Value;
-            string itemCount = CompetencyList.listCount(User.Identity.Name, hfApprYear.Value, hfApprSession.Value, hfApprEmployeeID.Value, hfApprSchool.Value, category, domainID);
-            myText.Height = getTextHeightByCount(itemCount);
+            _competencyId = hfCompetencyID.Value;
+            string itemCount = CompetencyList.ListCount(User.Identity.Name, hfApprYear.Value, hfApprSession.Value, hfApprEmployeeID.Value, hfApprSchool.Value, category, _domainId);
+            myText.Height = GetTextHeightByCount(itemCount);
 
         }
-        private string currerntCompetencyID()
+        private string CurrerntCompetencyId()
         {
             if (hfDomainID.Value == "6")
             {
@@ -94,25 +86,25 @@ namespace EPA2.EPAappraisal
         {
             string category = WorkingAppraisee.AppraisalType;
             //string domainID = "1";
-            competencyID = hfCompetencyID.Value;
-            if (competencyID == "20")
+            _competencyId = hfCompetencyID.Value;
+            if (_competencyId == "20")
             {
                 rblRateRubric.Visible = false;
             }
             else
             {
                 rblRateRubric.Visible = true;
-               // var parameter = CommonParameters.GetListParameters("CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode, "");
-               AppraisalData.BuildingListControl(rblRateRubric, "CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode, ""); 
-             //   myList.SetLists(rblRateRubric, "CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode);
- 
+                // var parameter = CommonParameters.GetListParameters("CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode, "");
+                  //   myList.SetLists(rblRateRubric, "CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode);
+              AppraisalPage.BuildingListControl(rblRateRubric, "CompetencyRatingList", User.Identity.Name, category, WorkingAppraisee.AppraisalCode, "");
 
-          }
+
+            }
             // lblSatisfacotyRubric.Text = AppraisalProcess.Rubrics("Satisfactory", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.SessionID, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalSchoolCode, category, domainID,competencyID);
             // lblDevelopNeededRubric.Text = AppraisalProcess.Rubrics("DevelopNeeded", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.SessionID, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalSchoolCode, category, domainID, competencyID);
             //lblUnSatisfacotyRubric.Text = AppraisalProcess.Rubrics("Unsatisfactory", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.SessionID, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalSchoolCode, category, domainID, competencyID);
         }
-        private System.Web.UI.WebControls.Unit getTextHeightByCount(string itemCount)
+        private System.Web.UI.WebControls.Unit GetTextHeightByCount(string itemCount)
         {
             string category = WorkingAppraisee.AppraisalType;
             System.Web.UI.WebControls.Unit xUnit;
@@ -154,7 +146,7 @@ namespace EPA2.EPAappraisal
         }
         protected void rblRateRubric_SelectedIndexChanged(object sender, EventArgs e)
         {
-          //  OperationMyList("Save");
+            //  OperationMyList("Save");
         }
         protected void btnCompetency_Click(object sender, EventArgs e)
         {
@@ -171,23 +163,19 @@ namespace EPA2.EPAappraisal
         protected void OperationMyData(string action)
         {
 
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            domainID = hfDomainID.Value;
-            competencyID = hfCompetencyID.Value;
-            AppraisalData.DomainTextContent(ref myText, ref textCount, action, 2000, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value, domainID, competencyID);
+           
+            _domainId = hfDomainID.Value;
+            _competencyId = hfCompetencyID.Value;
+            AppraisalData.DomainTextContent(ref myText, ref textCount, action, 2000, hfCategory.Value, hfArea.Value, hfCode.Value, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value, _domainId, _competencyId);
         }
         protected void OperationMyList(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            domainID = hfDomainID.Value;
-            competencyID = hfCompetencyID.Value;
-            AppraisalData.DomainListContent(ref rblRateRubric, action, category, area, code, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value, domainID, competencyID);
+           
+            _domainId = hfDomainID.Value;
+            _competencyId = hfCompetencyID.Value;
+            AppraisalData.DomainListContent(ref rblRateRubric, action, hfCategory.Value, hfArea.Value, hfCode.Value, User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value, _domainId, _competencyId);
         }
-        protected void checkPageReadonly()
+        protected void CheckPageReadonly()
         {
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
 
@@ -207,11 +195,15 @@ namespace EPA2.EPAappraisal
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+            string goPage = AppraisalPage.GoPage(parameter);
 
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 

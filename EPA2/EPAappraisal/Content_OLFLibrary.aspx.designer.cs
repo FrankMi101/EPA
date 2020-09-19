@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_OLFLibrary {
+    public partial class ContentOlfLibrary {
         
         /// <summary>
         /// form1 control.

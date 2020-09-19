@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text3PageBPA.aspx.cs" Inherits="EPA2.EPAappraisal.Text3PageBPA" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text3PageBPA.aspx.cs" Inherits="EPA2.EPAappraisal.Text3PageBpa" %>
 
 <!DOCTYPE html>
 
@@ -131,7 +131,7 @@
                         <th>
                             <asp:Label ID="labelTitle4" runat="server" CssClass="labelTitle2">Text Box Title</asp:Label><br />
                             <asp:Label ID="labelSubTitle4" runat="server" CssClass="labelSubTitle">Text Box Title</asp:Label> <br /><br />
-                            <asp:DropDownList ID="ddlResultSession" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlResultSession_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlResultSession" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlResultSession_SelectedIndexChanged">
                         <asp:ListItem Value="Mid">Mid -term feedback</asp:ListItem>
                         <asp:ListItem Value="Final">Final feedback</asp:ListItem>
                     </asp:DropDownList>
@@ -148,11 +148,11 @@
                             </asp:CheckBoxList>
                         </td>
                         <td>
-                            <asp:TextBox ID="myText2" runat="server" CssClass="myTextEdit" OnTextChanged="myText2_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText2" runat="server" CssClass="myTextEdit" OnTextChanged="MyText2_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
                         <td>
-                            <asp:TextBox ID="myText3" runat="server" CssClass="myTextEdit" OnTextChanged="myText3_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText3" runat="server" CssClass="myTextEdit" OnTextChanged="MyText3_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
                         <td>
-                            <asp:TextBox ID="myText4" runat="server" CssClass="myTextEdit" OnTextChanged="myText4_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText4" runat="server" CssClass="myTextEdit" OnTextChanged="MyText4_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
 
                     </tr>
                 </table>
@@ -164,9 +164,9 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
             <%--     <asp:Button ID="btnCompetency" runat="server" Text="" OnClick="btnCompetency_Click" />--%>
         </footer>
         <%--   <div class="bottom">
@@ -239,7 +239,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <%--<script src="../Scripts/GridView.js"></script>--%>
@@ -272,17 +272,17 @@
         //    { }
         //})
         $(".myTextEdit").click(function (event) {
-            var tID = $(this)[0].id;
-            DomainID = tID.replace("myText", "");
-            $("#hfWorkingCell").val(tID);
+            var tId = $(this)[0].id;
+            DomainID = tId.replace("myText", "");
+            $("#hfWorkingCell").val(tId);
         });
         $(".myTextEdit").keydown(function (event) {
             CountTextBoxCharactors();
         });
         $(".myTextEdit").change(function (event) {
             if ($("#hfPageReadonly").val() != "Yes") {
-                var tID = $(this)[0].id.replace("myText", "");
-                $("#hfContentChange" + tID).val("1");
+                var tId = $(this)[0].id.replace("myText", "");
+                $("#hfContentChange" + tId).val("1");
                 $("#hfContentChange").val("1");
             }
         });
@@ -290,20 +290,20 @@
             DisableTextEdit();
         }
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
         $("table .labelTitle2").dblclick(function (event) {
-            var objID = $(this)[0].id;
-            ItemCode = 'BPA60' + objID.replace("labelTitle", "")
+            var objId = $(this)[0].id;
+            ItemCode = 'BPA60' + objId.replace("labelTitle", "")
             EditPageItemTitle();
             event.stopPropagation();
         });

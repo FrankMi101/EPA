@@ -4,20 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class PDFPageFromList : System.Web.UI.Page
+    public partial class PdfPageFromList : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblingPageTitle();
-                if (checkPDFReportViewAvailable() == "Pass")
+                if (CheckPdfReportViewAvailable() == "Pass")
                 {
                     PDFiFramePage.Attributes.Add("src", "PDFPageFile.aspx");    
                 }
@@ -27,51 +25,40 @@ namespace EPA2.EPAappraisal
                 }
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
              AppraisalPage.SetPageAttribute(Page);
 
-            labelMessage.Text = getReportTitlebyCode();
+            labelMessage.Text = GetReportTitlebyCode();
         }
-        private string getReportTitlebyCode()
+        private string GetReportTitlebyCode()
         {
-            string rValue = "";
+           
             switch (WorkingAppraisee.AppraisalCode)
             {
                 case "OBS99":
-                    rValue = "Observation Form Data";
-                    break;
+                    return  "Observation Form Data";                   
                 case "SUM99":
-                    rValue = "Appraisal Summative Report";
-                    break;
+                    return  "Appraisal Summative Report";                    
                 case "LOG99":
-                    rValue = "Evidenc log Report";
-                    break;
+                    return  "Evidenc log Report";                   
                 case "IMP99":
-                    rValue = "Improvement Plan";
-                    break;
+                    return  "Improvement Plan";                    
                 case "ENR99":
-                    rValue = "Enrichment Plan";
-                    break;
+                    return  "Enrichment Plan";                   
                 case "STR99":
-                    rValue = "Individual NTIP Strategy";
-                    break;
+                    return  "Individual NTIP Strategy";                   
                 case "ALP99":
-                    rValue = "Annual Learning Plan";
-                    break;
+                    return  "Annual Learning Plan";                   
                 case "AGP99":
-                    rValue = "Annual Growth Plan";
-                    break;
+                    return  "Annual Growth Plan";                   
                 case "APP99":
-                    rValue = "Principal Performance Plan";
-                    break;
+                    return  "Principal Performance Plan";                   
                 default:
-                    rValue = "Annual Learning Plan";
-                    break;
+                    return "Annual Learning Plan";
             }
 
-            return rValue;
         }
         private void AssemblingPageTitle()
         {
@@ -79,33 +66,33 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
         }
 
 
-        private string checkPDFReportViewAvailable()
+        private string CheckPdfReportViewAvailable()
         {
             string allowView = "NotPass";
             string category = WorkingAppraisee.AppraisalType;
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
-            string AppraisalRole = AppraisalProcess.AppraisalActionRole(category, WorkingProfile.UserRole, WorkingAppraisee.UserID, User.Identity.Name);
+            string appraisalRole = AppraisalProcess.AppraisalActionRole(category, WorkingProfile.UserRole, WorkingAppraisee.UserID, User.Identity.Name);
 
             if (WorkingAppraisee.SessionID == null)
             {
                 WorkingAppraisee.SessionID = WorkingAppraisee.AppraisalWorkingSession;  
             }
-            if (AppraisalRole == "Appraiser")
+            if (appraisalRole == "Appraiser")
             {
                 allowView = "Pass";
                 labelMessage.Visible = false;
             }
             else
             {
-                allowView = AppraisalProcess.CheckPDFViewPermission(AppraisalRole, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, category, area, code, WorkingProfile.UserRole);
+                allowView = AppraisalProcess.CheckPDFViewPermission(appraisalRole, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, category, area, code, WorkingProfile.UserRole);
 
             }
 

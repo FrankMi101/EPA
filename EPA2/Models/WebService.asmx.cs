@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using DataAccess;
+using BLL;
+using ClassLibrary;
+
 namespace EPA2.Models
 {
     /// <summary>
@@ -25,11 +27,11 @@ namespace EPA2.Models
             return "Hello World";
         }
         [WebMethod]
-        public string GetHelpContent(string operation, string userID, string CategoryID, string AreaID, string ItemCode)
+        public string GetHelpContent(string operation, string userId, string categoryId, string areaId, string itemCode)
         {
             try
             {
-                return HelpContext.Content(operation, userID, CategoryID, AreaID, ItemCode,"Help");
+                return HelpContext.Content(operation, userId, categoryId, areaId, itemCode,"Help");
             }
             catch (Exception ex)
             {
@@ -39,11 +41,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveHelpContent(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string value)
+        public string SaveHelpContent(string operation, string userId, string categoryId, string areaId, string itemCode, string value)
         {
             try
             {
-                return HelpContext.Content(operation, userID, CategoryID, AreaID, ItemCode,"Help", value);
+                return HelpContext.Content(operation, userId, categoryId, areaId, itemCode,"Help", value);
             }
             catch (Exception ex)
             {
@@ -53,11 +55,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string GetTitleContent(string operation, string userID, string CategoryID, string AreaID, string ItemCode)
+        public string GetTitleContent(string operation, string userId, string categoryId, string areaId, string itemCode)
         {
             try
             {
-                return TitleContext.Content(operation, userID, CategoryID, AreaID, ItemCode);
+                return TitleContext.Content(operation, userId, categoryId, areaId, itemCode);
             }
             catch (Exception ex)
             {
@@ -67,11 +69,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveTitleContent(string operation, string userID, string CategoryID, string AreaID, string ItemCode, string title, string subtitle)
+        public string SaveTitleContent(string operation, string userId, string categoryId, string areaId, string itemCode, string title, string subtitle)
         {
             try
             {
-                return TitleContext.Content(operation, userID, CategoryID, AreaID, ItemCode, title, subtitle);
+                return TitleContext.Content(operation, userId, categoryId, areaId, itemCode, title, subtitle);
             }
             catch (Exception ex)
             {
@@ -80,13 +82,27 @@ namespace EPA2.Models
             }
 
         }
-
         [WebMethod]
-        public string SaveApplicationRole(string operation, string userID, string CategoryID, string AreaID, string IDs, string roleCode, string roleName, string comments, string active)
+        public List<CommonList> GetNameCodeListValue(string operate, CommonListParameter parameter)
         {
             try
             {
-                return ApplicationSetupData.UserRoleManagement(operation, userID, CategoryID, AreaID,IDs,roleCode,roleName,comments,active) ;
+                return AppraisalGeneral.CommonList<CommonList>("DDList", parameter);
+            }
+            catch (Exception ex)
+            {
+                var em = ex.Message;
+                return null;
+            }
+
+        }
+
+        [WebMethod]
+        public string SaveApplicationRole(string operation, string userId, string categoryId, string areaId, string ds, string roleCode, string roleName, string comments, string active)
+        {
+            try
+            {
+                return ApplicationSetup.UserRoleManagement(operation, userId, categoryId, areaId,ds,roleCode,roleName,comments,active) ;
             }
             catch (Exception ex)
             {
@@ -96,11 +112,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveApplicationUsers(string operation, string userID, string CategoryID, string AreaID, string IDs, string userCode, string userName, string userRole,  string comments, string active)
+        public string SaveApplicationUsers(string operation, string userId, string categoryId, string areaId, string ds, string userCode, string userName, string userRole,  string comments, string active)
         {
             try
             {
-                return ApplicationSetupData.UsersManagement(operation, userID, CategoryID, AreaID, IDs, userCode, userName, userRole, comments, active);
+                return ApplicationSetup.UsersManagement(operation, userId, categoryId, areaId, ds, userCode, userName, userRole, comments, active);
             }
             catch (Exception ex)
             {
@@ -110,11 +126,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveApplicationMultipleSchoolUsers(string operation, string userID, string CategoryID,  string AreaID,string schoolyear,  string IDs, string userCode, string schoolcode, string comments, string active)
+        public string SaveApplicationMultipleSchoolUsers(string operation, string userId, string categoryId,  string areaId,string schoolyear,  string ds, string userCode, string schoolcode, string comments, string active)
         {
             try
             {
-                return ApplicationSetupData.UsersManagementMultipleSchool(operation, userID, CategoryID, AreaID, schoolyear, IDs, userCode, schoolcode, comments, active);
+                return ApplicationSetup.UsersManagementMultipleSchool(operation, userId, categoryId, areaId, schoolyear, ds, userCode, schoolcode, comments, active);
             }
             catch (Exception ex)
             {
@@ -124,11 +140,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SchoolDistrict(string operation, string userID, string CategoryID, string AreaID, string IDs, string roleCode, string roleName, string comments, string active)
+        public string SchoolDistrict(string operation, string userId, string categoryId, string areaId, string ds, string roleCode, string roleName, string comments, string active)
         {
             try
             {
-                return ApplicationSetupData.SchoolDistrict(operation, userID, CategoryID, AreaID, IDs, roleCode, roleName, comments, active);
+                return ApplicationSetup.SchoolDistrict(operation, userId, categoryId, areaId, ds, roleCode, roleName, comments, active);
             }
             catch (Exception ex)
             {
@@ -138,11 +154,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SchoolRegion(string operation, string userID, string CategoryID, string AreaID, string IDs, string roleCode, string roleName, string comments, string active, string district, string superID, string officer)
+        public string SchoolRegion(string operation, string userId, string categoryId, string areaId, string ds, string roleCode, string roleName, string comments, string active, string district, string superId, string officer)
         {
             try
             {
-                return ApplicationSetupData.RegionAreaList(operation, userID, CategoryID, AreaID, IDs, roleCode, roleName, comments, active,district,superID,officer);
+                return ApplicationSetup.RegionAreaList(operation, userId, categoryId, areaId, ds, roleCode, roleName, comments, active,district,superId,officer);
             }
             catch (Exception ex)
             {
@@ -152,11 +168,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string School(string operation, string userID, string CategoryID, string AreaID, string IDs, string roleCode)
+        public string School(string operation, string userId, string categoryId, string areaId, string ids, string roleCode)
         {
             try
             {
-                return ApplicationSetupData.SchoolInformation(operation, userID, CategoryID, AreaID, IDs, roleCode);
+                return ApplicationSetup.SchoolInformation(operation, userId, categoryId, areaId, ids, roleCode);
             }
             catch (Exception ex)
             {
@@ -166,11 +182,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveSystemItems(string operation, string userID, string category, string itemType, string IDs, string code, string name, string comments, string active,string steps,string keyPoint)
+        public string SaveSystemItems(string operation, string userId, string category, string itemType, string ids, string code, string name, string comments, string active,string steps,string keyPoint)
         {
             try
             {
-                return ApplicationSetupData.SystemItems(operation, userID, category, itemType, IDs, code, name, comments, active,steps,keyPoint);
+                return ApplicationSetup.SystemItems(operation, userId, category, itemType, ids, code, name, comments, active,steps,keyPoint);
             }
             catch (Exception ex)
             {
@@ -180,11 +196,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveCategory(string operation, string userID,  string IDs, string code, string name, string comments, string active)
+        public string SaveAppraisalCategory(object saveObj)
         {
             try
             {
-                return ApplicationSetupData.Category(operation, userID,IDs, code, name, comments, active);
+                return AppraisalSetup.SaveCategory(saveObj);
             }
             catch (Exception ex)
             {
@@ -194,12 +210,26 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveDomain(string operation, string userID, string CategoryID, string AreaID, string IDs, string domainCode, string domainName,   string comments, int active)
+        public string SaveAppraisalArea(object saveObj)
+        {
+            try
+            {
+                return AppraisalSetup.SaveArea(saveObj);
+            }
+            catch (Exception ex)
+            {
+                var em = ex.Message;
+                return "failed";
+            }
+
+        }
+        [WebMethod]
+        public string SaveDomain(string operation, string userId, string categoryId, string areaId, string ds, string domainCode, string domainName,   string comments, int active)
         {
             try
             {
               //  return ApplicationSetupData.Domain(operation, userID, CategoryID, AreaID, IDs, domainCode, domainName,  comments, active);
-                return ApplicationSetup.DomainListDataSave(operation, userID, CategoryID, AreaID, IDs, domainCode, domainName, comments, active);
+                return ApplicationSetup.DomainListDataSave(operation, userId, categoryId, areaId, ds, domainCode, domainName, comments, active);
             }
             catch (Exception ex)
             {
@@ -209,12 +239,12 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveCompetency(string operation, string userID, string CategoryID, string AreaID, string IDs, string Code, string Name, string comments, int active,string TPA, string NTP,string LTO)
+        public string SaveCompetency(string operation, string userId, string categoryId, string areaId, string ds, string code, string name, string comments, int active,string tpa, string ntp,string lto)
         {
             try
             {
               //  return ApplicationSetupData.Competency(operation, userID, CategoryID, AreaID, IDs, Code, Name, comments, active,TPA,NTP,LTO);
-                return ApplicationSetup.CompetencyList(operation, userID, CategoryID, AreaID, IDs, Code, Name, comments, active, TPA, NTP, LTO);
+                return ApplicationSetup.CompetencyList(operation, userId, categoryId, areaId, ds, code, name, comments, active, tpa, ntp, lto);
             }
             catch (Exception ex)
             {
@@ -224,12 +254,12 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveLookFors(string operation, string userID, string CategoryID, string AreaID, string competencyID, string IDs, string Code, string Name, string comments, int active )
+        public string SaveLookFors(string operation, string userId, string categoryId, string areaId, string competencyId, string ds, string code, string name, string comments, int active )
         {
             try
             {
                 //return ApplicationSetupData.LookFors(operation, userID, CategoryID, AreaID, competencyID, IDs, Code, Name, comments, active );
-                return ApplicationSetup.LookForsList(operation, userID, CategoryID, AreaID, competencyID, IDs, Code, Name, comments, active);
+                return ApplicationSetup.LookForsList(operation, userId, categoryId, areaId, competencyId, ds, code, name, comments, active);
             }
             catch (Exception ex)
             {
@@ -239,11 +269,11 @@ namespace EPA2.Models
 
         }
         [WebMethod]
-        public string SaveCommentsBank(string operation, string userID, string CategoryID, string AreaID, string type,string owner, string IDs, string domainID, string shared, string comments, string active)
+        public string SaveCommentsBank(string operation, string userId, string categoryId, string areaId, string type,string owner, string ds, string domainId, string shared, string comments, string active)
         {
             try
             {
-                return ApplicationSetupData.CommentsBank(operation, userID, CategoryID, AreaID, type,owner, IDs, domainID, shared, comments, active);
+                return ApplicationSetup.CommentsBankSave(operation, userId, categoryId, areaId, type,owner, ds, domainId, shared, comments, active);
             }
             catch (Exception ex)
             {

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPA2.EPAappraisal {
-    
-    
-    public partial class PDFPageFromList {
-        
+namespace EPA2.EPAappraisal
+{
+
+
+    public partial class PdfPageFromList
+    {
+
         /// <summary>
         /// form2 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form2;
-        
+
         /// <summary>
         /// PageTitle control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl PageTitle;
-        
+
         /// <summary>
         /// labelTitle control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelTitle;
-        
+
         /// <summary>
         /// ContentMessageNotReady control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ContentMessageNotReady;
-        
+
         /// <summary>
         /// labelMessage control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelMessage;
-        
+
         /// <summary>
         /// PDFiFramePage control.
         /// </summary>
@@ -65,7 +67,34 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlIframe PDFiFramePage;
-        
+
+        /// <summary>
+        /// btnPrevious control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrevious;
+
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
+
+        /// <summary>
+        /// btnNext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNext;
+
         /// <summary>
         /// ActioniFramePage control.
         /// </summary>
@@ -74,7 +103,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlIframe ActioniFramePage;
-        
+
         /// <summary>
         /// hfSignOff control.
         /// </summary>
@@ -83,7 +112,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfSignOff;
-        
+
         /// <summary>
         /// hfCategory control.
         /// </summary>
@@ -92,7 +121,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfCategory;
-        
+
         /// <summary>
         /// hfArea control.
         /// </summary>
@@ -101,7 +130,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfArea;
-        
+
         /// <summary>
         /// hfCode control.
         /// </summary>
@@ -110,7 +139,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfCode;
-        
+
         /// <summary>
         /// hfPageID control.
         /// </summary>
@@ -119,7 +148,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfPageID;
-        
+
         /// <summary>
         /// hfUserID control.
         /// </summary>
@@ -128,7 +157,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserID;
-        
+
         /// <summary>
         /// hfUserLoginRole control.
         /// </summary>
@@ -137,7 +166,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserLoginRole;
-        
+
         /// <summary>
         /// hfRunningModel control.
         /// </summary>
@@ -146,7 +175,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfRunningModel;
-        
+
         /// <summary>
         /// hfParameters control.
         /// </summary>
@@ -155,7 +184,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfParameters;
-        
+
         /// <summary>
         /// hfContentChange control.
         /// </summary>
@@ -164,7 +193,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfContentChange;
-        
+
         /// <summary>
         /// hfPageReadonly control.
         /// </summary>
@@ -173,7 +202,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfPageReadonly;
-        
+
         /// <summary>
         /// hfApprYear control.
         /// </summary>
@@ -182,7 +211,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprYear;
-        
+
         /// <summary>
         /// hfApprSchool control.
         /// </summary>
@@ -191,7 +220,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprSchool;
-        
+
         /// <summary>
         /// hfApprSession control.
         /// </summary>
@@ -200,7 +229,7 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfApprSession;
-        
+
         /// <summary>
         /// hfApprEmployeeID control.
         /// </summary>

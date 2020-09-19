@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text4PageAPM.aspx.cs" Inherits="EPA2.EPAappraisal.Text4PageAPM" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text4PageAPM.aspx.cs" Inherits="EPA2.EPAappraisal.Text4PageApm" %>
 
 <!DOCTYPE html>
 
@@ -81,6 +81,10 @@
         table, th, td {
             border: 1px solid #808080;
         }
+        .ContentRow {
+            height:25%;
+        }
+
     </style>
 </head>
 <body>
@@ -104,6 +108,7 @@
                     <asp:Label ID="labelTitle" runat="server" CssClass="labelTitle">Text Box Title</asp:Label>
                     <img class="imgHelp" src="../images/help2.png" title="Help Content" />
                     <img class="imgEP" runat="server" id="imgEP" src="../images/ep.png" title="Effective Practice" visible="false" />
+                      <img class="imgSignoff" runat="server" id="imgSignOff" src="../images/signature.png" visible="false"  />
                 </div>
                 <div id="ContentTitleRight" style="display: inline; float: right">
                     Characters limit
@@ -113,51 +118,51 @@
             </div>
 
             <div class="ContentCompetencyList" runat="server">
-                <div id="DivRoot" style="width: 100%; height: 580px;">
+                <div id="DivRoot" style="width: 100%; height: 550px;">
                     <table style="border: 1px solid lightblue" id="MeetingTable">
-                        <tr>
+                        <tr style="height:25px;">
 
                             <th style="width: 15%">Meeting Date</th>
                             <th style="width: 85%">Meeting Content</th>
                         </tr>
-                        <tr>
+                        <tr class ="ContentRow">
 
                             <td><span>1st Meeting  </span>
                                 <br />
                                 <input runat="server" type="text" class="meetingDate" id="MeetingDate1" name="MeetingDate1" size="9" onserverchange="MeetingDate1_DateChange" />
                             </td>
                             <td>
-                                <asp:TextBox ID="TextMeetingContent1" runat="server" CssClass="meetingContent" OnTextChanged="TextMeetingContent1_TextChange" Height="130px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="TextMeetingContent1" runat="server" CssClass="meetingContent" OnTextChanged="TextMeetingContent1_TextChange" Height="100%" Width="100%" TextMode="MultiLine"></asp:TextBox>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class ="ContentRow">
 
                             <td><span>2nd Meeting  </span>
                                 <br />
                                 <input runat="server" type="text" class="meetingDate" id="MeetingDate2" name="MeetingDate2" size="9" onserverchange="MeetingDate2_DateChange" />
                             </td>
                             <td>
-                                <asp:TextBox ID="TextMeetingContent2" runat="server" CssClass="meetingContent" OnTextChanged="TextMeetingContent2_TextChange" Height="130px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="TextMeetingContent2" runat="server" CssClass="meetingContent" OnTextChanged="TextMeetingContent2_TextChange" Height="100%" Width="100%" TextMode="MultiLine"></asp:TextBox>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class ="ContentRow">
 
                             <td><span>3rd Meeting  </span>
                                 <br />
                                 <input runat="server" type="text" class="meetingDate" id="MeetingDate3" name="MeetingDate3" size="9" onserverchange="MeetingDate3_DateChange" />
                             </td>
                             <td>
-                                <asp:TextBox ID="TextMeetingContent3" runat="server" CssClass="meetingContent" OnTextChanged="TextMeetingContent3_TextChange" Height="130px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="TextMeetingContent3" runat="server" CssClass="meetingContent" OnTextChanged="TextMeetingContent3_TextChange" Height="100%" Width="100%" TextMode="MultiLine"></asp:TextBox>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class ="ContentRow">
 
                             <td><span>4th Meeting  </span>
                                 <br />
                                 <input runat="server" type="text" class="meetingDate" id="MeetingDate4" name="MeetingDate4" size="9" onserverchange="MeetingDate4_DateChange" />
                             </td>
                             <td>
-                                <asp:TextBox ID="TextMeetingContent4" runat="server" CssClass="meetingContent" OnTextChanged="TextMeetingContent4_TextChange" Height="130px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="TextMeetingContent4" runat="server" CssClass="meetingContent" OnTextChanged="TextMeetingContent4_TextChange" Height="100%" Width="100%" TextMode="MultiLine"></asp:TextBox>
                             </td>
                         </tr>
                     </table>
@@ -232,7 +237,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <%--<script src="../Scripts/GridView.js"></script>--%>
@@ -302,17 +307,17 @@
         }
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();

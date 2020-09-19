@@ -4,22 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
+using BLL;
 using System.Data;
 
 namespace EPA2.EPAsystem
 {
-    public partial class Content_HelpEdit : System.Web.UI.Page
+    public partial class ContentHelpEdit : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             
             hfSelectedTab.Value = "Help";    

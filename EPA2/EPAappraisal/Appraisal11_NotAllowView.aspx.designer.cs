@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Appraisal11_NotAllowView {
+    public partial class Appraisal11NotAllowView {
         
         /// <summary>
         /// form1 control.

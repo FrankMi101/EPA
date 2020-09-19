@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
 namespace EPA2.EPAappraisal
 {
-    public partial class TPAALP10 : System.Web.UI.Page
+    public partial class Tpaalp10 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +20,7 @@ namespace EPA2.EPAappraisal
             string category = WorkingAppraisee.AppraisalType;
             string area =  WorkingAppraisee.AppraisalArea ;
             string code =  WorkingAppraisee.AppraisalCode;
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, category, area, code, WorkingProfile.UserRole);
+           AppraisalPage.BuildingTitleTab(ref PageTitle, category, area, code, WorkingProfile.UserRole);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PDFPageFile.aspx.cs" Inherits="EPA2.EPAappraisal.PDFPageFile" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PDFPageFile.aspx.cs" Inherits="EPA2.EPAappraisal.PdfPageFile" %>
 
 <!DOCTYPE html>
 
@@ -42,9 +42,11 @@
             <div id="LoadingRow" runat="server" >
                   <img src="../images/Loading.gif" />
                      <a id="PageURL" runat="server" href='#' target="_self">Report Loading ...... </a>
+                 <h1> 
+                <asp:Label ID="LabelNoPDFFile" runat="server" Text="No PDF file was created !" ForeColor="red" Visible="false"></asp:Label></h1>
             </div>
               <div id ="iFrameForPDF">
-                  <iframe id="PDFiFramePage" name="PDFiFramePage" style="height: 100%; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+                  <iframe id="PDFiFramePage" name="PDFiFramePage" style="height: 100%; width: 99%"  src="iBlankPage.html" runat="server"></iframe>
 
               </div>
 
@@ -72,4 +74,5 @@
     </form>
 </body>
 </html>
+
         

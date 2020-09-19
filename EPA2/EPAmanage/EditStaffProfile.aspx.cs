@@ -1,44 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
+using BLL;
+using ClassLibrary;
+
 namespace EPA2.EPAmanage
 {
+
     public partial class EditStaffProfile : System.Web.UI.Page
     {
-        string schoolyear;
-        string schoolcode;
-        string employeeID;
-        string tName;
-        string IDs;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                schoolyear = Page.Request.QueryString["yID"];
-                schoolcode = Page.Request.QueryString["cID"];
-                employeeID = Page.Request.QueryString["tID"];
-                tName = Page.Request.QueryString["tName"];
-                IDs = Page.Request.QueryString["IDs"];
-
                 // LabelName.Text = Page.Request.QueryString["tName"];
-                setPageAttribution();
-                bindStaffInformation();
+                SetPageAttribution();
+                BindStaffInformation();
+                SetProgrammingSP();
             }
         }
 
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
+            var parameter = new CommonListParameter
+            {
+                Operate = "SchoolList",
+                UserID = User.Identity.Name,
+                Para1 = WorkingProfile.UserRole,
+                Para2 = Page.Request.QueryString["yID"],
+                Para3 = Page.Request.QueryString["cID"]
+            };
+            AppraisalPage.BuildingList(ddlSchoolCodeSAP, ddlSchoolNameSAP, "SchoolList", parameter, WorkingProfile.SchoolCode); // User.Identity.Name, WorkingProfile.UserRole, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
 
-            mySchoolList.SetLists2(ddlSchoolNameSAP, ddlSchoolCodeSAP, "SchoolList", User.Identity.Name, WorkingProfile.UserRole, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
-            myList.SetLists(ddlStatus, "AppraisalStatus", User.Identity.Name, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
-            myList.SetLists(ddlPostionType, "UserRole", User.Identity.Name, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
-            myList.SetLists(ddlTimeType, "TimeType", User.Identity.Name, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
-            myList.SetLists(ddlGender, "Gender", User.Identity.Name, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
+            parameter.Para1 = WorkingProfile.SchoolYear;
+            parameter.Para2 = WorkingProfile.SchoolCode;
+            AppraisalPage.BuildingList(ddlStatus, "AppraisalStatus", parameter);// User.Identity.Name, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
+            AppraisalPage.BuildingList(ddlPostionType, "UserRole", parameter);// User.Identity.Name, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
+            AppraisalPage.BuildingList(ddlTimeType, "TimeType", parameter);// User.Identity.Name, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
+            AppraisalPage.BuildingList(ddlGender, "Gender", parameter);//User.Identity.Name, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
 
 
             hfCategory.Value = "EPA";
@@ -47,29 +51,44 @@ namespace EPA2.EPAmanage
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
             hfRunningModel.Value = WebConfig.RunningModel();
         }
-        private void bindStaffInformation()
+
+        private Employee GetEditDataSource()
         {
-            DataSet DS = new DataSet();
-            DS = StaffProfile.EmployeeStaffEdit("Get", IDs, User.Identity.Name, schoolyear, employeeID);
+            var parameter = new
+            {
+                Operate = "Get",
+                UserID = User.Identity.Name,
+                IDs = Page.Request.QueryString["IDs"],
+                EmployeeID = Page.Request.QueryString["tID"]
+            };
+
+            return StaffManagement.Employee(parameter)[0];
+        }
+
+        private void BindStaffInformation()
+        {
+            var employee = GetEditDataSource();
+
             try
             {
-                 hfIDs.Value = DS.Tables[0].Rows[0][0].ToString();
-                TextUserID.Text = DS.Tables[0].Rows[0][1].ToString();
-                TextEmployeeID.Text = DS.Tables[0].Rows[0][2].ToString();
-                TextFirstName.Text = DS.Tables[0].Rows[0][3].ToString();
-                TextLastName.Text = DS.Tables[0].Rows[0][4].ToString();
-                TextEmail.Text = DS.Tables[0].Rows[0][5].ToString();
-                myList.SetListValue(ddlStatus, DS.Tables[0].Rows[0][6].ToString());
-                myList.SetListValue(ddlGender, DS.Tables[0].Rows[0][7].ToString());
-                TextPosition.Text = DS.Tables[0].Rows[0][8].ToString();
-                myList.SetListValue(ddlPostionType, DS.Tables[0].Rows[0][9].ToString());
-                myList.SetListValue(ddlTimeType, DS.Tables[0].Rows[0][10].ToString());
-                dateStart.Value = DS.Tables[0].Rows[0][11].ToString();
-                dateEnd.Value = DS.Tables[0].Rows[0][12].ToString();
-                TextAssignment.Text = DS.Tables[0].Rows[0][13].ToString();
-                TextComments.Text = DS.Tables[0].Rows[0][14].ToString();
-                mySchoolList.SetListsValue(ddlSchoolNameSAP, ddlSchoolCodeSAP, DS.Tables[0].Rows[0][15].ToString());
-                if (DS.Tables[0].Rows[0][16].ToString().Length > 2)
+                hfIDs.Value = employee.IDs;
+                TextUserID.Text = employee.UserID;
+                TextEmployeeID.Text = employee.EmployeeID.ToString();
+                TextFirstName.Text = employee.FirstName.ToString();
+                TextLastName.Text = employee.LastName.ToString();
+                TextEmail.Text = employee.Email.ToString();
+                AppraisalPage.SetListValue(ddlStatus, employee.EmployeeStatus.ToString());
+                AppraisalPage.SetListValue(ddlGender, employee.Gender.ToString());
+                TextPosition.Text = employee.EmployeePosition.ToString();
+                AppraisalPage.SetListValue(ddlPostionType, employee.PositionType.ToString());
+                AppraisalPage.SetListValue(ddlTimeType, employee.TimeType.ToString());
+                dateStart.Value = employee.StartDate.ToString();
+                dateEnd.Value = employee.EndDate.ToString();
+                TextAssignment.Text = employee.Assignment.ToString();
+                TextComments.Text = employee.Comments.ToString();
+                AppraisalPage.SetListValue(ddlSchoolNameSAP, employee.UnitID);
+                AppraisalPage.SetListValue(ddlSchoolCodeSAP, employee.UnitID);
+                if (employee.IsInAppraisalList.ToString().Length > 2)
                 {
                     chbAppraisal.Checked = true;
                     btnAddTo.Enabled = false;
@@ -81,7 +100,7 @@ namespace EPA2.EPAmanage
                     chbAppraisal.Checked = false;
                     btnAddTo.Enabled = true;
                 }
-             }
+            }
             catch (Exception ex)
             {
                 string eMessage = ex.Message;
@@ -89,30 +108,41 @@ namespace EPA2.EPAmanage
             finally { }
         }
 
-        protected void btnSave_Click(object sender, EventArgs e)
+        private Employee getEmployeeInfoFromPage(string action)
         {
-            string unitID = ddlSchoolCodeSAP.SelectedValue;
-            string status = ddlStatus.SelectedValue;
-            string position = TextPosition.Text;
-            string positionType = ddlPostionType.SelectedValue;
-            string gender = ddlGender.SelectedValue;
-            string timeType = ddlTimeType.SelectedValue;
-            string firstName = TextFirstName.Text;
-            string lastName = TextLastName.Text;
-            string eMail = TextEmail.Text;
-            string startDate =   dateStart.Value ;
-            string endDate =  dateEnd.Value ;
-            string assignment = TextAssignment.Text;
-            string comment = TextComments.Text;
-            string userID = TextUserID.Text;
-            string employeeId = TextEmployeeID.Text;
-            string ids = hfIDs.Value;
-            string saveResult = StaffProfile.EmployeeStaffEdit("Update", ids, userID, WorkingProfile.SchoolYear, employeeId, unitID,
-                firstName, lastName, status, position, positionType,  startDate, endDate, gender, eMail,timeType, assignment, comment);
+            var ids = (action == "Update") ? hfIDs.Value : "0";
 
-            showMessage(saveResult, "Update");
+            var appraiseeInfo = new Employee()
+            {
+                Operate = action, // "Update",
+                IDs = ids,
+                UnitID = ddlSchoolCodeSAP.SelectedValue,
+                EmployeeID = TextEmployeeID.Text,
+                EmployeeStatus = ddlStatus.SelectedValue,
+                EmployeePosition = TextPosition.Text,
+                PositionType = ddlPostionType.SelectedValue,
+                Gender = ddlGender.SelectedValue,
+                TimeType = ddlTimeType.SelectedValue,
+                FirstName = TextFirstName.Text,
+                LastName = TextLastName.Text,
+                Assignment = TextAssignment.Text,
+                Comments = TextComments.Text,
+                UserID = TextUserID.Text,
+                StartDate = dateStart.Value, //BLL.DateFC.YMD(dateStart.Value),
+                EndDate = dateEnd.Value //  BLL.DateFC.YMD(dateEnd.Value),
+            };
+
+            return appraiseeInfo;
         }
-        private void showMessage(string result, string action)
+
+        protected void BtnSave_Click(object sender, EventArgs e)
+        {
+            var _employee = getEmployeeInfoFromPage("Update");
+             string saveResult = StaffManagement.EmployeeEdit(_employee);
+
+            ShowMessage(saveResult, "Update");
+        }
+        private void ShowMessage(string result, string action)
         {
             try
             {
@@ -125,40 +155,51 @@ namespace EPA2.EPAmanage
 
         }
 
-        protected void btnAddTo_Click(object sender, EventArgs e)
+        protected void BtnAddTo_Click(object sender, EventArgs e)
         {
-            string unitID = ddlSchoolCodeSAP.SelectedValue;       
-            string userID = TextUserID.Text;
-            string employeeId = TextEmployeeID.Text;
-            string ids = hfIDs.Value;
-            string saveResult = StaffProfile.EmployeeStaffEdit("AddToApprList", ids, userID, WorkingProfile.SchoolYear, employeeId, unitID );
+            var parameter = new
+            {
+                Operate = "AddToApprList",
+                UserID = TextUserID.Text,
+                IDs = hfIDs.Value,
+                EmployeeID = TextEmployeeID.Text
+            };
+  
+            string saveResult = StaffManagement.EmployeeAddToApprList(parameter);// DataAccess.StaffProfile.EmployeeStaffEdit("AddToApprList", ids, userId, WorkingProfile.SchoolYear, employeeId, unitId);
 
-            showMessage(saveResult, "Add to Appr List");
+            ShowMessage(saveResult, "Add to Appr List");
         }
 
-        protected void btnNew_Click(object sender, EventArgs e)
+        protected void BtnNew_Click(object sender, EventArgs e)
         {
-
             hfIDs.Value = "0";
             TextUserID.Text = "";
             TextEmployeeID.Text = "";
-            TextFirstName.Text ="";
-            TextLastName.Text ="";
+            TextFirstName.Text = "";
+            TextLastName.Text = "";
             TextEmail.Text = "";
-             TextPosition.Text = "";
+            TextPosition.Text = "";
             ddlStatus.ClearSelection();
             ddlGender.ClearSelection();
             ddlPostionType.ClearSelection();
             ddlTimeType.ClearSelection();
-            dateStart.Value ="";
+            dateStart.Value = "";
             dateEnd.Value = "";
             TextAssignment.Text = "";
             TextComments.Text = "";
             ddlSchoolNameSAP.ClearSelection();
             ddlSchoolCodeSAP.ClearSelection();
-            mySchoolList.SetListsValue(ddlSchoolNameSAP, ddlSchoolCodeSAP, WorkingProfile.SchoolCode);
+            //  mySchoolList.SetListsValue(ddlSchoolNameSAP, ddlSchoolCodeSAP, WorkingProfile.SchoolCode);
+            AppraisalPage.SetListValue(ddlSchoolNameSAP, WorkingProfile.SchoolCode);
+            AppraisalPage.SetListValue(ddlSchoolCodeSAP, WorkingProfile.SchoolCode);
             chbAppraisal.Checked = false;
-         
+        }
+        private void SetProgrammingSP()
+        {
+            BaseData.ShowSP("AppraisalManage", "Employee", TextUserID);
+            BaseData.ShowSP("AppraisalManage", "AddToApprList", btnAddTo);
+            BaseData.ShowSP("AppraisalManage", "EmployeeEdit", btnSave);
+
         }
     }
 }

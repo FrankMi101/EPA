@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL;
+using DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,14 +17,28 @@ namespace EPA2
         {
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles); 
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             // Code to set up a database connection str when the application start
-            string currentDB = DataAccess.DBConnection.CurrentDB;
-            string connectSTR = DataAccess.DBConnection.ConnectionSTR(currentDB);
-            DataAccess.SetSQLParameter.myDBConStr = connectSTR;
+            string currentDb = DBConnection.CurrentDB;
+            string connectStr = DBConnection.ConnectionSTR(currentDb);
+             DataAccess.SetSQLParameter.myDBConStr = connectStr;
+
         }
 
-     
 
+        private void SetSpSource()
+        {
+
+            // ************************Setup Data source SP and parameters source*************************************************
+            //    <add key="SPFile" value="Content\DataAccess.json"/>
+            string spfile = WebConfig.getValuebyKey("SPFile");
+            if (spfile != "")
+            {
+                spfile = Server.MapPath(spfile);
+            }
+
+            SPSource.SPFile = spfile;
+     
+        }
     }
 }

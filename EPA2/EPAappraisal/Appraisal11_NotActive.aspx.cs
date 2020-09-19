@@ -4,23 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class Appraisal11_NotActive : System.Web.UI.Page
+    public partial class Appraisal11NotActive : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
 
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblingPageTitle();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "NotActive";
@@ -36,8 +34,8 @@ namespace EPA2.EPAappraisal
             string area = hfArea.Value;
             string code = hfCode.Value;
 
-             AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-             AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+             AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+             AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
            
         }
     }

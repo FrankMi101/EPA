@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
+using System.Web.UI.WebControls; 
 namespace EPA2.EPAmanage
 {
     public partial class Loading : System.Web.UI.Page
@@ -13,67 +12,78 @@ namespace EPA2.EPAmanage
         {
             if (!Page.IsPostBack)
             {
-                string GoPage = Page.Request.QueryString["pID"];
+                string goPage = Page.Request.QueryString["pID"];
                 string schoolyear = Page.Request.QueryString["yID"];
                 string schoolcode = Page.Request.QueryString["cID"];
-                string employeeID = Page.Request.QueryString["tID"];
-                string sessionID = Page.Request.QueryString["sID"];
-                string IDs = Page.Request.QueryString["IDs"];
+                string employeeId = Page.Request.QueryString["tID"];
+                string sessionId = Page.Request.QueryString["sID"];
+                string ds = Page.Request.QueryString["IDs"];
                 string tName = Page.Request.QueryString["tName"];
                 string phase = Page.Request.QueryString["phase"];
-                string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeID + "&sID=" + sessionID + "&tName=" + tName + "&phase=" + phase;
+                string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeId + "&sID=" + sessionId + "&tName=" + tName + "&phase=" + phase;
 
 
-                switch (GoPage)
+                switch (goPage)
                 {
+                    case "BoardStatements":
+                       
+                        goPage = "StatementsSetup.aspx?cID=Board";
+                        break;
+                    case "SchoolStatements":
+                      
+                        goPage = "StatementsSetup.aspx?cID=School";
+                        break;
+                    case "StaffRollOver":
+                        goPage = "AppraisalStaffRollOver.aspx";
+                        break;
 
                     case "AppraisalStaffList":
-                        GoPage = "AppraisalStaffList.aspx";
+                        goPage = "AppraisalStaffList.aspx";
                         break;
                     case "ManageStaffList":
-                        GoPage = "ManageStaffList.aspx";
+                        goPage = "ManageStaffList.aspx";
                         break;
                     case "EditStaffProfile":
-                        GoPage = "Manage00.aspx?" + parameter + "&task=ProfileEdit";
+                        goPage = "Manage00.aspx?" + parameter + "&task=ProfileEdit";
                         break;
                     case "ALPBatchPrint":
-                        GoPage = "AppraisalNoticeList.aspx?nType=ALPBatch";
+                        goPage = "AppraisalNoticeList.aspx?nType=ALPBatch";
                         break;
                     case "AppraisalNoticeListALP":
-                        GoPage = "AppraisalNoticeList.aspx?nType=ALP";
+                        goPage = "AppraisalNoticeList.aspx?nType=ALP";
                         break;
                     case "AppraisalNoticeList":
-                        GoPage = "AppraisalNoticeList.aspx?nType=EPA";
+                        goPage = "AppraisalNoticeList.aspx?nType=EPA";
                         break;
                     case "AppraisalNoticeListOBS":
-                        GoPage = "AppraisalNoticeList.aspx?nType=OBS";
+                        goPage = "AppraisalNoticeList.aspx?nType=OBS";
                         break;
                     case "AppraisalHistory":
-                        if (employeeID == null)
+                        if (employeeId == null)
                         {
                             schoolyear = UserProfile.CurrentSchoolYear;
                             schoolcode = UserLastWorking.SchoolCode;
-                            employeeID = UserLastWorking.EmployeeID;
+                            employeeId = UserLastWorking.EmployeeID;
                             tName = UserLastWorking.EmployeeName;
 
                             if (WorkingProfile.UserRole == "Principal")
                             {
                                 schoolcode = WorkingProfile.SchoolCode;
-                                employeeID = WorkingProfile.UserEmployeeID;
+                                employeeId = WorkingProfile.UserEmployeeId;
                                 tName = WorkingProfile.UserName;
                             }
 
-                            parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeID + "&tName=" + tName + "&phase=" + phase;
+                            parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeId + "&tName=" + tName + "&phase=" + phase;
 
                         }
-                        GoPage = "AppraisalStaffHistory.aspx?" + parameter;
+                        goPage = "AppraisalStaffHistory.aspx?" + parameter;
                         break;
                     default:
-                        GoPage = "DefaultSummary.aspx";
+                        goPage = "DefaultSummary.aspx";
                         break;
                 }
 
-                PageURL.HRef = GoPage;
+                PageURL.HRef = goPage;
             }
         }
     }

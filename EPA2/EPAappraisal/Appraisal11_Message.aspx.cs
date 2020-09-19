@@ -4,22 +4,20 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class Appraisal11_Message : System.Web.UI.Page
+    public partial class Appraisal11Message : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                setPageAttribution();
+                SetPageAttribution();
             }
             AssemblingPageTitle();
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             AppraisalPage.SetPageAttribute( Page);
@@ -33,9 +31,9 @@ namespace EPA2.EPAappraisal
             hfCode.Value = "Message";
             hfArea.Value = "AppraisalSummary";
             string userRole = WorkingProfile.UserRole;
-             AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
             if (userRole == "Teacher")
             {
                 labelTitle.Text = labelTitle.Text.Replace("Principal", "Teacher");
@@ -45,7 +43,16 @@ namespace EPA2.EPAappraisal
             {
                 userRole = "Principal";
             }
-            AppraisalData.BuildingTextMessage(ref labelMessage1, "Message", User.Identity.Name, category, area, code,userRole);
+            var parameter = new {
+                Operate ="Message",
+                UserID = User.Identity.Name,
+                Category = WorkingAppraisee.AppraisalType,
+                Area = "AppraisalSummary",
+                Code = "Message",
+                UserRole = userRole
+
+            };
+            AppraisalPage.BuildingTextMessage(ref labelMessage1, parameter);// "Message", User.Identity.Name, category, area, code,userRole);
 
         }
    

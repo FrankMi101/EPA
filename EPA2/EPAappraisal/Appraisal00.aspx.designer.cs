@@ -49,6 +49,24 @@ namespace EPA2.EPAappraisal {
         protected global::System.Web.UI.WebControls.Label LabelGreetingUser;
         
         /// <summary>
+        /// MinistryDocumentsLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor MinistryDocumentsLink;
+        
+        /// <summary>
+        /// MinistryDocuments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MinistryDocuments;
+        
+        /// <summary>
         /// DocLink1 control.
         /// </summary>
         /// <remarks>
@@ -83,6 +101,15 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor DocLink4;
+        
+        /// <summary>
+        /// DocLink5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor DocLink5;
         
         /// <summary>
         /// ddlSchoolYear control.

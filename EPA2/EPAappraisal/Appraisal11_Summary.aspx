@@ -41,13 +41,12 @@
             background: linear-gradient(skyblue, white); /* Standard syntax */
         }
 
-      #TreeView1  img {
-             margin-top:-5px;
-            margin-bottom:-2px;
-            margin-left:10px;
-            height:30px;
-            width:30px;
-       
+        #TreeView1 img {
+            margin-top: -5px;
+            margin-bottom: -2px;
+            margin-left: 10px;
+            height: 30px;
+            width: 30px;
         }
 
         .helpImg {
@@ -55,18 +54,7 @@
             width: 25px;
         }
 
-        #HelpDIV {
-            border: 3px solid lightsalmon;
-            height: 180px;
-            width: 300px;
-            -o-border-top-right-bottom-left-radius: 12px;
-            -moz-border-radius-toprightbottonleft: 12px;
-            -webkit-border-top-right-bottom-left-radius: 12px;
-            border-top-right-radius: 12px;
-            border-top-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-            border-bottom-left-radius: 12px;
-        }
+
 
         #textHelp {
             margin: 5px;
@@ -104,10 +92,20 @@
         }
 
         .ContentMessage {
-            color: red;
-             font-size: 1.5em;
-            text-align: center;
-            vertical-align: middle;
+            color: forestgreen;
+            font-size: 0.9em;
+            text-align: left;
+          
+        }
+        .MessageToDo
+        {
+            color:brown;
+        }
+        .MessageDone {
+              color: forestgreen;
+        }
+        .MessageAll {
+         color:darkblue;
         }
     </style>
 </head>
@@ -132,40 +130,63 @@
             <asp:HiddenField ID="hfParameters" runat="server" />
         </div>
 
-
-        <div>
-            <div style="display: inline; width: 100%; float: left; ">
+        <section id="AppraisalTasks" runat="server" style="height:40%;">
+            <div style="display: inline; width: 100%; float: left;">
 
                 <div class="Centraldiv">
                     <div class="TitleArea">
-                        <asp:Label ID="labelTitle" runat="server" CssClass="labelTitle">Text Box Title</asp:Label>
-                        <img class="imgHelp" src="../images/help2.png" title="Help Content" />
+                        <asp:Label ID="labelTitle1" runat="server" CssClass="labelTitle">Text Box Title for Appraisal Tasks</asp:Label>
+                        <img id="img_1" class="imgHelp" src="../images/help2.png" title="Help Content" />
                     </div>
 
-                    <div class="ContentMessage">
-
-                        <asp:Label ID="labelMessage" runat="server" CssClass="labelMessage">Text Box Message</asp:Label>
-
+                    <div class="ContentMessage MessageAll" id="ContentTasks" runat="server">
+                        
 
                     </div>
                 </div>
-                <div style=" height:560px; overflow:auto"  >
 
-                    <asp:TreeView ID="TreeView1" runat="server" Width="100%"   NodeWrap="True" ShowCheckBoxes="All" ShowLines="True">
-                        <NodeStyle Height="20px" NodeSpacing="0px" VerticalPadding="0px" />
-                    </asp:TreeView>
-                </div>
 
             </div>
+        </section>
+        <section id="AppraisalToDo" runat="server" style="height:30%;">
+            <div style="display: inline; width: 100%; float: left;">
+
+                <div class="Centraldiv">
+                    <div class="TitleArea">
+                        <asp:Label ID="labelTitle2" runat="server" CssClass="labelTitle">Text Box Title for Appraisal To Do tasks</asp:Label>
+                        <img id="img_2" class="imgHelp" src="../images/help2.png" title="Help Content" />
+                    </div>
+
+                    <div class="ContentMessage MessageToDo" id="ContentTodo" runat="server">
+                    </div>
+                </div>
 
 
+            </div>
+        </section>
+        <section id="AppraisalDone" runat="server" style="height:30%">
+            <div style="display: inline; width: 100%; float: left;">
 
+                <div class="Centraldiv">
+                    <div class="TitleArea">
+                        <asp:Label ID="labelTitle3" runat="server" CssClass="labelTitle">Text Box Title for Appraisal Done tasks</asp:Label>
+                        <img id="img_3" class="imgHelp" src="../images/help2.png" title="Help Content" />
+                    </div>
+
+                    <div class="ContentMessage MessageDone" id="ContentDone" runat="server">
+                     </div>
+                </div>
+
+
+            </div>
+        </section>
+        <div>
         </div>
 
 
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" contenteditable="true" placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
         </div>
         <div id="ActionPOPDIV" class="bubble epahide">
             <div class="editTitle" style="display: block; margin-top: 5px;">
@@ -177,94 +198,13 @@
             <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
         </div>
 
-        <div style="display: none">
-
-            <h2>Appraisal Summary Page will show the selected appraisee's appraisal process </h2>
-            <br />
-            <h2>Form this Page user can quikly and direct go the Appraisal working item. This page content is dynomic created</h2>
-            <ul>
-                <li>Annual Learning Plan
-                    <ul>
-                        <li>Teacher Assignment</li>
-                        <li>Background to inforamtion professional growth goal(s), Action Plan and Timeline</li>
-                        <li>Professional Learning and growth that i have experience over the past years(s)</li>
-                        <li>Parents and students to inform my professional learning and teacheing practice</li>
-                        <li>Professonal Growth Goal(s)/Strategies
-                            <ul>
-                                <li>Professional Growth Goal(s)</li>
-                                <li>Professional Growth Strategies to help Reach Goal(s)</li>
-                                <li>Rationals for Prefessional Growth Goal(s) and Strategies  </li>
-                                <li>Action Plan and Timeline </li>
-                            </ul>
-                        </li>
-                        <li>Other Comments Teacher</li>
-                        <li>Other Comments Principal </li>
-                        <li>Sign off Teacher </li>
-                        <li>Sign off Principal</li>
-                    </ul>
-                </li>
-                <li>Evidence Log 
-                     <ul>
-                         <li>Domain 1</li>
-                         <li>Domain 2</li>
-                         <li>Domain 3 </li>
-                         <li>Domain 4 </li>
-                         <li>Domain 5 </li>
-                     </ul>
-                    <li>
-                <li>Summative Report
-                 <ul>
-                     <li>Assignment</li>
-                     <li>Closs Room observation</li>
-                     <li>Appraisal other comments</li>
-                     <li>Apprasial on the Compentnecies
-                           <ul>
-                               <li>Domain 1</li>
-                               <li>Domain 2</li>
-                               <li>Domain 3 </li>
-                           </ul>
-                     </li>
-                     <li>Appraisal Rating</li>
-                     <li>Sign off</li>
-
-                 </ul>
-
-                </li>
-
-                <li>Vice Principal working item
-                     <ul>
-                         <li>School Staff management</li>
-                         <li>School Appraisal Staff List</li>
-                         <li>School Appraisal Notice List</li>
-                         <li>Individual Appraisal
-                           <ul>
-                               <li>TPA for the teacher </li>
-                               <li>Personal PPA AGP appraisal </li>
-                           </ul>
-                         </li>
-                         <li>Personal Comments Bank manaement</li>
-                         <li>School Appraisal report</li>
-
-                     </ul>
-
-                </li>
-
-                <li>Teacher working item
-                    <ul>
-                        <li>Personal TPA ALP </li>
-                        <li>Appraisal Review Signed off</li>
-                        <li>Personal Appraisal Histroy</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
     </form>
 </body>
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script type="text/javascript">
@@ -274,7 +214,7 @@
     var AreaID = $("#hfArea").val();
     var ItemCode = $("#hfCode").val();
     $(document).ready(function () {
-    
+
         //$("img").mouseenter(function (event) {
 
         //   // ItemCode = $(this)[0].id; //  .replace("img_Summary_", "");
@@ -294,15 +234,19 @@
         //        $("#HelpDIV").fadeToggle("fast");
         //    }
         //});
-  
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
 
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+
+        //$(".labelTitle").dblclick(function (event) {
+        //    EditPageItemTitle();
+        //});
 
     });
+      function OpenAppraisalDocument(docId) {
+        window.open("Loading3.aspx?pID=" + docId, "", "width=900 height=700, top=10, left=10, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,");
+    }
+
 
 </script>

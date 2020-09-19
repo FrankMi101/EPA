@@ -31,12 +31,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MyBaseClassC">
-      <HintPath>..\..\..\myBaseClass\BaseClassC\bin\Debug\MyBaseClassC.dll</HintPath>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\myBaseClass\BaseClassC\bin\Release\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.pdfa">
+      <HintPath>..\itextsharp.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="MyBaseClassC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\myBaseClass\BaseClassC\bin\Release\MyBaseClassC.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,22 +63,125 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppraisalBaseBLL.cs" />
+    <Compile Include="AppraisalCommon.cs" />
     <Compile Include="AppraisalExecuteData.cs" />
+    <Compile Include="AppraisalGeneralData.cs" />
     <Compile Include="AppraisalText.cs" />
     <Compile Include="AppraisalExecute.cs" />
     <Compile Include="AppraisalList.cs" />
-    <Compile Include="AssemblyListControl.cs" />
+    <Compile Include="ManageApp\AppraisalContentsAGP.cs" />
+    <Compile Include="ManageApp\AppraisalContentsCompetency.cs" />
+    <Compile Include="ManageApp\AppraisalContentsLTO.cs" />
+    <Compile Include="ManageApp\AppraisalGeneral.cs" />
+    <Compile Include="ManageApp\AppraisalPageHelp.cs" />
+    <Compile Include="ManageApp\CommentsBank.cs" />
+    <Compile Include="UtilityMethod\AssemblyListControl.cs" />
+    <Compile Include="CommonExcute.cs" />
+    <Compile Include="CommonExecute.cs" />
+    <Compile Include="CommonList.cs" />
+    <Compile Include="CommonOperate.cs" />
     <Compile Include="CommonParameters.cs" />
+    <Compile Include="CommonValue.cs" />
+    <Compile Include="DataTools.cs" />
+    <Compile Include="DateFormat.cs" />
+    <Compile Include="ICommonList.cs" />
+    <Compile Include="ICommonValue.cs" />
+    <Compile Include="JsonFileReader.cs" />
+    <Compile Include="JsonFileReadSP.cs" />
+    <Compile Include="ManageApp\AppraisalContents.cs" />
+    <Compile Include="ManageApp\AppraisalContentsDomain.cs" />
+    <Compile Include="ManageApp\AppraisalContentsStrategy.cs" />
+    <Compile Include="ManageApp\AppraisalManage.cs" />
+    <Compile Include="ManageApp\AppraisalActivity.cs" />
+    <Compile Include="ManageApp\AppraisalSignOff.cs" />
     <Compile Include="MethodAppraisalComment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MethodSetupList.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="SPandParameters.cs" />
+    <Compile Include="SPSource.cs" />
+    <Compile Include="SystemSetup\AppraisalSetup.cs" />
+    <Compile Include="SystemSetup\StaffProfile.cs" />
+    <Compile Include="UserProfiles\Authentication.cs" />
+    <Compile Include="UtilityMethod\AssemblyTreeControl.cs" />
+    <Compile Include="UtilityMethod\DateFormat.cs" />
+    <Compile Include="UtilityMethod\DBConnection.cs" />
+    <Compile Include="UtilityMethod\eMailNotification.cs" />
+    <Compile Include="UtilityMethod\Generic.cs" />
+    <Compile Include="UtilityMethod\HelpContext.cs" />
+    <Compile Include="UtilityMethod\HelpTitleMessage.cs" />
+    <Compile Include="UtilityMethod\iCalendar.cs" />
+    <Compile Include="UtilityMethod\RandomCharacter.cs" />
+    <Compile Include="UtilityMethod\ReportRender.cs" />
+    <Compile Include="UtilityMethod\StringUtility.cs" />
+    <Compile Include="UtilityMethod\SymetricEncryption.cs" />
+    <Compile Include="Web References\ReportingWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">
       <Project>{236fbb7b-0972-4289-b642-81ab05954d08}</Project>
       <Name>ClassLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ReportingWebService\DocumentMapNode.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingWebService\ExecutionInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingWebService\ExecutionInfo2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingWebService\Extension.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ReportingWebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ReportingWebService\ReportExecution2005.wsdl" />
+    <None Include="Web References\ReportingWebService\Warning.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://webservice.tcdsb.org/ReportServer/ReportExecution2005.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ReportingWebService\</RelPath>
+      <UpdateFromURL>http://webservice.tcdsb.org/ReportServer/ReportExecution2005.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BLL_ReportingWebService_ReportExecutionService</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

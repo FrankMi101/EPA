@@ -10,8 +10,10 @@
     <meta http-equiv="Cache-Control" content="no-Store,no-Cache" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <link href="../Content/BubbleHelp.css" rel="stylesheet" />
     <link href="../Content/ListPage.css" rel="stylesheet" />
+    <link href="../Content/ContentPage.css" rel="stylesheet" />
     <link href="../Scripts/JQueryUI/jquery-ui.min.css" rel="stylesheet" />
     <link href="../Scripts/JQueryUI/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
     <link href="../Scripts/JQueryUI/jquery-ui.structure.min.css" rel="stylesheet" />
@@ -90,11 +92,23 @@
 
         img {
             border-color: yellow;
+            
+        }
+         .imgHelp {
+            width: 23px;
+            height: 23px;
+            margin-top: -10px;
         }
 
         #EmailTemplateDIV {
             border: 2px solid #00c2ff;
         }
+        .ui-datepicker-trigger {
+        margin-top:-11px;
+        height:20px;
+        width:22px;
+        }
+       
     </style>
 </head>
 <body>
@@ -108,6 +122,7 @@
         <div>
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
+                     <img class="imgHelp" src="../images/help2.png" title="Help Content" />
                     <asp:Label ID="Label3" runat="server" Text="School Year: "></asp:Label>
                     <asp:DropDownList ID="ddlSchoolYear" runat="server" Width="90px" AutoPostBack="True" OnSelectedIndexChanged="ddlSchoolYear_SelectedIndexChanged">
                     </asp:DropDownList>
@@ -149,8 +164,8 @@
                                 <td>
                                     <asp:CheckBox ID="chbAll" runat="server" Text="Select All" CssClass="checkAll" /></td>
                                 <td>
-                                    <asp:Button ID="btnSendNotification" runat="server" Text="Send Notification" />
-                                    <asp:Button ID="btnBatchPrint" runat="server" Text="Batch Print ALP" />
+                                    <asp:Button ID="btnSendNotification" runat="server" Text="Send Notification"  Height="20px"/>
+                                    <asp:Button ID="btnBatchPrint" runat="server" Text="Batch Print ALP"   Height="20px" />
                                 </td>
                                 <td style="width: 30%">
                                     <div id="Div1" runat="server" style="display: inline;">
@@ -178,7 +193,7 @@
                 <ContentTemplate>
                     <div id="DivRoot" style="width: 100%; height: 550px;">
                         <div style="overflow: hidden;" id="DivHeaderRow">
-                            <table id="GridView2" style="border: 1px ridge gray; width: 100%; height: 100%; background-color: white;" rules="all" cellpadding="1" GridLines="Both">
+                            <table id="GridView2" style="border: 1px ridge gray; width: 100%; height: 100%; background-color: white;" rules="all" cellpadding="1" gridlines="Both">
                             </table>
                         </div>
 
@@ -186,40 +201,40 @@
                             <asp:GridView ID="GridView1" runat="server" CellPadding="1" Height="100%" Width="100%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="1" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                                 <Columns>
                                     <asp:BoundField DataField="RowNo" HeaderText="No." ItemStyle-CssClass="myRowNo">
-                                        <ItemStyle Width="30px" />
+                                        <ItemStyle Width="2%" />
                                     </asp:BoundField>
                                     <asp:TemplateField HeaderText="Notice">
                                         <ItemTemplate>
                                             <asp:CheckBox ID="cbSelect" Checked='<%# Bind("SelectedC") %>' runat="server" CssClass="myCheck"></asp:CheckBox>
                                         </ItemTemplate>
-                                        <ItemStyle Width="50px" Wrap="False" HorizontalAlign="Center" />
+                                        <ItemStyle Width="2%" Wrap="False" HorizontalAlign="Center" />
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="DueDate" HeaderText="Due Date" ItemStyle-CssClass="myDate">
-                                        <ItemStyle Width="90px" />
+                                        <ItemStyle Width="4%" />
                                     </asp:BoundField>
                                     <asp:TemplateField HeaderText="Action" ItemStyle-CssClass="myAction">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link1" runat="server" Text='<%# Bind("Action") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="40px" Wrap="False" />
+                                        <ItemStyle Width="2%" Wrap="False" />
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="ALP" ItemStyle-CssClass="myALP">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link2" runat="server" Text='<%# Bind("ALP") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="30px" Wrap="False" />
+                                        <ItemStyle Width="2%" Wrap="False" />
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="EPA" ItemStyle-CssClass="myEPA">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link3" runat="server" Text='<%# Bind("EPA") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="30px" Wrap="False" />
+                                        <ItemStyle Width="2%" Wrap="False" />
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Teacher Name" ItemStyle-CssClass="myName">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link4" runat="server" Text='<%# Bind("TeacherNameL") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="10%" />
+                                        <ItemStyle Width="15%" />
                                     </asp:TemplateField>
 
                                     <asp:BoundField DataField="AppraisalPhase" HeaderText="Appraisal Phase">
@@ -236,12 +251,12 @@
                                         <ItemStyle Width="10%" />
                                     </asp:BoundField>
                                     <asp:BoundField DataField="NoticeDate" HeaderText="Notice Date" ItemStyle-CssClass="myDateNotice">
-                                        <ItemStyle Width="100px" />
+                                        <ItemStyle Width="4%" />
                                     </asp:BoundField>
                                     <asp:BoundField DataField="Comments" HeaderText="Comments">
-                                        <ItemStyle Width="25%" />
+                                        <ItemStyle Width="17%" />
                                     </asp:BoundField>
-                                    <asp:BoundField DataField="myKey" ReadOnly="True" ItemStyle-CssClass="hfmyKey" />
+                                    <asp:BoundField DataField="myKey" ReadOnly="True" ItemStyle-CssClass="hfmyKey" Visible="false" />
 
                                 </Columns>
 
@@ -264,12 +279,24 @@
         <div style="color: Red; font-size: x-small; height: 20%">
             <asp:Label runat="server" ID="remaind22" Text="* Click on the Apply button to see interview candidate list "> </asp:Label>
         </div>
-
+        <div id="HelpDIV" class="bubble epahide">
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" CssClass="HelpTextBox"></asp:TextBox>
+        </div>
+        <div id="ActionPOPDIV" class="bubble epahide">
+            <div class="editTitle" style="display: block; margin-top: 5px;">
+                <div id="ActionTitle" style="display: inline; float: left; width: 96%"></div>
+                <div style="display: inline; float: left;">
+                    <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
+                </div>
+            </div>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="no" src="iBlankPage.html" runat="server"></iframe>
+        </div>
         <div id="ActionMenuDIV" class="bubble epahide">
             <asp:Label runat="server" ID="LabelTeacherName" Text=""> </asp:Label>
             <ul>
                 <li><a class="menuLink" href="javascript:openEditPage3('500','700','./EPAmanage/Loading2.aspx?pID=Notes','Write Appraisal Notes');">Write Appraisal Notes </a></li>
                 <li><a class="menuLink" href="javascript:openEditPage3('500','700','./EPAmanage/Loading2.aspx?pID=Notification','Send Appraisal Notification');">Send Appraisal Notification </a></li>
+                <li><a class="menuLink" href="javascript:openEditPage3('470','650','./EPAmanage/Loading2.aspx?pID=AppraisalProfile','Edit Appraisal Profile');">Edit Appraisal Profile </a></li>
                 <li><a class="menuLink" href="javascript:openEditPage3('700','900','./EPAmanage/Loading2.aspx?pID=ALP99','Print Annual Learning Plan');">Print Annual Learning Plan </a></li>
                 <li><a class="menuLink" href="javascript:openEditPage3('700','900','./EPAmanage/Loading2.aspx?pID=SUM99','Print Summative Report');">Print Summative Report </a></li>
 
@@ -324,6 +351,7 @@
         <div>
             <asp:HiddenField ID="hfCategory" runat="server" />
             <asp:HiddenField ID="hfPageID" runat="server" />
+            <asp:HiddenField ID="hfCode" runat="server" />
             <asp:HiddenField ID="hfUserID" runat="server" />
             <asp:HiddenField ID="hfUserLoginRole" runat="server" />
             <asp:HiddenField ID="hfRunningModel" runat="server" />
@@ -341,18 +369,16 @@
 <script src="../Scripts/JQueryUI/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../Scripts/GridView.js"></script>
 <script src="../Scripts/Appr_ListPage.js"></script>
+
+
+<script src="../Scripts/Appr_Help.js"></script>
+<script src="../Scripts/Appr_textEdit.js"></script>
+
 <script type="text/javascript">
-    var IE = document.all ? true : false
-    document.onmousemove = getMousepoints;
-    var mousex = 0;
-    var mousey = 0;
-    function getMousepoints() {
-        mousex = event.clientX + document.body.scrollLeft;
-        mousey = event.clientY + document.body.scrollTop;
-        return true;
-    }
-</script>
-<script type="text/javascript">
+    var UserID = $("#hfUserID").val();
+    var CategoryID = "TPA";
+    var AreaID = "NoticeList";
+    var ItemCode = "Notice-" +  $("#hfNoticeType").val() ;
     var rowNo;
     var teachername;
     var schoolyear;
@@ -367,8 +393,15 @@
     function pageLoad(sender, args) {
 
         $(document).ready(function () {
-            MakeStaticHeader("GridView1", 600, 1400, 25, false);
-            noticeType = $("#hfNoticeType").val();
+            MakeStaticHeader("GridView1", 600, 1400, 20, false);
+          //  noticeType = $("#hfNoticeType").val();
+            noticeType = $("#rblNoticeType").find('input[type=radio]:checked').val();
+
+            $("#GridView1 tr").mouseenter(function (event) {
+                if (currentTR != undefined) { currentTR.removeClass("highlightRow"); }
+                currentTR = $(this);
+                currentTR.addClass("highlightRow");
+            });
 
             $("#closeActionPOP").click(function (event) {
                 $("#ActionPOPDIV").fadeToggle("fast");
@@ -378,32 +411,32 @@
                 EditPageItemTitle();
             });
             $("#deadlineDate").datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    showOn: "button",
-                    buttonImage: "../images/calendar.gif",
-                    buttonImageOnly: true,
-                    changeMonth: true,
-                    changeYear: true                    
-                 
-                });
-            $("#deadlineDate2").datepicker( {
-                   dateFormat: 'yy-mm-dd',
-                   showOn: "button",
-                   buttonImage: "../images/calendar.gif",
-                   buttonImageOnly: true,
-                   changeMonth: true,
-                   changeYear: true,
-                  
-               });
+                dateFormat: 'yy-mm-dd',
+                showOn: "button",
+                buttonImage: "../images/calendar.gif",
+                buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true
+
+            });
+            $("#deadlineDate2").datepicker({
+                dateFormat: 'yy-mm-dd',
+                showOn: "button",
+                buttonImage: "../images/calendar.gif",
+                buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true,
+
+            });
 
             $("#deadlineDate2").change(function (event) {
                 try {
                     deadlineDate = $("#deadlineDate2").val();
                     $("#deadlineDate").val(deadlineDate);
                     //if (noticeType != "OBS") {
-                        var myText = $("#myText").val();
-                        myText = myText.replace("{{PlaceHolder:DeadLineDate}}", deadlineDate);
-                        $("#myText").val(myText);
+                    var myText = $("#myText").val();
+                    myText = myText.replace("{{PlaceHolder:DeadLineDate}}", deadlineDate);
+                    $("#myText").val(myText);
                     //}
                 }
                 catch (e) {
@@ -432,10 +465,10 @@
             });
 
             $("#rblNoticeType").change(function (event) {
-                var checked_radioList = $("[id*=rblNoticeType] input:checked");
-                var noticeTypetext = checked_radioList.closest("td").find("label").html();
-                noticeArea = checked_radioList.val();
-                noticeType = "AppraisalStart";
+                var checkedRadioList = $("[id*=rblNoticeType] input:checked");
+                var noticeTypetext = checkedRadioList.closest("td").find("label").html();
+                noticeArea = checkedRadioList.val();
+                noticeType = noticeType = $("#rblNoticeType").find('input[type=radio]:checked').val();
                 $("#NoticeLabel").text(noticeTypetext);
                 var category = 'TPA';
                 var emailTemplate = EPA2.Models.WebService1.GetEmailTemplate("GetBody", noticeType, noticeArea, deadlineDate, onSuccess2, onFailure);
@@ -452,14 +485,17 @@
             });
             $("#btnSendNotification").click(function (event) {
 
-                var checked_radio = $("[id*=rblNoticeType] input:checked");
-                var value = checked_radio.val();
-                var text = checked_radio.closest("td").find("label").html();                
+                var checkedRadio = $("[id*=rblNoticeType] input:checked");
+                var value = checkedRadio.val();
+                var text = checkedRadio.closest("td").find("label").html();
                 $("#NoticeLabel").text(text);
+                var myText = $("#myText").val();
+
+                myText = myText.replace("{{PlaceHolder:OneLine}}", "");
+                $("#myText").val(myText);
+
                 deadlineDate = $("#deadlineDate").val();
-                if (deadlineDate != "")
-                {
-                    var myText = $("#myText").val();
+                if (deadlineDate != "") {
                     myText = myText.replace("{{PlaceHolder:DeadLineDate}}", deadlineDate);
                     $("#myText").val(myText);
                 }
@@ -473,8 +509,8 @@
                 return false;
             });
             $("#btnSendEmal").click(function (event) {
-                var checked_radioList = $("[id*=rblNoticeType] input:checked");
-                noticeArea = checked_radioList.val();
+                var checkedRadioList = $("[id*=rblNoticeType] input:checked");
+                noticeArea = checkedRadioList.val();
                 deadlineDate = $("#deadlineDate2").val();
 
                 $("#GridView1 tr").each(function () {
@@ -498,19 +534,19 @@
                 $("#GridView1 tr").each(function () {
                     try {
                         var observationcheck = $(this).find('td > .myCheck');
-                        if (observationcheck[0].childNodes[0].checked) { 
+                        if (observationcheck[0].childNodes[0].checked) {
                             var myKey = $(this).find('td.hfmyKey').text();
                             var array = myKey.split('-');
-                            var employID = array[3];
-                            selectedIDs = selectedIDs + employID + ";"
+                            var employId = array[3];
+                            selectedIDs = selectedIDs + employId + ";"
                         }
                     }
                     catch (ex) {
                         //  window.alert(ex.message);
                     }
                 })
-                var rID = "AnnualLearningPlan";
-                window.open("BatchPrintPage.aspx?rID=" + rID + "&eIDs=" + selectedIDs, "PDFDocument", "width=900 height=900, top=10, left=10, toolbars=no, scrollbars=no,status=no,resizable=yes");
+                var rId = "AnnualLearningPlan";
+                window.open("BatchPrintPage.aspx?rID=" + rId + "&eIDs=" + selectedIDs, "PDFDocument", "width=900 height=900, top=10, left=10, toolbars=no, scrollbars=no,status=no,resizable=yes");
             });
 
             $("#chbAll").click(function (event) {
@@ -533,28 +569,28 @@
             $('td.myAction').click(function (event) {
                 myKey = $(this).closest('tr').find('td.hfmyKey').text();
                 rowNo = $(this).closest('tr').find('td.myRowNo').text();
-              });
+            });
             $('td.myAction').mouseenter(function (event) {
                 myKey = $(this).closest('tr').find('td.hfmyKey').text();
                 rowNo = $(this).closest('tr').find('td.myRowNo').text();
-              });
+            });
 
             $('td.myDate').click(function (event) {
-                    eventCell = $(this);
-                    var cellValue = $(this).closest('tr').find('td.myDate').text();
+                eventCell = $(this);
+                var cellValue = $(this).closest('tr').find('td.myDate').text();
 
-                    $("#cellEditDeadLineDate").val(cellValue);
-                    $("#cellEditDeadLineDate").show();
-                    var xTop = event.currentTarget.offsetTop + 65;
-                    var xLeft = event.currentTarget.offsetLeft;
-                    var key = "NoticeDate";
-                    openDateCellEdit(key, xTop, xLeft, 20, 100);
-                    $("#cellEditDeadLineDate").datepicker(
-                         {
-                             dateFormat: 'yy-mm-dd',
-                         });
-                    $("#cellEditDeadLineDate").focus();
-  
+                $("#cellEditDeadLineDate").val(cellValue);
+                $("#cellEditDeadLineDate").show();
+                var xTop = event.currentTarget.offsetTop + 65;
+                var xLeft = event.currentTarget.offsetLeft;
+                var key = "NoticeDate";
+                openDateCellEdit(key, xTop, xLeft, 20, 100);
+                $("#cellEditDeadLineDate").datepicker(
+                    {
+                        dateFormat: 'yy-mm-dd',
+                    });
+                $("#cellEditDeadLineDate").focus();
+
             });
             $('#cellEditDeadLineDate').change(function () {
                 var newValue = $('#cellEditDeadLineDate').val();
@@ -578,11 +614,11 @@
 
         var schoolyear = array[1];
         var schoolcode = array[2];
-        var employeeID = array[3];
+        var employeeId = array[3];
         var teacherName = array[4];
-        var FromUser = array[5];
-        var ToUser = array[6];
-        var CCUser = array[7];
+        var fromUser = array[5];
+        var toUser = array[6];
+        var ccUser = array[7];
         var appraiserName = array[8];
         var appraisalType = array[9];
         var subject = $("#TextSubject").val();
@@ -591,8 +627,9 @@
         ebody = ebody.replace("{{PlaceHolder:DeadLineDate}}", deadlineDate);
         ebody = ebody.replace("{{PlaceHolder:AppraiserName}}", appraiserName);
         ebody = ebody.replace("{{PlaceHolder:AppraisalCategory}}", appraisalType);
-       var checkvalue1 = EPA2.Models.WebService1.SaveNotification("Appraiser", schoolyear, schoolcode, employeeID, noticeType,noticeArea, deadlineDate, subject, ebody, onSuccess, onFailure);
-        var checkvalue2 = EPA2.Models.WebService1.SendNotification(ToUser, CCUser, "", FromUser, subject, ebody, onSuccess, onFailure);
+        ebody = ebody.replace($("#hfWebSite").val(), "< a href = ' " + $("#hfWebSite").val() + "' target = '_blank' > Teacher Performance Appraisal </a >");
+        var checkvalue1 = EPA2.Models.WebService1.SaveNotification("Appraiser", schoolyear, schoolcode, employeeId, noticeType, noticeArea, deadlineDate, subject, ebody, onSuccess, onFailure);
+        var checkvalue2 = EPA2.Models.WebService1.SendNotification(toUser, ccUser, "", fromUser, subject, ebody, onSuccess, onFailure);
 
     }
     function onSuccess(result) {

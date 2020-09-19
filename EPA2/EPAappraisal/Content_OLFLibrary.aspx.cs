@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
+using ClassLibrary;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
-
 namespace EPA2.EPAappraisal
 {
-    public partial class Content_OLFLibrary : System.Web.UI.Page
+    public partial class ContentOlfLibrary : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblePage();
                 hfSelectedTab.Value = "btnK12";
                 BindTreeViewData("1");
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "AppraisalList";
@@ -40,60 +36,63 @@ namespace EPA2.EPAappraisal
         {
 
         }
+
        
-        private void BindTreeViewData(string type)
+          private void BindTreeViewData(string type)
         {
             try
             {
-                TreeView1.Nodes.Clear();
-                TreeNode myroot = new TreeNode("RootOLF");
-                myroot.Expand();
+                string action = "OLFCategoriesByPanel";
+                var parameter = new { Operate = action, UserID = User.Identity.Name, Panel = type };
+                var myList =   AppraisalData.GeneralList<OLFCategory>("CommentsBank", action, parameter);  //CommentsBank.OLFCategories(parameter);
 
-                DataSet myDS = new DataSet();
-                myDS = AppraisalComments.OLFLibaray(User.Identity.Name, type);
                 int n1 = 0;
                 int n2 = 0;
                 int n3 = 0;
-                foreach (DataRow row in myDS.Tables[0].Rows)
+                TreeView1.Nodes.Clear();
+                TreeNode myroot = new TreeNode("RootOLF");
+                TreeNode parentsNode = new TreeNode();
+              //  TreeView1.Nodes.Add(myroot);
+                myroot.Expand();
+                foreach (var item in myList)
                 {
-                    string Level = row["TreeLevel"].ToString();
-                    string RowNo = "T-" + row["RowNo"].ToString();
-                    string notes = row["Notes"].ToString();
-                    switch (Level)
+                    string rowNo = "T-" + item.RowNo.ToString();
+                    TreeNode node = new TreeNode(rowNo)
                     {
-                        case  "1":
-                            myroot.Text = notes;
+                        Text = item.Notes.ToString()
+                    };
+
+
+                    string level = item.TreeLevel.ToString();
+                   switch (level)
+                    {
+                        case "1":
+                            myroot.Text = item.Notes.ToString();
                             TreeView1.Nodes.Add(myroot);
                             break;
-                        case "2":
-                            TreeNode mylevel1 = new TreeNode(RowNo);
-                            mylevel1.Text = notes;
-                            myroot.ChildNodes.Add(mylevel1);
+                        case "2": 
+                            parentsNode = myroot;
                             n1++;
                             n2 = 0;
                             break;
                         case "3":
-                            TreeNode mylevel2 = new TreeNode(RowNo);
-                            mylevel2.Text = notes; 
-                            myroot.ChildNodes[n1 - 1].ChildNodes.Add(mylevel2);
+                            parentsNode = myroot.ChildNodes[n1 - 1];
                             n2++;
                             n3 = 0;
                             break;
-                        case "4":
-                             TreeNode mylevel3 = new TreeNode(RowNo);
-                            mylevel3.Text = notes; 
-                            myroot.ChildNodes[n1 - 1].ChildNodes[n2 - 1].ChildNodes.Add(mylevel3);
+                        case "4": 
+                            parentsNode =  myroot.ChildNodes[n1 - 1].ChildNodes[n2 - 1] ;
                             n3++;
                             break;
                         default:
-                            TreeNode mylevel4 = new TreeNode(RowNo);
-                            mylevel4.Text = notes;
-                            myroot.ChildNodes[n1 - 1].ChildNodes[n2 - 1].ChildNodes[n3 - 1].ChildNodes.Add(mylevel4);
+                           
+                            parentsNode =  myroot.ChildNodes[n1 - 1].ChildNodes[n2 - 1].ChildNodes[n3 - 1] ;
 
                             break;
 
                     }
-  
+                    parentsNode.ChildNodes.Add(node);
+
                 }
             }
             catch (Exception ex)
@@ -102,19 +101,28 @@ namespace EPA2.EPAappraisal
             }
 
         }
- 
-        protected void btnTab_Click(object sender, EventArgs e)
+        private TreeNode AddNewTreeNode(string rowNo, string notes, TreeNode node)
         {
-           
+            TreeNode myNode = new TreeNode(rowNo)
+            {
+                Text = notes
+            };
+            node.ChildNodes.Add(myNode);
+            AddNewTreeNode(rowNo, notes, node);
+            return myNode;
+        }
+        protected void BtnTab_Click(object sender, EventArgs e)
+        {
+
             string category = "1";
-            string xID = ((System.Web.UI.Control)sender).ID;
-            category = getCategoryByID(xID);
+            string xId = ((System.Web.UI.Control)sender).ID;
+            category = GetCategoryById(xId);
             BindTreeViewData(category);
         }
-        private string getCategoryByID(string id)
+        private string GetCategoryById(string id)
         {
-             hfSelectedTab.Value = id;
-           string rVal = "1";
+            hfSelectedTab.Value = id;
+            string rVal = "1";
             switch (id)
             {
                 case "btnK12":
@@ -143,14 +151,6 @@ namespace EPA2.EPAappraisal
             }
             return rVal;
         }
-        //protected void btnSchool_Click(object sender, EventArgs e)
-        //{
-        //    BindTreeViewData("School");
-        //}
-
-        //protected void btnPersonal_Click(object sender, EventArgs e)
-        //{
-        //    BindTreeViewData("Personal");
-        //}
+      
     }
 }

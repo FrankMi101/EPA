@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_EvidenceLog {
+    public partial class ContentEvidenceLog {
         
         /// <summary>
         /// form1 control.
@@ -38,6 +38,15 @@ namespace EPA2.EPAappraisal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Appraisee;
+        
+        /// <summary>
+        /// hfSelectedTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSelectedTab;
         
         /// <summary>
         /// GridView1 control.

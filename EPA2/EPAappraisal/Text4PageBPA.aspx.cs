@@ -4,31 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
-using System.Web.UI.HtmlControls;
+using System.Web.UI.HtmlControls; 
+using ClassLibrary;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class Text4PageBPA : System.Web.UI.Page
+    public partial class Text4PageBpa : System.Web.UI.Page
     {
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblingPageTitle();
                 BindMyData("Get");
-                checkALPExists();
-                checkPageReadonly();
+              //  CheckAlpExists();
+                CheckPageReadonly();
             }
         }
-        private void checkALPExists()
-        {
-          //  btnViewALP.Text = AppraisalDataAC.TextContent("CheckALP", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, WorkingAppraisee.AppraisalType, WorkingAppraisee.AppraisalArea, "ALP51");
-        }
-        private void setPageAttribution()
+        //private void CheckAlpExists()
+        //{
+        //    btnViewALP.Text = AppraisalDataAC.TextContent("CheckALP", User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, WorkingAppraisee.AppraisalType, WorkingAppraisee.AppraisalArea, "ALP51");
+        //}
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             AppraisalPage.SetPageAttribute(Page);
@@ -44,34 +43,34 @@ namespace EPA2.EPAappraisal
 
             if (Session["ResultTerm"] != null)
             {
-                string ResultTerm = Session["ResultTerm"].ToString();
-                myList.SetListValue(ddlResultSession, ResultTerm);
+                string resultTerm = Session["ResultTerm"].ToString();
+                AppraisalPage.SetListValue(ddlResultSession, resultTerm);
             }
             else
             {
                 Session["ResultTerm"] = "Mid";
             }
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            //    AppraisalData.BuildingTextTitle(ref labelSubTitle,"SubTitle", User.Identity.Name, category, area, code );
-            AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
-            AppraisalData.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
-            AppraisalData.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
-            AppraisalData.BuildingTextTitle(ref labelTitle4, "Title", User.Identity.Name, category, area, code + "4");
-            AppraisalData.BuildingTextTitle(ref labelSubTitle1, "SubTitle", User.Identity.Name, category, area, code + "1");
-            AppraisalData.BuildingTextTitle(ref labelSubTitle2, "SubTitle", User.Identity.Name, category, area, code + "2");
-            AppraisalData.BuildingTextTitle(ref labelSubTitle3, "SubTitle", User.Identity.Name, category, area, code + "3");
-            AppraisalData.BuildingTextTitle(ref labelSubTitle4, "SubTitle", User.Identity.Name, category, area, code + "4");
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            //    AppraisalPage.BuildingTextTitle(ref labelSubTitle,"SubTitle", User.Identity.Name, category, area, code );
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
+            AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
+            AppraisalPage.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
+            AppraisalPage.BuildingTextTitle(ref labelTitle4, "Title", User.Identity.Name, category, area, code + "4");
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle1, "SubTitle", User.Identity.Name, category, area, code + "1");
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle2, "SubTitle", User.Identity.Name, category, area, code + "2");
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle3, "SubTitle", User.Identity.Name, category, area, code + "3");
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle4, "SubTitle", User.Identity.Name, category, area, code + "4");
 
-            //    AppraisalData.BuildingTextTitle(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+            //    AppraisalPage.BuildingTextTitle(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
-            string pageFor = AppraisalProcess.AppraisalPageItem("PageActiveFor", User.Identity.Name, category, area, code);
-            string pageRecover = AppraisalProcess.AppraisalPageItem("PageRecover", User.Identity.Name, category, area, code);
-            string pageHelpe = AppraisalProcess.AppraisalPageItem("PageHelp", User.Identity.Name, category, area, code);
+            //string pageFor = AppraisalProcess.AppraisalPageItem("PageActiveFor", User.Identity.Name, category, area, code);
+            //string pageRecover = AppraisalProcess.AppraisalPageItem("PageRecover", User.Identity.Name, category, area, code);
+            //string pageHelpe = AppraisalProcess.AppraisalPageItem("PageHelp", User.Identity.Name, category, area, code);
 
-            string SectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
-            if (SectionStartPage.IndexOf(code) == -1)
+            string sectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
+            if (sectionStartPage.IndexOf(code) == -1)
             { btnPrevious.Enabled = true; }
             else
             {
@@ -128,7 +127,24 @@ namespace EPA2.EPAappraisal
             {
                 session = "Mid";
             }
-            AppraisalData.TextContentB(ref myText, ref textCount, action, 2000, category, area, code , User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, session, hfApprEmployeeID.Value, textOrder);
+        //    AppraisalData.TextContentB(ref myText, ref textCount, action, 2000, category, area, code , User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, session, hfApprEmployeeID.Value, textOrder);
+
+            var parameter = new AppraisalComment()
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfApprEmployeeID.Value,
+                SessionID = session,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ItemCode = hfCode.Value + textOrder
+            };
+
+
+            AppraisalData.Comments(ref myText, ref textCount, action, 2000, parameter);
+
 
         }
         protected void btnViewALP_onClick(object sender, EventArgs e)
@@ -152,15 +168,19 @@ namespace EPA2.EPAappraisal
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
-
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+             string goPage = AppraisalPage.GoPage(parameter);
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 
         }
-        protected void checkPageReadonly()
+        protected void CheckPageReadonly()
         {
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
             imgEP.Visible = false;

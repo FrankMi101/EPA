@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_HelpEdit {
+    public partial class ContentHelpEdit {
         
         /// <summary>
         /// form1 control.

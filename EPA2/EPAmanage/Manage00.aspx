@@ -281,11 +281,11 @@
                 else {
 
                     var titel = getTitlebyCode(ItemCode, "Title");
-                    var pID = getTitlebyCode(ItemCode, "Code");
+                    var pId = getTitlebyCode(ItemCode, "Code");
 
                     $("#EditTitle").val(titel);
                     var parameter = $("#hfParameters").val();
-                    var goPage = "Loading.aspx?pID=" + pID + "&" + parameter;
+                    var goPage = "Loading.aspx?pID=" + pId + "&" + parameter;
                     var vTop = event.currentTarget.offsetTop;
                     var vLeft = event.currentTarget.offsetLeft;
                     $("#editiFrame").attr('src', goPage);

@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_LookFors {
+    public partial class ContentLookFors {
         
         /// <summary>
         /// form1 control.

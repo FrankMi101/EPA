@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="LTOAssignment.aspx.cs" Inherits="EPA2.EPAappraisal.LTOAssignment" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="LTOAssignment.aspx.cs" Inherits="EPA2.EPAappraisal.LtoAssignment" %>
 
 <!DOCTYPE html>
 
@@ -167,9 +167,9 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
             <%--     <asp:Button ID="btnCompetency" runat="server" Text="" OnClick="btnCompetency_Click" />--%>
         </footer>
         <%--   <div class="bottom">
@@ -223,7 +223,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/Appr_ListPage.js"></script>
@@ -276,22 +276,22 @@
         }
 
   
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
-        $("#btnSave").click(function (event) {
-            // SaveCompentencyTextContent();
-            //   return true;
-        });
+        //$("#btnSave").click(function (event) {
+        //    // SaveCompentencyTextContent();
+        //    //   return true;
+        //});
         $("#dateStart").change(function (event) {
             //  window.alert($("#txtDateE").val());
             CalculateLengthMonth();
@@ -318,12 +318,12 @@
         //var sDate = new Date(dS.substr(0, 4), dS.substr(5, 2), dS.substr(8, 2));
         //var eDate = new Date(dE.substr(0, 4), dE.substr(5, 2), dE.substr(8, 2));
         if (sDate < eDate) {
-            var lMonth = monthDiff(sDate, eDate);
+            var lMonth = monthDiff(sDate, eDate) + 1;
             $("#lengthMonth").val(lMonth);
         }
     }
     function monthDiff(sDate, eDate) {
-        var Months = 0;
+        var months = 0;
         try {
             var sYear = sDate.substr(0, 4);
             var eYear = eDate.substr(0, 4);
@@ -332,20 +332,20 @@
 
             if (sYear == eYear) {
                 if (eMonth > sMonth)
-                { Months = eMonth - sMonth; }
+                { months = eMonth - sMonth; }
                 else
-                { Months = 0; }
+                { months = 0; }
             }
             else {
                 if (eMonth > sMonth)
-                { Months = 12 + eMonth - sMonth; }
+                { months = 12 + eMonth - sMonth; }
                 else
-                { Months = 12 - sMonth + eMonth; }
+                { months = 12 - sMonth + eMonth; }
             }
         }
         catch (e)
         { }
-        return Months
+        return months
     }
 
 </script>

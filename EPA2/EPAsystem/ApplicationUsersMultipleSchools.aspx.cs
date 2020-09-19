@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
+using System.Web.UI.WebControls; 
 
 namespace EPA2.EPAsystem
 {
@@ -17,7 +16,7 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
                 BindMyData();
                
@@ -25,15 +24,15 @@ namespace EPA2.EPAsystem
           
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "UserMultipleSchool";
             WorkingProfile.PageItem = "UserMultipleSchool";
             AppraisalPage.SetPageAttribute2(Page);
             
-           myList.SetLists(ddlPrincipal, "SchoolPrincipal", User.Identity.Name);
-            myList.SetLists(ddlSchool, "SchoolList", User.Identity.Name);
+           AppraisalPage.BuildingListControl(ddlPrincipal, "SchoolPrincipal", User.Identity.Name);
+            AppraisalPage.BuildingListControl(ddlSchool, "SchoolList", User.Identity.Name);
 
 
         }
@@ -48,8 +47,8 @@ namespace EPA2.EPAsystem
             hfArea.Value = "UserMultipleSchool";
   
 
-           // AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+           //AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
 
         }
 
@@ -90,7 +89,7 @@ namespace EPA2.EPAsystem
             string category = hfCategory.Value;
             string area = hfArea.Value;
             string schoolyear = WorkingProfile.SchoolYear;
-            string result =   ApplicationSetupData.UsersManagementMultipleSchool(  "AddNew", User.Identity.Name, category, area, schoolyear,"0", "","","","");
+            string result =   ApplicationSetup.UsersManagementMultipleSchool(  "AddNew", User.Identity.Name, category, area, schoolyear,"0", "","","","");
             BindMyData();
         }
     }

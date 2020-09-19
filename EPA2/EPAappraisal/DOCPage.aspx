@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DOCPage.aspx.cs" Inherits="EPA2.EPAappraisal.DOCPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DOCPage.aspx.cs" Inherits="EPA2.EPAappraisal.DocPage" %>
 
 <!DOCTYPE html>
 
@@ -65,7 +65,7 @@
             </div>
           
             <div id="iFrameForPDF" style="height: 700px">
-                <iframe id="PDFiFramePage" name="PDFiFramePage" style="height: 100%; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+                <iframe id="PDFiFramePage" name="PDFiFramePage" style="height: 100%; width: 99%"   src="iBlankPage.html" runat="server"></iframe>
 
             </div>
 
@@ -84,7 +84,7 @@
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
             </div>
-            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%"  src="iBlankPage.html" runat="server"></iframe>
         </div>
         <div>
             <asp:HiddenField ID="hfCategory" runat="server" />
@@ -111,7 +111,7 @@
  
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 
 <script>
@@ -123,14 +123,14 @@
 
         Highlight_LeftMenuSelectNode();
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
 
 
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();
-        });
+        //$(".labelTitle").dblclick(function (event) {
+        //    EditPageItemTitle();
+        //});
     });
 
 </script>

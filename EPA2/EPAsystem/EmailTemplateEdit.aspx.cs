@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
+using BLL;
 namespace EPA2.EPAsystem
 {
     public partial class EmailTemplateEdit : System.Web.UI.Page
@@ -14,19 +14,19 @@ namespace EPA2.EPAsystem
             if (!Page.IsPostBack)
             {
               
-                setPageAttribution();
+                SetPageAttribution();
                 GetNoticeForUserInforamtion();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "Feedback";
             hfUserID.Value = User.Identity.Name;
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
             hfRunningModel.Value = WebConfig.RunningModel();
-            myList.SetLists(ddlNoticeType, "EmailTemplate", User.Identity.Name);
-            myList.SetLists(ddlArea, "AppraisalAreaAll", User.Identity.Name);
+            AppraisalPage.BuildingListControl(ddlNoticeType, "EmailTemplate", User.Identity.Name);
+            AppraisalPage.BuildingListControl(ddlArea, "AppraisalAreaAll", User.Identity.Name);
             ddlNoticeType.SelectedIndex = 1;
             ddlArea.SelectedIndex = 1;
             ddlTo.SelectedIndex = 0;
@@ -39,11 +39,11 @@ namespace EPA2.EPAsystem
         }
         private void GetNoticeForUserInforamtion()
         {                                                 
-            myText.Text = getDefaultInfo("GetTemplate");
-            TextSubject.Text = getDefaultInfo("GetSubject");
-            myPurpose.Text = getDefaultInfo("GetPurpose");
+            myText.Text = GetDefaultInfo("GetTemplate");
+            TextSubject.Text = GetDefaultInfo("GetSubject");
+            myPurpose.Text = GetDefaultInfo("GetPurpose");
         }
-        private string getDefaultInfo(string contentType)
+        private string GetDefaultInfo(string contentType)
         {
             string category = hfCategory.Value;
             string noticeType = ddlNoticeType.SelectedValue;
@@ -51,7 +51,7 @@ namespace EPA2.EPAsystem
             string noticeGo =  ddlTo.SelectedValue;
             string noticeFrom =ddlFrom.SelectedValue;
             string purpose =  ddlPurpose.SelectedValue;
-            string content = GetNoticeFile.eMailContentByType(contentType, User.Identity.Name, category, noticeType, noticeArea,noticeGo, noticeFrom, purpose);
+            string content = GetNoticeFile.EMailContentByType(contentType, User.Identity.Name, category, noticeType, noticeArea,noticeGo, noticeFrom, purpose);
 
             return content;
         }
@@ -67,7 +67,7 @@ namespace EPA2.EPAsystem
         {
             GetNoticeForUserInforamtion();
         }
-        private void showMessage(string result, string action)
+        private void ShowMessage(string result, string action)
         {
             try
             {
@@ -89,8 +89,8 @@ namespace EPA2.EPAsystem
             string purpose = ddlPurpose.SelectedValue;
             string subject = TextSubject.Text;
             string body = HttpContext.Current.Server.HtmlDecode(myText.Text);
-            string result = GetNoticeFile.eMailContentByType("Save", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose, subject, body);
-            showMessage(result, "Template Save");
+            string result = GetNoticeFile.EMailContentByType("Save", User.Identity.Name, category, noticeType, noticeArea, noticeGo, noticeFrom, purpose, subject, body);
+            ShowMessage(result, "Template Save");
         }
 
         protected void myPurpose_TextChanged(object sender, EventArgs e)
@@ -102,8 +102,8 @@ namespace EPA2.EPAsystem
             string noticeFrom = ddlFrom.SelectedValue;
             string purpose = ddlPurpose.SelectedValue;
             string noticePurpose = myPurpose.Text;
-            string result = GetNoticeFile.eMailContentByType("SavePurpose", User.Identity.Name, category, noticeType, noticeArea,noticeGo, noticeFrom, purpose, noticePurpose);
-            showMessage(result, "Template Purpose Save");
+            string result = GetNoticeFile.EMailContentByType("SavePurpose", User.Identity.Name, category, noticeType, noticeArea,noticeGo, noticeFrom, purpose, noticePurpose);
+            ShowMessage(result, "Template Purpose Save");
         }
     }
 }

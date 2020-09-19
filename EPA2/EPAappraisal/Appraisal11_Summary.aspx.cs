@@ -1,20 +1,22 @@
-﻿using System;
+﻿using ClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
     public partial class Appraisal11_Summary : System.Web.UI.Page
     {
+     
+      
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
+            
                 SetPageAttribution();
                 AssemblingPageTitle();
                 CheckAppraisalSummary();
@@ -23,71 +25,48 @@ namespace EPA2.EPAappraisal
         private void SetPageAttribution()
         {
             hfCategory.Value = WorkingAppraisee.AppraisalType;
-            hfPageID.Value = "AppraisalSummary";
-            string sourcePage = Page.Request.QueryString["aID"];
-            hfArea.Value = sourcePage.Substring(0, 3);
-            hfCode.Value = sourcePage;
+            hfPageID.Value = "Summary"; 
+            hfArea.Value = "All";
+            hfCode.Value = "Summary";
             hfUserID.Value = User.Identity.Name;
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
             hfRunningModel.Value = WebConfig.RunningModel();
-            UserLastWorking.AppraisalArea = "AppraisalSummary";
+            UserLastWorking.AppraisalArea = "Summary";
         }
 
         private void AssemblingPageTitle()
         {
             string category = hfCategory.Value;
             string area = hfArea.Value;
-            string code = hfCode.Value.Substring(0, 3);
+            string code = hfCode.Value;
 
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code +"1");
+            AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
+            AppraisalPage.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
 
         }
         private void CheckAppraisalSummary()
         {
-            string schoolyear = WorkingAppraisee.AppraisalYear;
-            string sourcePage = Page.Request.QueryString["aID"];
+            
 
-
-            if (schoolyear == UserProfile.CurrentSchoolYear && sourcePage == "Summary")
+            var parameter = new AppraisalComment()
             {
-                if (WorkingAppraisee.PreviousAppraisalCompleteStatus == "Completed")
-                { BuildSummaryTree(); }
-                else
-                {
-                    string rdPage = "Appraisal11_SummaryIncomplete.aspx?aID=InComplete";
-                    Page.Response.Redirect(rdPage);
-                }
-            }
-            else
-            {
-                BuildSummaryTree();
-            }
-
+                Operate = "CheckList",
+                UserID = User.Identity.Name,
+                SchoolYear = WorkingAppraisee.AppraisalYear,
+                SchoolCode = WorkingAppraisee.AppraisalSchoolCode,
+                EmployeeID = WorkingAppraisee.EmployeeID,
+                SessionID = WorkingAppraisee.SessionID,
+                Category = WorkingAppraisee.AppraisalType,
+                Phase   = WorkingAppraisee.AppraisalPhase,
+                AppraisalRole = WorkingProfile.UserAppraisalRole
+            };
+            BaseData.ShowSP("AppraisalActivity", "CheckSummary", labelTitle1);
+            ContentTasks.InnerHtml = AppraisalProcess.CheckSummary("Tasks", parameter);
+            ContentTodo.InnerHtml = AppraisalProcess.CheckSummary("ToDo", parameter);
+            ContentDone.InnerHtml = AppraisalProcess.CheckSummary("Done", parameter);
 
         }
-        private void BuildSummaryTree()
-        {
-
-            string schoolyear = WorkingAppraisee.AppraisalYear;
-            string schoolcode = WorkingAppraisee.AppraisalSchoolCode;
-            string employeeid = WorkingAppraisee.EmployeeID;
-            string sessionid = WorkingAppraisee.SessionID;
-            string tName = WorkingAppraisee.AppraiseeName;
-            string phase = WorkingAppraisee.AppraisalPhase;
-            string category = WorkingAppraisee.AppraisalType;
-            string sourcePage = Page.Request.QueryString["aID"];
-            string area = sourcePage.Substring(0, 3);
-            if (sourcePage == "Summary")
-            {
-                Page.Response.Redirect("Appraisal11_Message.aspx");
-            }
-            else
-            {
-            DataSet myDS = AppraisalProcess.CheckCompleteStatus("CheckList", User.Identity.Name, schoolyear, schoolcode, employeeid, sessionid, category, area, sourcePage);
-
-            TreeViewNode.BuildingTree(ref TreeView1, myDS, category, "Summary");
-            }
-        }
+       
     }
 }

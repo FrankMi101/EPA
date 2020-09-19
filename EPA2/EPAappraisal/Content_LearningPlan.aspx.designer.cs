@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_LearningPlan {
+    public partial class ContentLearningPlan {
         
         /// <summary>
         /// form1 control.

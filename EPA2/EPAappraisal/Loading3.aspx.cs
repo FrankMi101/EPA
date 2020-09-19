@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
+using System.Web.UI.WebControls; 
 namespace EPA2.EPAappraisal
 {
     public partial class Loading3 : System.Web.UI.Page
@@ -13,81 +12,87 @@ namespace EPA2.EPAappraisal
         {
             if (!Page.IsPostBack)
             {
-                string GoPage = Page.Request.QueryString["pID"];
+                string goPage = Page.Request.QueryString["pID"];
                 string category = Page.Request.QueryString["type"];
                 string area = Page.Request.QueryString["aID"];
                 string itemCode = Page.Request.QueryString["iCode"];
-                string domainID = Page.Request.QueryString["domainID"];
-                string competencyID = Page.Request.QueryString["competencyID"];
+                string domainId = Page.Request.QueryString["domainID"];
+                string competencyId = Page.Request.QueryString["competencyID"];
                 string seqNo = Page.Request.QueryString["SeqNo"];
                 string actionItem = Page.Request.QueryString["ActionItem"];
-                string parameter = "type=" + category + "&aID=" + area + "&iCode=" + itemCode + "&domainID=" + domainID + "&competencyID=" + competencyID + "&SeqNo=" + seqNo + "&ActionItem=" +actionItem;
-                switch (GoPage)
+                string parameter = "type=" + category + "&aID=" + area + "&iCode=" + itemCode + "&domainID=" + domainId + "&competencyID=" + competencyId + "&SeqNo=" + seqNo + "&ActionItem=" +actionItem;
+                switch (goPage)
                 {
                     case "Assignment":
-                        GoPage = "Content_Assignment.aspx?tID" + Page.Request.QueryString["tID"]; ;
+                        goPage = "Content_Assignment.aspx?tID" + Page.Request.QueryString["tID"]; ;
                         break;
 
                     case "EvidenceLog":
-                        GoPage = "Content_EvidenceLog.aspx?" + parameter;
+                        goPage = "Content_EvidenceLog.aspx?" + parameter;
                         break;
                     case "LookFors":
-                        GoPage = "Content_LookFors.aspx?" + parameter;
+                        goPage = "Content_LookFors.aspx?" + parameter;
                         break;
                     case "Recovery":
-                        GoPage = "Content_Recovery.aspx?" + parameter;
+                        goPage = "Content_Recovery.aspx?" + parameter;
                         break;
                     case "HelpContent":
-                        GoPage = "Content_HelpEdit.aspx?" + parameter; ;
+                        goPage = "Content_HelpEdit.aspx?" + parameter; ;
                         break;
                     case "CommentsBank":
-                        GoPage = "Content_Bank.aspx?" + parameter;
+                        goPage = "Content_Bank.aspx?" + parameter;
+                        break;
+                    case "CommentsSnippet":
+                        goPage = "Content_Snippet.aspx?" + parameter;
                         break;
                     case "SchoolLearningPlan":
-                        GoPage = "Content_LearningPlan.aspx?" + parameter;
+                        goPage = "Content_LearningPlan.aspx?" + parameter;
                         break;
                     case "BoardStrategyPlan":
-                        GoPage = "Content_Strategy.aspx?" + parameter;
+                        goPage = "Content_Strategy.aspx?" + parameter;
                         break;
                     case "OLFLibrary":
-                        GoPage = "Content_OLFLibrary.aspx?" + parameter;
+                        goPage = "Content_OLFLibrary.aspx?" + parameter;
                         break;
                     case "OLF":
-                        GoPage = "../Documents/Ontario_Leadership_Framework_OLF.pdf";
+                        goPage = "../Documents/Ontario_Leadership_Framework_OLF.pdf";
                         break;
                     case "AGPChat":
-                        GoPage = "../Documents/AGPChat.pdf";
+                        goPage = "../Documents/AGPChat.pdf";
                         break;
                     case "APPChat":
-                        GoPage = "../Documents/APPChat.pdf";
+                        goPage = "../Documents/APPChat.pdf";
                         break;    
                     case "PPAManual":
-                        GoPage = "../Documents/PPA_Manual.pdf";
+                        goPage = "../Documents/PPA_Manual.pdf";
                         break;
                     case "GuidelineE":
-                        GoPage = "../Documents/MinistryGuidelineE.pdf";
+                        goPage = "../Documents/MinistryGuidelineE.pdf";
                         break;
                     case "GuidelineNTIP":
-                        GoPage = "../Documents/MinistryGuidelineNTIP.pdf";
+                        goPage = "../Documents/MinistryGuidelineNTIP.pdf";
+                        break;
+                    case "NTIPProcess":
+                        goPage = "../Documents/NTIP_Process.pdf";
                         break;
                     case "SLIP":
                         string site = WebConfig.getValuebyKey("SLIPLinkSite");
-                        string DOCFile = "SLIP_" + WorkingProfile.SchoolCode + "_" + WorkingProfile.SchoolYear + ".pdf";
-                        GoPage = site + DOCFile;
+                        string docFile = "SLIP_" + WorkingProfile.SchoolCode + "_" + WorkingProfile.SchoolYear + ".pdf";
+                        goPage = site + docFile;
                         break;
                     case "BLIP":
-                        GoPage = "../Documents/BoardLearnigImprovementPlan.pdf"; 
+                        goPage = "../Documents/BoardLearnigImprovementPlan.pdf"; 
                         break;
                     case "FAQ":
-                        GoPage = "../Documents/TPA_FAQ_from_Ministry_Education.pdf";
+                        goPage = "../Documents/TPA_FAQ_from_Ministry_Education.pdf";
                         break;
                         
                     default:
-                        GoPage = "Content_NotExists.aspx";
+                        goPage = "Content_NotExists.aspx";
                         break;
                 }
 
-                PageURL.HRef = GoPage;
+                PageURL.HRef = goPage;
             }
         }
 

@@ -20,14 +20,12 @@ namespace DataAccess
         {
             get
             {
-                if (HttpContext.Current.Session["appraisalcategory"] != null)
+                if (HttpContext.Current.Session["appraisalcategory"] == null)
                 {
-                    return HttpContext.Current.Session["appraisalcategory"].ToString();
+                   HttpContext.Current.Session["appraisalcategory"]= AppraiseeValue("AppraisalCategory");
                 }
-                else
-                {
-                    return AppraiseeValue("AppraisalCategory");
-                }
+                
+                return HttpContext.Current.Session["appraisalcategory"].ToString();
 
             }
             set
@@ -40,15 +38,11 @@ namespace DataAccess
         {
             get
             {
-                if (HttpContext.Current.Session["appraisalarea"] != null)
+                if (HttpContext.Current.Session["appraisalarea"] == null)
                 {
-                    return HttpContext.Current.Session["appraisalarea"].ToString();
+                      HttpContext.Current.Session["appraisalarea"]= AppraiseeValue("AppraiseeArea");
                 }
-                else
-                {
-                    return AppraiseeValue("AppraiseeArea");
-                }
-
+                return HttpContext.Current.Session["appraisalarea"].ToString();
             }
             set
             {
@@ -60,14 +54,12 @@ namespace DataAccess
         {
             get
             {
-                if (HttpContext.Current.Session["appraisalcode"] != null)
+                if (HttpContext.Current.Session["appraisalcode"] == null)
                 {
-                    return HttpContext.Current.Session["appraisalcode"].ToString();
+                      HttpContext.Current.Session["appraisalcode"]= AppraiseeValue("AppraisalCode");
                 }
-                else
-                {       return  AppraiseeValue("AppraiseeCode");
-                }
-             }
+                return HttpContext.Current.Session["appraisalcode"].ToString();
+            }
             set
             {
                 HttpContext.Current.Session["appraisalcode"] = value;
@@ -86,9 +78,21 @@ namespace DataAccess
         }
         public static string AppraisalSchoolCode
         {
+            
             get
             {
-                return AppraiseeValue("ApraisalSchool");
+                if (HttpContext.Current.Session["appraisalschoolcode"] == null)
+                {
+                      HttpContext.Current.Session["appraisalschoolcode"] = AppraiseeValue("ApraisalSchool"); 
+                }
+           
+                return HttpContext.Current.Session["appraisalschoolcode"].ToString();
+            }
+       
+            set
+            {
+                HttpContext.Current.Session["appraisalschoolcode"] = value;
+                AppraiseeValue("ApraisalSchool", value);
             }
 
         }
@@ -104,16 +108,65 @@ namespace DataAccess
         {
             get
             {
-                return AppraiseeValue("WorkingSession");
+                if (HttpContext.Current.Session["workingappraisalsession"] == null)
+                {
+                    HttpContext.Current.Session["workingappraisalsession"] = AppraiseeValue("WorkingSession");
+                }
+                return HttpContext.Current.Session["workingappraisalsession"].ToString();
+               
+            }
+            set {
+                HttpContext.Current.Session["workingappraisalsession"] = value;
             }
 
         }
 
         public static string AppraiserID
         {
+           get
+            {
+                if (HttpContext.Current.Session["appraiserid"] == null)
+                {
+                   HttpContext.Current.Session["appraiserid"] = AppraiseeValue("AppraiserID");                 
+                }
+                return HttpContext.Current.Session["appraiserid"].ToString();
+            }
+            set
+            {
+                HttpContext.Current.Session["appraiserid"] = value;
+             //   AppraiseeValue("AppraiserID", value);
+            }
+
+        }
+        public static string AppraisalPhase
+        {
             get
             {
-                return AppraiseeValue("AppraiserID");
+                if (HttpContext.Current.Session["appraiserphase"] == null)
+                {
+                    HttpContext.Current.Session["appraiserphase"] = AppraiseeValue("AppraisalPhase");
+                }
+                return HttpContext.Current.Session["appraiserphase"].ToString();              
+            }
+            set {
+                HttpContext.Current.Session["appraiserphase"] = value; 
+            }
+
+        }
+
+        public static string AppraisalType
+        {
+            get
+            {
+                if (HttpContext.Current.Session["appraisaltype"] == null)
+                {
+                    HttpContext.Current.Session["appraisaltype"] = AppraiseeValue("AppraisalType");
+                }
+                return HttpContext.Current.Session["appraisaltype"].ToString();
+               
+            }
+            set {
+                HttpContext.Current.Session["AppraisalType"] = value;
             }
 
         }
@@ -160,23 +213,7 @@ namespace DataAccess
             }
 
         }
-        public static string AppraisalPhase
-        {
-            get
-            {
-                return AppraiseeValue("AppraisalPhase");
-            }
-
-        }
-
-        public static string AppraisalType
-        {
-            get
-            {
-                return AppraiseeValue("AppraisalType");
-            }
-
-        }
+     
         public static string CurrentStatus
         {
             get
@@ -238,7 +275,7 @@ namespace DataAccess
 
         }
 
-        private static string AppraiseeValue(string operate)
+        public static string AppraiseeValue(string operate)
         {
             try
             {

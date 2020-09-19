@@ -8,6 +8,7 @@
     <title>Teacher Perforamnace Appraisal Staff List</title>
     <link href="../Content/BubbleHelp.css" rel="stylesheet" />
     <link href="../Content/ListPage.css" rel="stylesheet" />
+    <link href="../Content/ContentPage.css" rel="stylesheet" />
 
     <style type="text/css">
         body {
@@ -77,6 +78,11 @@
             display: none;
             width: 0px;
         }
+         .imgHelp {
+            width: 23px;
+            height: 23px;
+            margin-top: -10px;
+        }
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -84,12 +90,15 @@
 <body>
     <form id="form1" runat="server">
 
-        <asp:ScriptManager runat="server">
+         <asp:ScriptManager runat="server">
+            <Services>
+                <asp:ServiceReference Path="~/Models/WebService1.asmx" />
+            </Services>
         </asp:ScriptManager>
         <div>
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
-                    
+                       <img class="imgHelp" src="../images/help2.png" title="Help Content" />
                     <asp:Label ID="Label2" runat="server" Text="School"></asp:Label>
                     <asp:DropDownList ID="ddlSchoolCode" runat="server" Width="60px" AutoPostBack="True" OnSelectedIndexChanged="ddlSchoolCode_SelectedIndexChanged">
                     </asp:DropDownList>
@@ -135,48 +144,48 @@
                             <asp:GridView ID="GridView1" runat="server" CellPadding="1" Height="100%" Width="100%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="1" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                                 <Columns>
                                     <asp:BoundField DataField="RowNo" HeaderText="No." ItemStyle-CssClass="myRowNo">
-                                        <ItemStyle Width="30px" />
+                                        <ItemStyle Width="2%" />
                                     </asp:BoundField>
 
                                     <asp:TemplateField HeaderText="Action" ItemStyle-CssClass="myAction">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link1" runat="server" Text='<%# Bind("Action") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
-                                        <ItemStyle Width="40px"  />
+                                        <ItemStyle Width="2%"  />
                                     </asp:TemplateField>      
 
                                     <asp:BoundField DataField="FirstName" HeaderText="First Name">
-                                        <ItemStyle Width="100px" />
+                                        <ItemStyle Width="8%" />
                                     </asp:BoundField>
                                      <asp:BoundField DataField="LastName" HeaderText="Last Name">
-                                        <ItemStyle Width="100px" />
+                                        <ItemStyle Width="8%" />
                                     </asp:BoundField>
                                      <asp:BoundField DataField="Gender" HeaderText="Gender">
-                                        <ItemStyle Width="50px" />
+                                        <ItemStyle Width="3%" />
                                     </asp:BoundField>
                                     <asp:BoundField DataField="EmployeeStatus" HeaderText="Status">
                                         <ItemStyle Width="5%" />
                                     </asp:BoundField>
 
                                     <asp:BoundField DataField="EmployeePosition" HeaderText="Position">
-                                        <ItemStyle Width="5%" />
+                                        <ItemStyle Width="8%" />
                                     </asp:BoundField>
                                     <asp:BoundField DataField="Assignment" HeaderText="Assignment" ItemStyle-CssClass="Assignment">
                                         <ItemStyle Width="10%" />
                                     </asp:BoundField>
                                     <asp:BoundField DataField="Email" HeaderText="email" ItemStyle-CssClass="email">
-                                        <ItemStyle Width="5%" />
+                                        <ItemStyle Width="12%" />
                                     </asp:BoundField>
                                     
                                      <asp:BoundField DataField="TimeType" HeaderText="F/P">
-                                        <ItemStyle Width="5%" />
+                                        <ItemStyle Width="3%" />
                                     </asp:BoundField>
                                        <asp:BoundField DataField="StartDate" HeaderText="Start Date">
-                                        <ItemStyle Width="5%" />
+                                        <ItemStyle Width="4%" />
                                     </asp:BoundField>
                              
                                        <asp:BoundField DataField="EndDate" HeaderText="End Date">
-                                        <ItemStyle Width="5%" />
+                                        <ItemStyle Width="4%" />
                                     </asp:BoundField>
                                      
                                        <asp:BoundField DataField="Comments" HeaderText="Comments">
@@ -184,7 +193,7 @@
                                     </asp:BoundField>
                                     
                                        <asp:BoundField DataField="School" HeaderText="School">
-                                        <ItemStyle Width="15%" />
+                                        <ItemStyle Width="16%" />
                                     </asp:BoundField>       
                                 </Columns>
 
@@ -211,9 +220,22 @@
         <div>
             <asp:HiddenField ID="hfCategory" runat="server" />
             <asp:HiddenField ID="hfPageID" runat="server" />
+            <asp:HiddenField ID="hfCode" runat="server" />
             <asp:HiddenField ID="hfUserID" runat="server" />
             <asp:HiddenField ID="hfUserLoginRole" runat="server" />
             <asp:HiddenField ID="hfRunningModel" runat="server" />
+        </div>
+         <div id="HelpDIV" class="bubble epahide">
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" CssClass="HelpTextBox"></asp:TextBox>
+        </div>
+        <div id="ActionPOPDIV" class="bubble epahide">
+            <div class="editTitle" style="display: block; margin-top: 5px;">
+                <div id="ActionTitle" style="display: inline; float: left; width: 96%"></div>
+                <div style="display: inline; float: left;">
+                    <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
+                </div>
+            </div>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="no" src="iBlankPage.html" runat="server"></iframe>
         </div>
     </form>
 </body>
@@ -222,18 +244,15 @@
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/GridView.js"></script>
 <script src="../Scripts/Appr_ListPage.js"></script>
+
+<script src="../Scripts/Appr_Help.js"></script>
+<script src="../Scripts/Appr_textEdit.js"></script>
+
 <script type="text/javascript">
-    var IE = document.all ? true : false
-    document.onmousemove = getMousepoints;
-    var mousex = 0;
-    var mousey = 0;
-    function getMousepoints() {
-        mousex = event.clientX + document.body.scrollLeft;
-        mousey = event.clientY + document.body.scrollTop;
-        return true;
-    }
-</script>
-<script type="text/javascript">
+    var UserID = $("#hfUserID").val();
+    var CategoryID = "TPA";
+    var AreaID = "StaffList";
+    var ItemCode = "Staff";
     var rowNo;
     var teachername;
     var schoolyear;
@@ -246,7 +265,7 @@
     $(document).ready(function () {
         try {
 
-            MakeStaticHeader("GridView1", 650, 1300, 25, false);
+            MakeStaticHeader("GridView1", 650, 1300, 20, false);
         }
         catch (ex )
         {

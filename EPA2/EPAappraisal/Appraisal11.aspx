@@ -15,8 +15,7 @@
             height: 100%;
             width: 100%;
             margin: -2px;
-           border:0px solid green; 
-          
+            border: 0px solid green;
         }
 
         .MenuPanel {
@@ -41,9 +40,8 @@
             height: 100%;
             border: 1px solid lightsalmon;
             margin: -1px;
-           
         }
- 
+
 
         #GoPageiFrame {
             width: 100%;
@@ -65,7 +63,6 @@
             text-decoration: none;
             opacity: 0.3;
         }
-   
     </style>
 </head>
 <body onkeydown="if(event.keyCode==8 &amp;&amp; (!(event.srcElement.tagName=='INPUT' || event.srcElement.tagName=='TEXTAREA'))){return false}">
@@ -131,7 +128,7 @@
                             34 Evidence Log</a></li>
                         <li><a href="#">
                             <img src="../images/chinaz13.ico" />
-                            3 5 Summative Report</a></li>
+                            35 Summative Report</a></li>
                         <li><a href="#">
                             <img src="../images/chinaz13.ico" />
                             36 Evidence Log</a></li>
@@ -175,6 +172,13 @@
             <asp:HiddenField ID="hfRunningModel" runat="server" />
             <asp:HiddenField ID="hfParameters" runat="server" />
             <asp:HiddenField ID="hfCurrentli" runat="server" />
+
+            <asp:HiddenField ID="hfApprYear" runat="server" />
+            <asp:HiddenField ID="hfApprSchool" runat="server" />
+            <asp:HiddenField ID="hfApprSession" runat="server" />
+            <asp:HiddenField ID="hfApprEmployeeID" runat="server" />
+            <asp:HiddenField ID="hfTeacherName" runat="server" />
+
         </div>
     </form>
 </body>
@@ -184,6 +188,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script>
     var selectedliCode;
     $(document).ready(function () {
@@ -202,12 +207,12 @@
             var goObj = ItemCode.replace("MenuTitle", "leafMenu");
             $("." + goObj).css('display', 'block');
             $("#hfOpenbrench").val(goObj);
-            
+
 
         });
         $("li").click(function (event) {
-           // window.alert($(window).width() + "-" + screen.width);
-           
+            // window.alert($(window).width() + "-" + screen.width);
+
             if (screen.width < 760) {
                 $(".MenuPanel").css("width", "0%");
                 $(".ContentPanel").css("width", "100%");

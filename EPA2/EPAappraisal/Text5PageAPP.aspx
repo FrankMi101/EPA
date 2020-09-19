@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text5PageAPP.aspx.cs" Inherits="EPA2.EPAappraisal.Text5PageAPP" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text5PageAPP.aspx.cs" Inherits="EPA2.EPAappraisal.Text5PageApp" %>
 
 <!DOCTYPE html>
 
@@ -55,7 +55,7 @@
         }
 
         #GridView1 textarea {
-            height: 250px;
+            height: 245px;
             width: 90%;
             border: 1px solid #b6b4b4;
             border-bottom: 0px;
@@ -95,6 +95,10 @@
             .saveButton1:hover {
                 background-color: lightsalmon;
             }
+        .onlineCommons {
+        color:red;
+        font-size:0.8em;
+        }
     </style>
 </head>
 <body>
@@ -131,16 +135,16 @@
             </div>
 
             <div class="ContentCompetencyList" runat="server">
-                <div id="DivRoot" style="width: 100%; height: 580px;">
+                <div id="DivRoot" style="width: 100%; height: 520px;">
                     <%-- <div style="overflow: hidden;" id="DivHeaderRow">
                         <table id="GridView2" style="border: 1px ridge gray; width: 99%; height: 30px; background-color: white;" rules="all" cellspacing="0" cellpadding="0">
                         </table>
                     </div>--%>
 
-                    <div style="overflow: scroll; width: 99.5%; height: 100%" id="DivMainContent">
+                    <div style="overflow: auto; width: 100%; height: 100%" id="DivMainContent">
                         <asp:GridView ID="GridView1" runat="server" CellPadding="0" Height="100%" Width="99%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="0" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                             <Columns>
-                                <asp:BoundField DataField="SequenceNo" HeaderText="No." ItemStyle-CssClass="SequenceNo">
+                                <asp:BoundField DataField="SeqNo" HeaderText="No." ItemStyle-CssClass="SequenceNo">
                                     <ItemStyle Width="1%" />
                                 </asp:BoundField>
 
@@ -194,7 +198,7 @@
             <br />
             <br />
             <asp:Button ID="btnAddNewAGP" runat="server" Text="Add New AGP" OnClick="btnAddNewAGP_Click" />
-
+                 <span class="onlineCommons">  * Click on the No. to delete the Row </span>
 
 
         </section>
@@ -274,7 +278,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <%--<script src="../Scripts/GridView.js"></script>--%>
@@ -292,6 +296,20 @@
     var eventCell;
     var seqNo;
     var actionItem;
+     var BasePara = {
+        UserID: $("#hfUserID").val(),
+        Category: $("#hfCategory").val(),
+        Area: $("#hfArea").val(),
+        ItemCode: $("#hfCode").val(),
+        SchoolYear: $("#hfApprYear").val(),
+        SchoolCode: $("#hfApprSchool").val(),
+        SessionID: $("#hfApprSession").val(),
+        EmployeeID: $("#hfApprEmployeeID").val(),
+        Value: "",
+        SeqNo: "",
+        ActionItem:"",
+        Operate: "Comment"
+    }
 
     $(document).ready(function () {
         var vHeight = window.innerHeight - apprScreenH;
@@ -358,7 +376,9 @@
 
 
         $("#labelDelete").click(function (event) {
-            var rValue = EPA2.Models.WebService1.SaveAPPText("Delete", UserID, CategoryID, AreaID, ItemCode, seqNo, "APP", "", onSuccess, onFailure);
+            BasePara.Operate = "Delete";
+            var rValue = EPA2.Models.WebService1.SaveGridCellText("APP", BasePara , onSuccess, onFailure);
+         //   var rValue = EPA2.Models.WebService1.SaveAPPText("Delete", UserID, CategoryID, AreaID, ItemCode, seqNo, "APP", "", onSuccess, onFailure);
             $("#ActionDeleteDIV").fadeToggle("fast");
             //  location.reload();
             $("#btnSave").click();
@@ -372,14 +392,19 @@
             $("#hfWorkingCell").val(eventCell[0].id);
             seqNo = $(this).closest('tr').find('td.SequenceNo').text();
             actionItem = eventCell[0].className.replace(", textAreaEdit", "");
+            BasePara.SeqNo = seqNo;
+            BasePara.ActionItem = actionItem;
 
         });
         $('td > .textAreaEdit').change(function (event) {
             eventCell = $(this);
             //  seqNo = $(this).closest('tr').find('td.SequenceNo').text();
             //   actionItem = eventCell[0].className.replace(", textAreaEdit", "");
-            var value = eventCell[0].value;
-            var rValue = EPA2.Models.WebService1.SaveAPPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+           
+            BasePara.Value = eventCell[0].value;
+            BasePara.Operate = "Comment";
+            var rValue = EPA2.Models.WebService1.SaveGridCellText("APP", BasePara , onSuccess, onFailure);
+          // var rValue = EPA2.Models.WebService1.SaveAPPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
         });
         //$("textarea").change(function (event) {
         //    eventCell = $(this);
@@ -396,17 +421,17 @@
 
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = ItemCode + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
@@ -438,6 +463,8 @@
 
 
     }
+    function onSuccess() { }
+    function onFailure() { }
     function DisableTextEdit() {
         $('input[type="text"], textarea').attr('readonly', 'readonly');
     }

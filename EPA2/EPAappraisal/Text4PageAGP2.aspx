@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text4PageAGP2.aspx.cs" Inherits="EPA2.EPAappraisal.Text4PageAGP2" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="Text4PageAGP2.aspx.cs" Inherits="EPA2.EPAappraisal.Text4PageAgp2" %>
 
 <!DOCTYPE html>
 
@@ -82,33 +82,33 @@
                     <div style="overflow: scroll; width: 99.5%; height: 100%" onscroll="OnScrollDiv(this)" id="DivMainContent">
                         <asp:GridView ID="GridView1" runat="server" CellPadding="0" Height="100%" Width="99%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="0" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                             <Columns>
-                                <asp:BoundField DataField="SequenceNo" HeaderText="No." ItemStyle-CssClass="SequenceNo">
+                                <asp:BoundField DataField="SeqNo" HeaderText="No." ItemStyle-CssClass="SequenceNo">
                                     <ItemStyle Width="1%" />
                                 </asp:BoundField>
 
 
                                 <asp:TemplateField HeaderText="Areas for Growth">
-                                    <ItemStyle Width="20%" Wrap="True" />
+                                    <ItemStyle Width="20%" Wrap="True"  />
                                     <ItemTemplate>
-                                        <asp:TextBox ID="editTextAreaForGrowth" runat="server" Text='<%# Eval("AreaForGrowth") %>' CssClass="AreaForGrowth, textAreaEdit" Width="100%" TextMode="MultiLine">  </asp:TextBox>
+                                        <asp:TextBox ID="editTextAreaForGrowth" runat="server" Text='<%# Eval("AreaForGrowth") %>' CssClass="AreaForGrowth, textAreaEdit" Width="100%" TextMode="MultiLine"  >  </asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Growth Strategies/Supports">
                                     <ItemStyle Width="44%" Wrap="True" />
                                     <ItemTemplate>
-                                        <asp:TextBox ID="editTextGrowthStrategy" runat="server" Text='<%# Eval("GrowthStrategy") %>' CssClass="GrowthStrategy, textAreaEdit" Width="100%" TextMode="MultiLine">  </asp:TextBox>
+                                        <asp:TextBox ID="editTextGrowthStrategy" runat="server" Text='<%# Eval("GrowthStrategy") %>' CssClass="GrowthStrategy, textAreaEdit" Width="100%" TextMode="MultiLine"  >  </asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Target Dates for Completion">
                                     <ItemStyle Width="15%" Wrap="True" />
                                     <ItemTemplate>
-                                        <asp:TextBox ID="editTextTimeLine" runat="server" Text='<%# Eval("TimeLine") %>' CssClass="TimeLine, textAreaEdit" Width="100%" TextMode="MultiLine">  </asp:TextBox>
+                                        <asp:TextBox ID="editTextTimeLine" runat="server" Text='<%# Eval("TimeLine") %>' CssClass="TimeLine, textAreaEdit" Width="100%" TextMode="MultiLine"   >  </asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Suggested Annual Growth Plan for Next Year">
                                     <ItemStyle Width="20%" Wrap="True" />
                                     <ItemTemplate>
-                                        <asp:TextBox ID="editTextFutureGrowth" runat="server" Text='<%# Eval("FutureGrowth") %>' CssClass="FutureGrowth, textAreaEdit" Width="100%" TextMode="MultiLine">  </asp:TextBox>
+                                        <asp:TextBox ID="editTextFutureGrowth" runat="server" Text='<%# Eval("FutureGrowth") %>' CssClass="FutureGrowth, textAreaEdit" Width="100%" TextMode="MultiLine"    >  </asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
@@ -131,7 +131,11 @@
 
 
         </section>
-
+           <footer style ="display:none;">
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton"  />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton"  />
+        </footer>
         <div>
               <asp:HiddenField ID="hfSignOff" runat="server" />
           <asp:HiddenField ID="hfCategory" runat="server" />
@@ -156,6 +160,7 @@
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Assignment.aspx.cs" Inherits="EPA2.EPAappraisal.Content_Assignment" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Assignment.aspx.cs" Inherits="EPA2.EPAappraisal.ContentAssignment" %>
 
 <!DOCTYPE html>
 

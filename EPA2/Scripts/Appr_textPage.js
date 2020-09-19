@@ -38,8 +38,8 @@ function CountTextBoxCharactors() {
             $("#textCount").val(maxCount - nCnt);
         }
     }
-    catch (e)
-    { }
+    catch (ex)
+    { var smg = ex.attr; }
 
 }
 function postBackAppraisalPage() {
@@ -69,7 +69,7 @@ function ChangeLeftMenuSelectedNode(action) {
         }
 
         var newliNode;
-        if (newli.length == 0) {
+        if (newli.length === 0) {
             var parentli = newli.prevObject[0].id; //parent;
             var parentnode = $("#" + parentli, parent.document).parent();
             var parentid = parentnode[0].parentNode.id;
@@ -92,6 +92,7 @@ function ChangeLeftMenuSelectedNode(action) {
         event.stopPropagation();
     }
     catch (ex) {
+        var smg = ex.attr;
     }
 
 }
@@ -109,6 +110,7 @@ function Highlight_LeftMenuSelectNode() {
         event.stopPropagation();
     }
     catch (ex) {
+        var smg = ex.attr;
     }
 
 }

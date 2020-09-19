@@ -94,13 +94,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:TextBox ID="myText1" runat="server" CssClass="myTextEdit" OnTextChanged="myText1_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText1" runat="server" CssClass="myTextEdit" OnTextChanged="MyText1_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
                         <td>
-                            <asp:TextBox ID="myText2" runat="server" CssClass="myTextEdit" OnTextChanged="myText2_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText2" runat="server" CssClass="myTextEdit" OnTextChanged="MyText2_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
                         <td>
-                            <asp:TextBox ID="myText3" runat="server" CssClass="myTextEdit" OnTextChanged="myText3_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText3" runat="server" CssClass="myTextEdit" OnTextChanged="MyText3_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
                         <td>
-                            <asp:TextBox ID="myText4" runat="server" CssClass="myTextEdit" OnTextChanged="myText4_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText4" runat="server" CssClass="myTextEdit" OnTextChanged="MyText4_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
 
                     </tr>
                 </table>
@@ -133,7 +133,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>

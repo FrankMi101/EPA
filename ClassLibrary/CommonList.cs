@@ -8,9 +8,11 @@ namespace ClassLibrary
 {
     public class CommonList
     {
-        public string myText { get; set; }
-        public string myValue { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
     }
-    public class CommonListSchool : CommonList
-    { }
+    public class CommonListSchool :CommonList
+    {
+       
+    }
 }

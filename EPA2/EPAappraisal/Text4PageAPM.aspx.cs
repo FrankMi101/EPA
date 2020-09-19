@@ -4,13 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 using System.Web.UI.HtmlControls;
-
 namespace EPA2.EPAappraisal
 {
-    public partial class Text4PageAPM : System.Web.UI.Page
+    public partial class Text4PageApm : System.Web.UI.Page
     {
        
         protected void Page_Load(object sender, EventArgs e)
@@ -20,16 +17,16 @@ namespace EPA2.EPAappraisal
             {
                 Page.Response.Expires = 0;
           
-               setPageAttribution();
+               SetPageAttribution();
                
                 BindMyData("Get");
-                checkPageReadonly();   
+                CheckPageReadonly();   
             }
        
 
         }
         
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             hfFirstName.Value = WorkingAppraisee.AppraiseeName;
@@ -44,10 +41,10 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);     
-            string SectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
-            if (SectionStartPage.IndexOf(code) == -1)
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);     
+            string sectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
+            if (sectionStartPage.IndexOf(code) == -1)
             { btnPrevious.Enabled = true; }
             else
             {
@@ -74,12 +71,25 @@ namespace EPA2.EPAappraisal
             string area = hfArea.Value;
             string code = hfCode.Value;
 
-            AppraisalData.DateTextContent(ref myText, ref myDate, ref textCount,500, action, category, area, code + textOrder, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+            var parameter = new ClassLibrary.AppraisalDateText()
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                EmployeeID = hfApprEmployeeID.Value,
+                SessionID = hfApprSession.Value,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ItemCode = hfCode.Value + textOrder
+            };
+
+            AppraisalData.DateTextContent(ref myText, ref myDate, ref textCount, 500, action, parameter); //  category, area, code + textOrder, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
 
         }
        
 
-        protected void checkPageReadonly()
+        protected void CheckPageReadonly()
         {
             string category = WorkingAppraisee.AppraisalType;
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
@@ -167,11 +177,15 @@ namespace EPA2.EPAappraisal
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
-
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+             string goPage = AppraisalPage.GoPage(parameter);
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 
         }

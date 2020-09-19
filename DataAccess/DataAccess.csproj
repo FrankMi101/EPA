@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\itextsharp.dll</HintPath>
     </Reference>
@@ -72,22 +75,12 @@
     <Compile Include="Appraisal\StaffProfile.cs" />
     <Compile Include="Appraisal\StaffList.cs" />
     <Compile Include="Appraisal\WorkingAppraisee.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="Common\Authentication.cs" />
-    <Compile Include="Common\DateFormat.cs" />
     <Compile Include="Common\Generic.cs" />
     <Compile Include="Common\iCalendar.cs" />
-    <Compile Include="Common\eMailNotification.cs" />
-    <Compile Include="Common\HelpContext.cs" />
     <Compile Include="Common\myBaseParameters.cs" />
     <Compile Include="Common\NavigationBuiding.cs" />
-    <Compile Include="Common\ReportRender.cs" />
     <Compile Include="Common\SetListValue.cs" />
     <Compile Include="Common\SetSQLParameter.cs" />
-    <Compile Include="Common\SymetricEncryption.cs" />
-    <Compile Include="Common\UserLastWorking.cs" />
-    <Compile Include="Common\UserProfile.cs" />
-    <Compile Include="Common\WebConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -121,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -145,6 +139,20 @@
     <None Include="Web References\ReportingWebService\Warning.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{37486668-2C72-4889-A6F0-FC4346FA230E}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">
+      <Project>{236FBB7B-0972-4289-B642-81AB05954D08}</Project>
+      <Name>ClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

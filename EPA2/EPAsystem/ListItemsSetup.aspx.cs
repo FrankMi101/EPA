@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BLL;
 using DataAccess;
-
 namespace EPA2.EPAsystem
 {
     public partial class ListItemsSetup : System.Web.UI.Page
@@ -17,7 +17,7 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
                 BindMyData();
                
@@ -25,16 +25,14 @@ namespace EPA2.EPAsystem
           
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "SysSetup";
             WorkingProfile.PageItem = Page.Request.QueryString["cID"];
             AppraisalPage.SetPageAttribute2(Page);
-            
-           myList.SetLists(ddlCategory, "Category", User.Identity.Name);
 
-            myList.SetListValue(ddlCategory, 0);
+            AppraisalPage.BuildingList(ddlCategory, "Category", User.Identity.Name,"","","",0);
           //  hfCategory.Value = ddlCategory.SelectedValue;
 
         }
@@ -47,11 +45,13 @@ namespace EPA2.EPAsystem
             hfUserID.Value = User.Identity.Name;
             hfCategory.Value = "EPA";
             hfArea.Value = "SysSetup";
-  
+            hfCode.Value = code;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1"); 
+
+
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1"); 
         }
 
 
@@ -64,9 +64,9 @@ namespace EPA2.EPAsystem
         {
 
             string category = ddlCategory.SelectedValue; 
-            string ItemType = Page.Request.QueryString["cID"];
-            hfItemType.Value = ItemType;
-            ApplicationSetup.SystemItems(ref GridView1, action, User.Identity.Name, category,ItemType);
+            string itemType = Page.Request.QueryString["cID"];
+            hfItemType.Value = itemType;
+            ApplicationSetup.SystemItems(ref GridView1, action, User.Identity.Name, category,itemType);
         }
 
       
@@ -86,13 +86,13 @@ namespace EPA2.EPAsystem
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
             string category = ddlCategory.SelectedValue;
-            string ItemType = Page.Request.QueryString["cID"];
-            string IDs = "0";
+            string itemType = Page.Request.QueryString["cID"];
+            string ids = "0";
             string itemcode = "";
             string itemName = "";
             string comments = "";
             string active = "0";
-            string result = ApplicationSetupData.SystemItems( "AddNew", User.Identity.Name, category, ItemType, IDs, itemcode, itemName, comments, active,"","");
+            string result = ApplicationSetup.SystemItems( "AddNew", User.Identity.Name, category, itemType, ids, itemcode, itemName, comments, active,"","");
             BindMyData();
         }
 

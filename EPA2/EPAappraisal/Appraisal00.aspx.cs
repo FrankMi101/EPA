@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ClassLibrary;
+using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.Web.UI.HtmlControls;
-
 namespace EPA2.EPAappraisal
 {
     public partial class Appraisal00 : System.Web.UI.Page
@@ -21,20 +15,33 @@ namespace EPA2.EPAappraisal
                 string tName = Page.Request.QueryString["tName"];
                 string phase = Page.Request.QueryString["phase"];
                 string category = Page.Request.QueryString["type"];
-                string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&tName=" + tName + "&phase=" + phase + "&sID=" + "Appraisal 1" + "&type=" + category;
+               // string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&tName=" + tName + "&phase=" + phase + "&sID=" + "Appraisal1" + "&type=" + category;
+
+                var queryValue = AppraisalPage.GetQueryValue(Page);
+                var parameter = AppraisalPage.GetQueryString(queryValue);
+
+                hfApprSchool.Value = schoolcode;
+                hfApprYear.Value = schoolyear;
+                hfApprEmployeeID.Value = employeeid;
+                hfTeacherName.Value = tName;
                 WorkingAppraisee.AppraisalYear = schoolyear;
+                WorkingAppraisee.AppraisalSchoolCode = schoolcode;
                 WorkingAppraisee.EmployeeID = employeeid;
                 WorkingAppraisee.AppraisalCategory = category;
+                WorkingAppraisee.AppraisalPhase = phase;
+                WorkingAppraisee.AppraisalType = category;
 
                 hfParameters.Value = parameter;
-                WorkingAppraisee.SetLists(ddlSchoolYear, "AppraisalYearList", User.Identity.Name, schoolyear, employeeid);
-                WorkingAppraisee.SetListValue(ddlSchoolYear, schoolyear);
+
+                WorkingAppraisee.SetLists(ddlSchoolYear, "AppraisalYearList", User.Identity.Name, schoolyear, employeeid, category);
+                AppraisalPage.SetListValue(ddlSchoolYear, schoolyear); 
+                SetUpAppraisalSession();
+
 
                 WorkingProfile.UserAppraisalRole = AppraisalProcess.AppraisalActionRole(category, WorkingProfile.UserRole, WorkingAppraisee.UserID, User.Identity.Name);
 
                 SetPageAttribution();
-                //  checkProgress(); looks not good for user interface
-                // WorkingProfile.ClientUserScreen = Page.Request.QueryString["ClientUserScreen"];
+                LoadAppraisalPage("Initial");
             }
         }
         private void SetPageAttribution()
@@ -44,10 +51,12 @@ namespace EPA2.EPAappraisal
             hfUserID.Value = User.Identity.Name;
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
             hfRunningModel.Value = WebConfig.RunningModel();
-            //     UserLastWorking.AppraisalType = hfCategory.Value;
-            //     UserLastWorking.AppraisalArea = "Appraisal";
             UserLastWorking.EmployeeID = Page.Request.QueryString["tID"];
-            LoadAppraisalPage("Initial");
+            SetHelpDocumentLink();
+        }
+
+        private void SetHelpDocumentLink()
+        {
             switch (hfCategory.Value)
             {
                 case "PPA":
@@ -55,6 +64,11 @@ namespace EPA2.EPAappraisal
                     DocLink1.InnerText = "Ontario Leadership Framework";
                     DocLink2.HRef = "javascript:OpenAppraisalDocument('PPAManual')";
                     DocLink2.InnerText = "Ontario Princiapl/VP Performance Appraisal Manual";
+                    DocLink4.HRef = "javascript:OpenAppraisalDocument('APPChat')";
+                    DocLink4.InnerText = "PPA Work flow";
+                    DocLink5.HRef = "javascript:OpenAppraisalDocument('AGPChat')";
+                    DocLink5.InnerText = "AGP Work flow";
+
                     break;
                 case "TPA":
                     DocLink1.HRef = "javascript:OpenAppraisalDocument('GuidelineE')";
@@ -67,6 +81,8 @@ namespace EPA2.EPAappraisal
                     DocLink1.InnerText = "Ministry Guideline for New Teacher Induction Program";
                     DocLink2.HRef = "javascript:OpenAppraisalDocument('FAQ')";
                     DocLink2.InnerText = "FAQ on Teacher Performance Appraisal";
+                    DocLink5.HRef = "javascript:OpenAppraisalDocument('NTIPProcess')";
+                    DocLink5.InnerText = "NTIP Process";
                     break;
                 default:
                     DocLink1.HRef = "#";
@@ -76,19 +92,37 @@ namespace EPA2.EPAappraisal
                     break;
             }
         }
+        private void SetUpAppraisalSession()
+        {
 
+            WorkingAppraisee.SetLists(ddlSession, "AppraisalSessionList", User.Identity.Name, ddlSchoolYear.SelectedValue, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalCategory);
+            string currentAppraisalSession = WorkingAppraisee.AppraisalWorkingSession;
+            WorkingAppraisee.SetListValue(ddlSession, currentAppraisalSession);
+            hfApprSession.Value = currentAppraisalSession;
+            WorkingAppraisee.SessionID = currentAppraisalSession;
+
+        }
         protected void DdlSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             //  WorkingProfile.SchoolYear = ddlSchoolYear.SelectedValue;
             //  UserLastWorking.SchoolYear = ddlSchoolYear.SelectedValue;
+            hfApprYear.Value = ddlSchoolYear.SelectedValue;
             WorkingAppraisee.AppraisalYear = ddlSchoolYear.SelectedValue;
+            WorkingAppraisee.AppraisalSchoolCode = WorkingAppraisee.AppraiseeValue("ApraisalSchool");
+            WorkingAppraisee.AppraisalCategory = WorkingAppraisee.AppraiseeValue("AppraisalCategory");
+            WorkingAppraisee.AppraiserID = WorkingAppraisee.AppraiseeValue("AppraiserID");
+            WorkingAppraisee.AppraisalPhase = WorkingAppraisee.AppraiseeValue("AppraisalPhase");
+            WorkingAppraisee.AppraisalType = WorkingAppraisee.AppraiseeValue("AppraisalType");
+            SetUpAppraisalSession();
             LoadAppraisalPage("YearChange");
+
         }
 
         protected void DdlSession_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //   UserLastWorking.AppraisalSession = ddlSession.SelectedValue;
+           hfApprSession.Value = ddlSession.SelectedValue;
             WorkingAppraisee.SessionID = ddlSession.SelectedValue;
+            WorkingAppraisee.AppraisalWorkingSession = ddlSession.SelectedValue;
             LoadAppraisalPage("SessionChange");
 
         }
@@ -97,14 +131,20 @@ namespace EPA2.EPAappraisal
             try
             {
                 string schoolyear = ddlSchoolYear.SelectedValue;
-                string employeeid = WorkingAppraisee.EmployeeID;
-                string schoolcode = WorkingAppraisee.AppraisalSchoolCode;
-                string tName = WorkingAppraisee.AppraiseeName;
+                string sessionid = ddlSession.SelectedValue;
+                string employeeid = hfApprEmployeeID.Value; //  WorkingAppraisee.EmployeeID;
+                string schoolcode = hfApprSchool.Value;//  WorkingAppraisee.AppraisalSchoolCode;
+                string tName = hfTeacherName.Value; // hfAppr WorkingAppraisee.AppraiseeName;
                 string phase = WorkingAppraisee.AppraisalPhase;
-                string assignment =   WorkingAppraisee.AssignmentLink;
+                string assignment = WorkingAppraisee.AssignmentLink;
+                string category = WorkingAppraisee.AppraisalCategory; 
+
+
+
+
+
                 if (changeSource != "SessionChange")
                 {
-                    WorkingAppraisee.SetLists(ddlSession, "AppraisalSessionList", User.Identity.Name, schoolyear, employeeid, hfCategory.Value);
                     string currentAppraisalSession = WorkingAppraisee.AppraisalWorkingSession;
                     WorkingAppraisee.SetListValue(ddlSession, currentAppraisalSession);
                     WorkingAppraisee.SessionID = ddlSession.SelectedValue;
@@ -112,13 +152,11 @@ namespace EPA2.EPAappraisal
                     LabelSchoolCode.Text = schoolcode;
                     LabelSchool.Text = WorkingAppraisee.AppraisalSchoolName;
                     LabelAppraiser.Text = WorkingAppraisee.AppraiserName;
-                    LabelAppraisalTitle.Text = getTitlebyType(tName, phase, assignment);
-                    LabelGreetingUser.Text = "Good morning " + UserProfile.LoginUserName + ", welcome to EPA application";
+                    LabelAppraisalTitle.Text = GetTitlebyType(tName, phase, assignment);
+                    LabelGreetingUser.Text = "Good morning " + UserProfile.LoginUserName;//  + ", welcome to EPA application";
                     LabelAppraisalTitle.ToolTip = WorkingAppraisee.EmployeeID + " - " + WorkingAppraisee.UserID;
 
                 }
-                string sessionid = ddlSession.SelectedValue;
-                string category = WorkingAppraisee.AppraisalType;
                 hfApprYear.Value = schoolyear;
                 hfApprSchool.Value = schoolcode;
                 hfApprEmployeeID.Value = employeeid;
@@ -134,23 +172,30 @@ namespace EPA2.EPAappraisal
                 }
 
 
-                string parameters = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&tName=" + tName + "&phase=" + phase + "&sID=" + sessionid + "&type=" + category; ;
+                //  string parameters =  "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&tName=" + tName + "&phase=" + phase + "&sID=" + sessionid + "&type=" + category; ;
+                string parameters = AppraisalPage.GetQueryString(schoolyear, schoolcode, employeeid, tName, phase, sessionid, category);
                 hfParameters.Value = parameters;
+                WorkingAppraisee.AppraiseeValue("WorkSession", ddlSession.SelectedValue);
+                WorkingAppraisee.AppraiseeValue("AppraisalPhase", Page.Request.QueryString["phase"]);
+                WorkingAppraisee.AppraiseeValue("AppraisalCategory", WorkingProfile.PageCategory);
+                WorkingAppraisee.AppraiseeValue("AppraisalArea", WorkingProfile.PageArea);
+                WorkingAppraisee.AppraiseeValue("AppraisalItem", WorkingProfile.PageItem);
 
                 string goPage = "Loading.aspx?pID=LeftMenu&" + parameters;
+             //   string goPage = "Loading.aspx?" + parameters;
                 iFrameGoItem.Attributes.Add("src", goPage);
             }
             catch { }
 
 
         }
-        private string getTitlebyType(string tName, string phase,string assignment)
+        private string GetTitlebyType(string tName, string phase, string assignment)
         {
             string title = "";
             switch (WorkingAppraisee.AppraisalType)
             {
                 case "EPA":
-                    title = "Teacher Performance Appraisal for " + tName + " (EPA - " + phase + "/ " + assignment +  ")";
+                    title = "Teacher Performance Appraisal for " + tName + " (EPA - " + phase + "/ " + assignment + ")";
                     break;
                 case "TPA":
                     title = "Teacher Performance Appraisal for " + tName + " (TPA - " + phase + "/ " + assignment + ")";
@@ -171,43 +216,11 @@ namespace EPA2.EPAappraisal
             return title;
 
         }
-        //private void checkProgress()
-        //{
-        //    HtmlGenericControl myPGTable = new HtmlGenericControl("table");
-        //    HtmlTable myTable = ProgressStepsShow;
-        //    //     myTable.InnerHtml.  = "";
-        //    HtmlTableRow tRow = ProgressStepsShowTR; //  new HtmlTableRow();
-        //                                             //       myTable.Rows.Add(tRow);
-        //    int cellCtr;
-        //    int cellCnt;
-        //    int StepsCount = getStepsCount();
-        //    for (cellCtr = 1; cellCtr <= StepsCount; cellCtr++)
-        //    {
-        //        // Create a new cell and add it to the row.
-        //        HtmlTableCell tCell = new HtmlTableCell();
-        //        HtmlTableCell imgCell = new HtmlTableCell();
-        //        //   tCell.Attributes.Add("style", getTCellBGimg(cellCtr));// "background-image:url(../images/pgBar1.png)")  ;
-        //        tCell.InnerText = cellCtr.ToString() + ". " + getStepText(cellCtr);// " progress";
-        //        imgCell.Attributes.Add("class", "imgTCcell");
-        //        imgCell.InnerHtml = getTCellIndicaterimg(cellCtr); // "<img id='pgBar2a' runat='server' src='../images/pgBar12a.png'/>";
-        //        if (cellCtr == StepsCount)
-        //        {
-        //            //  tCell.Attributes.Add("style", "width:20%;background-image:url(../images/pgBar1.png)");
-        //            tCell.Attributes.Add("style", "width:20%;");
-        //            tRow.Cells.Add(tCell);
-        //        }
-        //        else
-        //        {
-        //            tRow.Cells.Add(tCell);
-        //            tRow.Cells.Add(imgCell);
-        //        }
-        //    }
-        //}
-        private int getStepsCount()
+        private int GetStepsCount()
         {
             int rImg = 1;
-            string EvaluationYear = WorkingAppraisee.AppraisalPhase;
-            switch (EvaluationYear)
+            string evaluationYear = WorkingAppraisee.AppraisalPhase;
+            switch (evaluationYear)
             {
 
                 case "NE1":
@@ -229,11 +242,11 @@ namespace EPA2.EPAappraisal
             }
             return rImg;
         }
-        private string getTCellBGimg(int step1)
+        private string GetTCellBGimg(int step1)
         {
-            string StepStatus = "";
+            string stepStatus = "";
             string rImg = "";
-            switch (StepStatus)
+            switch (stepStatus)
             {
 
                 case "Complete":
@@ -251,11 +264,11 @@ namespace EPA2.EPAappraisal
             }
             return rImg;
         }
-        private string getTCellIndicaterimg(int step1)
+        private string GetTCellIndicaterimg(int step1)
         {
-            string StepStatus = "";
+            string stepStatus = "";
             string rImg = "";
-            switch (StepStatus)
+            switch (stepStatus)
             {
                 case "Complete":
                     rImg = "<img  src='../images/pgBar1a.png'/>";
@@ -272,7 +285,7 @@ namespace EPA2.EPAappraisal
             }
             return rImg;
         }
-        private string getStepText(int step1)
+        private string GetStepText(int step1)
         {
             // string StepStatus = "";
             string myText = "";

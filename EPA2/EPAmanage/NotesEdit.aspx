@@ -70,12 +70,12 @@
 
         <div>
               <div class="ContentTextarea">
-                <asp:TextBox ID="myText" runat="server"   OnTextChanged="myText_TextChanged" Height="320px" MaxLength="2000" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                <asp:TextBox ID="myText" runat="server"   OnTextChanged="MyText_TextChanged" Height="320px" MaxLength="2000" TextMode="MultiLine" Width="99%"></asp:TextBox>
             </div>
 
 
               <div style="text-align: center">
-                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />   
+                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />   
             </div>
                         
 
@@ -107,7 +107,7 @@
 
                                                
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 

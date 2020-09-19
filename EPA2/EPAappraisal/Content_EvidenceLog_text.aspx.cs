@@ -1,28 +1,28 @@
-﻿using System;
+﻿
+using ClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class Content_EvidenceLog_text : System.Web.UI.Page
+    public partial class ContentEvidenceLogText : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblePage();
                 BindEvidenLogData();
             }
         }
 
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = WorkingAppraisee.AppraisalType;
             hfPageID.Value = WorkingAppraisee.AppraisalArea;
@@ -31,15 +31,14 @@ namespace EPA2.EPAappraisal
             hfUserID.Value = User.Identity.Name; 
             hfRunningModel.Value = WebConfig.RunningModel(); 
             hfDomainID.Value = hfCode.Value.Replace("SUM5", ""); 
-            hfAppraisalActionRole.Value = AppraisalProcess.AppraisalActionRole(WorkingAppraisee.AppraisalType, WorkingProfile.UserRole, WorkingAppraisee.UserID, WorkingProfile.UserID);
+            hfAppraisalActionRole.Value = AppraisalProcess.AppraisalActionRole(WorkingAppraisee.AppraisalType, WorkingProfile.UserRole, WorkingAppraisee.UserID, WorkingProfile.UserId);
 
         }
 
        
         private void AssemblePage()
         {
-            myList.SetLists(ddlSchoolYear, "SchoolYear", User.Identity.Name);
-            myList.SetListValue(ddlSchoolYear, WorkingAppraisee.AppraisalYear);
+            AppraisalPage.BuildingListControl(ddlSchoolYear, "SchoolYear", User.Identity.Name, WorkingAppraisee.AppraisalYear);
             InitialPage();
         }
         private void InitialPage()
@@ -54,20 +53,28 @@ namespace EPA2.EPAappraisal
         {
             try
             {
-                string schoolyear = ddlSchoolYear.SelectedValue;
-                string schoolcode = WorkingAppraisee.AppraisalSchoolCode;
-                string employeeID = WorkingAppraisee.EmployeeID;
-                string sessionID = WorkingAppraisee.SessionID;
-                string category = Page.Request.QueryString["type"];
-                string area = Page.Request.QueryString["aID"];
-                string itemCode = Page.Request.QueryString["iCode"];
-                string domainID = Page.Request.QueryString["domainID"];
-                string competencyID = Page.Request.QueryString["competencyID"];
-                hfDomainID.Value = domainID;
-                hfCompetencyID.Value = competencyID;
+              
+                hfDomainID.Value = Page.Request.QueryString["domainID"];
+                hfCompetencyID.Value = Page.Request.QueryString["competencyID"];
 
                 string actionRole = hfAppraisalActionRole.Value;
-                myTextEvidenceLog.Text = AppraisalDataDomain.DomainTextEvidenceLog(User.Identity.Name, schoolyear, schoolcode, employeeID, sessionID, category, area, itemCode, domainID, competencyID, actionRole);
+                
+                      var parameter = new BuildLookForsList()
+                      {
+                          Operate = "Get",
+                          UserID = User.Identity.Name,
+                          SchoolYear = ddlSchoolYear.SelectedValue,
+                          SchoolCode = WorkingAppraisee.AppraisalSchoolCode,
+                          EmployeeID = WorkingAppraisee.EmployeeID,
+                          SessionID = WorkingAppraisee.SessionID,
+                          Category = Page.Request.QueryString["type"],
+                          Area = Page.Request.QueryString["aID"],
+                          DomainID = Page.Request.QueryString["domainID"],
+                          CompetencyID = Page.Request.QueryString["competencyID"],
+                          ActionRole = actionRole 
+
+                      };
+                myTextEvidenceLog.Text = AppraisalData.DomainTextEvidenceLog(parameter);// User.Identity.Name, schoolyear, schoolcode, employeeId, sessionId, category, area, itemCode, domainId, competencyId, actionRole);
 
             }
             catch (Exception ex)

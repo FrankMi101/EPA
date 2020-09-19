@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
+using BLL;
 namespace EPA2
 {
     public partial class LoadingDashBoard : System.Web.UI.Page
@@ -13,27 +13,27 @@ namespace EPA2
         {
             if (!Page.IsPostBack)
             {
-                string GoPage = Page.Request.QueryString["pID"].ToString();
-                switch (GoPage)
+                string goPage = Page.Request.QueryString["pID"].ToString();
+                switch (goPage)
                 {
                     case "EPA":
-                        PrintReportWithHTML("DashBoardEPA", "HTML");
+                        PrintReportWithHtml("DashBoardEPA", "HTML");
                         break;
                     case "ALP":
-                        PrintReportWithHTML("DashBoardALP", "HTML");
+                        PrintReportWithHtml("DashBoardALP", "HTML");
                         break;
                     case "Evaluation":
-                         PrintReportWithHTML("DashBoardEvaluation", "HTML");
+                         PrintReportWithHtml("DashBoardEvaluation", "HTML");
                         break;
                     default:
-                      PrintReportWithHTML("DashBoardNotice", "HTML");
+                      PrintReportWithHtml("DashBoardNotice", "HTML");
                         break;
                 }
             }
         }
 
 
-        private void PrintReportWithHTML(string reportName, string reportFormat)
+        private void PrintReportWithHtml(string reportName, string reportFormat)
         {
             string reportPath = WebConfig.ReportPath();
             string myUrl = WebConfig.ReportServer() + reportPath + reportName;
@@ -49,7 +49,7 @@ namespace EPA2
 
         }
 
-        private string getDashBoard(string reportName, string reportFormat)
+        private string GetDashBoard(string reportName, string reportFormat)
         {
 
             string reportPath = WebConfig.ReportPath();

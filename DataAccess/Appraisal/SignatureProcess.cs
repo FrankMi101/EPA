@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using BLL;
+using ClassLibrary;
+
 namespace DataAccess
 {
     public class SignatureProcess
@@ -19,6 +22,22 @@ namespace DataAccess
             return SetSQLParameter.getMyDataValue(SP, myPara);
 
         }
+        public static string SignOffName(string RoleType, AppraisalCommentSignOff parameter)
+        {
+            parameter.Operate = RoleType;
+            return AppraisalSignOff.SignOffName(parameter);
+        }
+        public static string SignOffName(string RoleType, AppraisalCommentSignOff parameter,string action)
+        {
+            parameter.Operate = RoleType;
+            return AppraisalSignOff.SignOffNameSave(parameter);
+        }
+        public static string SignOffName(string RoleType, AppraisalCommentSignOff parameter,string action,string action2)
+        {
+            parameter.Operate = RoleType;
+            return AppraisalSignOff.SignOffNameEnforce(parameter);
+        }
+
         public static string SignOffName(string RoleType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole)
         {
             MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
@@ -47,6 +66,12 @@ namespace DataAccess
             return SetSQLParameter.getMyDataValue(SP, myPara);
 
         }
+
+        public static string SignOffDate(string RoleType, AppraisalCommentSignOff parameter)
+        {
+            parameter.Operate = RoleType;
+            return AppraisalSignOff.SignOffDate(parameter);
+        }
         public static string SignOffDate(string RoleType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode,   string userRole)
         {
             string SP = "dbo.EPA_Appr_AppraisalProcess_SignOffDate";
@@ -55,12 +80,22 @@ namespace DataAccess
              return SetSQLParameter.getMyDataValue(SP, myPara);
 
         }
+        public static string SignOffComplete(string RoleType, AppraisalCommentSignOff parameter)
+        {
+            parameter.Operate = RoleType;
+            return AppraisalSignOff.SignOffComplete(parameter);
+        }
         public static string SignOffComplete(string CheckType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole)
         {
             string SP = "dbo.EPA_Appr_AppraisalProcess_SignOffComplete";
             MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
             SetupThisParameters(ref myPara, CheckType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, itemCode, userRole);
             return SetSQLParameter.getMyDataValue(SP, myPara);
+        }
+        public static string NoticeDate(string RoleType, AppraisalCommentNoticeDate parameter)
+        {
+            parameter.Operate = RoleType;
+            return AppraisalSignOff.NoticeDate(parameter);
         }
         public static string NoticeDate(string CheckType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string noticeType, string noticeArea )
         {

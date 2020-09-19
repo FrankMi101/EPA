@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_LookFors.aspx.cs" Inherits="EPA2.EPAappraisal.Content_LookFors" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_LookFors.aspx.cs" Inherits="EPA2.EPAappraisal.ContentLookFors" %>
 
 <!DOCTYPE html>
 
@@ -107,11 +107,11 @@
                                         <ItemStyle Width="40px" Wrap="False" />
                                     </asp:TemplateField>
                                   
-                                    <asp:BoundField DataField="action_date" HeaderText="Date" Visible="false">
+                                    <asp:BoundField DataField="ActionDate" HeaderText="Date" Visible="false">
                                         <ItemStyle Width="10%" />
                                     </asp:BoundField>
                                      
-                                    <asp:BoundField DataField="Appraisal_Note" HeaderText="Look Fors"  ItemStyle-CssClass="myComment">
+                                    <asp:BoundField DataField="LookForsName" HeaderText="Look Fors"  ItemStyle-CssClass="myComment">
                                         <ItemStyle Width="90%" />
                                     </asp:BoundField>
                                 </Columns>

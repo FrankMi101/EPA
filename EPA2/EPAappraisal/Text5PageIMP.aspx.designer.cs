@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Text5PageIMP {
+    public partial class Text5PageImp {
         
         /// <summary>
         /// form2 control.

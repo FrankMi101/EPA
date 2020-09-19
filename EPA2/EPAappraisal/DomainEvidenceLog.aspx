@@ -154,11 +154,11 @@
                     <asp:Label ID="labelTitle" runat="server" CssClass="labelTitle">Text Box Title</asp:Label>
                     <img class="imgHelp" src="../images/help2.png" title="Help Content" />
                     <img class="imgRecovery" runat="server" id="imgRecovery" src="../images/recover.png" title="Recovery the Text content" visible="false" />
-                    <img class="imgSignoff" runat="server" id="imgSignOff" src="../images/signature.png" title="Signed Off" />   
+                    <img class="imgSignoff" runat="server" id="imgSignOff" src="../images/signature.png" title="Signed Off" visible="false" />   
 
                 </div>
                    <div>
-                   <asp:CheckBox ID="chbAllowAppraiser"   runat="server" Text="Allow appraiser to view my Evidence log" ForeColor="red" Visible="false" AutoPostBack ="true" OnCheckedChanged="chbAllowAppraiser_CheckedChanged" />
+                   <asp:CheckBox ID="chbAllowAppraiser"   runat="server" Text="Allow appraiser to view my Evidence log" ForeColor="red" Visible="false" AutoPostBack ="true" OnCheckedChanged="ChbAllowAppraiser_CheckedChanged" />
 
                    </div>
             </div>
@@ -187,16 +187,16 @@
             
         </div>
             <div class="ContentLookForsList" runat="server">
-                <iframe id="IframeLookFors" name="IframeLookFors" style="height: 440px; width: 99.5%" frameborder="0" scrolling="No" src="iBlankPage.html" runat="server"></iframe>
+                <iframe id="IframeLookFors" name="IframeLookFors" style="height: 440px; width: 99.5%"   src="iBlankPage.html" runat="server"></iframe>
 
             </div>
         </section>
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
 
         </footer>
         <%--   <div class="bottom">
@@ -204,7 +204,7 @@
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine"    CssClass="HelpTextBox"></asp:TextBox>
         </div>
         <div id="ActionPOPDIV" class="bubble epahide">
             <div class="editTitle" style="display: block; margin-top: 5px;">
@@ -213,7 +213,7 @@
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
             </div>
-            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%"    src="iBlankPage.html" runat="server"></iframe>
         </div>
 
         <div>
@@ -247,7 +247,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/Appr_ListPage.js"></script>
@@ -294,13 +294,13 @@
                 $("#" + aLinkID).removeClass("aLinkTabH").addClass("aLinkTabHS");
                 preaLinkID = aLinkID;
             }
-            $("#closeActionPOP").click(function (event) {
-                $("#ActionPOPDIV").fadeToggle("fast");
-            });
+            //$("#closeActionPOP").click(function (event) {
+            //    $("#ActionPOPDIV").fadeToggle("fast");
+            //});
 
-            $(".labelTitle").dblclick(function (event) {
-                EditPageItemTitle();
-            });
+            //$(".labelTitle").dblclick(function (event) {
+            //    EditPageItemTitle();
+            //});
             $('.cList').each(function () {
                 if ($(this)[0].id == workingItem) {
                     $(this).addClass("WorkingItem");

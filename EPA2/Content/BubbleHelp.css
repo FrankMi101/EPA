@@ -1,7 +1,4 @@
-﻿body {
-}
- 
-.bubble {
+﻿.bubble {
 	BORDER-RIGHT: #fbaa21 0px solid; PADDING-RIGHT: 1px; BORDER-TOP: #fbaa21 0px solid; PADDING-LEFT: 1px; Z-INDEX: 10; BACKGROUND: #fff; LEFT: 0px; PADDING-BOTTOM: 0px; BORDER-LEFT: #fbaa21 0px solid; WIDTH: 250px; height:150px; PADDING-TOP: 0px; BORDER-BOTTOM: #fbaa21 0px solid; POSITION: absolute; TOP: 0px; 
 }
 
@@ -46,4 +43,15 @@
 	TOP: 210px; 
 	left:620px; 
 }
- 
+#HelpDIV {
+	border: 1px solid lightsalmon;
+	height: 180px;
+	width: 300px;
+	-o-border-top-right-bottom-left-radius: 12px;
+	-moz-border-radius-toprightbottonleft: 12px;
+	-webkit-border-top-right-bottom-left-radius: 12px;
+	border-top-right-radius: 12px;
+	border-top-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	border-bottom-left-radius: 12px;
+}

@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using BLL;
+using System.Web.UI.WebControls; 
 using ClassLibrary;
 
 namespace EPA2.EPAmanage
@@ -18,15 +16,16 @@ namespace EPA2.EPAmanage
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblePage();
                 BindGridViewData();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "StaffList";
+            hfCode.Value = "StaffList";
             hfUserID.Value = User.Identity.Name;
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
             hfRunningModel.Value = WebConfig.RunningModel();
@@ -37,11 +36,10 @@ namespace EPA2.EPAmanage
         }
         private void AssemblePage()
         {
+            var parameters = new CommonListParameter() { Operate = "", UserID = User.Identity.Name, Para1 = WorkingProfile.UserRole, Para2 = WorkingProfile.SchoolArea, Para3 = "" };
 
 
-            AppraisalData.BuildingListControl2(ddlSchoolCode, ddlSchool, "SchoolList", User.Identity.Name, WorkingProfile.UserRole, WorkingProfile.SchoolYear, WorkingProfile.SchoolCode);
-
-            // mySchoolList.SetLists2(ddlSchool, ddlSchoolCode, "SchoolList", User.Identity.Name, WorkingProfile.UserRole, "", WorkingProfile.SchoolCode);
+            AppraisalPage.BuildingList(ddlSchoolCode, ddlSchool, "SchoolList", parameters, WorkingProfile.SchoolCode); 
             InitialPage();
         }
         private void InitialPage()
@@ -49,22 +47,21 @@ namespace EPA2.EPAmanage
             if (WorkingProfile.SchoolCode == "")
             {
                 ddlSchool.SelectedIndex = 0;
-                AppraisalData.BuildingListControlInitial(ddlSchoolCode, ddlSchool.SelectedValue);
+                AppraisalPage.SetListValue(ddlSchoolCode, ddlSchool.SelectedValue);
                 WorkingProfile.SchoolCode = ddlSchool.SelectedValue;
             }
             else
             {
-                AppraisalData.BuildingListControlInitial(ddlSchoolCode, WorkingProfile.SchoolCode);
-                AppraisalData.BuildingListControlInitial(ddlSchool, WorkingProfile.SchoolCode);
-                // mySchoolList.SetListsValue(ddlSchoolCode, ddlSchool, WorkingProfile.SchoolCode);
+                AppraisalPage.SetListValue(ddlSchoolCode, WorkingProfile.SchoolCode);
+                AppraisalPage.SetListValue(ddlSchool, WorkingProfile.SchoolCode); 
 
             }
             ddlSearchby.SelectedIndex = 0;
             TextSearch.Visible = true;
             ddlSearch.Visible = false;
             // ddlSearchby.Items[0].Selected = true;
-            string HRef = "javascript:OpenStaffEdit('0','" + WorkingProfile.SchoolYear + "','" + WorkingProfile.SchoolCode + "','New Staff')";
-            linkAddNew.HRef = HRef;
+            string hRef = "javascript:OpenStaffEdit('0','" + WorkingProfile.SchoolYear + "','" + WorkingProfile.SchoolCode + "','New Staff')";
+            linkAddNew.HRef = hRef;
             if (WorkingProfile.UserRole == "Principal" || WorkingProfile.UserRole == "Admin")
             { linkAddNew.Visible = true; }
         }
@@ -72,37 +69,51 @@ namespace EPA2.EPAmanage
         {
             try
             {
-                string schoolyear =  WorkingProfile.SchoolYear;
-                string schoolcode = ddlSchool.SelectedValue;
-
-                string searchby = ddlSearchby.SelectedValue;
-                string searchvalue = ddlSearch.SelectedValue;
-                if (searchby == "Teacher")
-                {
-                    searchvalue = TextSearch.Text;
-                }
+                GridView1.DataSource = GetDataSource();
+                GridView1.DataBind();
                 // AppraisalGridViewData.BindMyGridView(ref GridView1,"StaffList", "DataSet", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
                 // AppraisalGridViewData.BindMyGridView(ref GridView1, "StaffList", "iList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
-                 AppraisalGridViewData.BindMyGridView(ref GridView1, "StaffList", "dList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
+               // AppraisalGridViewData.BindMyGridView(ref GridView1, "StaffList", "dList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
             }
             catch (Exception ex)
             {
                 var em = ex.Message;
             }
         }
-       
+        private List<EmployeeListC> GetDataSource()
+        {
+            string searchby = ddlSearchby.SelectedValue;
+            string searchvalue = ddlSearch.SelectedValue; 
+            if (searchby == "Teacher")
+            {
+                searchvalue = TextSearch.Text;
+            }
+            var parameter = new
+            {
+                Operate = "Get",
+                UserID = User.Identity.Name,
+                SchoolYear = WorkingProfile.SchoolYear,
+                SchoolCode = ddlSchool.SelectedValue,
+                SearchBy = ddlSearchby.SelectedValue,
+                Searchvalue = searchvalue
+            }; 
+           
+            var apprList = BaseData.GeneralList<EmployeeListC>("AppraisalManage", "StaffList", parameter, btnSearch);
+            return apprList;
+        }
+
+
+
         protected void ddlSchool_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // myList.SetListValue(ddlSchoolCode, ddlSchool.SelectedValue);
-            AppraisalData.BuildingListControlInitial(ddlSchoolCode, ddlSchool.SelectedValue);
+             AppraisalPage.SetListValue(ddlSchoolCode, ddlSchool.SelectedValue);
             UserLastWorking.SchoolCode = ddlSchoolCode.SelectedValue;
             WorkingProfile.SchoolCode = ddlSchoolCode.SelectedValue;
             BindGridViewData();
         }
         protected void ddlSchoolCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //  myList.SetListValue(ddlSchool, ddlSchoolCode.SelectedValue);
-            AppraisalData.BuildingListControlInitial(ddlSchool, ddlSchoolCode.SelectedValue);
+             AppraisalPage.SetListValue(ddlSchool, ddlSchoolCode.SelectedValue);
             UserLastWorking.SchoolCode = ddlSchoolCode.SelectedValue;
             WorkingProfile.SchoolCode = ddlSchoolCode.SelectedValue;
             BindGridViewData();
@@ -116,18 +127,15 @@ namespace EPA2.EPAmanage
             {
                 case "Status":
                   
-                    AppraisalData.BuildingListControl(ddlSearch, "Status", User.Identity.Name);
-                  //  myList.SetLists(ddlSearch, "Status", User.Identity.Name);
+                    AppraisalPage.BuildingList(ddlSearch, "Status", User.Identity.Name,"","",""); 
                     break;
                 case "Position":
                    
-                    AppraisalData.BuildingListControl(ddlSearch, "Position", User.Identity.Name);
-                    //  myList.SetLists(ddlSearch, "Position", User.Identity.Name);
+                    AppraisalPage.BuildingList(ddlSearch, "Position", User.Identity.Name, "", "", ""); 
                     break;
                 case "Process":
                
-                    AppraisalData.BuildingListControl(ddlSearch, "AppraisalProcess", User.Identity.Name);
-                    // myList.SetLists(ddlSearch, "AppraisalProcess", User.Identity.Name);
+                    AppraisalPage.BuildingList(ddlSearch, "AppraisalProcess", User.Identity.Name, "", "", ""); 
                     break;
                 default:
                     TextSearch.Visible = true;

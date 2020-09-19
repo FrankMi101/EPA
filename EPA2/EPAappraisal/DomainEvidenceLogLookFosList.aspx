@@ -175,12 +175,12 @@
 
         <div class="ContentLookForsList" runat="server">
             <div id="DivRoot" style="width: 100%; height: 500px;">
-                <div  id="DivHeaderRow" style="overflow: hidden;">
+                <div id="DivHeaderRow" style="overflow: hidden;">
                     <table id="GridView2" style="border: 1px ridge gray; width: 99%; height: 100%; background-color: white;" rules="all" cellspacing="1" cellpadding="1">
                     </table>
                 </div>
 
-                <div  id="DivMainContent" style="overflow: scroll; width: 99%; height: 100%" onscroll="OnScrollDiv(this)">
+                <div id="DivMainContent" style="overflow: scroll; width: 99%; height: 100%" onscroll="OnScrollDiv(this)">
                     <asp:GridView ID="GridView1" runat="server" CellPadding="1" Height="100%" Width="99%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="1" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                         <Columns>
                             <asp:BoundField DataField="RowNo" HeaderText="No." ItemStyle-CssClass="myRowNo">
@@ -221,7 +221,7 @@
                         <SortedDescendingHeaderStyle BackColor="#33276A" />
                     </asp:GridView>
                 </div>
-                <asp:Button ID="btnAddNew" runat="server" Text="Add New Log" OnClick="btnAddNew_Click" Enabled="false" />
+                <asp:Button ID="btnAddNew" runat="server" Text="Add New Log" OnClick="BtnAddNew_Click" Enabled="false" />
 
             </div>
         </div>
@@ -258,7 +258,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -274,27 +274,32 @@
         mousex = event.clientX + document.body.scrollLeft;
         mousey = event.clientY + document.body.scrollTop;
         return true;
+
     }
 </script>
 <script type="text/javascript">
+    var Para = {
+        Operate: "Save",
+        UserID: $("#hfUserID").val(),
+        SchoolYear: $("#hfApprYear").val(),
+        SchoolCode: $("#hfApprSchool").val(),
+        EmployeeID: $("#hfApprEmployeeID").val(),
+        SessionID: $("#hfApprSession").val(),
+        Category: $("#hfCategory").val(),
+        Area: $("#hfArea").val(),
+        ItemCode: $("#hfCode").val(),
+        DomainID: $("#hfDomainID").val(),
+        CompetencyID: $("#hfCompetencyID").val(),
+        ActionRole: $("#hfAppraisalActionRole").val(),
+        LookForsID: 1,
+        LogCheck: false,
+        LogDate: "",
+        AllowView: "1",
+        ObjRole: "Appraiser",
+        Comments: ""
+    };
     var rowNo;
-    var teachername;
-    var schoolyear;
-    var schoolcode;
-    var employeeID;
-    var myKey;
-    var lookForsID;
-    var eventCell;
-    var logDate;
-    var logCheck;
-    var UserID = $("#hfUserID").val();
-    var CategoryID = $("#hfCategory").val();
-    var AreaID = $("#hfArea").val();
-    var ItemCode = $("#hfCode").val();
     var DomainID = $("#hfDomainID").val();
-    var CompetencyID = $("#hfCompetencyID").val();
-    var ActionRole = $("#hfAppraisalActionRole").val();
-    var objRole = $("#hfObjRole").val();
 
     function pageLoad(sender, args) {
 
@@ -313,45 +318,19 @@
                 }
             })
 
-            if (DomainID == "1" || DomainID == "3")
-            { MakeStaticHeader("GridView1", 330, 700, 22, false);}
-            else
-                { MakeStaticHeader("GridView1", 380, 700, 22, false);}
-           
-           // var vHeight = screen.height - 150 - 110 - 70;
-            if (objRole == ActionRole)
-            { SetGridViewEdit("Yes"); }
-            else
-            { SetGridViewEdit("No"); }
+            if (DomainID == "1" || DomainID == "3") { MakeStaticHeader("GridView1", 330, 700, 22, false); }
+            else { MakeStaticHeader("GridView1", 380, 700, 22, false); }
 
-            //$('td.myDate').click(function (event) {
-            //    eventCell = $(this);
-            //    var cellValue = $(this).closest('tr').find('td.myDate').text();
-            //    lookForsID = $(this).closest('tr').find('td.hfmyKey').text();
-            //    $("#LogDate").val(cellValue);
-            //    $("#LogDate").show();
-            //    var xTop = event.currentTarget.offsetTop + 65;
-            //    var xLeft = event.currentTarget.offsetLeft;
-            //    var key = "NoticeDate";
-            //    openDateCellEdit(key, xTop, xLeft, 20, 100);
-            //    $("#LogDate").datepicker(
-            //         {
-            //             dateFormat: 'yy-mm-dd',
-            //         });
-            //    $("#LogDate").focus();
+            // var vHeight = screen.height - 150 - 110 - 70;
+            if (Para.ObjRole == Para.ActionRole) { SetGridViewEdit("Yes"); }
+            else { SetGridViewEdit("No"); }
 
-            //});
-            //$('#LogDate').change(function () {
-            //    var newValue = $('#LogDate').val();
-            //    eventCell.closest('tr').find('td.myDate').text(newValue);
-            //    $("#LogDate").hide();
-            //});
             $('td .myCheck').change(function () {
                 eventCell = $(this);
 
-                lookForsID = $(this).closest('tr').find('td.hfmyKey').text();
-                logCheck = (eventCell[0].childNodes['0'].checked ? "1" : "0");
-                logDate = eventCell.closest('tr').find('td .myDate').text();
+                var lookForsID = $(this).closest('tr').find('td.hfmyKey').text();
+                var logCheck = eventCell[0].childNodes['0'].checked ? true : false;
+                var logDate = eventCell.closest('tr').find('td .myDate').text();
                 if (logDate == "") {
 
                     var today = new Date();
@@ -363,15 +342,25 @@
                     eventCell.closest('tr').find('td.myDate').text(logDate);
                 }
                 var comments = $(this).closest('tr').find('td .myCommentsText').text();
-                SaveLookForsListLOGComments(comments);
+                Para.LookForsID = lookForsID;
+                Para.LogCheck = logCheck;
+                Para.LogDate = logDate;
+                Para.Comments = comments;
+
+                SaveLookForsListLOGComments();
             });
             $('td > .myCommentsText').change(function (event) {
                 var eventCell = $(this);
-                lookForsID = $(this).closest('tr').find('td.hfmyKey').text();
-                logDate = $(this).closest('tr').find('td.myDate').text();       // eventCell.closest('tr').find('td .myDate').text();
-                logCheck = "1"; // ($(this).closest('tr').find('td.myCheck').checked ? "1" : "0");
+                var lookForsID = $(this).closest('tr').find('td.hfmyKey').text();
+                var logDate = $(this).closest('tr').find('td.myDate').text();       // eventCell.closest('tr').find('td .myDate').text();
+                var logCheck = true; // ($(this).closest('tr').find('td.myCheck').checked ? "1" : "0");
                 var comments = eventCell[0].value; // $(this).closest('tr').find('td.myCommentsText').text();
-                SaveLookForsListLOGComments(comments);
+                Para.LookForsID = lookForsID;
+                Para.LogCheck = logCheck;
+                Para.LogDate = logDate;
+                Para.Comments = comments;
+
+                SaveLookForsListLOGComments();
             });
         });
     }
@@ -390,8 +379,8 @@
             try {
                 if (vEdit == "Yes") {
                     $(this).find('td .myCheck').attr('disabled', false);
-                    var lookID = $(this).find('td.hfmyKey').text();
-                    if (lookID > 200) {
+                    var lookId = $(this).find('td.hfmyKey').text();
+                    if (lookId > 200) {
                         //  $(this).find('td .myCommentsText').attr('disabled', false);
                         // $(this).find('td .myCommentsText').attr('Height', "30px");
                         $(this).addClass("editRow");
@@ -405,27 +394,29 @@
                     $(this).find('td .myCheck').attr('disabled', true);
                 }
             }
-            catch (ex)
-            { }
+            catch (ex) { }
         })
     }
 
 
-    function SaveLookForsListLOGComments(comments) {
+    function SaveLookForsListLOGComments() {
         var allowView = $("#hfAllowView").val();
-        if (ActionRole == "Appraiser" && objRole == "Appraiser")
-            { allowView = "1" }
-        else
-        {
-            if (allowView == "")
-            { allowView = "0" }
+        if (Para.ActionRole == "Appraiser" && Para.ObjRole == "Appraiser") { allowView = "1"; }
+        else {
+            if (allowView == "") { allowView = "0"; }
         }
+        Para.AllowView = allowView;
 
-        var result = EPA2.Models.WebService1.SaveLookForsChoseLOG("Save", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, lookForsID, ActionRole, objRole, logDate, logCheck, allowView, comments, onSuccess, onFailure);
+        // string operation, string userId, string schoolYear,string schoolCode, string employeeId, string sessionId,  string categoryId, string areaId, string itemCode, string domainId, string competencyId, string lookForsId, string actionRole, string objRole, string mydate, bool mycheck, string allowview, string comments
+        //  var result = EPA2.Models.WebService1.SaveLookForsChoseLog("Save", Para.UserID,Para.SchoolYear,Para.SchoolCode,Para.EmployeeID,Para.SessionID, Para.Category, Para.Area, Para.ItemCode,Para.DomainID,Para.CompetencyID,Para.LookForsID,Para.ActionRole,Para.ObjRole,Para.LogDate,Para.LogCheck,Para.AllowView,Para.Comments, onSuccess, onFailure);
+        var result = EPA2.Models.WebService1.SaveEvidenceLogLookForsChose("Save", Para, onSuccess, onFailure);
 
     }
-    function onSuccess(result)
-    { }
+    function onSuccess(result) {
 
+    }
+    function onFailure(result) {
+        window.alert(result);
+    }
 
 </script>

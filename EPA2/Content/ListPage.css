@@ -41,11 +41,13 @@ table tbody tr:nth-child(odd) {
     background: -moz-linear-gradient(dodgerblue, lightblue); /* For Firefox 3.6 to 15 */
     background: linear-gradient(dodgerblue, lightblue); /* Standard syntax */
 }
-#GridView2 th {
+#GridView2 tr th {
     border: 1px solid #e1d9d9;
     font-family: Arial, sans-serif;
     font-size: x-small;
+    text-align: center;
 }
+
 
 #DivRoot {
     width: 100%;
@@ -67,4 +69,13 @@ table tbody tr:nth-child(odd) {
 .iFrameDIV
 {
     height:95%;
+}
+
+.highlightBoard {
+    border: 1px blue solid;
+}
+
+.highlightRow {
+    background-image: url(../../images/highLightRow.png);
+    /* background-color:lightblue;*/
 }

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPA2.EPAmanage {
-    
-    
-    public partial class AppraisalStaffHistory {
-        
+namespace EPA2.EPAmanage
+{
+
+
+    public partial class AppraisalStaffHistory
+    {
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-        
+
         /// <summary>
         /// LabelName control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelName;
-        
+
         /// <summary>
         /// LabelPhase control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelPhase;
-        
+
         /// <summary>
         /// LabelAdmin control.
         /// </summary>
@@ -56,7 +58,16 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelAdmin;
-        
+
+        /// <summary>
+        /// btnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearch;
+
         /// <summary>
         /// Div1 control.
         /// </summary>
@@ -65,7 +76,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
-        
+
         /// <summary>
         /// UpdateProgress1 control.
         /// </summary>
@@ -74,7 +85,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdateProgress UpdateProgress1;
-        
+
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -83,7 +94,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+
         /// <summary>
         /// GridView1 control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
-        
+
         /// <summary>
         /// LabelTeacherName control.
         /// </summary>
@@ -101,7 +112,25 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelTeacherName;
-        
+
+        /// <summary>
+        /// HelpTextContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox HelpTextContent;
+
+        /// <summary>
+        /// ActioniFramePage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlIframe ActioniFramePage;
+
         /// <summary>
         /// hfCategory control.
         /// </summary>
@@ -110,7 +139,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfCategory;
-        
+
         /// <summary>
         /// hfPageID control.
         /// </summary>
@@ -119,7 +148,16 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfPageID;
-        
+
+        /// <summary>
+        /// hfCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfCode;
+
         /// <summary>
         /// hfUserID control.
         /// </summary>
@@ -128,7 +166,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserID;
-        
+
         /// <summary>
         /// hfUserLoginRole control.
         /// </summary>
@@ -137,7 +175,7 @@ namespace EPA2.EPAmanage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfUserLoginRole;
-        
+
         /// <summary>
         /// hfRunningModel control.
         /// </summary>

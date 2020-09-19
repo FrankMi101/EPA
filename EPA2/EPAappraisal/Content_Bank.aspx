@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Bank.aspx.cs" Inherits="EPA2.EPAappraisal.Content_Bank" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_Bank.aspx.cs" Inherits="EPA2.EPAappraisal.ContentBank" %>
 
 <!DOCTYPE html>
 
@@ -6,6 +6,7 @@
 <head runat="server">
     <title>Content Recovery</title>
     <link href="../Content/ListPage.css" rel="stylesheet" />
+    <link href="../Content/ContentPage_tab.css" rel="stylesheet" />
 
     <style type="text/css">
         body {
@@ -49,29 +50,7 @@
             border: 1px blue none;
         }
 
-        .BottonTab {
-            height: 25px;
-            display: inline;
-            margin: 1px 0px 1px 0px;
-            margin-right: -3px;
-            padding: 3px 5px 0px 5px;
-            border: 1px solid lightsalmon;
-            border-top-left-radius: 9px;
-            border-top-right-radius: 9px;
-            border-radius: 9px 9px 0px 0px;
-            background-color: transparent;
-        }
-
-        .selectedTab {
-            color: white;
-            border-top: 3px solid orange;
-            border-bottom: 2px solid dodgerblue;
-            background: dodgerblue; /* For browsers that do not support gradients */
-            background: -webkit-linear-gradient(lightblue,dodgerblue ); /* For Safari 5.1 to 6.0 */
-            background: -o-linear-gradient(lightblue,dodgerblue ); /* For Opera 11.1 to 12.0 */
-            background: -moz-linear-gradient(lightblue,dodgerblue); /* For Firefox 3.6 to 15 */
-            background: linear-gradient( lightblue,dodgerblue); /* Standard syntax */
-        }
+      
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -85,10 +64,10 @@
         <div style="margin-bottom: -1px;">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <asp:Button ID="btnBoard" runat="server" Text="Board Comments" CssClass="BottonTab" OnClick="btnBoard_Click" />
-                    <asp:Button ID="btnSchool" runat="server" Text="School Comments" CssClass="BottonTab" OnClick="btnSchool_Click" />
-                    <asp:Button ID="btnPersonal" runat="server" Text="Personal Comments" CssClass="BottonTab" OnClick="btnPersonal_Click" />
-                    <asp:Label runat="server" Font-Size="X-Small" ForeColor="Red" ID="remaind22" Text="*Click on the button to add selected comments. "> </asp:Label>
+                    <asp:Button ID="btnBoard" runat="server" Text="Board Comments" CssClass="BottonTab" OnClick="BtnBoard_Click" />
+                    <asp:Button ID="btnSchool" runat="server" Text="School Comments" CssClass="BottonTab" OnClick="BtnSchool_Click" />
+                    <asp:Button ID="btnPersonal" runat="server" Text="Personal Comments" CssClass="BottonTab" OnClick="BtnPersonal_Click" />
+                    <asp:Label runat="server" Font-Size="X-Small" ForeColor="Red" ID="remaind22" Text="*Click on the comments to add selected comments. "> </asp:Label>
                     <asp:HiddenField ID="hfSelectedTab" runat="server" />
                 </ContentTemplate>
             </asp:UpdatePanel>
@@ -102,7 +81,7 @@
 
                     <div id="DivRoot" style="width: 100%;">
                         <div style="overflow: hidden;" id="DivHeaderRow">
-                            <table id="GridView2" style="border: 1px ridge gray; width: 100%; height: 100%; background-color: white;" rules="all" cellspacing="1" cellpadding="1">
+                            <table id="GridView2" style="border: 1px ridge gray; width: 100%; height: 100%; background-color: white;"  >
                             </table>
                         </div>
 
@@ -114,19 +93,19 @@
                                         <ItemStyle Width="30px" />
                                     </asp:BoundField>
 
-                                    <asp:TemplateField HeaderText="Add" ItemStyle-CssClass="myAction">
+                                  <%--  <asp:TemplateField HeaderText="Add" ItemStyle-CssClass="myAction">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="Link1" runat="server" Text='<%# Bind("Action") %>'>  </asp:HyperLink>
                                         </ItemTemplate>
                                         <ItemStyle Width="40px" Wrap="False" />
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
 
-                                    <asp:BoundField DataField="shared" HeaderText="Shared">
+                                    <asp:BoundField DataField="Shared" HeaderText="Shared">
                                         <ItemStyle Width="20%" />
                                     </asp:BoundField>
 
-                                    <asp:BoundField DataField="comments" HeaderText="Comments" ItemStyle-CssClass="myComment">
-                                        <ItemStyle Width="65%" />
+                                    <asp:BoundField DataField="Comments" HeaderText="Comments" ItemStyle-CssClass="myComment">
+                                        <ItemStyle Width="75%" />
                                     </asp:BoundField>
                                 </Columns>
 
@@ -186,7 +165,7 @@
 
         $(document).ready(function () {
             $("#" + $("#hfSelectedTab").val()).addClass("selectedTab");
-            MakeStaticHeader("GridView1", 350, 600, 22, false);
+            MakeStaticHeader("GridView1", 360, 600, 22, false);
             // $("#btnBoard").addClass("selectedTab");
             //currentTab = $("#btnBoard");
             $(".BottonTab").click(function (event) {
@@ -196,10 +175,11 @@
                 $("#hfSelectedTab").val($(this).id);
                 $(this).addClass("selectedTab");
             });
-            $('td.myAction').click(function (event) {
+            $('td.myComment').click(function (event) {
                 rowNo = $(this).closest('tr').find('td.myRowNo').text();
 
-                var selectedComment = $(this).closest('tr').find('td.myComment').text();
+                var selectedComment =  $(this).closest('tr').find('td.myComment').text();
+                $("#hfContentChange", parent.document).val("1");
 
               //  var workingText = $("#myText", parent.document).val();
               //  $("#myText", parent.document).val(workingText + "\n\r" + selectedComment);
@@ -210,7 +190,6 @@
                 { workingCell = "myText"; }
                 var workingText = $("#" + workingCell, parent.document).val();
                 $("#" + workingCell, parent.document).val(workingText + "\n\r" + selectedComment);
-                $("#hfContentChange", parent.document).val("1");
 
 
 

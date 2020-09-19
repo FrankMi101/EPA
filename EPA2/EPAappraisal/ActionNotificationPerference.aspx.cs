@@ -4,13 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.IO;
-using System.Net.Mail;
-using System.Globalization;
 using System.Text;
-//using System.IO;
-//using System.Text;
+using ClassLibrary;
+
 namespace EPA2.EPAappraisal
 {
     public partial class ActionNotificationPerference : System.Web.UI.Page
@@ -18,59 +14,57 @@ namespace EPA2.EPAappraisal
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
-            {            
-                setPageAttribution();
+            {
+                SetPageAttribution();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfPageID.Value = WorkingAppraisee.AppraisalArea;
             hfUserID.Value = User.Identity.Name;
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
-            hfRunningModel.Value = WebConfig.RunningModel(); 
+            hfRunningModel.Value = WebConfig.RunningModel();
 
-            hfCategory.Value =  WorkingAppraisee.AppraisalCategory;
-            hfApprYear.Value = WorkingAppraisee.AppraisalYear;
-            hfApprSchool.Value = WorkingAppraisee.AppraisalSchoolCode;
-            hfApprEmployeeID.Value = WorkingAppraisee.EmployeeID;
-
-            hfApprSession.Value = WorkingAppraisee.SessionID;
-            hfApprName.Value = WorkingAppraisee.AppraiseeName;
-            RadioButtonList1.SelectedIndex = 0;
-            checkNoticePersonalSetup();
-            GetNoticeForUserInforamtion();
-
-    
-        }
-        private void checkNoticePersonalSetup()
-        {
-            string category = hfCategory.Value;
-             string noticeGo = "Appraisee";
-            string noticeFrom = "Appraiser";
-            string purpose = "Notice";
-            if (WorkingProfile.UserAppraisalRole == "Appraisee")
-            {
-                noticeGo = "Appraiser";
-                noticeFrom = "Appraisee";
-            }
-            string templateArea = WorkingAppraisee.AppraisalArea;
-            string templateAction = "SignOff";
-
-            templateArea = (category == "PPA") ? "PPA" : "EPA";
-            string autoNotice  = GetNoticeFile.eMailContentByTemplate("AutoNotice", User.Identity.Name, category, templateAction, templateArea, noticeGo, noticeFrom, purpose );
-            if (autoNotice == "Yes")
-            {
-                chbAuto.Checked = true;
-            }
-            string templateType = GetNoticeFile.eMailContentByTemplate("TemplateType", User.Identity.Name, category, templateAction, templateArea, noticeGo, noticeFrom, purpose);
-            if (templateType == "Personal")
+            hfCategory.Value = Page.Request.QueryString["category"];
+            hfArea.Value = Page.Request.QueryString["areaID"];
+            hfActionRole.Value = Page.Request.QueryString["aRole"];
+            hfAction.Value = Page.Request.QueryString["action"];
+            hfNoticeType.Value = Page.Request.QueryString["itemCode"];
+            if (hfNoticeType.Value == "Personal")
             { RadioButtonList1.SelectedIndex = 1; }
 
+            hfApprName.Value = WorkingAppraisee.AppraiseeName;
+            //RadioButtonList1.SelectedIndex = 0;
+            //CheckNoticePersonalSetup();
+
+
+            GetDefaultSubjectAndBody();
+            EnableSaveButton();
+
+
         }
-        private string getTitle(string action )
+        private void CheckNoticePersonalSetup()
+        {
+            string category = hfCategory.Value;
+            string templateArea = hfArea.Value;
+            string noticeGo = hfActionRole.Value == "Appraisee" ? "Appraiser" : "Appraisee";
+            string noticeFrom = hfActionRole.Value;
+            string purpose = "Notice";
+
+            string templateAction = hfNoticeType.Value;
+            string autoNotice = GetNoticeFile.EMailContentByTemplate("AutoNotice", User.Identity.Name, category, templateAction, templateArea, noticeGo, noticeFrom, purpose);
+            //if (autoNotice == "Yes")
+            //{
+            //    chbAuto.Checked = true;
+            //}
+            //string templateType = GetNoticeFile.EMailContentByTemplate("TemplateType", User.Identity.Name, category, templateAction, templateArea, noticeGo, noticeFrom, purpose);
+
+
+        }
+        private string GetTitle(string action)
         {
             string rVal = "";
-            switch (action) 
+            switch (action)
             {
                 case "SignOff":
                     rVal = "Sign Off ";
@@ -94,46 +88,31 @@ namespace EPA2.EPAappraisal
                     rVal = "Sign Off ";
                     break;
             }
-            return   rVal; 
+            return rVal;
         }
-        private void GetNoticeForUserInforamtion( )
-        {
-            string templateType = RadioButtonList1.SelectedValue;
-            LabelNoticeType.Text =   AppraisalProcess.AppraisalAreaTitle("Get", User.Identity.Name, "EPA", WorkingAppraisee.AppraisalArea) + " " + getTitle("Signature");
-            TextSubject.Text = getDefaultSubjectbyNoticeType();
-             myText.Text = getBodyByType();
 
-        }
-        
-        private string getDefaultSubjectbyNoticeType()
+
+        private void GetDefaultSubjectAndBody()
         {
-            string category = hfCategory.Value;
-            string templateType = RadioButtonList1.SelectedValue;
-            string noticeGo = "Appraisee";
-            string noticeFrom = "Appraiser";
-            string purpose = "Notice";
-          if (WorkingProfile.UserAppraisalRole == "Appraisee")
+
+            var parameter = new SignOffAutoNotice
             {
-                noticeGo = "Appraiser";
-                noticeFrom = "Appraisee";
-            }
-            string templateArea = WorkingAppraisee.AppraisalArea;
-            string templateAction = "SignOff";
+                Operate = RadioButtonList1.SelectedValue,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                ActionRole = hfActionRole.Value,
+                Action = hfAction.Value
 
-            templateArea = (category == "PPA") ? "PPA" : "EPA";
-      
-            string subject = GetNoticeFile.eMailContentByTemplate("GetSubject", User.Identity.Name, category, templateAction, templateArea, noticeGo, noticeFrom, purpose, templateType);
-             return subject;
-        }
- 
-        private string getEmailBody()
-        {
-            string htmlfile = GetNoticeFile.FileContentByType("EPA");
-            htmlfile = htmlfile.Replace("{{HTMLeMailBodyPlaceHolder}}", myText.Text);
-            return htmlfile;
+            };
+            SignOffAutoNotice template = BaseData.GeneralList<SignOffAutoNotice>("AppraisalSignOff", "AutoNoticeTemplateEdit", parameter)[0];
+            TextSubject.Text = template.Subject;
+            myText.Text = template.Body;
         }
 
-        private void showMessage(string result, string action)
+
+
+        private void ShowMessage(string result, string action)
         {
             try
             {
@@ -144,51 +123,45 @@ namespace EPA2.EPAappraisal
 
         }
 
-      
-        private string getBodyByType()
+
+        private void EnableSaveButton()
         {
-            string templateType = RadioButtonList1.SelectedValue;
-            string category = hfCategory.Value;
-            string purpose = "Notice";
-            string noticeGo = "Appraisee";
-            string noticeFrom = "Appraiser";
-            if (WorkingProfile.UserAppraisalRole == "Appraisee")
+            btnSave.Enabled = false;
+            if (RadioButtonList1.SelectedValue == "System")
             {
-                noticeGo = "Appraiser";
-                noticeFrom = "Appraisee";
+                if (WorkingProfile.UserRoleLogin == "Admin") btnSave.Enabled = true;
             }
-            string templateArea = WorkingAppraisee.AppraisalArea;
-            string templateAction = "SignOff";
-            templateArea = (category == "PPA") ? "PPA":"EPA";
-            string cBody = GetNoticeFile.eMailContentByTemplate("GetBody", User.Identity.Name, category, templateAction, templateArea, noticeGo, noticeFrom, purpose, templateType);
- 
-            return cBody;
+            else
+            {
+                btnSave.Enabled = true;
+            }
         }
 
         protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GetNoticeForUserInforamtion();
+            GetDefaultSubjectAndBody();
+            EnableSaveButton();
+
         }
 
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
-            string category = hfCategory.Value;
-            string autoNotice = (chbAuto.Checked) ? "Yes":"No";
-            string templateType = RadioButtonList1.SelectedValue;
-            string templateArea = WorkingAppraisee.AppraisalArea;
-            string templateAction = "SignOff";
-            string noticeGo = "Appraisee";
-            string noticeFrom = "Appraiser";
-            string purpose = "Notice";
-            string subject = TextSubject.Text;
-            string template = myText.Text;
-            if (WorkingProfile.UserAppraisalRole == "Appraisee")
+
+            var parameter = new SignOffAutoNotice
             {
-                noticeGo = "Appraiser";
-                noticeFrom = "Appraisee";
-            }
-            templateArea = (category == "PPA") ? "PPA" : "EPA";
-            GetNoticeFile.eMailContentByTemplate("SaveTemplate", User.Identity.Name, category,templateAction, templateArea, noticeGo, noticeFrom, purpose, templateType,subject,template,autoNotice);
+                Operate = RadioButtonList1.SelectedValue,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Action = hfAction.Value,
+                ActionRole = hfActionRole.Value,
+                Subject = TextSubject.Text,
+                Body = myText.Text
+
+            };
+
+            var result = BaseData.GeneralValue<string>("AppraisalSignOff", "AutoNoticeTemplateEditSave", parameter);
+            ShowMessage(result, "Save");
         }
     }
 }

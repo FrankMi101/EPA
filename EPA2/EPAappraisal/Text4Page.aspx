@@ -93,7 +93,7 @@
                      <img class="imgEP" runat="server" id="imgEP" src="../images/ep.png" title="Effective Practice"  visible="false" />
                     <img class="imgRecovery" src="../images/recover.png" title="Recovery the Text content" id="recovery" runat="server" visible="false"  />
                     <img class="imgSignoff" runat="server" id="imgSignOff" src="../images/signature.png" title="Sign Off Completed" />
-                    <asp:Button ID="btnViewALP" runat="server" Text="RollOver Last Year AGP" OnClick="btnViewALP_onClick"  Visible="false" />
+                    <asp:Button ID="btnViewALP" runat="server" Text="RollOver Last Year AGP" OnClick="BtnViewALP_onClick"  Visible="false" />
                 </div>
                 <div id="ContentTitleRight">
                     Characters limit
@@ -121,13 +121,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:TextBox ID="myText1" runat="server" CssClass="myTextEdit" OnTextChanged="myText1_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText1" runat="server" CssClass="myTextEdit" OnTextChanged="MyText1_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
                         <td>
-                            <asp:TextBox ID="myText2" runat="server" CssClass="myTextEdit" OnTextChanged="myText2_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText2" runat="server" CssClass="myTextEdit" OnTextChanged="MyText2_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
                         <td>
-                            <asp:TextBox ID="myText3" runat="server" CssClass="myTextEdit" OnTextChanged="myText3_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText3" runat="server" CssClass="myTextEdit" OnTextChanged="MyText3_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
                         <td>
-                            <asp:TextBox ID="myText4" runat="server" CssClass="myTextEdit" OnTextChanged="myText4_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
+                            <asp:TextBox ID="myText4" runat="server" CssClass="myTextEdit" OnTextChanged="MyText4_TextChanged" TextMode="MultiLine"></asp:TextBox></td>
 
                     </tr>
                 </table>
@@ -138,16 +138,16 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
         </footer>
         <%--   <div class="bottom">
             &nbsp;
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
         </div>
 
   
@@ -201,7 +201,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
@@ -218,13 +218,13 @@
         var vHeight = window.innerHeight - apprScreenH;
         $("section").css("height", vHeight) 
         Highlight_LeftMenuSelectNode();
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();      
-        });
+        //$(".labelTitle").dblclick(function (event) {
+        //    EditPageItemTitle();      
+        //});
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
         if ($("#hfPageReadonly").val() == "Yes") {
             DisableTextEdit();
         }
@@ -233,17 +233,17 @@
         }
 
         $(".myTextEdit").click(function (event) {
-            var tID = $(this)[0].id;
-            DomainID = tID.replace("myText", "");
-            $("#hfWorkingCell").val(tID);
+            var tId = $(this)[0].id;
+            DomainID = tId.replace("myText", "");
+            $("#hfWorkingCell").val(tId);
         });
         $(".myTextEdit").keydown(function (event) {
             CountTextBoxCharactors();
         });
         $(".myTextEdit").change(function (event) {
             if ($("#hfPageReadonly").val() != "Yes") {
-                var tID = $(this)[0].id.replace("myText", "");
-                $("#hfContentChange" + tID).val("1");
+                var tId = $(this)[0].id.replace("myText", "");
+                $("#hfContentChange" + tId).val("1");
                 $("#hfContentChange").val("1");
             }
 
@@ -253,14 +253,14 @@
         $(".myTextEdit").on('paste', function (event) {
             if ($("#hfPageReadonly").val() != "Yes") {
                 $("#hfContentChange").val("1");
-                var tID = $(this)[0].id.replace("myText", "");
-                $("#hfContentChange" + tID).val("1");
+                var tId = $(this)[0].id.replace("myText", "");
+                $("#hfContentChange" + tId).val("1");
             }
         });
 
         $("table .labelTitle2").dblclick(function (event) {
-            var objID = $(this)[0].id;
-            ItemCode = ItemCode + objID.replace("labelTitle", "")
+            var objId = $(this)[0].id;
+            ItemCode = ItemCode + objId.replace("labelTitle", "")
             EditPageItemTitle();
             event.stopPropagation();
         });
@@ -283,12 +283,18 @@
         try {
              var workingCell = $("#hfWorkingCell").val();
               var value = $("#" + workingCell).val();
-              var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
+             // var rValue = EPA2.Models.WebService1.SaveAGPText("Comment", UserID, CategoryID, AreaID, ItemCode, seqNo, actionItem, value, onSuccess, onFailure);
         }
         catch (e)
         { window.alert("Update Text Cell Failed!"); }
 
 
+    }
+
+    function onSuccess() {
+    }
+    function onFailure() {
+        window.alert("Update Text Cell Failed!");
     }
 
 </script>

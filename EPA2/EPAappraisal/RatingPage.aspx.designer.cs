@@ -103,13 +103,13 @@ namespace EPA2.EPAappraisal {
         protected global::System.Web.UI.WebControls.Label labelTitle2;
         
         /// <summary>
-        /// img_SUM612 control.
+        /// img_2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage img_SUM612;
+        protected global::System.Web.UI.HtmlControls.HtmlImage img_2;
         
         /// <summary>
         /// cblGrowthPlan control.

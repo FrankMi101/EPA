@@ -176,6 +176,8 @@
             <asp:HiddenField ID="hfApprSession" runat="server" />
             <asp:HiddenField ID="hfApprEmployeeID" runat="server" />
             <asp:HiddenField ID="hfApprName" runat="server" />
+            <asp:HiddenField ID="hfWebSite" runat="server" />
+         
         </div>
     </form>
 </body>
@@ -201,13 +203,14 @@
                       val: new Date().toDateString
                   });
 
-        $ 
+        
         $("#DeadLineDate").change(function (event) {
             try
             {
                 var deadline = $("#DeadLineDate").val();
                 var myText = $("#myText").val();
                 myText = myText.replace("{{PlaceHolder:DeadLineDate}}", deadline);
+              //  myText = myText.replace("{{PlaceHolder: WebSite}}", $("#hfWebSite").val());
                 $("#myText").val(myText);
             }
             catch(e)   

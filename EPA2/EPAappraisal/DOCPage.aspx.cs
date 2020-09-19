@@ -4,27 +4,28 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
 using System.Data;
 using System.IO;
 
+using DataAccess;
+
 namespace EPA2.EPAappraisal
 {
-    public partial class DOCPage : System.Web.UI.Page
+    public partial class DocPage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblingPageTitle();
 
-                string fileName = getGoDocName();
+                string fileName = GetGoDocName();
                 PDFiFramePage.Attributes.Add("src", fileName);
 
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             AppraisalPage.SetPageAttribute(Page);
@@ -38,11 +39,11 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
 
         }
-        private string getGoDocName()
+        private string GetGoDocName()
         {
             string rVal = "";
             string category = WorkingAppraisee.AppraisalType;
@@ -65,10 +66,15 @@ namespace EPA2.EPAappraisal
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+             string goPage = AppraisalPage.GoPage(parameter);
 
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 

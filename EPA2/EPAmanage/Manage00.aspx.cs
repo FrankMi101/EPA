@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
 using System.Web.UI.HtmlControls;
 
 namespace EPA2.EPAmanage
@@ -19,62 +18,64 @@ namespace EPA2.EPAmanage
                 string schoolcode = Page.Request.QueryString["cID"];
                 string employeeid = Page.Request.QueryString["tID"];
                 string sessionid = Page.Request.QueryString["sID"];
+                string phase = Page.Request.QueryString["phase"];
                 string task = Page.Request.QueryString["task"];
                 string tName = Page.Request.QueryString["tName"];
-                string IDs = Page.Request.QueryString["IDs"];
-                string parameter = "?yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + tName + "&IDs=" + IDs;
-                LabelAppraisalTitle.Text = getTitle(task)  + " for " + tName;
+                string ds = Page.Request.QueryString["IDs"];
+                string parameter = "?yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + tName + "&IDs=" + ds + "&phase=" + phase;
+                LabelAppraisalTitle.Text = GetTitle(task)  + " for " + tName;
               //  LabelEmployeeName.Text = tName;
 
-                string goPage = getGoPage(task) + parameter;  //"EditStaffProfile.aspx" + parameter;
+                string goPage = GetGoPage(task) + parameter;  //"EditStaffProfile.aspx" + parameter;
           
              iFrameGoManage.Attributes.Add("src", goPage);
 
             }
         }
-        private string getGoPage(string GoPage)
+        private string GetGoPage(string goPage)
         {
-            switch (GoPage)
+            switch (goPage)
             {
                 case "AppraisalProfile":
-                    GoPage = "EditAppraisalProfile.aspx";            //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
+                    goPage = "EditAppraisalProfile.aspx";            //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
                     break;
                 case "NotesEdit":
-                    GoPage = "NotesEdit.aspx";  // "NotesEdit.aspx?" + parameter;
+                    goPage = "NotesEdit.aspx";  // "NotesEdit.aspx?" + parameter;
                     break;
                  case "ProfileEdit":
-                    GoPage = "EditStaffProfile.aspx";
+                    goPage = "EditStaffProfile.aspx";
                     break;
                 case "Notification":
-                    GoPage = "Notification.aspx";
+                    goPage = "Notification.aspx";
                     break;
                 default:
-                    GoPage = "PDFPrint.aspx";
+                    goPage = "PDFPrint.aspx";
                     break;
             }
-            return GoPage;
+            return goPage;
         }
-        private string getTitle(string GoPage)
+        private string GetTitle(string goPage)
         {
-            switch (GoPage)
+            switch (goPage)
             {
                 case "AppraisalProfile":
-                    GoPage = "Appraisal Profile Edit ";            //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
-                    break;
-                case "NotesEdit":
-                    GoPage = "Appraisal Notes ";  // "NotesEdit.aspx?" + parameter;
-                    break;
+                    return "Appraisal Profile Edit ";            //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
+                  case "NotesEdit":
+                    return "Appraisal Notes ";  // "NotesEdit.aspx?" + parameter;
+                   
                 case "EditStaffProfile":
-                    GoPage = "Employee Profile Edit ";
-                    break;
+                    return "Employee Profile Edit ";
+                case "ProfileEdit":
+                   return "Staff Profile Edit";
+
                 case "Notification":
-                    GoPage = "Send Appraisal Notification";
-                    break;
+                    return "Send Appraisal Notification";
+                  
                 default:
-                    GoPage = "PDFPrint.aspx";
-                    break;
+                    return "PDFPrint.aspx";
+          
             }
-            return GoPage;
+     
         }
         private void SetPageAttribution()
         {

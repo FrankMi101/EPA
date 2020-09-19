@@ -10,7 +10,7 @@
 namespace EPA2 {
     
     
-    public partial class Site_Mobile {
+    public partial class SiteMobile {
         
         /// <summary>
         /// HeadContent control.

@@ -195,7 +195,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script type="text/javascript">
@@ -236,11 +236,11 @@
 
         $("#btnGoToPre").click(function (event) {
             var schoolyear = $("#labelIncompleteSchoolYear").text();
-            var sessionID = $("#labelIncompleteSession").text();
+            var sessionId = $("#labelIncompleteSession").text();
             var workArea = $("#labelProcessArea").text();
      
             $("#ddlSchoolYear", parent.parent.document).val(schoolyear);
-            $("#ddlSession", parent.parent.document).val(sessionID);
+            $("#ddlSession", parent.parent.document).val(sessionId);
             var reFreshParent = $("#imgRefresh", parent.parent.document);
           reFreshParent.click();
 

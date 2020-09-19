@@ -1,12 +1,10 @@
-﻿using System;
+﻿using ClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using DataAccess;
-
 namespace EPA2.EPAsystem
 {
     public partial class SchoolManagementEdit : System.Web.UI.Page
@@ -18,24 +16,24 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
-                bindSchoolInformation();
+                BindSchoolInformation();
             }
 
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "School";
             WorkingProfile.PageItem = "School";
             AppraisalPage.SetPageAttribute2(Page);
-            myList.SetLists(ddlSchoolType, "SchoolType", User.Identity.Name);
-            myList.SetLists(ddlPanel, "SchoolPanel", User.Identity.Name);
-            myList.SetLists(ddlPrincipal, "SchoolPrincipal", User.Identity.Name);
-            myList.SetLists(ddlDistrict, "DistrictList", User.Identity.Name);
-            myList.SetLists(ddlSchoolArea, "SchoolArea", User.Identity.Name);
+            AppraisalPage.BuildingList(ddlSchoolType, "SchoolType", User.Identity.Name,"","","");
+            AppraisalPage.BuildingList(ddlPanel, "SchoolPanel", User.Identity.Name,"", "", "");
+            AppraisalPage.BuildingList(ddlPrincipal, "SchoolPrincipal", User.Identity.Name,"", "", "");
+            AppraisalPage.BuildingList(ddlDistrict, "DistrictList", User.Identity.Name, "", "", "");
+            AppraisalPage.BuildingList(ddlSchoolArea, "SchoolArea", User.Identity.Name, "", "", "");
             //  myList.SetListValue(ddlSchoolType, "School");
             //myList.SetLists(ddlSupervisor, "Supervisor", User.Identity.Name);
             //myList.SetLists(ddlPrincipal, "Principal", User.Identity.Name);
@@ -50,28 +48,35 @@ namespace EPA2.EPAsystem
             hfCategory.Value = "EPA";
         }
 
-        private void bindSchoolInformation()
+        private List<SchoolList> GetDataSource()
         {
-            string IDs = Page.Request.QueryString["IDs"];
+            string iDs = Page.Request.QueryString["IDs"];
+            var parameter = new { Operate = "Get", UserID = User.Identity.Name, Category = "EPA", Area = "", IDs = iDs };
+            return ApplicationSetup.GeneralList<SchoolList>("AppraisalSetup", "SchoolInformation", parameter) ;
+        }
 
-            DataSet DS = new DataSet();
-            DS = ApplicationSetupData.SchoolInformation("Get", User.Identity.Name, "EPA", "", IDs);
+        private void BindSchoolInformation()
+        {
+
+            //  DataSet ds = new DataSet(); 
+            //  ds = ApplicationSetupData.SchoolInformation("Get", User.Identity.Name, "EPA", "", iDs);
+            var school = GetDataSource()[0];
             try
             {
                 //  Comments, [Active] as Active , Brief_Name, Header, Area  as Supervisor, District , panel,[Type]
 
-                hfIDs.Value = IDs;
-                TextSchoolCode.Text = DS.Tables[0].Rows[0][1].ToString();
-                TextSchoolName.Text = DS.Tables[0].Rows[0][2].ToString();
-                TextComments.Text = DS.Tables[0].Rows[0][3].ToString();
-                chbActive.Checked = getCheck(DS.Tables[0].Rows[0][4].ToString());
-                myList.SetListValue(ddlPrincipal, DS.Tables[0].Rows[0][5].ToString());
-                myList.SetListValue(ddlSchoolArea, DS.Tables[0].Rows[0][6].ToString());
-                myList.SetListValue(ddlDistrict, DS.Tables[0].Rows[0][7].ToString());
-                myList.SetListValue(ddlPanel, DS.Tables[0].Rows[0][8].ToString());
-                myList.SetListValue(ddlSchoolType, DS.Tables[0].Rows[0][9].ToString());
-                chbTPA.Checked = getCheck(DS.Tables[0].Rows[0][10].ToString());
-                chbPPA.Checked = getCheck(DS.Tables[0].Rows[0][11].ToString());
+                hfIDs.Value = Page.Request.QueryString["IDs"];
+                TextSchoolCode.Text = school.Code;
+                TextSchoolName.Text =school.Name;
+                TextComments.Text = school.Comments;
+                chbActive.Checked = GetCheck(school.Active);
+                AppraisalPage.SetListValue(ddlPrincipal,school.Header);
+                AppraisalPage.SetListValue(ddlSchoolArea, school.Supervisor);
+                AppraisalPage.SetListValue(ddlDistrict, school.District);
+                AppraisalPage.SetListValue(ddlPanel,school.Panel);
+                AppraisalPage.SetListValue(ddlSchoolType,school.Type);
+                chbTPA.Checked = GetCheck(school.TPA);
+                chbPPA.Checked = GetCheck(school.PPA);
 
  
     }
@@ -81,9 +86,9 @@ namespace EPA2.EPAsystem
             }
             finally { }
         }
-        private bool getCheck(string chkVal)
+        private bool GetCheck(bool chkVal)
         {
-            bool rVal = (chkVal == "True") ? true : false;
+            bool rVal = (chkVal) ? true : false;
             return rVal;
         }
         protected void btnSave_Click(object sender, EventArgs e)
@@ -100,12 +105,12 @@ namespace EPA2.EPAsystem
             string principal = ddlPrincipal.SelectedValue;
             string district = ddlDistrict.SelectedValue;
             string panel = ddlPanel.SelectedValue;
-            string IDs = hfIDs.Value;
+            string ds = hfIDs.Value;
 
-            string saveResult = ApplicationSetupData.SchoolInformation("Save", User.Identity.Name, "EPA", "", IDs, schoolcode, schoolname, comment, active, district, principal, schoolarea, panel, tpa, ppa);
-            showMessage(saveResult, "Update");
+            string saveResult = ApplicationSetup.SchoolInformation("Save", User.Identity.Name, "EPA", "", ds, schoolcode, schoolname, comment, active, district, principal, schoolarea, panel, tpa, ppa);
+            ShowMessage(saveResult, "Update");
         }
-        private void showMessage(string result, string action)
+        private void ShowMessage(string result, string action)
         {
             try
             {
@@ -122,9 +127,9 @@ namespace EPA2.EPAsystem
             
             string ids = hfIDs.Value;
             string code = TextSchoolCode.Text;
-            string saveResult = ApplicationSetupData.SchoolInformation("Delete", User.Identity.Name, "EPA", "", ids,code);
+            string saveResult = ApplicationSetup.SchoolInformation("Delete", User.Identity.Name, "EPA", "", ids,code);
 
-            showMessage(saveResult, "Delete");
+            ShowMessage(saveResult, "Delete");
         }
     }
 }

@@ -56,23 +56,24 @@
         #btnCompetency {
             display: none;
         }
+
         .ContentTextarea {
-        display:block
+            display: block
         }
+
         .WorkingItem {
-           
             color: blue !important;
             font-weight: 600;
             height: 25px;
         }
+
         .myTextEdit {
-        height:300px;
-        width:100%
-      
+            height: 300px;
+            width: 100%
         }
     </style>
 </head>
-<body  onkeydown="if(event.keyCode==8 &amp;&amp; (!(event.srcElement.tagName=='INPUT' || event.srcElement.tagName=='TEXTAREA'))){return false}">
+<body onkeydown="if(event.keyCode==8 &amp;&amp; (!(event.srcElement.tagName=='INPUT' || event.srcElement.tagName=='TEXTAREA'))){return false}">
     <form id="form2" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Services>
@@ -109,15 +110,15 @@
                 <ul id="ContentCompetency" runat="server">
                 </ul>
             </div>
-           
+
             <div id="ContentTitleRight" style="display: block; float: right">
                 Characters limit
-                    <input id="textCount" type="text"  maxlength="10" size="10" runat="server" readonly="readonly" />
+                    <input id="textCount" type="text" maxlength="10" size="10" runat="server" readonly="readonly" />
                 <img class="imgCommentsMenu" runat="server" id="imgCommentsMenu" src="../images/menu.png" title="Comment menu" />
             </div>
             <br />
             <div class="ContentTextarea">
-                <table  style="border-collapse: collapse; border-spacing: 0; border:1px">
+                <table style="border-collapse: collapse; border-spacing: 0; border: 1px">
                     <tr>
                         <th>
                             <asp:Label ID="labelTitle1" runat="server" CssClass="labelTitle2">Text Box Title</asp:Label>
@@ -128,7 +129,7 @@
                             <asp:Label ID="labelTitle3" runat="server" CssClass="labelTitle2">Text Box Title</asp:Label></th>
                         <th>
                             <asp:Label ID="labelTitle4" runat="server" CssClass="labelTitle2">Text Box Title</asp:Label></th>
-                         <th>
+                        <th>
                             <asp:Label ID="labelTitle5" runat="server" CssClass="labelTitle2">Text Box Title</asp:Label></th>
                     </tr>
                     <tr>
@@ -161,7 +162,7 @@
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" contenteditable="true" placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
         </div>
 
         <div id="TitleEditDIV" class="bubble epahide">
@@ -185,13 +186,13 @@
         <div id="ActionPOPDIV" class="bubble epahide">
             <div class="editTitle" style="display: block; margin-top: 5px;">
                 <div id="ActionTitle" style="display: inline; float: left; width: 96%"></div>
-                <div style="display: inline; float: left; ">
+                <div style="display: inline; float: left;">
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
             </div>
             <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
         </div>
-      
+
         <div>
             <asp:HiddenField ID="hfSignOff" runat="server" />
             <asp:HiddenField ID="hfCategory" runat="server" />
@@ -209,7 +210,7 @@
             <asp:HiddenField ID="hfFirstName" runat="server" />
             <asp:HiddenField ID="hfPageReadonly" runat="server" />
             <asp:HiddenField ID="hfRubricText" runat="server" />
-            <asp:HiddenField ID="hfAppraisalActionRole" runat="server" Value="" /> 
+            <asp:HiddenField ID="hfAppraisalActionRole" runat="server" Value="" />
             <asp:HiddenField ID="hfApprYear" runat="server" />
             <asp:HiddenField ID="hfApprSchool" runat="server" />
             <asp:HiddenField ID="hfApprSession" runat="server" />
@@ -221,24 +222,27 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
 
-    var UserID = $("#hfUserID").val();
-    var CategoryID = $("#hfCategory").val();
-    var AreaID = $("#hfArea").val();
-    var ItemCode = $("#hfCode").val();
-    var DomainID = $("#hfDomainID").val();
-    var CompetencyID = $("#hfCompetencyID").val();
+    var Notes = { 
+        "UserID": $("#hfUserID").val(),
+        "CategoryID": $("#hfCategory").val(),
+        "AreaID": $("#hfArea").val(),
+        "ItemCode": $("#hfCode").val(),
+        "DomainID": $("#hfDomainID").val(),
+        "CompetencyID": $("#hfCompetencyID").val(),
+        "ActionItem": $("#hfAppraisalActionRole").val(),
+        "Value": ""
+    };
     var workingItem = $("#hfCompetencyID").val();
     var imgItem = "img_" + workingItem;
-    var ActionItem = $("#hfAppraisalActionRole").val();
-  
+
     $(document).ready(function () {
         var vHeight = window.innerHeight - apprScreenH;
-        $("section").css("height", vHeight) 
+        $("section").css("height", vHeight)
 
         Highlight_LeftMenuSelectNode();
         if ($("#hfPageReadonly").val() == "Yes") {
@@ -252,7 +256,7 @@
 
             }
         });
- 
+
 
 
         $("#closeActionPOP").click(function (event) {
@@ -262,8 +266,8 @@
             EditPageItemTitle();
         });
         $("table .labelTitle2").dblclick(function (event) {
-            var objID = $(this)[0].id;
-            ItemCode = ItemCode + objID.replace("labelTitle", "")
+            var objId = $(this)[0].id;
+            Notes.ItemCode = ItemCode + objId.replace("labelTitle", "")
             EditPageItemTitle();
             event.stopPropagation();
         });
@@ -274,52 +278,54 @@
             SaveCompentencyTextContent();
             return false;
         });
-      
 
-        $(".myTextEdit").change(function (event) { 
+
+        $(".myTextEdit").change(function (event) {
             $("#textCount").val(event.currentTarget.id);
         });
 
         $("#ContentCompetency a").click(function (event) {
-            var competencyID = $(this)[0].id;
-            $("#hfCompetencyID").val(competencyID);
-            CompetencyID = competencyID;
+            var competencyId = $(this)[0].id;
+            $("#hfCompetencyID").val(competencyId);
+            Notes.CompetencyID = competencyId;
             if (workingItem != undefined) {
                 workingItem.removeClass("WorkingItem");
             }
             $(this).addClass("WorkingItem");
             workingItem = $(this);
-            imgItem = "img_" + competencyID;
+            imgItem = "img_" + competencyId;
             GetCompentencyTextContent();
-          //  GetCompentencyRateContent();
+            //  GetCompentencyRateContent();
             // var saveButton = $("#btnCompetency");
             //  saveButton.click();
         });
- 
+
     });
 
     function DisableTextEdit() {
         $('input[type="text"], textarea').attr('readonly', 'readonly');
     }
- 
+
     function onSuccessDC(result) {
         $("#myText").val(result);
     }
-   
+
     function GetCompentencyTextContent() {
-        var DomainID = $("#hfDomainID").val();
-        var CompetencyID = $("#hfCompetencyID").val();
-        var helptext = EPA2.Models.WebService1.GetCompetencyNoteEnrichment("Get", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, ActionItem, onSuccessDC, onFailure);
+        Notes.DomainID = $("#hfDomainID").val();
+        Notes.CompetencyID = $("#hfCompetencyID").val();
+        var helptext = EPA2.Models.WebService1.GetCompetencyNoteEnrichment("Get",Notes, onSuccessDC, onFailure);
+     //   var helptext = EPA2.Models.WebService1.GetCompetencyNoteEnrichment("Get", UserID, CategoryID, AreaID, ItemCode, domainId, competencyId, ActionItem, onSuccessDC, onFailure);
     }
-  
+
     function SaveCompentencyTextContent() {
         var appraisalPageTextChange = $("#hfContentChange").val();
         if (appraisalPageTextChange === "1") {
 
-            var DomainID = $("#hfDomainID").val();
-            var CompetencyID = $("#hfCompetencyID").val();
-            var textValue = $("#myText").val();
-            var helptext = EPA2.Models.WebService1.SaveCompetencyNoteEnrichment("Save", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, ActionItem, textValue, onSuccess, onFailure);
+           Notes.DomainID = $("#hfDomainID").val();
+           Notes.CompetencyID  = $("#hfCompetencyID").val();
+          Notes.Value = $("#myText").val();
+            var helptext = EPA2.Models.WebService1.SaveCompetencyNoteEnrichment("Save", Notes, onSuccess, onFailure);
+          //  var helptext = EPA2.Models.WebService1.SaveCompetencyNoteEnrichment("Save", UserID, CategoryID, AreaID, ItemCode, domainId, competencyId, ActionItem, textValue, onSuccess, onFailure);
             $("#hfContentChange").val("0")
             // var saveButton = $("#btnSave");
             // saveButton.click();

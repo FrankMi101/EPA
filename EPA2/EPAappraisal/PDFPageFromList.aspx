@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PDFPageFromList.aspx.cs" Inherits="EPA2.EPAappraisal.PDFPageFromList" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PDFPageFromList.aspx.cs" Inherits="EPA2.EPAappraisal.PdfPageFromList" %>
 
 <!DOCTYPE html>
 
@@ -67,9 +67,12 @@
 
         </section>
 
-        <footer>
-           
+         <footer style =" display:none;">
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton"   />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton"   />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton"  />
         </footer>
+
         <div id="ActionPOPDIV" class="bubble epahide">
             <div class="editTitle" style="display: block; margin-top: 5px;">
                 <div id="ActionTitle" style="display: inline; float: left; width: 96%"></div>
@@ -105,7 +108,7 @@
  
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 
 <script>
@@ -117,12 +120,12 @@
 
      
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    EditPageItemTitle();
+        //});
     });
 
 </script>

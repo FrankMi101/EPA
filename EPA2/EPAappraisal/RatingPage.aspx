@@ -59,7 +59,7 @@
         <section>
             <div class="ContentTitle">
                 <asp:Label ID="labelTitle1" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
-                <img class="imgHelp" src="../images/help2.png" title="Help Content" />
+                <img class="imgHelp"id="img_1" src="../images/help2.png" title="Help Content" />
                 <img class="imgRecovery" runat="server" id="imgRecovery" src="../images/recover.png" title="Recovery the Text content" visible="false" />
                 <img class="imgSignoff" runat="server" id="imgSignOff" src="../images/signature.png" title="Sign Off Completed" />
             </div>
@@ -67,14 +67,14 @@
                 <asp:Label ID="labelSubTitle" runat="server" CssClass="labelSubTitle">Text Box Sub Title</asp:Label>
             </div>
             <div class="ContentRubric" style="display: block; float: left">
-                <asp:RadioButtonList ID="rblRating" runat="server" OnSelectedIndexChanged="rblRating_SelectedIndexChanged" RepeatDirection="Horizontal" Width="500px"></asp:RadioButtonList>
+                <asp:RadioButtonList ID="rblRating" runat="server" OnSelectedIndexChanged="RblRating_SelectedIndexChanged" RepeatDirection="Horizontal" Width="500px"></asp:RadioButtonList>
             </div>
             <br />
             <hr />
             <div id="ChkListArea" runat="server">
                 <div>
                     <asp:Label ID="labelTitle2" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
-                    <img class="imgHelp" id="img_SUM612" runat="server"  src="../images/help2.png" title="Help Content" />
+                    <img class="imgHelp" id="img_2" runat="server"  src="../images/help2.png" title="Help Content" />
                 </div>
                 <div>
                     <asp:CheckBoxList ID="cblGrowthPlan" runat="server" Enabled="false">
@@ -88,7 +88,7 @@
             <div class="ContentTitle">
                 <div id="ContentTitleLeft">
                     <asp:Label ID="labelTitle3" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
-                    <img class="imgHelp" id="img_SUM613" src="../images/help2.png" title="Help Content" />
+                    <img class="imgHelp" id="img_3" src="../images/help2.png" title="Help Content" />
 
                 </div>
                 <div id="ContentTitleRight">
@@ -105,7 +105,7 @@
 
 
             <div class="ContentTextarea">
-                <asp:TextBox ID="myText" runat="server" OnTextChanged="myText_TextChanged" Height="350px" MaxLength="5000" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                <asp:TextBox ID="myText" runat="server" OnTextChanged="MyText_TextChanged" Height="350px" MaxLength="5000" TextMode="MultiLine" Width="99%"></asp:TextBox>
             </div>
 
 
@@ -113,14 +113,14 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
         </footer>
 
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine"  CssClass="HelpTextBox"></asp:TextBox>
         </div>
  
         <div id="ActionMenuDIV" class="bubble epahide">
@@ -139,7 +139,7 @@
                     <img id="closeActionPOP" src="../images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                 </div>
             </div>
-            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
+            <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 425px; width: 99%"  src="iBlankPage.html" runat="server"></iframe>
         </div>
         <div>
             <asp:HiddenField ID="hfSignOff" runat="server" />
@@ -168,6 +168,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
@@ -195,17 +196,18 @@
         catch (ex)
         { }
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        $("#myText").change(function (e) { $("#hfContentChange").val("1"); });
 
         $("#rblRating").click(function (event) {
             if ($("#hfPageReadonly").val() != "Yes") {
-                $("#hfContentChange").val("1")
+                $("#hfContentChange").val("1");
                 var rating = event.target.innerText.substring(0, 1);
                 if (rating == "")
                 { rating = event.target.nextSibling.innerText.substring(0, 1); }

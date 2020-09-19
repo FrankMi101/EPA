@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using ClassLibrary;
+using System;
+using System.Collections.Generic; 
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class Content_Bank : System.Web.UI.Page
+    public partial class ContentBank : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblePage();
                 BindGridViewData("Board");
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "AppraisalList";
@@ -52,12 +52,29 @@ namespace EPA2.EPAappraisal
             }
 
         }
-        private DataTable GetDataSource( string type)
+        private List<CommentBank> GetDataSource( string type)
         {
-            string schoolyear = WorkingAppraisee.AppraisalYear;
-            string schoolcode = WorkingAppraisee.AppraisalSchoolCode;
-            string employeeID = WorkingAppraisee.EmployeeID;
-            string sessionID = WorkingAppraisee.SessionID; 
+          
+            try { 
+                var parameter = new
+                {
+                    Operate = "CommentsBank",
+                    UserID = User.Identity.Name,
+                    Type = type,
+                    Owner = GetBankOwner(type)
+                };
+                var bankLst = AppraisalLibrary.GeneralList<CommentBank>("CommentsBank", "CommentsBankTree",parameter); //. AppraisalComments.CommentsBank(User.Identity.Name, type, owner);
+                return bankLst;
+            }
+            catch (Exception ex)
+            {
+                string em = ex.Message;
+                return null;
+            }
+        }
+
+        private string GetBankOwner(string type)
+        {
             string owner = User.Identity.Name;
             switch (type)
             {
@@ -67,7 +84,7 @@ namespace EPA2.EPAappraisal
                     break;
                 case "School":
                     hfSelectedTab.Value = "btnSchool";
-                    owner = schoolcode;
+                    owner =  WorkingAppraisee.AppraisalSchoolCode; ;
                     break;
                 case "Personal":
                     hfSelectedTab.Value = "btnPersonal";
@@ -77,31 +94,19 @@ namespace EPA2.EPAappraisal
                     owner = "";
                     break;
             }
-            
-            try
-            {
-                DataSet myDS = new DataSet();
-                myDS = AppraisalComments.CommentsBank(User.Identity.Name, type, owner);
-                return myDS.Tables[0];
-            }
-            catch (Exception ex)
-            {
-                string em = ex.Message;
-                return null;
-            }
+            return owner;
         }
-
-        protected void btnBoard_Click(object sender, EventArgs e)
+        protected void BtnBoard_Click(object sender, EventArgs e)
         {
             BindGridViewData("Board");
         }
 
-        protected void btnSchool_Click(object sender, EventArgs e)
+        protected void BtnSchool_Click(object sender, EventArgs e)
         {
             BindGridViewData("School");
         }
 
-        protected void btnPersonal_Click(object sender, EventArgs e)
+        protected void BtnPersonal_Click(object sender, EventArgs e)
         {
             BindGridViewData("Personal");
         }

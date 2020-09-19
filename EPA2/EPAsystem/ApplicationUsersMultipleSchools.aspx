@@ -219,7 +219,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -238,7 +238,7 @@
     var eventCell;
     var schoolyear = $("#hfSchoolYear").val();
     $(document).ready(function () {
-        MakeStaticHeader("GridView1", 450, 850, 25, false);
+        MakeStaticHeader("GridView1", 450, 850, 20, false);
         var vHeight = screen.height - 150 - 110 - 70;
         $("section").css("height", vHeight)
 
@@ -251,13 +251,13 @@
                 if ($("#hfContentChange").val() == "1") {
                     eventCell = $(this);
 
-                    var IDs = $(this).closest('tr').find('td.listIDs').text();
-                    var principalID = $(this).closest('tr').find('td.myUserID').text();
+                    var iDs = $(this).closest('tr').find('td.listIDs').text();
+                    var principalId = $(this).closest('tr').find('td.myUserID').text();
                     var schoolcode = $(this).closest('tr').find('td.mySchoolCode').text();
                     var comm = $(this).closest('tr').find('td > .myComment').val();
                     var check = $(this).closest('tr').find('td > .myCheck');
                     var active = (check[0].childNodes['0'].checked ? "1" : "0");
-                    var result = EPA2.Models.WebService.SaveApplicationMultipleSchoolUsers("Update", UserID, CategoryID, AreaID, schoolyear, IDs, principalID, schoolcode, comm, active, onSuccessUpdate, onFailureUpdate);
+                    var result = EPA2.Models.WebService.SaveApplicationMultipleSchoolUsers("Update", UserID, CategoryID, AreaID, schoolyear, iDs, principalId, schoolcode, comm, active, onSuccessUpdate, onFailureUpdate);
                     $("#hfContentChange").val("0");
                 }
             }
@@ -272,7 +272,7 @@
             workingCell = $(this).closest('tr').find('td.myUserID');
             $("#ddlPrincipal").show();
             $("#ddlSchool").hide();  
-            openDDL(event);
+            openDdl(event);
         });
         $('td > .mySchool').click(function (event) {
             //    IDs = $(this).closest('tr').find('td .listIDs').text();
@@ -280,7 +280,7 @@
             workingCell = $(this).closest('tr').find('td.mySchoolCode');
             $("#ddlPrincipal").hide();
             $("#ddlSchool").show();
-            openDDL(event);
+            openDdl(event);
         });
 
 
@@ -300,7 +300,7 @@
             $("#hfContentChange").val("1");
             $("#DDLDIV").fadeToggle("fast");
         });
-        function openDDL(event) {
+        function openDdl(event) {
             var vTop = event.currentTarget.parentNode.offsetTop + 43;
             var vLeft = event.currentTarget.parentNode.offsetLeft;
 
@@ -316,17 +316,17 @@
 
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
@@ -335,10 +335,10 @@
 
     });
 
-    function DeleteRecord(IDs, roleCode) {
+    function DeleteRecord(iDs, roleCode) {
         var result = confirm("Do you want to delete this row?");
         if (result) {
-            var result = EPA2.Models.WebService.SaveApplicationMultipleSchoolUsers("Delete", UserID, CategoryID, AreaID, IDs, roleCode, "", "", "", "0", onSuccessDel, onFailureDel);
+            var result = EPA2.Models.WebService.SaveApplicationMultipleSchoolUsers("Delete", UserID, CategoryID, AreaID, iDs, roleCode, "", "", "", "0", onSuccessDel, onFailureDel);
         }
         else {
 

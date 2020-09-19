@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ClassLibrary;
+using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
@@ -15,13 +10,13 @@ namespace EPA2.EPAappraisal
         {
             if (!Page.IsPostBack)
             {
-                setPageAttribution();
+                SetPageAttribution();
                 BindMyData();
-                checkPageReadonly();
+                CheckPageReadonly();
             }
-                 AssemblingPageTitle();
-       }
-        private void setPageAttribution()
+            AssemblingPageTitle();
+        }
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             AppraisalPage.SetPageAttribute(Page);
@@ -29,14 +24,18 @@ namespace EPA2.EPAappraisal
 
         private void AssemblingPageTitle()
         {
-            string category = WorkingAppraisee.AppraisalType;
-            string area = WorkingAppraisee.AppraisalArea;
-            string code = WorkingAppraisee.AppraisalCode;
+            var parameter = new TitleHelp() {
+                UserID = User.Identity.Name,
+                Category = WorkingAppraisee.AppraisalType,
+                Area = WorkingAppraisee.AppraisalArea,
+                Code = WorkingAppraisee.AppraisalCode
+            };
+           
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
- 
+            AppraisalPage.BuildingTitleTab(ref PageTitle, parameter);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", parameter);
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle, "SubTitle", parameter);
+
 
         }
         protected void BindMyData()
@@ -44,77 +43,56 @@ namespace EPA2.EPAappraisal
             OperationMyData("Get");
         }
 
-        protected void cblParticipation_SelectedIndexChanged(object sender, EventArgs e)
+        protected void CblParticipation_SelectedIndexChanged(object sender, EventArgs e)
         {
             OperationMyData("Save");
         }
         protected void OperationMyData(string action)
         {
-             string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            AppraisalData.CheckList(ref cblParticipation, action,  category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value);
+            var parameter = new AppraisalComment 
+            {
+                Operate = "Chose",
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                SchoolYear = hfApprYear.Value,
+                SchoolCode = hfApprSchool.Value,
+                SessionID = hfApprSession.Value,
+                ItemCode = hfCode.Value,
+                EmployeeID = hfApprEmployeeID.Value
+            }; 
+            AppraisalData.CheckList(ref cblParticipation, action, parameter);
         }
-        protected void checkPageReadonly()
+        protected void CheckPageReadonly()
         {
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
 
-            //string category = WorkingAppraisee.AppraisalType;
-            //string area = WorkingAppraisee.AppraisalArea;
-            //string code = WorkingAppraisee.AppraisalCode;
-            //string pageFor = AppraisalProcess.AppraisalPageItem("PageActiveFor", User.Identity.Name, category, area, code);
-            //string pageRecover = AppraisalProcess.AppraisalPageItem("PageRecover", User.Identity.Name, category, area, code);
-            //string pageHelpe = AppraisalProcess.AppraisalPageItem("PageHelp", User.Identity.Name, category, area, code);
-            //string ActionRole = AppraisalProcess.AppraisalActionRole(category, WorkingProfile.UserRole, WorkingAppraisee.UserID, User.Identity.Name);
-            //string SignOff = SignatureProcess.SignOffComplete(User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value, category, area, WorkingProfile.UserRole);
-            //if (SignOff == "Complete")
-            //{
-            //    hfPageReadonly.Value = "Yes";
-            //    imgSignOff.Visible = true;
-            //}
-            //else
-            //{
-            //    imgSignOff.Visible = false;
-            //    if (pageFor == "Both")
-            //    { hfPageReadonly.Value = "No"; }
-            //    else
-            //    {
-            //        if (pageFor == ActionRole)
-            //        { hfPageReadonly.Value = "No"; }
-            //        else
-            //        { hfPageReadonly.Value = "Yes"; }
-            //    }
-            //}
-
-            //if (hfPageReadonly.Value == "Yes")
-            //{
-            //    imgRecovery.Visible = false;
-            // }
-            //else
-            //{
-            //     if (pageRecover == "Y")
-            //    { imgRecovery.Visible = true; }
-            //}
+           
 
         }
-        protected void btnNext_Click(object sender, EventArgs e)
+        protected void BtnNext_Click(object sender, EventArgs e)
         {
             GoToNewPage("Next");
         }
-        protected void btnPrevious_Click(object sender, EventArgs e)
+        protected void BtnPrevious_Click(object sender, EventArgs e)
         {
             GoToNewPage("Previous");
         }
 
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+            string goPage = AppraisalPage.GoPage(parameter);
 
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 

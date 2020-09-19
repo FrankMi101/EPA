@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-
+using System.Web.UI.WebControls; 
 namespace EPA2.EPAsystem
 {
     public partial class SchoolManagement : System.Web.UI.Page
@@ -17,7 +15,7 @@ namespace EPA2.EPAsystem
             {
                 Page.Response.Expires = 0;
 
-                setPageAttribution();
+                SetPageAttribution();
 
                 BindMyData();
                
@@ -25,18 +23,14 @@ namespace EPA2.EPAsystem
           
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             WorkingProfile.PageCategory = "EPA";
             WorkingProfile.PageArea = "School";
             WorkingProfile.PageItem = "School";
             AppraisalPage.SetPageAttribute2(Page);
-             myList.SetLists(ddlSchoolType, "SchoolPanel", User.Identity.Name);
-            myList.SetListValue(ddlSchoolType, "Elementary");
-            //myList.SetLists(ddlSupervisor, "Supervisor", User.Identity.Name);
-            //myList.SetLists(ddlPrincipal, "Principal", User.Identity.Name);
-             //ddlSupervisor.SelectedIndex = 0;
-            //ddlPrincipal.SelectedIndex = 0;
+            AppraisalPage.BuildingList(ddlSchoolType, "SchoolPanel", User.Identity.Name,"","","", "Elementary");
+         
         }
 
         private void AssemblingPageTitle()
@@ -49,9 +43,9 @@ namespace EPA2.EPAsystem
             hfArea.Value = "School";
   
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1"); 
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1"); 
         }
 
 
@@ -89,7 +83,7 @@ namespace EPA2.EPAsystem
         {
             string category = hfCategory.Value;
             string area = ddlSchoolType.SelectedValue ;
-            string result =   ApplicationSetupData.SchoolInformation("AddNew", User.Identity.Name, category, area,"0","");
+            string result =   ApplicationSetup.SchoolInformation("AddNew", User.Identity.Name, category, area,"0","");
             BindMyData();
         }
 

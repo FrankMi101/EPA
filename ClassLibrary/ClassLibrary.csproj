@@ -41,8 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppraisalComment.cs" />
+    <Compile Include="AppraisalComptency.cs" />
+    <Compile Include="AppraisalDefinition.cs" />
     <Compile Include="AppraisalIMP.cs" />
     <Compile Include="AppraisalList.cs" />
+    <Compile Include="AppStatement.cs" />
+    <Compile Include="CommentBank.cs" />
+    <Compile Include="DataSource.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="LTOAssignment.cs" />
+    <Compile Include="Parameters.cs" />
+    <Compile Include="QueryValue.cs" />
     <Compile Include="SetupListPatameter.cs" />
     <Compile Include="AppraisalPatameter.cs" />
     <Compile Include="AppraisalStaffList.cs" />
@@ -50,6 +59,14 @@
     <Compile Include="SetupList.cs" />
     <Compile Include="EmailNotice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TitleHelp.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

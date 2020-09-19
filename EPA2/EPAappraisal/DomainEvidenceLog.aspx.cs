@@ -4,29 +4,27 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
 using System.Data;
 using System.Web.UI.HtmlControls;
-
 namespace EPA2.EPAappraisal
 {
     public partial class DomainEvidenceLog : System.Web.UI.Page
     {
-        string domainID;
-        string competencyID;
+        string _domainId;
+        string _competencyId;
         protected void Page_Load(object sender, EventArgs e)
         {
            AssemblingPageTitle();
            if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-               setPageAttribution();
+               SetPageAttribution();
                AssemblingCompetencyList();
              }
-            domainID = hfCode.Value.Replace("LOG5", "");
+            _domainId = hfCode.Value.Replace("LOG5", "");
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             hfFirstName.Value = WorkingAppraisee.AppraiseeName;
@@ -44,8 +42,8 @@ namespace EPA2.EPAappraisal
             }
             hfObjRole.Value = WorkingProfile.UserAppraisalRole;
             hfDomainID.Value = hfCode.Value.Replace("LOG5", "");
-            domainID = hfDomainID.Value;
-            hfAppraisalActionRole.Value = AppraisalProcess.AppraisalActionRole(WorkingAppraisee.AppraisalType, WorkingProfile.UserRole, WorkingAppraisee.UserID, WorkingProfile.UserID);
+            _domainId = hfDomainID.Value;
+            hfAppraisalActionRole.Value = AppraisalProcess.AppraisalActionRole(WorkingAppraisee.AppraisalType, WorkingProfile.UserRole, WorkingAppraisee.UserID, WorkingProfile.UserId);
 
         }
 
@@ -55,63 +53,67 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
-        //    AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
+        //    AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
 
         }
         private void AssemblingCompetencyList()
         {
             hfDomainID.Value = WorkingAppraisee.AppraisalCode.Replace("LOG5", "");
-            domainID = hfDomainID.Value;
+            _domainId = hfDomainID.Value;
             string category = WorkingAppraisee.AppraisalType;
             //string domainID =   "1";
-            CompetencyList.BuildingListForLOG(ref ContentCompetency, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.SessionID, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalSchoolCode, category, domainID);          
-            hfCompetencyID.Value = CompetencyList.CurrerntCompetencyID(ref ContentCompetency, domainID);//  currerntCompetencyID();
-            competencyID = hfCompetencyID.Value;
+            CompetencyList.BuildingListForLog(ref ContentCompetency, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.SessionID, WorkingAppraisee.EmployeeID, WorkingAppraisee.AppraisalSchoolCode, category, _domainId);          
+            hfCompetencyID.Value = CompetencyList.CurrerntCompetencyId(ref ContentCompetency, _domainId);//  currerntCompetencyID();
+            _competencyId = hfCompetencyID.Value;
             string objRole = hfObjRole.Value;
             string allowview = "0";
             if (chbAllowAppraiser.Checked)
             {
                 allowview = "1";
             }
-            var goPage = "DomainEvidenceLogLookFosList.aspx?dID=" + domainID + "&cID=" + competencyID + "&vID=" + allowview + "&oID=" + objRole;
+            var goPage = "DomainEvidenceLogLookFosList.aspx?dID=" + _domainId + "&cID=" + _competencyId + "&vID=" + allowview + "&oID=" + objRole;
 
             IframeLookFors.Attributes.Add("src", goPage);
         }
    
-        protected void checkPageReadonly()
+        protected void CheckPageReadonly()
         {
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
 
         }
-        protected void btnNext_Click(object sender, EventArgs e)
+        protected void BtnNext_Click(object sender, EventArgs e)
         {
             GoToNewPage("Next");
         }
-        protected void btnPrevious_Click(object sender, EventArgs e)
+        protected void BtnPrevious_Click(object sender, EventArgs e)
         {
             GoToNewPage("Previous");
         }
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void BtnSave_Click(object sender, EventArgs e)
         {
              AssemblingCompetencyList();
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
- 
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+             string goPage = AppraisalPage.GoPage(parameter);
 
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 
         }
 
-        protected void chbAllowAppraiser_CheckedChanged(object sender, EventArgs e)
+        protected void ChbAllowAppraiser_CheckedChanged(object sender, EventArgs e)
         {
             if (chbAllowAppraiser.Checked)
             { Session["AllowAppraiser"] = "1"; }

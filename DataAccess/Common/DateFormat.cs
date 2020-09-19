@@ -136,8 +136,22 @@ namespace DataAccess
                 }
              return rSchoolyear;
             }
+        public static DateTime YMD(string eDate)
+        {
+            try
+            {
+                string[] format = new[] { "dd/MM/yyyy", "d/M/yyyy", "dd-MM-yyyy", "yyyy/MM/dd" };
+                DateTime oDate = DateTime.ParseExact(eDate, format, System.Globalization.DateTimeFormatInfo.InvariantInfo, System.Globalization.DateTimeStyles.None);
+                return oDate;
 
+            }
+            catch (Exception)
+            {
+
+                return DateTime.Now;
+            }
         }
+    }
 
     }
 

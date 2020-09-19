@@ -103,31 +103,85 @@ namespace EPA2.EPAappraisal {
         protected global::System.Web.UI.WebControls.HiddenField hfParameters;
         
         /// <summary>
-        /// labelTitle control.
+        /// AppraisalTasks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelTitle;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AppraisalTasks;
         
         /// <summary>
-        /// labelMessage control.
+        /// labelTitle1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelMessage;
+        protected global::System.Web.UI.WebControls.Label labelTitle1;
         
         /// <summary>
-        /// TreeView1 control.
+        /// ContentTasks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView TreeView1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ContentTasks;
+        
+        /// <summary>
+        /// AppraisalToDo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AppraisalToDo;
+        
+        /// <summary>
+        /// labelTitle2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelTitle2;
+        
+        /// <summary>
+        /// ContentTodo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ContentTodo;
+        
+        /// <summary>
+        /// AppraisalDone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AppraisalDone;
+        
+        /// <summary>
+        /// labelTitle3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelTitle3;
+        
+        /// <summary>
+        /// ContentDone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ContentDone;
         
         /// <summary>
         /// HelpTextContent control.

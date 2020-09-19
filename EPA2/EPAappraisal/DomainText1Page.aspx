@@ -69,7 +69,7 @@
 
         .HelpTextBox {
             height: 98%;
-            width: 100%;
+            width: 98%;
         }
     </style>
 </head>
@@ -159,6 +159,7 @@
                 <li><a id="SchoolLearningPlan" class="menuLink" href="#">School Learning Plan</a></li>
                 <li><a id="BoardStrategyPlan" class="menuLink" href="#">Board Strategy Plan</a>  </li>
                 <li><a id="Recovery" class="menuLink" href="#">Content Recover</a>  </li>
+                <li><a id="CommentsSnippet" class="menuLink" href="#">Comments Snippet</a>  </li>
 
             </ul>
         </div>
@@ -202,6 +203,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script>
@@ -212,8 +214,9 @@
     var ItemCode = $("#hfCode").val();
     var DomainID = $("#hfDomainID").val();
     var CompetencyID = $("#hfCompetencyID").val();
-    var workingItem = $("#hfCompetencyID").val();
-    var imgItem = "img_" + workingItem
+    var WorkingItem = $("#hfCompetencyID").val();
+    var ImgItem = "img_" + WorkingItem;
+
     var BasePara = {
         UserID: $("#hfUserID").val(),
         Category: $("#hfCategory").val(),
@@ -221,18 +224,17 @@
         ItemCode: $("#hfCode").val(),
         DomainID: $("#hfDomainID").val(),
         CompetencyID: $("#hfCompetencyID").val(),
-        WorkingItem: $("#hfCompetencyID").val(),
-        ImgItem: "img_" + $("#hfCompetencyID").val(),
         SchoolYear: $("#hfApprYear").val(),
         SchoolCode: $("#hfApprSchool").val(),
-        SessionID: $("#hfApprSession").val(),  
-        EmployeeID: $("#hfApprEmployeeID").val(),  
+        SessionID: $("#hfApprSession").val(),
+        EmployeeID: $("#hfApprEmployeeID").val(),
         Value: "",
-        Rate: ""
-    }
+        Rate: "",
+        Operate: "Get"
+    };
     $(document).ready(function () {
         var vHeight = window.innerHeight - apprScreenH;
-        $("section").css("height", vHeight)
+        $("section").css("height", vHeight);
 
         Highlight_LeftMenuSelectNode();
         if ($("#hfPageReadonly").val() == "Yes") {
@@ -240,21 +242,28 @@
         }
         else { $("#myText").addClass("myEditItem"); }
 
+        var rateValue = $("#rblRateRubric input:checked").val();  //$('#radiobuttonListId').find(":checked").val();
+        if (ItemCode != "SUM56") {
+            if (typeof rateValue === 'undefined') $("#myText").attr("disabled", "disabled");
+        }
+
+
+
         $('.cList').each(function () {
-            if ($(this)[0].id == BasePara.WorkingItem ) {
+            if ($(this)[0].id == WorkingItem) {
                 $(this).addClass("WorkingItem");
-                BasePara.WorkingItem = $(this);
+                WorkingItem = $(this);
 
             }
         });
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    EditPageItemTitle();
+        //});
         $(".ContentCompetency").mouseenter(function (event) {
             // SaveCompentencyTextContent();
         });
@@ -263,24 +272,35 @@
             return true;
         });
         $("#myText").change(function (event) {
-
             // SaveCompentencyTextContent(event); // using function call directly ****************
+            //  alert("Text change");
             OperateData.SaveData(event); // using Javascript object method
 
         });
+
+
         $("#ContentCompetency a").click(function (event) {
-            var competencyID = $(this)[0].id;
-            $("#hfCompetencyID").val(competencyID);
-              if (BasePara.WorkingItem  != undefined) {
-                BasePara.WorkingItem .removeClass("WorkingItem");
+
+            var competencyId = $(this)[0].id;
+            try {
+
+                $("#hfCompetencyID").val(competencyId);
+                if (WorkingItem != undefined) {
+                    WorkingItem.removeClass("WorkingItem");
+                }
+                //  alert("step 1");
+                $(this).addClass("WorkingItem");
+                WorkingItem = $(this);
+                ImgItem = "img_" + competencyId;
+                CompetencyID = competencyId;
+                BasePara.CompetencyID = competencyId;
+                OperateData.GetNote();
+
+
             }
-            $(this).addClass("WorkingItem");
-            BasePara.WorkingItem  = $(this);
-            BasePara.ImgItem  = "img_" + competencyID;
-            CompetencyID = competencyID
-            BasePara.CompetencyID = competencyID
-            OperateData.GetNote();
-            OperateData.GetRate();
+            catch (ex) {
+                alert(ex + "outside");
+            }
 
             // var saveButton = $("#btnCompetency");
             //  saveButton.click();
@@ -288,30 +308,34 @@
         //  $("#rblRateRubric").click(function (event)  this event will fire twice
         $("#rblRateRubric input").click(function (event) {
             $("#hfContentChange").val("1");
-            var rating = event.target.innerText;
+            var rating = event.currentTarget.nextSibling.innerText; //  event.target.innerText;
             var pageReadonlyVal = $("#hfPageReadonly").val();
+            $("#myText").removeAttr("disabled");
             if (pageReadonlyVal === "No") {
-                $("#" + imgItem).attr("src", "../images/Edit2_Hired.jpg");
-                var cID = $("#hfCompetencyID").val();
-                var checkID = "[1,5,9,14,16,20]"; // for every first competency of domain check add the appraisee's First nme on comeents
+                var ratingImg = "../images/Edit2_Hired.jpg";
+                if (rating == "Unsatisfactory") ratingImg = "../images/Edit2_New.jpg";
+                if (rating == "Development Needed") ratingImg = "../images/Edit2_confirm.jpg";
+                //  alert(rating + "   img=" + ratingImg);
+                $("#" + ImgItem).attr("src", ratingImg);
+                var cId = $("#hfCompetencyID").val();
+                var checkId = "[1,5,9,14,16,20]"; // for every first competency of domain check add the appraisee's First nme on comeents
                 var textPerson = "";
-              //  window.alert(cID + "   " + checkID.indexOf(cID) );
-                if (checkID.indexOf(cID) >= 0)  // (cID == "1" || cID == "5" || cID == "9" || cID == "14" || cID == "16" || cID == "20")
+                //  window.alert(cID + "   " + checkID.indexOf(cID) );
+                if (checkId.indexOf(cId) >= 0)  // (cID == "1" || cID == "5" || cID == "9" || cID == "14" || cID == "16" || cID == "20")
                 {
                     textPerson = $("#hfFirstName").val() + "\n\n";
                 }
-                var LengthmyText = $("#myText").val().length;
-                var LengthLookfor = $("#myText").val().indexOf("Look Fors");
+                var lengthmyText = $("#myText").val().length;
+                var lengthLookfor = $("#myText").val().indexOf("Look Fors");
                 var goDefaultText = "Yes"
-                if (LengthmyText - 10 > LengthLookfor) {
+                if (lengthmyText - 10 > lengthLookfor) {
                     goDefaultText = "No";
                     window.alert(" You have made the changes on the comments. To switch the Satisfactory/Unstaisfactory, please clean up the comments box first.");
                     return false;
                 }
                 if (goDefaultText == "Yes") {
                     var rubricText = $("#hfRubricText").val();
-                    if (rating == "Unsatisfactory")
-                    { rubricText = "Infreqently " + rubricText; }
+                    if (rating == "Unsatisfactory") { rubricText = "Infreqently " + rubricText; }
                     var firstLineTomyText = textPerson + rubricText + "\n\n" + "  Look Fors:";
                     $("#myText").val(firstLineTomyText);
                     //  SaveCompentencyTextContent(event); // if the myText content changed, will triger myText  change event to save the data. function in "#myText").change ***********
@@ -323,50 +347,79 @@
             //  event.stopImmediatePropagation();
         });
         $("#rblRateRubric label").mouseenter(function (event) {
-            //    var pID = $(this)[0].id;
+            var eventID = event.originalEvent.currentTarget.htmlFor; // $(this)[0].id;
+          
             var rating = event.currentTarget.innerText;
             BasePara.DomainID = BasePara.ItemCode.replace("SUM5", "");
-             var helptext = EPA2.Models.WebService1.GetRubricHelpContent(rating, BasePara.UserID, BasePara.Category, BasePara.Area, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, onSuccessRubirc, onFailure);
+            var helptext1 = EPA2.Models.WebService1.GetRubricHelpContent(rating, BasePara.Category, BasePara.DomainID, BasePara.CompetencyID, onSuccessRubirc, onFailure);
 
-            var vTop = event.originalEvent.clientY;//  event.originalEvent.clientX event.currentTarget.offsetTop;
-            var vLeft = event.originalEvent.clientX // event.currentTarget.offsetLeft;
+            //$.ajax({
+            //    type: "POST",
+            //    url: "WebService1.asmx/GetRubricHelpContent",
+            //     data: "{Operation:'"+ rating  + "', CategoryID:'" + BasePara.Category + "', DomainID:'" + BasePara.DomainID + "', CompetencyID:'" + BasePara.CompetencyID + "'}",
+            //    data: { Operation: rating, CategoryID: BasePara.Category, DomainID: BasePara.DomainID, CompetencyID: BasePara.CompetencyID },
+
+            //    contentType: "application/json; charset=utf-8", // we are sending in JSON format so we need to specify this
+            //    dataType: "json", // the data type we want back.  The data will come back in JSON format
+            //     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            //     dataType: "text", //
+            //    success: function (data) {
+            //          $("#searchresultsB").html(data.d); // it's a quirk, but the JSON data comes back in a property called "d"; {"d":"Hello Aidy F"}
+            //          $("#hfRubricText").val(data);
+            //           $("#HelpTextContent").val(data);                 
+            //        alert(data);
+            //    },
+            //});
+            var xLeft = 105;
+            if (rating == "Satisfactory") xLeft = 90;
+            var eventElementPosition = $("#" + eventID).offset(); 
+            var vTop = eventElementPosition.top + 2;//  event.originalEvent.clientY;//  event.originalEvent.clientX event.currentTarget.offsetTop;
+            var vLeft = eventElementPosition.left + xLeft; //  event.originalEvent.clientX + 50 // event.currentTarget.offsetLeft;
             //   window.alert(vLeft + "  Top =" + vTop);
             $("#HelpDIV").css({
                 top: vTop + 10,
                 left: vLeft,
                 height: 150
             })
+
             $("#HelpDIV").fadeToggle("fast");
         });
+
         $("#rblRateRubric label").mouseleave(function (event) {
             $("#HelpDIV").fadeToggle("fast");
+            $("#HelpTextContent").val("");
         });
+
         //$('#myText').bind('paste', function (event) {
         //    alert('pasting!')
         //    $("#hfContentChange").val("1");
         //});
+
+        $(".ContentCompetency .EvidenceLog").click(function (event) {
+            var pID = "EvidenceLog";
+            var vTop = event.currentTarget.offsetTop + 50;
+            var vLeft = 100; //  event.currentTarget.offsetLeft -500;
+            var vHeight = 450;
+            var vWidth = 650;
+            var goPage = "Loading3.aspx?pID=" + pID;
+            var pTitle = "Text Box Content " + pID;
+            openActionPage(vTop, vLeft, vHeight, vWidth, goPage, pTitle);
+
+        });
     });
 
     function DisableTextEdit() {
         $('input[type="text"], textarea').attr('readonly', 'readonly');
         $("#rblRateRubric").attr("disabled", "disabled");
         // $("*[name$='rblRateRubric']").attr("disabled", "disabled");
-        $("#myText").removeClass("myEditItem");
-        $("#myText").addClass("myEditItemDisable");
+        // $("#myText").removeClass("myEditItem");
+        // $("#myText").addClass("myEditItemDisable");
+        $("#myText").attr("disabled", "disabled");
+
     }
 
-    function onSuccessRubirc(result) {
-        $("#hfRubricText").val(result);
-        $("#HelpTextContent").val(result);
-    }
-    function onSuccessDC(result) {
-        $("#myText").val(result);
-    }
-    function onSuccessRate(result) {
 
-        $('#rblRateRubric').find("input:radio:checked").prop('checked', false);
-        $("#rblRateRubric").find("input[value='" + result + "']").prop("checked", "checked");
-    }
+
     function initalRBList() {
         $('#rblRateRubric').each(function () {
             //  $(this).find('input:radio:checked').prop("checked", false);
@@ -377,47 +430,90 @@
     }
 
     var OperateData =
-        {
-            GetRate: function () { GetCompentencyRateContent(); },
-            GetNote: function () { GetCompentencyTextContent(); },
-            SaveData: function (event) { SaveCompentencyTextContent(event) }
-        };
+    {
+        GetRate: function () { GetCompentencyRateContent(); },
+        GetNote: function () { GetCompentencyTextContent(); },
+        SaveData: function (event) { SaveCompentencyTextContent(event); }
+    };
 
     function GetCompentencyTextContent() {
-      //   var helptext = EPA2.Models.WebService1.GetCompetencyContent("Get", BasePara.UserID, BasePara.CategoryID, BasePara.AreaID, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, onSuccessDC, onFailure);
+        try {
+            //  window.alert("Get action fron Json object ");
+            BasePara.Operate = "NotesRate";
+            //  alert(BasePara.Operate + " emploayid= " + BasePara.EmployeeID +   " --  "  + BasePara.DomainID + "  " +  BasePara.CompetencyID + "  || " + BasePara.EmployeeID + " ||  " + BasePara.Category);
+            var myObj = JSON.stringify(BasePara);
+            // var helptext = EPA2.Models.WebService1.GetCompetencyContent("NotesRate", myObj, onSuccessDC, onFailure);
+            // var helptext = EPA2.Models.WebService1.GetCompetencyContent("NotesRate", BasePara, BasePara.Category, BasePara.Area, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, onSuccessDC, onFailure);
+            var helptext = EPA2.Models.WebService1.GetCompetencyContent1("NotesRate", BasePara, onSuccessDC, onFailure);
 
-        var helptext = EPA2.Models.WebService1.GetCompetencyContent("Get", BasePara, onSuccessDC, onFailure);
+        }
+        catch (ex) {
+            alert(ex);
+        }
     }
     function GetCompentencyRateContent() {
-    //     var helptext = EPA2.Models.WebService1.GetCompetencyContent("Rate", BasePara.UserID, BasePara.CategoryID, BasePara.AreaID, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, onSuccessRate, onFailure);
-         var helptext = EPA2.Models.WebService1.GetCompetencyContent("Rate", BasePara, onSuccessRate, onFailure);
+        //     var helptext = EPA2.Models.WebService1.GetCompetencyContent("Rate", BasePara.UserID, BasePara.CategoryID, BasePara.AreaID, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, onSuccessRate, onFailure);
+        window.alert("Rate action");
+        BasePara.Operate = "Rate";
+        var helptext = EPA2.Models.WebService1.GetCompetencyContent1("Rate", BasePara, onSuccessRate, onFailure);
     }
     function SaveCompentencyTextContent(event) {
         var appraisalPageTextChange = $("#hfContentChange").val();
         if (appraisalPageTextChange === "1") {
-
-          //  var DomainID = $("#hfDomainID").val();
-          //  var CompetencyID = $("#hfCompetencyID").val();
+            //  var DomainID = $("#hfDomainID").val();
+            //  var CompetencyID = $("#hfCompetencyID").val();
             var textValue = $("#myText").val();
-            var rateVaue = $("#rblRateRubric input:checked").val();  //$('#radiobuttonListId').find(":checked").val();
-            if (typeof rateVaue === 'undefined') {
-                if (event.target.innerText == "Satisfactory")
-                { rateVaue = "3"; }
-                else if (event.target.innerText == "Unsatisfactory")
-                { rateVaue = "5"; }
-                else
-                { rateVaue = "4"; }
+            var rateValue = $("#rblRateRubric input:checked").val();  //$('#radiobuttonListId').find(":checked").val();
+            if (typeof rateValue === 'undefined') {
+                if (event.target.innerText == "Satisfactory") { rateValue = "3"; }
+                else if (event.target.innerText == "Unsatisfactory") { rateValue = "5"; }
+                else { rateValue = "4"; }
             }
-            BasePara.Rate = rateVaue
-            BasePara.Value = textValue
-         //   var helptext = EPA2.Models.WebService1.SaveCompetencyContent("Save", BasePara.UserID, BasePara.CategoryID, BasePara.AreaID, BasePara.ItemCode, BasePara.DomainID, BasePara.CompetencyID, rateVaue, textValue, onSuccess, onFailure);
-            var helptext = EPA2.Models.WebService1.SaveCompetencyContent("Save", BasePara, onSuccess, onFailure);
+            BasePara.Rate = rateValue;
+            BasePara.Value = textValue;
+            BasePara.Operate = "Save";
+            // alert("Save data")
+            var helptext = EPA2.Models.WebService1.SaveCompetencyContent1("Save", BasePara, onSuccessRate, onFailure);
 
             $("#hfContentChange").val("0");
             // var saveButton = $("#btnSave");
             // saveButton.click();
+            //  window.alert("Save action");
         }
     }
+    function onSuccessRubirc(result) {
+        $("#hfRubricText").val(result);
+        $("#HelpTextContent").val(result);
+    }
+    function onSuccessDC(result) {
+        var cleng = result.length - 1;
+        var rate = result.substring(0, 1);
+        var notes = result.substring(2, cleng);
+        $("#myText").val(notes);
+
+        // $("#myText").val(result[0].Appraisal_Note);
+        $('#rblRateRubric').find("input:radio:checked").prop('checked', false);
+        $("#rblRateRubric").find("input[value='" + rate + "']").prop("checked", "checked");
 
 
+        if (rate == "0") {
+            $("#myText").attr("disabled", "disabled");
+        }
+        else {
+            if ($("#hfPageReadonly").val() == "NO") {
+                $("#myText").removeAttr("disabled");
+            }
+        }
+
+
+
+    }
+    function onSuccessRate(result) {
+
+        $('#rblRateRubric').find("input:radio:checked").prop('checked', false);
+        $("#rblRateRubric").find("input[value='" + result + "']").prop("checked", "checked");
+    }
+    function onSuccessRate(result) {
+
+    }
 </script>

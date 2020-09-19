@@ -1,40 +1,41 @@
-﻿using System;
-using System.Data;
+﻿
+using ClassLibrary;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
+
 namespace EPA2.EPAmanage
 {
     public partial class AppraisalNoticeList : System.Web.UI.Page
     {
+        string webSite = WebConfig.getValuebyKey("ApplicationSite");//  " <a href=' " + WebConfig.getValuebyKey("ApplicationSite") + "' target='_blank'>  Teacher Performance Appraisal </a>";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 Page.Response.Expires = 0;
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblePage();
                 BindGridViewData();
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfCategory.Value = "EPA";
             hfPageID.Value = "NoticeList";
+            hfCode.Value = "NoticeList";
             hfUserID.Value = User.Identity.Name;
             hfUserLoginRole.Value = WorkingProfile.UserRoleLogin;
             hfRunningModel.Value = WebConfig.RunningModel();
+            hfWebSite.Value = webSite;
         }
         private void AssemblePage()
         {
-           // myList.SetLists(ddlSchoolYear, "SchoolYear", User.Identity.Name);
-          //  myList.SetListValue(ddlSchoolYear, UserProfile.CurrentSchoolYear);
-            AppraisalData.BuildingListControl(ddlSchoolYear, "SchoolYear", User.Identity.Name, UserProfile.CurrentSchoolYear);
-            AppraisalData.BuildingListControl2(ddlSchoolCode, ddlSchool, "SchoolList", User.Identity.Name, WorkingProfile.UserRole, ddlSchoolYear.SelectedValue, WorkingProfile.SchoolCode);
-          //  mySchoolList.SetLists2(ddlSchool, ddlSchoolCode, "SchoolList", User.Identity.Name, WorkingProfile.UserRole, ddlSchoolYear.SelectedValue, WorkingProfile.SchoolCode);
+            var parameter = new CommonListParameter() { Operate = "SchoolList", UserID = User.Identity.Name, Para1 = WorkingProfile.UserRole, Para2 = WorkingProfile.SchoolYear, Para3 = WorkingProfile.SchoolCode };
+
+            AppraisalPage.BuildingList(ddlSchoolYear, "SchoolYear", User.Identity.Name, "", "", "", UserProfile.CurrentSchoolYear);
+            AppraisalPage.BuildingList(ddlSchoolCode, ddlSchool, "SchoolList", parameter, WorkingProfile.SchoolCode);
             InitialPage();
         }
         private void InitialPage()
@@ -42,15 +43,13 @@ namespace EPA2.EPAmanage
             if (WorkingProfile.SchoolCode == "")
             {
                 ddlSchool.SelectedIndex = 0;
-                AppraisalData.BuildingListControlInitial(ddlSchoolCode, ddlSchool.SelectedValue);
-                // mySchoolList.SetListsValue(ddlSchoolCode, ddlSchool, ddlSchool.SelectedValue);
+                AppraisalPage.SetListValue(ddlSchoolCode, ddlSchool.SelectedValue);
                 WorkingProfile.SchoolCode = ddlSchool.SelectedValue;
             }
             else
             {
-                AppraisalData.BuildingListControlInitial(ddlSchool, WorkingProfile.SchoolCode);
-                AppraisalData.BuildingListControlInitial(ddlSchoolCode, WorkingProfile.SchoolCode);
-                //mySchoolList.SetListsValue(ddlSchoolCode, ddlSchool, WorkingProfile.SchoolCode);
+                AppraisalPage.SetListValue(ddlSchool, WorkingProfile.SchoolCode);
+                AppraisalPage.SetListValue(ddlSchoolCode, WorkingProfile.SchoolCode);
 
             }
             ddlSearchby.SelectedIndex = 0;
@@ -71,32 +70,14 @@ namespace EPA2.EPAmanage
         {
             try
             {
-                string schoolyear = ddlSchoolYear.SelectedValue;
-                string schoolcode = ddlSchool.SelectedValue;
 
-                string searchby = ddlSearchby.SelectedValue;
-                string searchvalue = ddlSearch.SelectedValue;
-                string noticeType = "AppraisalStart";
-                string noticeArea = rblNoticeType.SelectedValue;
-
-                if (Page.Request.QueryString["nType"] == "ALPBatch")
-                {
-                    noticeType = "ALPPrint";
-                    chbAll.Checked = true;
-
-                }
-
-                if (searchby == "Teacher")
-                {
-                    searchvalue = TextSearch.Text;
-                }
+                GridView1.DataSource = GetDataSource();
+                GridView1.DataBind();
                 //  AppraisalGridViewData.BindMyGridView(ref GridView1, "NoticeList", "DataSet", User.Identity.Name,   schoolyear, schoolcode, searchby, searchvalue, noticeType, noticeArea);
-               // AppraisalGridViewData.BindMyGridView(ref GridView1, "NoticeList", "iList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue, noticeType, noticeArea);
-                AppraisalGridViewData.BindMyGridView(ref GridView1, "NoticeList", "dList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue, noticeType, noticeArea);
-                //GridView1.DataSource = GetDataSource(true);
-                //GridView1.DataBind();
+                // AppraisalGridViewData.BindMyGridView(ref GridView1, "NoticeList", "iList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue, noticeType, noticeArea);
+                // AppraisalGridViewData.BindMyGridView(ref GridView1, "NoticeList", "dList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue, noticeType, noticeArea);
 
-                getEmailTemplate();
+                GetEmailTemplate();
             }
             catch (Exception ex)
             {
@@ -104,7 +85,37 @@ namespace EPA2.EPAmanage
             }
 
         }
-        private void getEmailTemplate()
+        private List<AppraisalNotice> GetDataSource()
+        {
+
+            string searchby = ddlSearchby.SelectedValue;
+            string searchvalue = ddlSearch.SelectedValue;
+            string noticeType = rblNoticeType.SelectedValue; // "AppraisalStart";
+
+            if (Page.Request.QueryString["nType"] == "ALPBatch")
+            {
+                noticeType = "ALPPrint";
+                chbAll.Checked = true;
+            }
+
+            if (searchby == "Teacher") searchvalue = TextSearch.Text;
+            var parameter = new
+            {
+                Operate = "Get",
+                UserID = User.Identity.Name,
+                SchoolYear = ddlSchoolYear.SelectedValue,
+                SchoolCode = ddlSchool.SelectedValue,
+                SearchBy = searchby,
+                SearchValue = searchvalue,
+                NoticeType = noticeType,
+                NoticeArea = rblNoticeType.SelectedValue
+            };
+         //   BaseData.ShowSP( "AppraisalManage", "AppraisalStaffsNotice",btnSearch  );
+        //    return StaffManagement.AppraisalStaffsNotice(parameter);
+             return BaseData.GeneralList<AppraisalNotice>("AppraisalManage", "AppraisalStaffsNotice", parameter, btnSearch);
+       }
+
+        private void GetEmailTemplate()
         {
             string noticeDate = DateTime.Now.ToString("yyyy/MM/dd");
             string noticeType = "AppraisalStart";
@@ -112,66 +123,32 @@ namespace EPA2.EPAmanage
             hfNoticeType.Value = noticeType;
             Session["NoticeType"] = noticeType;
             string purpose = "Notice";
-            TextSubject.Text = GetNoticeFile.eMailContentByType("GetSubject", User.Identity.Name, "TPA", noticeType, noticeArea, "Appraisee", "Appraiser", purpose);
-            string myBody = GetNoticeFile.eMailContentByType("GetBody", User.Identity.Name, "TPA", noticeType, noticeArea, "Appraisee", "Appraiser", purpose);
+            TextSubject.Text = GetNoticeFile.EMailContentByType("GetSubject", User.Identity.Name, "TPA", noticeType, noticeArea, "Appraisee", "Appraiser", purpose);
+            string myBody = GetNoticeFile.EMailContentByType("GetBody", User.Identity.Name, "TPA", noticeType, noticeArea, "Appraisee", "Appraiser", purpose);
             myBody = myBody.Replace("{{PlaceHolder:TestEmailTo}}", "");
             myBody = myBody.Replace("{{PlaceHolder:TestEmailCC}}", "");
             myBody = myBody.Replace("{{PlaceHolder:AppraisalYear}}", WorkingProfile.SchoolYear);
-            //  myBody = myBody.Replace("{{AppraisalCategory}}","");
-            myBody = myBody.Replace("{{PlaceHolder:WebSite}}", WebConfig.getValuebyKey("ApplicationSite"));
+         //   myBody = myBody.Replace("{{PlaceHolder:AppraisalCategory}}", noticeArea);
+            myBody = myBody.Replace("{{PlaceHolder:WebSite}}", webSite);
             myBody = myBody.Replace("{{PlaceHolder:SendName}}", WorkingProfile.UserName);
             myBody = myBody.Replace("{{PlaceHolder:SendDate}}", noticeDate);
+            myBody = myBody.Replace("{{PlaceHolder:OneLine}}", "");
 
             myText.Text = myBody;
 
         }
-        //private DataTable GetDataSource(Boolean goDatabase)
+
+        //private string GetSelectStaffId(DataSet ds)
         //{
-        //    string schoolyear = ddlSchoolYear.SelectedValue;
-        //    string schoolcode = ddlSchool.SelectedValue;
+        //    string selectId = "";
 
-        //    string searchby = ddlSearchby.SelectedValue;
-        //    string searchvalue = ddlSearch.SelectedValue;
-        //    string noticeType = "AppraisalStart";
-        //    string noticeArea = rblNoticeType.SelectedValue;
-
-        //    if (Page.Request.QueryString["nType"] == "ALPBatch")
+        //    foreach (DataRow row1 in ds.Tables[0].Rows)
         //    {
-        //        noticeType = "ALPPrint";
-        //        chbAll.Checked = true;
-
+        //        string employId = row1["Employee_ID"].ToString();
+        //        selectId = selectId + ";" + employId;
         //    }
-
-        //    if (searchby == "Teacher")
-        //    {
-        //        searchvalue = TextSearch.Text;
-        //    }
-        //    try
-        //    {
-        //        DataSet myDS = new DataSet();
-        //        myDS = StaffList.AppraisalNoticeStaff(WorkingProfile.UserRole, User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue, noticeType, noticeArea);
-        //        return myDS.Tables[0];
-        //      //  hfSelectedID.Value = getSelectStaffID(myDS);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string em = ex.Message;
-        //        return null;
-        //    }
-
-
+        //    return selectId;
         //}
-        private string getSelectStaffID(DataSet DS)
-        {
-            string selectID = "";
-
-            foreach (DataRow row1 in DS.Tables[0].Rows)
-            {
-                string employID = row1["Employee_ID"].ToString();
-                selectID = selectID + ";" + employID;
-            }
-            return selectID;
-        }
         protected void ddlSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             UserLastWorking.SchoolYear = ddlSchoolYear.SelectedValue;
@@ -181,16 +158,14 @@ namespace EPA2.EPAmanage
         protected void ddlSchool_SelectedIndexChanged(object sender, EventArgs e)
         {
             UserLastWorking.SchoolCode = ddlSchoolCode.SelectedValue;
-          //  myList.SetListValue(ddlSchoolCode, ddlSchool.SelectedValue);
-            AppraisalData.BuildingListControlInitial(ddlSchoolCode, ddlSchool.SelectedValue);
+            AppraisalPage.SetListValue(ddlSchoolCode, ddlSchool.SelectedValue);
             BindGridViewData();
         }
         protected void ddlSchoolCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             UserLastWorking.SchoolCode = ddlSchoolCode.SelectedValue;
-            AppraisalData.BuildingListControlInitial(ddlSchool, ddlSchoolCode.SelectedValue);
 
-           // myList.SetListValue(ddlSchool, ddlSchoolCode.SelectedValue);
+            AppraisalPage.SetListValue(ddlSchool, ddlSchoolCode.SelectedValue);
             BindGridViewData();
         }
 
@@ -201,16 +176,16 @@ namespace EPA2.EPAmanage
             switch (ddlSearchby.SelectedValue)
             {
                 case "ALP":
-                   // myList.SetLists(ddlSearch, "ALP", User.Identity.Name);
-                    AppraisalData.BuildingListControl(ddlSearch, "ALP", User.Identity.Name);
+
+                    AppraisalPage.BuildingList(ddlSearch, "ALP", User.Identity.Name, "", "", "");
                     break;
                 case "Phase":
-                   // myList.SetLists(ddlSearch, "AppraisalPhase", User.Identity.Name);
-                    AppraisalData.BuildingListControl(ddlSearch, "AppraisalPhase", User.Identity.Name);
+
+                    AppraisalPage.BuildingList(ddlSearch, "AppraisalPhase", User.Identity.Name, "", "", "");
                     break;
                 case "Process":
-                   // myList.SetLists(ddlSearch, "AppraisalProcess", User.Identity.Name);
-                    AppraisalData.BuildingListControl(ddlSearch, "AppraisalProcess", User.Identity.Name);
+
+                    AppraisalPage.BuildingList(ddlSearch, "AppraisalProcess", User.Identity.Name, "", "", "");
                     break;
                 default:
                     TextSearch.Visible = true;
@@ -234,12 +209,7 @@ namespace EPA2.EPAmanage
             BindGridViewData();
         }
 
-        //protected void btnBatchPrint_Click(object sender, EventArgs e)
-        //{
-        //    string selectID = hfSelectedID.Value;
 
-        //    string[]  arrayID = selectID.Split(';') ; // split string on comma space
-        //    Session["SelectedPrintID"] = arrayID;
-        //}
+
     }
 }

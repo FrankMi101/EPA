@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_EvidenceLog_text {
+    public partial class ContentEvidenceLogText {
         
         /// <summary>
         /// form1 control.

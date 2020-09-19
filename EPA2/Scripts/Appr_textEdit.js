@@ -1,4 +1,5 @@
-﻿var IE = document.all ? true : false
+﻿
+var IE = document.all ? true : false;
 document.onmousemove = getMousepoints;
 var mousex = 0;
 var mousey = 0;
@@ -13,7 +14,7 @@ function getMousepoints() {
        var doPrevent;
        if (e.keyCode === 8) {
            var d = e.srcElement || e.target;
-           if (d.tagName.toUpperCase() == 'INPUT' || d.tagName.toUpperCase() == 'TEXTAREA') {
+           if (d.tagName.toUpperCase() === 'INPUT' || d.tagName.toUpperCase() === 'TEXTAREA') {
                doPrevent = d.readOnly || d.disabled;
            }
            else

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_HelpEdit.aspx.cs" Inherits="EPA2.EPAsystem.Content_HelpEdit" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_HelpEdit.aspx.cs" Inherits="EPA2.EPAsystem.ContentHelpEdit" %>
 
 <!DOCTYPE html>
 
@@ -157,17 +157,17 @@
         $("#ButtonSave").click(function (event) {
             var helpType = $("#hfSelectedTab").val();
             if ($("#hfTextChangeTitle").val() == "1") {
-                var Title = $("#TextTitleEdit").val();
-                var SubTitle = $("#TextSubTitleEdit").val();
-                var Titletext = EPA2.Models.WebService1.SaveTitleContent("Save", UserID, CategoryID, AreaID, ItemCode, Title, SubTitle, onSuccess4, onFailure);
+                var title = $("#TextTitleEdit").val();
+                var subTitle = $("#TextSubTitleEdit").val();
+                var titletext = EPA2.Models.WebService1.SaveTitleContent("Save", UserID, CategoryID, AreaID, ItemCode, title, subTitle, onSuccess4, onFailure);
             }
             if ($("#hfTextChangeHelp").val() == "1") {
-                var Value = $("#TextHelpEditL").val();
+                var value = $("#TextHelpEditL").val();
                 if (helpType == "Message") {
-                    var helptext = EPA2.Models.WebService1.SaveMessageContent("Save", UserID, CategoryID, AreaID, ItemCode, Value, onSuccess4, onFailure);
+                    var helptext = EPA2.Models.WebService1.SaveMessageContent("Save", UserID, CategoryID, AreaID, ItemCode, value, onSuccess4, onFailure);
                 }
                 else {
-                    var helptext = EPA2.Models.WebService1.SaveHelpContent("Save", UserID, CategoryID, AreaID, ItemCode, helpType, Value, onSuccess4, onFailure);
+                    var helptext = EPA2.Models.WebService1.SaveHelpContent("Save", UserID, CategoryID, AreaID, ItemCode, helpType, value, onSuccess4, onFailure);
                 }
             }
             return false;
@@ -205,17 +205,17 @@
     }
 
     function LoadingHelpAndTitleContent() {
-        var Helptext = EPA2.Models.WebService1.GetHelpContent("Read", UserID, CategoryID, AreaID, ItemCode, "Help", onSuccess21, onFailure);
-        var Title1 = EPA2.Models.WebService1.GetTitleContent("Title", UserID, CategoryID, AreaID, ItemCode, onSuccess22, onFailure);
-        var Title2 = EPA2.Models.WebService1.GetTitleContent("Subtitle", UserID, CategoryID, AreaID, ItemCode, onSuccess23, onFailure);
+        var helptext = EPA2.Models.WebService1.GetHelpContent("Read", UserID, CategoryID, AreaID, ItemCode, "Help", onSuccess21, onFailure);
+        var title1 = EPA2.Models.WebService1.GetTitleContent("Title", UserID, CategoryID, AreaID, ItemCode, onSuccess22, onFailure);
+        var title2 = EPA2.Models.WebService1.GetTitleContent("Subtitle", UserID, CategoryID, AreaID, ItemCode, onSuccess23, onFailure);
     }
     function LoadingContent() {
         var vType = $("#hfSelectedTab").val();
         if (vType == "Message") {
-            var Helptext = EPA2.Models.WebService1.GetMessageContent("Read", UserID, CategoryID, AreaID, ItemCode, onSuccess21, onFailure);
+            var helptext = EPA2.Models.WebService1.GetMessageContent("Read", UserID, CategoryID, AreaID, ItemCode, onSuccess21, onFailure);
         }
         else {
-            var Helptext = EPA2.Models.WebService1.GetHelpContent("Read", UserID, CategoryID, AreaID, ItemCode, vType, onSuccess21, onFailure);
+            var helptext = EPA2.Models.WebService1.GetHelpContent("Read", UserID, CategoryID, AreaID, ItemCode, vType, onSuccess21, onFailure);
 
         }
     }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PDFPageFile2.aspx.cs" Inherits="EPA2.EPAappraisal.PDFPageFile2" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PDFPageFile2.aspx.cs" Inherits="EPA2.EPAappraisal.PdfPageFile2" %>
 
 <!DOCTYPE html>
 
@@ -58,6 +58,7 @@
          </footer>
   
        
+
     </form>
 </body>
 </html>

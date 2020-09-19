@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Appraisal11_NotAllowView.aspx.cs" Inherits="EPA2.EPAappraisal.Appraisal11_NotAllowView" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Appraisal11_NotAllowView.aspx.cs" Inherits="EPA2.EPAappraisal.Appraisal11NotAllowView" %>
 
 <!DOCTYPE html>
   
@@ -125,7 +125,7 @@
         </div>
 
 
-        <div style="height: 650px;">
+        <div style="height: 550px;">
             <div style="display: inline; width: 100%; float: left; border: 1px solid lightsalmon; margin: -1px">
 
                 <div class="TitleArea">
@@ -169,7 +169,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 
@@ -183,17 +183,11 @@
 
 
     $(document).ready(function () {
-        var vHeight = screen.height - 150 - 110 - 70;
-        $("section").css("height", vHeight)
+        var vHeight = screen.height - 150 - 110 - 170;
+         $("section").css("height", vHeight)
         Highlight_LeftMenuSelectNode();
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-
-        $(".labelTitle").dblclick(function (event) {
-            EditPageItemTitle();
-        });
+      
 
     });
 

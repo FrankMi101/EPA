@@ -206,7 +206,8 @@
 
 
         <div id="HelpDIV" class="bubble epahide">
-            <div id="textHelp"></div>
+                       <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+
         </div>
         <div id="DDLDIV" class="bubble epahide">
             <asp:DropDownList ID="ddlDistrictList" runat="server" Height="25px"></asp:DropDownList>
@@ -247,7 +248,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -266,7 +267,7 @@
     var WorkingCell;
     var IDs;
     $(document).ready(function () {
-        MakeStaticHeader("GridView1", 400, 1000, 25, false);
+        MakeStaticHeader("GridView1", 400, 1000, 20, false);
         //var vHeight = screen.height - 150 - 110 - 70;
         //$("section").css("height", vHeight)
 
@@ -278,21 +279,21 @@
                 if ($("#hfContentChange").val() == "1") {
                     eventCell = $(this);
 
-                    var IDs = $(this).closest('tr').find('td.listIDs').text();
+                    var iDs = $(this).closest('tr').find('td.listIDs').text();
                     var code = $(this).closest('tr').find('td .myCode').val();
                     var name = $(this).closest('tr').find('td  .myName').val();
                     var comm = $(this).closest('tr').find('td  .myComment').val();
                     var check = $(this).closest('tr').find('td  .myCheck');
                     var active = (check[0].childNodes['0'].checked ? "1" : "0");
                     var checkT = $(this).closest('tr').find('td > .myCheckT');
-                    var TPA = (checkT[0].childNodes['0'].checked ? "1" : "0");
+                    var tpa = (checkT[0].childNodes['0'].checked ? "1" : "0");
                     var checkN = $(this).closest('tr').find('td > .myCheckN');
-                    var NTP = (checkN[0].childNodes['0'].checked ? "1" : "0");
+                    var ntp = (checkN[0].childNodes['0'].checked ? "1" : "0");
                     var checkL = $(this).closest('tr').find('td > .myCheckL');
-                    var LTO = (checkL[0].childNodes['0'].checked ? "1" : "0");
+                    var lto = (checkL[0].childNodes['0'].checked ? "1" : "0");
 
 
-                    var result = EPA2.Models.WebService.SaveCompetency("Update", UserID, CategoryID, AreaID, IDs, code, name, comm, active,TPA,NTP,LTO, onSuccessUpdate, onFailureUpdate);
+                    var result = EPA2.Models.WebService.SaveCompetency("Update", UserID, CategoryID, AreaID, iDs, code, name, comm, active,tpa,ntp,lto, onSuccessUpdate, onFailureUpdate);
                     $("#hfContentChange").val("0");
                 }
             }
@@ -308,10 +309,10 @@
                 var result = confirm("Do you want to delete this row?");
                 if (result) {
 
-                    var IDs = $(this).closest('tr').find('td.listIDs').text();
+                    var iDs = $(this).closest('tr').find('td.listIDs').text();
                     var code = $(this).closest('tr').find('td .myCode').val();
                  
-                    var result = EPA2.Models.WebService.SaveCompetency("Delete", UserID, CategoryID, AreaID, IDs, code, "", "", 0, "", "", "", onSuccessDel, onFailureDel);
+                    var result = EPA2.Models.WebService.SaveCompetency("Delete", UserID, CategoryID, AreaID, iDs, code, "", "", 0, "", "", "", onSuccessDel, onFailureDel);
 
                 }
             }
@@ -321,17 +322,17 @@
         });
 
 
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
@@ -340,10 +341,10 @@
 
     });
 
-    function DeleteRecord(IDs, roleCode) {
+    function DeleteRecord(iDs, roleCode) {
         var result = confirm("Do you want to delete this row?");
         if (result) {
-            var result = EPA2.Models.WebService.SaveCompetency("Delete", UserID, CategoryID, AreaID, IDs, code, name, comm, active, TPA, NTP, LTO, onSuccessDel, onFailureDel);
+            var result = EPA2.Models.WebService.SaveCompetency("Delete", UserID, CategoryID, AreaID, iDs, code, name, comm, active, TPA, NTP, LTO, onSuccessDel, onFailureDel);
         }
         else {
 

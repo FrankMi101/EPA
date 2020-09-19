@@ -11,7 +11,7 @@
             height: 99%;
             width: 99%;
             text-align: center;
-            margin:-5px;
+            margin: -5px;
             padding-top: 15%;
         }
     </style>
@@ -26,6 +26,11 @@
     <script type="text/javascript">
         var myHref = document.getElementById("PageURL").getAttribute("href");
         window.location.href = myHref;
+        //function pageLoad(sender, args) {
+        //    alert(topSelectedMenuItem);
+        //    //if (topSelectedMenuItem != "undefined") $("#" + topSelectedMenuItem, parent.document).addClass("TopSelectItem");
+
+        //}
     </script>
 
 </body>

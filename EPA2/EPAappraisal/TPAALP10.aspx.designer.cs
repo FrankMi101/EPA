@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class TPAALP10 {
+    public partial class Tpaalp10 {
         
         /// <summary>
         /// form1 control.

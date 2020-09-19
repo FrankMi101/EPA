@@ -110,7 +110,7 @@
                                 <asp:TemplateField HeaderText="Name">
                                     <ItemStyle Width="30%" Wrap="True" />
                                     <ItemTemplate>
-                                        <asp:TextBox ID="editText" runat="server" Text='<%# Eval("NameText") %>' CssClass="myName" Width="100%" Height="100%">  </asp:TextBox>
+                                        <asp:TextBox ID="editText" runat="server" Text='<%# Eval("Name") %>' CssClass="myName" Width="100%" Height="100%">  </asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                  <asp:TemplateField HeaderText="Steps">
@@ -219,7 +219,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -236,7 +236,7 @@
     var currentTR;
     var eventCell;
     $(document).ready(function () {
-        MakeStaticHeader("GridView1", 450, 950, 25, false);
+        MakeStaticHeader("GridView1", 450, 950, 20, false);
         var vHeight = screen.height - 150 - 110 - 70;
         $("section").css("height", vHeight)
 
@@ -249,7 +249,7 @@
                 if ($("#hfContentChange").val() == "1") {
                     eventCell = $(this);
                      
-                    var IDs = $(this).closest('tr').find('td.listIDs').text();
+                    var iDs = $(this).closest('tr').find('td.listIDs').text();
                     var code = $(this).closest('tr').find('td > .myCode').val();
                     var name = $(this).closest('tr').find('td > .myName').val();
                     var steps = $(this).closest('tr').find('td > .mySteps').val();
@@ -260,7 +260,7 @@
                     var category =   $("#ddlCategory").val();
                     var itemType = $("#hfItemType").val();
                   
-                    var result = EPA2.Models.WebService.SaveSystemItems("Update", UserID, category, itemType, IDs, code, name, comm, active, steps, keyP, onSuccessUpdate, onFailureUpdate);
+                    var result = EPA2.Models.WebService.SaveSystemItems("Update", UserID, category, ItemCode, iDs, code, name, comm, active, steps, keyP, onSuccessUpdate, onFailureUpdate);
                   //  var result = EPA2.Models.WebService.SaveCategory("Update", UserID, IDs, code, name, comm, active, onSuccessUpdate, onFailureUpdate);
                     $("#hfContentChange").val("0");
                 }
@@ -288,12 +288,12 @@
 
     });
 
-    function DeleteRecord(IDs, code) {
+    function DeleteRecord(iDs, code) {
         var result = confirm("Do you want to delete this row?");
         if (result) {
             var category = $("#ddlCategory").val();
             var itemType = $("#hfItemType").val();
-            var result = EPA2.Models.WebService.SaveSystemItems("Delete", UserID, category, itemType, IDs, code, "", "", "", "0", onSuccessDel, onFailureDel);
+            var result = EPA2.Models.WebService.SaveSystemItems("Delete", UserID, category, ItemCode, iDs, code, "", "", "", "0", onSuccessDel, onFailureDel);
         }
         else {
 

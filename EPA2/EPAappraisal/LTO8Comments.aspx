@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="LTO8Comments.aspx.cs" Inherits="EPA2.EPAappraisal.LTO8Comments" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="LTO8Comments.aspx.cs" Inherits="EPA2.EPAappraisal.Lto8Comments" %>
 
 <!DOCTYPE html>
 
@@ -13,8 +13,9 @@
 
     <style>
         body {
-        width:99.9%;
+            width: 99.9%;
         }
+
         table {
             height: 99.5%;
             width: 99.5%;
@@ -125,7 +126,7 @@
         .ContentTitleLeft {
             float: left;
             display: block;
-            width: 100%;
+            width: 50%;
         }
 
         .myDomain, .myCompetency {
@@ -141,6 +142,15 @@
         .EditTable > tbody > tr > td {
             border: 1px solid #808080;
         }
+        /*.HeadRow {
+           position: absolute;
+            top: 25px;
+            left: 0px;
+            width: 100% 
+        }*/
+        /*th {
+            position: relative;
+        }*/
 
         .HighlightRow {
             border: 2px solid red;
@@ -176,19 +186,31 @@
                     <input id="textCount" type="text" maxlength="10" size="1" runat="server" readonly="readonly" />
                 </div>
             </div>
-
-            <div id="tpaContaint" style="overflow: auto; width: 100%; height: 95%; display: inline-block">
+            <div>
+                <table>
+                    <tr class="HeadRow" style="height: 25px; background-color: darkcyan; color: white; font-weight: 600; font-size: small;">
+                        <th style="width: 280px">The Teacher on Competnecies:</th>
+                        <th style="width: 130px">Rating</th>
+                        <th style="width: 43%">Comments <span style="font-size: xx-small; color: yellow">250 characters limit per box</span>
+                            <div style="font-size: xx-small">(required if Development Needed rating given) </div>
+                        </th>
+                        
+                    </tr>
+                </table>
+            </div>
+            <div id="tpaContaint" style="overflow: auto; width: 100%; height: 90%; display: inline-block">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                     <ContentTemplate>
                         <table class="EditTable">
-                            <tr style="height: 25px; background-color: darkcyan; color: white; font-weight: 600; font-size: small;">
-                                <td style="width: 40%">The Teacher:</td>
-                                <td style="width: 19%">Rating</td>
-                                <td colspan="2" style="width: 41%">Comments <span style="font-size: xx-small; color: yellow">250 characters limit per box</span>
+                            <%-- <tr class="HeadRow" style="height: 25px; background-color: darkcyan; color: white; font-weight: 600; font-size: small;">
+                                <th style="width: 350px">The Teacher:</th>
+                                <th style="width: 150px">Rating</th>
+                                <th style="width: 300px">Comments <span style="font-size: xx-small; color: yellow">250 characters limit per box</span>
                                     <div style="font-size: xx-small">(required if Development Needed rating given) </div>
-                                </td>
+                                </th>
+                                <th></th>
 
-                            </tr>
+                            </tr>--%>
                             <tr id="WorkingRow1" runat="server" class="WorkingRow">
                                 <td style="width: 40%">
                                     <div id="Compentency1" runat="server">
@@ -354,9 +376,9 @@
 
 
         <footer>
-            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="btnPrevious_Click" />
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="btnSave_Click" />
-            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="<<  Previous" CssClass="saveButton" OnClick="BtnPrevious_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="saveButton" OnClick="BtnSave_Click" />
+            <asp:Button ID="btnNext" runat="server" Text="Next  >>" CssClass="saveButton" OnClick="BtnNext_Click" />
             <%--     <asp:Button ID="btnCompetency" runat="server" Text="" OnClick="btnCompetency_Click" />--%>
         </footer>
         <%--   <div class="bottom">
@@ -364,7 +386,7 @@
         </div>--%>
 
         <div id="HelpDIV" class="bubble epahide">
-            <asp:TextBox ID="HelpTextContent" runat="server"  TextMode="MultiLine" contenteditable="true"  placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
+            <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" contenteditable="true" placeholder="Help Content" CssClass="HelpTextBox"></asp:TextBox>
         </div>
 
 
@@ -413,6 +435,7 @@
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
 <script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/Appr_ListPage.js"></script>
@@ -427,6 +450,21 @@
     var CompetencyID;
     var currentTR;
     var eventCell;
+    var BasePara = {
+        UserID: $("#hfUserID").val(),
+        Category: $("#hfCategory").val(),
+        Area: $("#hfArea").val(),
+        ItemCode: $("#hfCode").val(),
+        DomainID: $("#hfDomainID").val(),
+        CompetencyID: $("#hfCompetencyID").val(),
+        SchoolYear: $("#hfApprYear").val(),
+        SchoolCode: $("#hfApprSchool").val(),
+        SessionID: $("#hfApprSession").val(),
+        EmployeeID: $("#hfApprEmployeeID").val(),
+        Value: "",
+        Rate: "",
+        Operate: "Get"
+    }
     function pageLoad(sender, args) {
         $(document).ready(function () {
             var vHeight = window.innerHeight - apprScreenH;
@@ -435,18 +473,18 @@
 
 
             $(".CommentsC").click(function (event) {
-                var tID = event.currentTarget.id;
-                var vNo = tID.replace("TextCompentency", "");
+                var tId = event.currentTarget.id;
+                var vNo = tId.replace("TextCompentency", "");
                 $("#textNo").text("Text Box No." + vNo + " Characters limit: ");
             });
             $(".CommentsC").focus(function (event) {
                 //var vTop = event.target.parentNode.offsetTop + 20;
                 //var vLeft = event.target.parentNode.offsetLeft - 100;
-                var workingID = event.target.id;
-                CountTextBoxCharactors(workingID);
+                var workingId = event.target.id;
+                CountTextBoxCharactors(workingId);
                 $("#CountDIV").css({
                     top: 1,
-                    left: 580,
+                    left: 500,
                     height: 20,
                     width: 250
                 })
@@ -457,49 +495,60 @@
                 $("#CountDIV").fadeToggle("fast");
             });
             $(".WorkingRow").mouseenter(function (event) {
-                var tID = event.currentTarget.id;
+                var tId = event.currentTarget.id;
 
-                $("#" + tID).addClass("HighlightRow");
+                $("#" + tId).addClass("HighlightRow");
             });
             $(".WorkingRow").mouseleave(function (event) {
-                var tID = event.currentTarget.id;
+                var tId = event.currentTarget.id;
 
-                $("#" + tID).removeClass("HighlightRow");
+                $("#" + tId).removeClass("HighlightRow");
             });
             $(".CommentsC").keydown(function (event) {
                 eventCell = $(this);
-                var workingID = eventCell[0].id
+                var workingId = eventCell[0].id
                 var vTop = event.currentTarget.offsetTop + 10;
-                CountTextBoxCharactors(workingID);
+                CountTextBoxCharactors(workingId);
             });
             $(".CommentsC").change(function (event) {
                 eventCell = $(this);
                 var value = eventCell[0].value;
-                var tID = event.currentTarget.id;
-                CompetencyID = tID.replace("TextCompentency", "");
+                var tId = event.currentTarget.id;
+                CompetencyID = tId.replace("TextCompentency", "");
                 var rateVaue = "";
                 if (CompetencyID === "8")
-                { rateVaue = "3"; }
+                    { rateVaue = "3"; }
                 else {
-                    rateVaue = $("#RBL" + CompetencyID).val();
+                    rateVaue = $("#RBL" + CompetencyID + " input:checked").val();
                 }
 
+             //   $('#RadioButtonList1 input:checked').val()
+
                 var textValue = value;
-                var helptext = EPA2.Models.WebService1.SaveCompetencyContent("SaveComments", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, rateVaue, textValue, onSuccess, onFailure);
+                //  var helptext = EPA2.Models.WebService1.SaveCompetencyContent("SaveComments", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, rateVaue, textValue, onSuccess, onFailure);
+                BasePara.Value = textValue;
+                BasePara.Rate = rateVaue;
+                BasePara.Operate = "SaveComments";
+                BasePara.CompetencyID = CompetencyID
+                EPA2.Models.WebService1.SaveCompetencyContent1("SaveComments", BasePara, onSuccess, onFailure);
             });
             $(".RBL").change(function (event) {
-                var tID = event.currentTarget.id;
-                CompetencyID = tID.replace("RBL", "");
+                var tId = event.currentTarget.id;
+                CompetencyID = tId.replace("RBL", "");
                 var rateVaue = event.target.value;
                 var rateText = event.target.innerText;
                 var textValue = $("#TextCompentency" + CompetencyID).val();
                 var rMessage = $("#cRBL" + CompetencyID);
                 if (rateVaue == "4") {
-                    if (textValue.length < 1)
-                    { rMessage.show(); }
+                    if (textValue.length < 1) { rMessage.show(); }
                 }
                 else { rMessage.hide(); }
-                var helptext = EPA2.Models.WebService1.SaveCompetencyContent("Save", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, rateVaue, textValue, onSuccess, onFailure);
+                BasePara.Value = textValue;
+                BasePara.Rate = rateVaue;
+                BasePara.Operate = "Save";
+                BasePara.CompetencyID = CompetencyID
+                //  var helptext = EPA2.Models.WebService1.SaveCompetencyContent("Save", UserID, CategoryID, AreaID, ItemCode, DomainID, CompetencyID, rateVaue, textValue, onSuccess, onFailure);
+                EPA2.Models.WebService1.SaveCompetencyContent1("Save", BasePara, onSuccess, onFailure);
             });
 
             if ($("#hfPageReadonly").val() == "Yes") {
@@ -507,22 +556,22 @@
             }
 
 
-            $("#closeActionPOP").click(function (event) {
-                $("#ActionPOPDIV").fadeToggle("fast");
-            });
-            $(".labelTitle").dblclick(function (event) {
-                ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-                EditPageItemTitle();
-            });
-            $(".labelTitleX").dblclick(function (event) {
-                ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-                EditPageItemTitle();
-            });
+            //$("#closeActionPOP").click(function (event) {
+            //    $("#ActionPOPDIV").fadeToggle("fast");
+            //});
+            //$(".labelTitle").dblclick(function (event) {
+            //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+            //    EditPageItemTitle();
+            //});
+            //$(".labelTitleX").dblclick(function (event) {
+            //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+            //    EditPageItemTitle();
+            //});
 
-            $("#btnSave").click(function (event) {
-                // SaveCompentencyTextContent();
-                //   return true;
-            });
+            //$("#btnSave").click(function (event) {
+            //    // SaveCompentencyTextContent();
+            //    //   return true;
+            //});
 
         });
 
@@ -536,14 +585,14 @@
     function onSuccess() { }
     function onFailure() { }
 
-    function CountTextBoxCharactors(workingID) {
+    function CountTextBoxCharactors(workingId) {
         try {
             $("#hfContentChange").val("1");
             var maxCount = "250";
-            if (workingID.replace("TextCompentency", "") == "8") {
+            if (workingId.replace("TextCompentency", "") == "8") {
                 maxCount = "500";
             }
-            var nCnt = $("#" + workingID).val().length;
+            var nCnt = $("#" + workingId).val().length;
             if (nCnt > maxCount) {
                 window.alert("Text longer than " + maxCount + " charaters");
             }
@@ -551,8 +600,7 @@
                 $("#textCount").val(maxCount - nCnt);
             }
         }
-        catch (e)
-        { }
+        catch (e) { }
 
     }
 

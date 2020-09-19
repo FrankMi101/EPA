@@ -113,7 +113,7 @@
                                 <asp:TemplateField HeaderText="Category Name">
                                     <ItemStyle Width="30%" Wrap="True" />
                                     <ItemTemplate>
-                                        <asp:TextBox ID="editText" runat="server" Text='<%# Eval("NameText") %>' CssClass="myName" Width="100%" Height="100%">  </asp:TextBox>
+                                        <asp:TextBox ID="editText" runat="server" Text='<%# Eval("Name") %>' CssClass="myName" Width="100%" Height="100%">  </asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Comments">
@@ -158,7 +158,7 @@
                     </div>
                 </div>
             </div>
-            <asp:Button ID="btnAddNew" runat="server" Text="Add New Domain" OnClick="btnAddNew_Click" />
+            <asp:Button ID="btnAddNew" runat="server" Text="Add New Category" OnClick="btnAddNew_Click" />
  
 
         </section>
@@ -206,7 +206,7 @@
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
 <script src="../Scripts/JqueryUI/jquery-ui.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -223,7 +223,7 @@
     var currentTR;
     var eventCell;
     $(document).ready(function () {
-        MakeStaticHeader("GridView1", 400, 850, 25, false);
+        MakeStaticHeader("GridView1", 400, 850, 20, false);
        
         $("#GridView1 tr").change(function () {
             try {
@@ -233,38 +233,70 @@
             catch (ex)
             { }
         })
-        $('td > .mySave').click(function (event) {
+           $('td > .mySave').click(function (event) {
             try {
                 if ($("#hfContentChange").val() == "1") {
                     eventCell = $(this);
- 
-                    var IDs = $(this).closest('tr').find('td.listIDs').text();
-                    var code = $(this).closest('tr').find('td > .myCode').val();
-                    var name = $(this).closest('tr').find('td > .myName').val();
-                    var comm = $(this).closest('tr').find('td > .myComment').val();
                     var check = $(this).closest('tr').find('td > .myCheck');
-                    var active = (check[0].childNodes['0'].checked ? "1" : "0");
-                    var result = EPA2.Models.WebService.SaveCategory("Update", UserID,  IDs, code, name, comm, active, onSuccessUpdate, onFailureUpdate);
+                    var active = (check[0].childNodes['0'].checked ? 1 : 0);
+
+                    var saveObj = {
+                        "Operate": "Update",
+                        "UserID": UserID,
+                        "IDs": $(this).closest('tr').find('td.listIDs').text(),
+                        "Code": $(this).closest('tr').find('td > .myCode').val(),
+                        "Name": $(this).closest('tr').find('td > .myName').val(),
+                        "Comments": $(this).closest('tr').find('td > .myComment').val(),
+                        "Active": active
+                    };
+
+
+                    var result = EPA2.Models.WebService.SaveAppraisalCategory(saveObj, onSuccessUpdate, onFailureUpdate);
                     $("#hfContentChange").val("0");
                 }
             }
-            catch (ex)
-            { }
+            catch (ex) { }
+
+        });
+        $('td > .myAction').click(function (event) {
+            try {
+
+                eventCell = $(this);
+                var result = confirm("Do you want to delete this row?");
+                if (result) {
+
+                    var iDs = $(this).closest('tr').find('td.listIDs').text();
+                    var code = $(this).closest('tr').find('td .myCode').val();
+
+                    var saveObj = {
+                        "Operate": "Delete",
+                        "UserID": UserID,
+                        "IDs": $(this).closest('tr').find('td.listIDs').text(),
+                        "Code": "",
+                        "Name": "",
+                        "Comments": "",
+                        "Active": 0
+                    };
+                    var result2 = EPA2.Models.WebService.SaveAppraisalCategory(saveObj, onSuccessDel, onFailureDel);
+
+                }
+            }
+            catch (ex) { }
 
         });
 
         
-        $("#closeActionPOP").click(function (event) {
-            $("#ActionPOPDIV").fadeToggle("fast");
-        });
-        $(".labelTitle").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
-        $(".labelTitleX").dblclick(function (event) {
-            ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
-            EditPageItemTitle();
-        });
+        //$("#closeActionPOP").click(function (event) {
+        //    $("#ActionPOPDIV").fadeToggle("fast");
+        //});
+        //$(".labelTitle").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
+        //$(".labelTitleX").dblclick(function (event) {
+        //    ItemCode = $("#hfCode").val() + $(this)[0].id.replace("labelTitle", "");
+        //    EditPageItemTitle();
+        //});
 
         $("#btnSave").click(function (event) {
             // SaveCompentencyTextContent();
@@ -273,15 +305,7 @@
 
     });
 
-    function DeleteRecord(IDs, Code) {
-        var result = confirm("Do you want to delete this row?");
-        if (result) {
-            var result = EPA2.Models.WebService.SaveCategory("Delete", UserID, IDs, Code, "", "", "", "0", onSuccessDel, onFailureDel);
-        }
-        else {
-
-        }
-    }
+  
     function DisableTextEdit() {
 
     }

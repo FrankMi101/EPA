@@ -1,12 +1,10 @@
-﻿using System;
+﻿using ClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
-
 namespace EPA2.EPAappraisal
 {
     public partial class Appraisal11_SummaryIncomplete : System.Web.UI.Page
@@ -44,8 +42,8 @@ namespace EPA2.EPAappraisal
             string area = hfArea.Value;
             string code = hfCode.Value;
 
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
         }
         private void CheckAppraisalSummary()
@@ -59,8 +57,20 @@ namespace EPA2.EPAappraisal
             string category = WorkingAppraisee.AppraisalType;
             string sourcePage = "Summary";
             string area = "Sum";
-            DataSet myDS = AppraisalProcess.CheckCompleteStatus("CheckList", User.Identity.Name, schoolyear, schoolcode, employeeid, sessionid, category, area, sourcePage);
-            TreeViewNode.BuildingTree(ref TreeView1, myDS, category, "Incomplete");
+           
+             var parameter = new AppraisalComment()
+             {
+                 UserID = User.Identity.Name,
+                 SchoolYear = WorkingAppraisee.PreviousAppraisalYear,
+                 SchoolCode = WorkingAppraisee.AppraisalSchoolCode,
+                 EmployeeID = WorkingAppraisee.EmployeeID,
+                 SessionID = WorkingAppraisee.PreviousYearSessionID,
+                 Category = WorkingAppraisee.AppraisalType,
+                 Area = area,
+                 ItemCode = sourcePage
+             };
+            var myDs = AppraisalProcess.CheckCompleteStatus(parameter); // .CheckCompleteStatus("CheckList", User.Identity.Name, schoolyear, schoolcode, employeeid, sessionid, category, area, sourcePage);
+            TreeViewNode.BuildingTree(ref TreeView1, myDs, category, "Incomplete");
         }
     }
 }

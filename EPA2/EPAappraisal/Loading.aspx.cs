@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
+using System.Web.UI.WebControls; 
 namespace EPA2.EPAappraisal
 {
     public partial class Loading : System.Web.UI.Page
@@ -13,40 +12,41 @@ namespace EPA2.EPAappraisal
         {
             if (!Page.IsPostBack)
             {
-                string GoPage = Page.Request.QueryString["pID"];
-                string schoolyear = Page.Request.QueryString["yID"];
-                string schoolcode = Page.Request.QueryString["cID"];
-                string employeeID = Page.Request.QueryString["tID"];
-                string sessionID = Page.Request.QueryString["sID"];
-                string tName = Page.Request.QueryString["tName"];
-                string phase = Page.Request.QueryString["phase"];
-                string category = Page.Request.QueryString["type"];
-                string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeID + "&tName=" + tName + "&phase=" + phase + "&sID=" + sessionID + "&type=" + category;
-                WorkingAppraisee.AppraisalYear = schoolyear;
-                WorkingAppraisee.EmployeeID = employeeID;
-                WorkingAppraisee.SessionID = sessionID;
-                WorkingProfile.PageCategory = category;
+                string goPage = Page.Request.QueryString["pID"];
+                //string schoolyear = Page.Request.QueryString["yID"];
+                //string schoolcode = Page.Request.QueryString["cID"];
+                //string employeeId = Page.Request.QueryString["tID"];
+                //string sessionId = Page.Request.QueryString["sID"];
+                //string tName = Page.Request.QueryString["tName"];
+                //string phase = Page.Request.QueryString["phase"];
+                //string category = Page.Request.QueryString["type"];
+                var queryValue = AppraisalPage.GetQueryValue(Page);
+                string parameter = AppraisalPage.GetQueryString(queryValue);//  "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeId + "&tName=" + tName + "&phase=" + phase + "&sID=" + sessionId + "&type=" + category;
+                WorkingAppraisee.AppraisalYear = queryValue.SchoolYear;// schoolyear;
+                WorkingAppraisee.EmployeeID = queryValue.EmployeeID;// employeeId;
+                WorkingAppraisee.SessionID = queryValue.SessionID;//  sessionId;
+                WorkingProfile.PageCategory = queryValue.Category;// category;
  
-                switch (GoPage)
+                switch (goPage)
                 {
                     case "Appraisal":
-                        GoPage = "Appraisal00.aspx?" + parameter + "&ClientUserScreen=" + WorkingProfile.ClientUserScreen;
+                        goPage = "Appraisal00.aspx?" + parameter + "&ClientUserScreen=" + WorkingProfile.ClientUserScreen;
                         break;
                     case "LeftMenu":
-                        GoPage = "Appraisal11.aspx?" + parameter;
+                        goPage = "Appraisal11.aspx?" + parameter;
                         break;   
                     case "Notes":
-                        GoPage = "../EPAmanage/NotesEdit.aspx?" + parameter;
+                        goPage = "../EPAmanage/NotesEdit.aspx?" + parameter;
                         break;
                     case "Feedback":
-                        GoPage = "../EPAmanage/Feedback.aspx?" + parameter;
+                        goPage = "../EPAmanage/Feedback.aspx?" + parameter;
                         break;
                     default:
-                        GoPage = "Appraisal11_NotAppraiser.aspx";
+                        goPage = "Appraisal11_NotAppraiser.aspx?";
                         break;
                 }
 
-                PageURL.HRef = GoPage;
+                PageURL.HRef = goPage ;
             }
         }
    

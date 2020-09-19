@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_EvidenceLog_text.aspx.cs" Inherits="EPA2.EPAappraisal.Content_EvidenceLog_text" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Content_EvidenceLog_text.aspx.cs" Inherits="EPA2.EPAappraisal.ContentEvidenceLogText" %>
 
 <!DOCTYPE html>
 

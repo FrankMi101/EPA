@@ -4,20 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
 
 namespace EPA2.EPAappraisal
 {
-    public partial class PDFPage : System.Web.UI.Page
+    public partial class PdfPage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                setPageAttribution();
+                SetPageAttribution();
                 AssemblingPageTitle();
-               if (checkPDFReportViewAvailable() == "Pass")
+               if (CheckPdfReportViewAvailable() == "Pass")
                 {
                     ContentMessageNotReady.Visible = false;
                     PDFiFramePage.Attributes.Add("src", "PDFPageFile.aspx");    
@@ -28,14 +26,14 @@ namespace EPA2.EPAappraisal
                 }
             }
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
              AppraisalPage.SetPageAttribute(Page);
 
-            labelMessage.Text = getReportTitlebyCode();
+            labelMessage.Text = GetReportTitlebyCode();
         }
-        private string getReportTitlebyCode()
+        private string GetReportTitlebyCode()
         {
             string rValue = "";
             switch (WorkingAppraisee.AppraisalCode)
@@ -80,48 +78,53 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
         }
 
 
-        private string checkPDFReportViewAvailable()
+        private string CheckPdfReportViewAvailable()
         {
             string allowView = "NotPass";
             string category = WorkingAppraisee.AppraisalType;
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
-            string AppraisalRole = AppraisalProcess.AppraisalActionRole(category, WorkingProfile.UserRole, WorkingAppraisee.UserID, User.Identity.Name);
+            string appraisalRole = AppraisalProcess.AppraisalActionRole(category, WorkingProfile.UserRole, WorkingAppraisee.UserID, User.Identity.Name);
 
-            if (AppraisalRole == "Appraiser")
+            if (appraisalRole == "Appraiser")
             {
                 allowView = "Pass";
             }
             else
             {
-                allowView = AppraisalProcess.CheckPDFViewPermission(AppraisalRole, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, category, area, code, WorkingProfile.UserRole);
+                allowView = AppraisalProcess.CheckPDFViewPermission(appraisalRole, User.Identity.Name, WorkingAppraisee.AppraisalYear, WorkingAppraisee.AppraisalSchoolCode, WorkingAppraisee.EmployeeID, WorkingAppraisee.SessionID, category, area, code, WorkingProfile.UserRole);
 
             }
 
             return allowView;
 
         }
-        protected void btnNext_Click(object sender, EventArgs e)
+        protected void BtnNext_Click(object sender, EventArgs e)
         {
             GoToNewPage("Next");
         }
-        protected void btnPrevious_Click(object sender, EventArgs e)
+        protected void BtnPrevious_Click(object sender, EventArgs e)
         {
             GoToNewPage("Previous");
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+             string goPage = AppraisalPage.GoPage(parameter);
 
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 

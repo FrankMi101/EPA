@@ -1,11 +1,13 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
 
 namespace EPA2
 {
@@ -18,22 +20,35 @@ namespace EPA2
                 txtDomain.Text = WebConfig.DomainName();
                 LabelAppName.Text = WebConfig.AppName();
                 HostName.InnerText = System.Net.Dns.GetHostName();
-                if (User.Identity.Name == "")
+
+
+                var windowsCurrent = WindowsIdentity.GetCurrent();// System.Net.CredentialCache.DefaultCredentials.ToString();
+
+                if (windowsCurrent.IsAuthenticated)
                 {
-                    txtUserName.Text = "mif";
+                   // txtDomain.Text = Authentication.GetCurrentUserName("Domain", windowsCurrent.Name);
+                    txtUserName.Text = Authentication.GetCurrentUserName("Name", windowsCurrent.Name);
+                    var cUserRole = UserProfile.UserLoginRole(txtUserName.Text);
+                    if (cUserRole != "Admin") txtUserName.ReadOnly = true ;
+                   
                 }
+
+                if (txtUserName.Text == "")
+                    txtUserName.Focus();
                 else
-                { txtUserName.Text = User.Identity.Name; }
-                txtUserName.Focus();
+                    txtPassword.Focus();
+
                 if (DBConnection.CurrentDB != "Live")
                 {
                     LabelTrain.Text = DBConnection.CurrentDB;
                     LabelTrain.Visible = true;
                 }
                 string authenticationMethod = WebConfig.getValuebyKey("AuthenticateMethod");
-                if (authenticationMethod == "NameOnly")
+                if (authenticationMethod == "NameOnly" || windowsCurrent.IsAuthenticated)
                 {
                     rfPassword.Enabled = false;
+                    //txtResolution.Value = "1024x768";
+                    //Login_Click(Submit1,e);
                 }
             }
         }
@@ -41,8 +56,9 @@ namespace EPA2
         {
             try
             {
+                var windowsCurrent = WindowsIdentity.GetCurrent();
                 txtUserName.Text = txtUserName.Text.ToLower();
-                if (Authentication.IsAuthenticated(txtDomain.Text, txtUserName.Text , txtPassword.Text))
+                if (Authentication.IsAuthenticated(txtDomain.Text, txtUserName.Text, txtPassword.Text))
                 {
                     CreateAuthenticationTicket();
                 }
@@ -65,8 +81,8 @@ namespace EPA2
         {
             try
             {
-                string LoginRole = UserProfile.UserLoginRole(txtUserName.Text);//  Authentication.UserRole(txtUserName.Text);
-                if (LoginRole == "Other")
+                string loginRole = UserProfile.UserLoginRole(txtUserName.Text);//  Authentication.UserRole(txtUserName.Text);
+                if (loginRole == "Other")
                 {
                     errorlabel.Text = WebConfig.MessageNotAllow(); // "You are not allow to run this application ! ";
                     errorlabel.Visible = true;
@@ -74,7 +90,7 @@ namespace EPA2
                 }
                 else
                 {
-                    CreateauTicket(LoginRole);
+                    CreateauTicket(loginRole);
                 }
             }
             catch (Exception ex)
@@ -112,6 +128,6 @@ namespace EPA2
 
         }
 
-
+  
     }
 }

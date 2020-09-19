@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class DOCPage {
+    public partial class DocPage {
         
         /// <summary>
         /// form2 control.

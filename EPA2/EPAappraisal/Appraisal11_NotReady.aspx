@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Appraisal11_NotReady.aspx.cs" Inherits="EPA2.EPAappraisal.Appraisal11_NotReady" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Appraisal11_NotReady.aspx.cs" Inherits="EPA2.EPAappraisal.Appraisal11NotReady" %>
 
 <!DOCTYPE html>
 
@@ -169,7 +169,7 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 

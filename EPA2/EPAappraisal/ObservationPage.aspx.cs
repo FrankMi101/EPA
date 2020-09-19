@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataAccess;
-using System.Data;
-using System.Web.UI.HtmlControls;
+using System.Web.UI; 
 
 namespace EPA2.EPAappraisal
 {
     public partial class ObservationPage : System.Web.UI.Page
     {
-        string domainID;
-        string competencyID;
+        string _domainId;
+        string _competencyId;
         protected void Page_Load(object sender, EventArgs e)
         {
            AssemblingPageTitle();
@@ -21,22 +17,22 @@ namespace EPA2.EPAappraisal
             {
                 Page.Response.Expires = 0;
           
-               setPageAttribution();
+               SetPageAttribution();
                
                 BindMyData();
-                checkPageReadonly();
+                CheckPageReadonly();
             }
-            domainID = hfCode.Value.Replace("SUM5", "");
+            _domainId = hfCode.Value.Replace("SUM5", "");
 
         }
-        private void setPageAttribution()
+        private void SetPageAttribution()
         {
             hfUserID.Value = User.Identity.Name;
             hfFirstName.Value = WorkingAppraisee.AppraiseeName;
             AppraisalPage.SetPageAttribute(Page);
 
             hfDomainID.Value = hfCode.Value.Replace("SUM5", "");
-            domainID = hfDomainID.Value;
+            _domainId = hfDomainID.Value;
         }
 
         private void AssemblingPageTitle()
@@ -45,14 +41,14 @@ namespace EPA2.EPAappraisal
             string area = WorkingAppraisee.AppraisalArea;
             string code = WorkingAppraisee.AppraisalCode;
 
-            AppraisalLeftMenu.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalData.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
-            AppraisalData.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
-            AppraisalData.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
+           AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
+            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
+            AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
+            AppraisalPage.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
 
-            //    AppraisalData.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
-            //    AppraisalData.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
+            //    AppraisalPage.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
+            //    AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
 
         }
@@ -105,8 +101,8 @@ namespace EPA2.EPAappraisal
             {
                 chbCopyOver.Visible = false;
             }
-            domainID = hfDomainID.Value;
-            competencyID = hfCompetencyID.Value;
+            _domainId = hfDomainID.Value;
+            _competencyId = hfCompetencyID.Value;
             AppraisalData.ObservationDate(ref dateObservation, ref myText, ref textCount, action, 2000, category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value );
         }
         protected void OperationMyList(string action)
@@ -115,12 +111,12 @@ namespace EPA2.EPAappraisal
             string category = hfCategory.Value;
             string area = hfArea.Value;
             string code = hfCode.Value;
-            domainID = hfDomainID.Value;
-            competencyID = hfCompetencyID.Value;
-            AppraisalData.ObservationList(ref  GridView1,action,category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value, domainID, competencyID);
+            _domainId = hfDomainID.Value;
+            _competencyId = hfCompetencyID.Value;
+            AppraisalData.ObservationList(ref  GridView1,action,category, area, code, User.Identity.Name,  hfApprYear.Value, hfApprSchool.Value, hfApprSession.Value, hfApprEmployeeID.Value, _domainId, _competencyId);
         }
 
-        protected void checkPageReadonly()
+        protected void CheckPageReadonly()
         {
             AppraisalPage.CheckPageReadOnly(Page, "Both", User.Identity.Name);
 
@@ -156,10 +152,15 @@ namespace EPA2.EPAappraisal
         }
         private void GoToNewPage(string action)
         {
-            string category = hfCategory.Value;
-            string area = hfArea.Value;
-            string code = hfCode.Value;
-            string goPage = AppraisalProcess.AppraisalPageItem(action, User.Identity.Name, category, area, code);
+            var parameter = new
+            {
+                Operate = action,
+                UserID = User.Identity.Name,
+                Category = hfCategory.Value,
+                Area = hfArea.Value,
+                Code = hfCode.Value
+            };
+             string goPage = AppraisalPage.GoPage(parameter);
 
             Page.Response.Redirect("Loading2.aspx?pID=" + goPage);
 

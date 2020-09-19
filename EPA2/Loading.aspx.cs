@@ -13,36 +13,36 @@ namespace EPA2
         {
             if (!Page.IsPostBack)
             {
-                string GoPage = Page.Request.QueryString["pID"].ToString();
-                switch (GoPage)
+                string goPage = Page.Request.QueryString["pID"].ToString();
+                switch (goPage)
                     {
                     case "List":
-                        GoPage = "EPAmanage/Loading.aspx";
+                        goPage = "EPAmanage/Loading.aspx";
                         break;
                     case "ListHistory":
-                        GoPage = "EPAmanage/Loading.aspx";
+                        goPage = "EPAmanage/Loading.aspx";
                         break;
                     case "Appraisal":
-                        GoPage = "EPAappraisal/Loading.aspx";
+                        goPage = "EPAappraisal/Loading.aspx";
                         break;
                     case "Evaluation":
-                        GoPage = "LoadingDashBoard.aspx?pID=Evaluation";
+                        goPage = "LoadingDashBoard.aspx?pID=Evaluation";
                         break;
                     case "Notice":
-                        GoPage = "LoadingDashBoard.aspx?pID=Notice" ;
+                        goPage = "LoadingDashBoard.aspx?pID=Notice" ;
                         break;
                     case "ALP":
-                        GoPage = "LoadingDashBoard.aspx?pID=ALP";
+                        goPage = "LoadingDashBoard.aspx?pID=ALP";
                         break;
                     case "EPA":
-                        GoPage = "LoadingDashBoard.aspx?pID=EPA";
+                        goPage = "LoadingDashBoard.aspx?pID=EPA";
                         break;
                      default:
-                        GoPage = "DefaultSummary.aspx";
+                        goPage = "DefaultSummary.aspx";
                         break;
                 }
 
-                PageURL.HRef = GoPage;
+                PageURL.HRef = goPage;
             }
         }
     }

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        input {
+            transform: scale(1.5);
+            margin: 10px 5px;
+        }
+
+        img {
+            width: 1920px;
+            height: 1080px;
+            transition: 0s;
+        }
+
+        input:checked + br + img {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            object-position: left-top;
+            transition: width 2s, height 4s;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" />
+    <br />
+    <img src="https://source.unsplash.com/random/1920x1080" alt="Random" />
+</body>
+</html>

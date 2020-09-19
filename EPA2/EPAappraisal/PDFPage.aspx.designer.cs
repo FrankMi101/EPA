@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class PDFPage {
+    public partial class PdfPage {
         
         /// <summary>
         /// form2 control.

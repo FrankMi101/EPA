@@ -10,7 +10,7 @@
 namespace EPA2.EPAappraisal {
     
     
-    public partial class Content_Recovery {
+    public partial class ContentRecovery {
         
         /// <summary>
         /// form1 control.

@@ -85,6 +85,45 @@ namespace BLL
             return parameters;
         }
 
+        public static AppraisalComment GetCommentParameter(string operate, string userID, string schoolYear, string schoolCode, string employeeID, string sessionID, string itemCode, string category, string area, string actionItem, string SeqNo)
+        {
+            AppraisalComment parameters = new AppraisalComment()
+            {
+                Operate = operate,
+                UserID = userID,
+                SchoolYear = schoolYear,
+                SchoolCode = schoolCode,
+                EmployeeID = employeeID,
+                SessionID = sessionID,
+                ItemCode = itemCode,
+                Category = category,
+                Area = area,
+                SeqNo =SeqNo,
+                ActionItem =actionItem 
+            };
+
+            return parameters;
+        }
+        public static AppraisalComment GetCommentParameter(string operate, string userID, string schoolYear, string schoolCode, string employeeID, string sessionID, string itemCode, string category, string area, string actionItem, string SeqNo, string value)
+        {
+            AppraisalComment parameters = new AppraisalComment()
+            {
+                Operate = operate,
+                UserID = userID,
+                SchoolYear = schoolYear,
+                SchoolCode = schoolCode,
+                EmployeeID = employeeID,
+                SessionID = sessionID,
+                ItemCode = itemCode,
+                Category = category,
+                Area = area,
+                SeqNo = SeqNo,
+                ActionItem = actionItem,
+                Value = value
+            };
+
+            return parameters;
+        }
         public static AppraisalDate GetDateParameter(string operate, string userID, string schoolYear, string schoolCode, string employeeID, string sessionID, string itemCode, string category, string area, string date, string value)
         {
             AppraisalDate parameters = new AppraisalDate()
@@ -121,8 +160,8 @@ namespace BLL
                 Area = area,
                 DomainID = domainID,
                 CompetencyID = competencyID,
-                Value = value,
-                Rate = rate
+                 Rate = rate,
+               Value = value
             };
 
             return parameters;

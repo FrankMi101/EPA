@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DataAccess;
+using BLL;
 namespace EPA2.Documents
 {
     public partial class Loading : System.Web.UI.Page
@@ -13,38 +13,41 @@ namespace EPA2.Documents
         {
             if (!Page.IsPostBack)
             {
-                string GoPage = Page.Request.QueryString["pID"];
+                string goPage = Page.Request.QueryString["pID"];
               
-                switch (GoPage)
+                switch (goPage)
                 {
                     case "AppUserGuideline":
-                        GoPage = "UserMenu.pdf" ;
+                        goPage = "UserMenu.pdf" ;
                         break;
                     case "MinistryGuideline":
-                        GoPage = "MinistryGuideline.pdf";
+                        goPage = "MinistryGuideline.pdf";
                         break;
                     case "MinistryAppraisalFAQ":
-                        GoPage = "TPA FAQ from Ministry Education.pdf";
+                        goPage = "TPA FAQ from Ministry Education.pdf";
                         break;
                     case "MinistryGuidelineE":
-                        GoPage = "MinistryGuidelineE.pdf"  ;
+                        goPage = "MinistryGuidelineE.pdf"  ;
                         break;
                     case "MinistryGuidelineNTIP":
-                        GoPage = "MinistryGuidelineNTIP.pdf";
+                        goPage = "MinistryGuidelineNTIP.pdf";
                         break;
 
                     case "MinistryGuidelineLTO":
-                        GoPage = "MinistryGuidelineLTO.pdf";
+                        goPage = "MinistryGuidelineLTO.pdf";
                         break;
                     case "MinistryGuidelinePPA":
-                        GoPage = "MinistryGuidelinePPA.pdf";
+                        goPage = "MinistryGuidelinePPA.pdf";
+                        break;
+                    case "BoardLearningPlan":
+                        goPage = "BoardLearnigImprovementPlan.pdf";
                         break;
                     default:
-                        GoPage = "MinistryGuidelineE.pdf";
+                        goPage = "MinistryGuidelineE.pdf";
                         break;
                 }
 
-                PageURL.HRef = GoPage;
+                PageURL.HRef = goPage;
             }
         }
    
