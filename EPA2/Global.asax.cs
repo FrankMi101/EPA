@@ -19,9 +19,9 @@ namespace EPA2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             // Code to set up a database connection str when the application start
-            string currentDb = DBConnection.CurrentDB;
-            string connectStr = DBConnection.ConnectionSTR(currentDb);
-             DataAccess.SetSQLParameter.myDBConStr = connectStr;
+            //string currentDb = DBConnection.CurrentDB;
+            //string connectStr = DBConnection.ConnectionSTR(currentDb);
+            // DataAccess.SetSQLParameter.myDBConStr = connectStr;
 
         }
 

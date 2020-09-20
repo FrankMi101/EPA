@@ -304,10 +304,6 @@
         //var vHeight = window.innerHeight - apprScreenH1;
         $("#GoList").css("height", vHeight);
 
-        //$("#GoList").css({
-        //     height: vHeight
-        //    //width: vWidth
-        //})
         $("#LoginUserRole").click(function (event) {
             OpenLoginUserRolePage();
         });
@@ -325,15 +321,7 @@
 
         });
         $("#MobileMenu").click(function (event) {
-            //  window.alert($(".iFrameDIV").css("display"));
-
-
-            //if ($(".iFrameDIV").css("display") === "block") {
-            //    $(".iFrameDIV").hide();
-            //}
-            //else {
-            //    $(".iFrameDIV").show();
-            //}
+  
             if ($("#GoList").attr("src") === "iBlankPage.html") {
                 $("#TopNavM").hide();
                 $("#GoList").attr("src", "DefaultSummary.aspx");
@@ -347,6 +335,18 @@
 
         });
 
+        $("#LabelTrain").click(function () {
+            if ($("#hfUserID").val() == "mif") {
+                teachername = $("#hfTeacherName").val();
+                schoolyear = $("#hfApprYear").val();
+                schoolcode = $("#hfApprSchool").val();
+                employeeid = $("#hfApprEmployeeID").val();
+                sessionid = "";
+                pageid = $("#hfPageID").val();
+                userid = $("#hfUserID").val();
+                openEditPageA('450', '800', 'EPAsystem/Loading.aspx?pID=Encryption', 'Encription String');
+            }
+        });
     });
     function OpenLoginUserRolePage() {
         if ($("#hfUserLoginRole").val() === "Admin") {

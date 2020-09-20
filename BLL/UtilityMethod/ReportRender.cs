@@ -15,11 +15,11 @@ namespace BLL
         {
         }
 
-        public static void setParameterArray(MyCommon.MyParameterRS[] _ParaArray, int X, string _Name, string _Value)
+        public static void setParameterArray(MyADO.MyParameterRS[] _ParaArray, int X, string _Name, string _Value)
         {
             try
             {
-                _ParaArray[X] = new MyCommon.MyParameterRS();
+                _ParaArray[X] = new MyADO.MyParameterRS();
                 _ParaArray[X].pName = _Name;
                 _ParaArray[X].pValue = _Value;
             }
@@ -29,7 +29,7 @@ namespace BLL
             }
         }
 
-        public static void RenderReport(string _reportName, MyCommon.MyParameterRS[] _reportParameter)
+        public static void RenderReport(string _reportName, MyADO.MyParameterRS[] _reportParameter)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace BLL
             }
 
         }
-        public static Byte[] GetReportR2(string _reportName, MyCommon.MyParameterRS[] _reportParameter)
+        public static Byte[] GetReportR2(string _reportName, MyADO.MyParameterRS[] _reportParameter)
 
         {
             Byte[] result;
@@ -151,7 +151,7 @@ namespace BLL
 
 
                 int i = 0;
-                foreach (MyCommon.MyParameterRS para in _reportParameter)
+                foreach (MyADO.MyParameterRS para in _reportParameter)
                 {
                     rptParameters[i] = new ReportingWebService.ParameterValue();
                     rptParameters[i].Name = para.pName;
@@ -307,7 +307,7 @@ namespace BLL
 
         private static Byte[] GetOneReport(string reportName, string userID, string schoolyear, string schoolcode, string sessionID, string employeeID)
         {
-            MyCommon.MyParameterRS[] reportParameters = new MyCommon.MyParameterRS[7];
+            MyADO.MyParameterRS[] reportParameters = new MyADO.MyParameterRS[7];
             setParameterArray(reportParameters, 0, "Operate", "Report");
             setParameterArray(reportParameters, 1, "UserID", userID);
             setParameterArray(reportParameters, 2, "SchoolYear", schoolyear);

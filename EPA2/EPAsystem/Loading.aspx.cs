@@ -88,6 +88,9 @@ namespace EPA2.EPAsystem
                 case "TestPage.aspx":
                     goPage = "Appraisal00.aspx";
                     break;
+                case "Encryption":
+                    goPage = "EncryptionStr.aspx";
+                    break;
                 default:
                     cId = goPage;
                  //   goPage = "ListItemsSetup.aspx";

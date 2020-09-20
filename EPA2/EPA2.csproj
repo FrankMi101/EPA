@@ -220,6 +220,7 @@
     <Content Include="EPAmanage\NotesEdit.aspx" />
     <Content Include="EPAmanage\EditStaffProfile.aspx" />
     <Content Include="EPAsystem\AppraisalAreaSetup.aspx" />
+    <Content Include="EPAsystem\EncryptionStr.aspx" />
     <Content Include="EPAsystem\Example.css" />
     <Content Include="EPAsystem\ExampleCSS.html" />
     <Content Include="EPAsystem\GridPage.aspx" />
@@ -1063,6 +1064,13 @@
     </Compile>
     <Compile Include="EPAsystem\AppraisalAreaSetup.aspx.designer.cs">
       <DependentUpon>AppraisalAreaSetup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EPAsystem\EncryptionStr.aspx.cs">
+      <DependentUpon>EncryptionStr.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EPAsystem\EncryptionStr.aspx.designer.cs">
+      <DependentUpon>EncryptionStr.aspx</DependentUpon>
     </Compile>
     <Compile Include="EPAsystem\GridPage.aspx.cs">
       <DependentUpon>GridPage.aspx</DependentUpon>
