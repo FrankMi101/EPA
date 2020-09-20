@@ -9,7 +9,7 @@ namespace EPA2.EPAsystem
 {
     public partial class EncryptionStr : System.Web.UI.Page
     {
-         const string dBSource = "Data Source=";
+        const string dBSource = "Data Source=";
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -17,7 +17,7 @@ namespace EPA2.EPAsystem
             {
 
                 AppraisalPage.SetListValue(DropDownList1, DBConnection.CurrentDB);
-               var cDB = DropDownList1.SelectedValue; //   DBConnection.CurrentDB ;
+                var cDB = DropDownList1.SelectedValue; //   DBConnection.CurrentDB ;
                 var constr = DBConnection.ConnectionSTR(cDB);
                 TextObjStr.Text = constr;
                 if (TextObjStr.Text.Substring(0, 12) == dBSource)
@@ -47,19 +47,32 @@ namespace EPA2.EPAsystem
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             var cDB = DropDownList1.SelectedValue; //   DBConnection.CurrentDB ;
-            var constr = DBConnection.ConnectionSTR(cDB);
-            TextObjStr.Text = constr;
             TextEncrypStr.Text = "";
             TextDecrypStr.Text = "";
-            if (TextObjStr.Text.Substring(0, 12) == dBSource)
+            TextObjStr.Text = "";
+
+            if (cDB == "Other")
             {
+                ButtonEncryption.Enabled = true;
                 ButtonEncryption.Enabled = true;
             }
             else
             {
-                ButtonEncryption.Enabled = false;
+                var constr = DBConnection.ConnectionSTR(cDB);
+                TextObjStr.Text = constr;
+                if (TextObjStr.Text.Substring(0, 12) == dBSource)
+                {
+                    ButtonEncryption.Enabled = true;
+                }
+                else
+                {
+                    ButtonEncryption.Enabled = false;
+                }
             }
+
+
         }
     }
 }
