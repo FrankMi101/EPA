@@ -262,7 +262,7 @@
             <div id="ActionPOPDIV" class="bubble epahide">
                 <div class="editTitle" style="display: block">
                     <div id="ActionTitle" style="display: inline; float: left; width: 92%; font-weight: 600;"></div>
-                    <div style="display: inline; float: left;">
+                    <div style="display: inline;float: right; width:30px;">
                         <img id="closeActionPOP" src="images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                     </div>
                 </div>
