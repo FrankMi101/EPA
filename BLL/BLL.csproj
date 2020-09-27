@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\myBaseClass\BaseClassC\bin\Release\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\itextsharp.dll</HintPath>
     </Reference>
@@ -119,7 +115,7 @@
     <Compile Include="UtilityMethod\RandomCharacter.cs" />
     <Compile Include="UtilityMethod\ReportRender.cs" />
     <Compile Include="UtilityMethod\StringUtility.cs" />
-    <Compile Include="UtilityMethod\SymetricEncryption.cs" />
+    <Compile Include="UtilityMethod\GetSymetricEncryption.cs" />
     <Compile Include="Web References\ReportingWebService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

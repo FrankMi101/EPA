@@ -537,7 +537,7 @@ namespace EPA2.EPAappraisal
                 if (chbCreateDS.Checked)
                 {
                     string goEncryption = User.Identity.Name + hfCurrentdatetime.Value + hfEmployeeID.Value;
-                    string digitalKey = mySymetricEncryption.GetEncryptedValue(goEncryption);
+                    string digitalKey = GetMySymetricEncryption.GetMyEncryptedValue(goEncryption);
                     SignatureProcess.DigitalSignature("Create", User.Identity.Name, hfEmployeeID.Value, hfCurrentdatetime.Value, digitalKey);
                 }
                 string enforceSign = (CheckBoxEnforce.Checked) ? "1" : "0";

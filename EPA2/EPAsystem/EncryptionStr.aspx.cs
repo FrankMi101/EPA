@@ -15,17 +15,23 @@ namespace EPA2.EPAsystem
 
             if (!Page.IsPostBack)
             {
+                TextEncrypStr.Text = "";
+                TextDecrypStr.Text = "";
+                TextObjStr.Text = "";
+
 
                 AppraisalPage.SetListValue(DropDownList1, DBConnection.CurrentDB);
                 var cDB = DropDownList1.SelectedValue; //   DBConnection.CurrentDB ;
                 var constr = DBConnection.ConnectionSTR(cDB);
-                TextObjStr.Text = constr;
-                if (TextObjStr.Text.Substring(0, 12) == dBSource)
+               
+                if (constr.Substring(0, 12) == dBSource)
                 {
                     ButtonEncryption.Enabled = true;
+                    TextObjStr.Text = constr;
                 }
                 else
                 {
+                    TextEncrypStr.Text = constr;
                     ButtonEncryption.Enabled = false;
                 }
             }
@@ -33,26 +39,20 @@ namespace EPA2.EPAsystem
 
         protected void ButtonEncryption_Click(object sender, EventArgs e)
         {
-            TextEncrypStr.Text = mySymetricEncryption.GetEncryptedValue(TextObjStr.Text);
+            TextEncrypStr.Text = GetMySymetricEncryption.GetMyEncryptedValue(TextObjStr.Text);
 
         }
 
         protected void ButtonDecryption_Click(object sender, EventArgs e)
         {
-            if (TextObjStr.Text.Substring(0, 12) != dBSource)
-                TextDecrypStr.Text = mySymetricEncryption.GetDecryptedValue(TextObjStr.Text);
-            else
-                TextDecrypStr.Text = mySymetricEncryption.GetDecryptedValue(TextEncrypStr.Text);
+              TextDecrypStr.Text = GetMySymetricEncryption.GetMyDecryptedValue(TextEncrypStr.Text);
         }
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             var cDB = DropDownList1.SelectedValue; //   DBConnection.CurrentDB ;
-            TextEncrypStr.Text = "";
-            TextDecrypStr.Text = "";
-            TextObjStr.Text = "";
-
+ 
             if (cDB == "Other")
             {
                 ButtonEncryption.Enabled = true;
@@ -61,13 +61,14 @@ namespace EPA2.EPAsystem
             else
             {
                 var constr = DBConnection.ConnectionSTR(cDB);
-                TextObjStr.Text = constr;
-                if (TextObjStr.Text.Substring(0, 12) == dBSource)
+                if (constr.Substring(0, 12) == dBSource)
                 {
                     ButtonEncryption.Enabled = true;
+                    TextObjStr.Text = constr;
                 }
                 else
                 {
+                    TextEncrypStr.Text = constr;
                     ButtonEncryption.Enabled = false;
                 }
             }
