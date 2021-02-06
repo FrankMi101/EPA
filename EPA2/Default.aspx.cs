@@ -22,7 +22,7 @@ namespace EPA2
                 string deviceScreen = WorkingProfile.ClientUserScreen;
                 int xInt = deviceScreen.IndexOf("x");
                 string devicewidth = deviceScreen.Substring(0, xInt);
-              
+
                 int dWidth = int.Parse(devicewidth);
                 //if (dWidth < 800)
                 //{
@@ -32,7 +32,7 @@ namespace EPA2
                 //{
                 //    DefaultLoad();
                 //}
-
+                CheckAppEntry();
                 DefaultLoad();
             }
         }
@@ -109,6 +109,39 @@ namespace EPA2
             }
             GoList.Attributes.Add("src", pId);
         }
+        private void CheckAppEntry()
+        {
+            //  string qs = "DlbxH6ZHFjSjvM6zCdOpdaT41lUfslUT4fJ5IurW8P+OjWJ2pHYhp6YhaxgaXngZlmwQLz2OqcfUleeO0Mhn9niEsgFaO1dFeSpIxNgTL4/J/IdkLqsMgrWOr1rhpvyYa/eO879gSKP0Yc+po/6MSJfheXgSM4rYZYegjX/GRiR+MPY/+8CepRbpaxTv4G8Z";
+            string queryString = Page.Request.QueryString["appPara"]; //qs;//
+            if (queryString != null)
+            {
+                string decrypedPara = GetMySymetricEncryption.GetMyDecryptedValue(queryString);
+                if (decrypedPara != "")
+                {
+                    IDictionary<string, string> keyValueList = StringUtility.GetQueryStringDictionary(decrypedPara);
+
+                    string userID = StringUtility.GetValueFromQueryString("UserID", keyValueList);
+                    string schoolyear = StringUtility.GetValueFromQueryString("yID", keyValueList);
+                    string schoolcode = StringUtility.GetValueFromQueryString("cID", keyValueList);
+                    string employeeId = StringUtility.GetValueFromQueryString("tID", keyValueList);
+                    string phase = StringUtility.GetValueFromQueryString("phase", keyValueList);
+                    string tName = StringUtility.GetValueFromQueryString("tName", keyValueList);
+                    if (schoolyear != "")
+                        WorkingProfile.SchoolYear = schoolyear;
+                    if (schoolcode != "")
+                        WorkingProfile.SchoolCode = schoolcode;
+                    if (employeeId != "")
+                        WorkingAppraisee.AppraiserID = employeeId;
+                    if (phase != "")
+                        WorkingAppraisee.AppraisalPhase = phase;
+                    //if (tName != "")   WorkingAppraisee.AppraiseeName = tName;
+                    hfGoPageDirect.Value = "Yes";
+                    hfTeacherName.Value = tName;
+                    hfUserID.Value = userID;
+                    hfApprEmployeeID.Value = employeeId;
+                }
+            }
+        }
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
@@ -144,8 +177,8 @@ namespace EPA2
 
         protected void LinkBtnWorkingOn_Click(object sender, EventArgs e)
         {
-             LinkBtnWorkingOn.Text ="Go " +  WorkingProfile.WorkingOnAppr;
-           if (WorkingProfile.WorkingOnAppr == "TPA")
+            LinkBtnWorkingOn.Text = "Go " + WorkingProfile.WorkingOnAppr;
+            if (WorkingProfile.WorkingOnAppr == "TPA")
                 WorkingProfile.WorkingOnAppr = "PPA";
             else
                 WorkingProfile.WorkingOnAppr = "TPA";
@@ -154,8 +187,8 @@ namespace EPA2
             appLink.InnerText = WorkingProfile.WorkingOnAppr;
 
             if (WorkingProfile.UserRoleLogin == "VP" && WorkingProfile.WorkingOnAppr == "TPA")
-            { 
-                  Session["HomePage"] = "EPAmanage/Loading.aspx?pID=AppraisalStaffList"; ;
+            {
+                Session["HomePage"] = "EPAmanage/Loading.aspx?pID=AppraisalStaffList"; ;
             }
 
             DefaultLoad();

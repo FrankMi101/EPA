@@ -117,6 +117,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Common\HelpEdit.aspx" />
     <Content Include="Common\Loading3.aspx" />
+    <Content Include="Content\ActionMenu.css" />
     <Content Include="Content\AngualJS.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -135,6 +136,8 @@
     <Content Include="Content\ListPageSetup.css" />
     <Content Include="Content\ListPage.css" />
     <Content Include="Content\NavFormList.css" />
+    <Content Include="Content\normalize.css" />
+    <Content Include="Content\SearchArea.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\StyleSheet.css" />
     <Content Include="Content\TabList.css" />
@@ -142,6 +145,10 @@
     <Content Include="Content\TopLink.css" />
     <Content Include="Content\TopNavListM.css" />
     <Content Include="Content\TopNavList.css" />
+    <Content Include="Index.css" />
+    <Content Include="CSSGrid.aspx" />
+    <Content Include="CSSGrid.css" />
+    <Content Include="Index.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DefaultSummary.aspx" />
     <Content Include="Documents\Loading.aspx" />
@@ -206,6 +213,7 @@
     <Content Include="EPAappraisal\Loading2.aspx" />
     <Content Include="EPAappraisal\TPAALP10.aspx" />
     <Content Include="EPAmanage\BatchPrintPage.aspx" />
+    <Content Include="EPAmanage\AppraisalAdjustment.aspx" />
     <Content Include="EPAmanage\EditAppraisalProfile.aspx" />
     <Content Include="EPAmanage\iBlankPage.html" />
     <Content Include="EPAmanage\Loading2.aspx" />
@@ -317,6 +325,7 @@
     <Content Include="images\emailok.png" />
     <Content Include="images\ep.png" />
     <Content Include="images\feedback.png" />
+    <Content Include="images\Go.png" />
     <Content Include="images\help.png" />
     <Content Include="images\help2.png" />
     <Content Include="images\highLightRow.png" />
@@ -532,6 +541,20 @@
     </Compile>
     <Compile Include="Common\Loading3.aspx.designer.cs">
       <DependentUpon>Loading3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CSSGrid.aspx.cs">
+      <DependentUpon>CSSGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CSSGrid.aspx.designer.cs">
+      <DependentUpon>CSSGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -973,6 +996,13 @@
     </Compile>
     <Compile Include="EPAmanage\BatchPrintPage.aspx.designer.cs">
       <DependentUpon>BatchPrintPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EPAmanage\AppraisalAdjustment.aspx.cs">
+      <DependentUpon>AppraisalAdjustment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EPAmanage\AppraisalAdjustment.aspx.designer.cs">
+      <DependentUpon>AppraisalAdjustment.aspx</DependentUpon>
     </Compile>
     <Compile Include="EPAmanage\EditAppraisalProfile.aspx.cs">
       <DependentUpon>EditAppraisalProfile.aspx</DependentUpon>

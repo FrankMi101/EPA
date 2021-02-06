@@ -403,6 +403,7 @@
             <asp:HiddenField ID="hfCurrentdatetime" runat="server" Value="" />
             <asp:HiddenField ID="hfCurrentUserName" runat="server" Value="" />
             <asp:HiddenField ID="hfApprYear" runat="server" />
+            <asp:HiddenField ID="hfApprPhase" runat="server" />
             <asp:HiddenField ID="hfApprSchool" runat="server" />
             <asp:HiddenField ID="hfApprSession" runat="server" />
             <asp:HiddenField ID="hfApprEmployeeID" runat="server" />

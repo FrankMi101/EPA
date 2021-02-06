@@ -67,7 +67,6 @@
                     <asp:Button ID="btnBoard" runat="server" Text="Board Comments" CssClass="BottonTab" OnClick="BtnBoard_Click" />
                     <asp:Button ID="btnSchool" runat="server" Text="School Comments" CssClass="BottonTab" OnClick="BtnSchool_Click" />
                     <asp:Button ID="btnPersonal" runat="server" Text="Personal Comments" CssClass="BottonTab" OnClick="BtnPersonal_Click" />
-                    <asp:Label runat="server" Font-Size="X-Small" ForeColor="Red" ID="remaind22" Text="*Click on the comments to add selected comments. "> </asp:Label>
                     <asp:HiddenField ID="hfSelectedTab" runat="server" />
                 </ContentTemplate>
             </asp:UpdatePanel>
@@ -120,6 +119,10 @@
                                 <SortedDescendingHeaderStyle BackColor="#33276A" />
                             </asp:GridView>
                         </div>
+                        <div style ="margin-top:-20px; margin-bottom:10px; color:red; font-size:10px; ">
+                                        <asp:Label runat="server" Font-Size="X-Small" ForeColor="Red" ID="remaind22" Text="*Click on the comments to add selected comments. "> </asp:Label>
+
+                            </div>
                     </div>
 
                 </ContentTemplate>

@@ -78,7 +78,7 @@
                     <asp:Button ID="btnBoard" runat="server" Text="All Panel" CssClass="BottonTab" OnClick="BtnBoard_Click" />
                     <asp:Button ID="btnSchool" runat="server" Text="Elementary" CssClass="BottonTab" OnClick="BtnSchool_Click" />
                     <asp:Button ID="btnPersonal" runat="server" Text="Secondary" CssClass="BottonTab" OnClick="BtnPersonal_Click" />
-                    <asp:Label runat="server" Font-Size="X-Small" ForeColor="Red" ID="remaind22" Text="*Click on the button to add selected comments. "> </asp:Label>
+                    <asp:Label runat="server" Font-Size="X-Small" ForeColor="Red" ID="remaind22" Text="*Click on the comments to add selected comments. "> </asp:Label>
                     <asp:HiddenField ID="hfSelectedTab" runat="server" />
                 </ContentTemplate>
             </asp:UpdatePanel>

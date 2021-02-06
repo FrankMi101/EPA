@@ -72,6 +72,9 @@
         .ObservationDate {
             width:100px;
         }
+        .ObservationDate:focus {
+            border: 2px dotted orange; 
+        }
          .ui-datepicker-trigger
         {
             margin-bottom:10px;
@@ -110,39 +113,35 @@
                 <div class="container visible-xs visible-sm visible-md visible-lg">
                     <div class="row" style="width: 100%">
                         <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4" style="text-wrap:avoid; width:35%">
-                            <asp:Label ID="labelTitle1" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
+                            <%--<asp:Label ID="labelTitle1"  runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>--%>
+                            <label for ="dateObservationPre" class="labelTitleX" id="labelTitle21" runat="server"> </label>
                             <br />
                             <input runat="server" type="text" id="dateObservationPre" name="PreObservation" class="ObservationDate" size="9" />
                             <br />
-                            <asp:Label ID="labelTitle4" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
+                            <label for ="dateObservationPre" class="labelTitleX" id="labelTitle24" runat="server"> </label>
+                            <%--<asp:Label ID="labelTitle4" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>--%>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4" style="text-wrap:avoid; width:30%">
-                            <asp:Label ID="labelTitle2" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
+                            <%--<asp:Label ID="labelTitle2" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>--%>
+                            <label for ="dateObservation" class="labelTitleX" id="labelTitle22" runat="server"> </label>
                             <br />
                             <input runat="server" type="text" id="dateObservation" name="Observation" class="ObservationDate" size="9" />
                             <br />
-                            <asp:Label ID="labelTitle5" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
+                            <label for ="dateObservation" class="labelTitleX" id="labelTitle25" runat="server"> </label>
+                            <%--<asp:Label ID="labelTitle5" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>--%>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4  col-lg-4" style="text-wrap:avoid; width:35%">
-                            <asp:Label ID="labelTitle3" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
+                            <%--<asp:Label ID="labelTitle3" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>--%>
+                            <label for ="dateObservationPost" class="labelTitleX" id="labelTitle23" runat="server"> </label>
                             <br />
                             <input runat="server" type="text" id="dateObservationPost" name="PostObservation" class="ObservationDate" size="9" />
                             <br />
-                            <asp:Label ID="labelTitle6" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
+                            <label for ="dateObservationPost" class="labelTitleX" id="labelTitle26" runat="server"> </label>
+                            <%--<asp:Label ID="labelTitle6" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>--%>
                         </div>
                     </div>
                 </div>
-                <%-- <table style="width:90%; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:small;">
-                    <tr>
-                        <td>
-                            </td>
-                        <td>
-                           </td>
-                        <td>
-                           </td>
-                    </tr>
-                   
-                </table>--%>
+                
             </div>
 
 

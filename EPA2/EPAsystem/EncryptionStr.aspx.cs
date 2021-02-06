@@ -52,7 +52,11 @@ namespace EPA2.EPAsystem
         {
 
             var cDB = DropDownList1.SelectedValue; //   DBConnection.CurrentDB ;
- 
+
+            TextEncrypStr.Text = "";
+            TextDecrypStr.Text = "";
+            TextObjStr.Text = "";
+
             if (cDB == "Other")
             {
                 ButtonEncryption.Enabled = true;
@@ -60,6 +64,7 @@ namespace EPA2.EPAsystem
             }
             else
             {
+
                 var constr = DBConnection.ConnectionSTR(cDB);
                 if (constr.Substring(0, 12) == dBSource)
                 {

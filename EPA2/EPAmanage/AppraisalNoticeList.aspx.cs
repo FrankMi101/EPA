@@ -112,7 +112,7 @@ namespace EPA2.EPAmanage
             };
          //   BaseData.ShowSP( "AppraisalManage", "AppraisalStaffsNotice",btnSearch  );
         //    return StaffManagement.AppraisalStaffsNotice(parameter);
-             return BaseData.GeneralList<AppraisalNotice>("AppraisalManage", "AppraisalStaffsNotice", parameter, btnSearch);
+             return BaseData.GeneralList<AppraisalNotice>("AppraisalManage", "AppraisalStaffsNotice", parameter, btnSearchGo);
        }
 
         private void GetEmailTemplate()

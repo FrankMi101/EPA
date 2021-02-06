@@ -26,7 +26,7 @@
 
         .appheader {
             margin: auto;
-            height: 80px;
+            height: 55px;
             width: 100%;
             display: block;
             float: left;
@@ -54,13 +54,14 @@
         .topMessage {
             background-color: transparent;
             color: yellow;
-            font-weight: 500;
+            font-family:'Franklin Gothic Small', 'Arial Narrow', Arial, sans-serif;
+           
         }
 
         .topMessageDDL {
             background-color: aquamarine;
             color: yellow;
-            font-weight: 400;
+            font-family:'Franklin Gothic Small', 'Arial Narrow', Arial, sans-serif;
             margin-top: -5px;
             padding-top: 0;
         }
@@ -76,11 +77,13 @@
             height: 100%; /* 650px;*/
             margin: auto;
         }
-
+         
         #iFrameGoItem {
             width: 100%;
             height: 100%;
-            margin: auto;
+            margin:auto;
+            border: 0px solid blue;  
+            margin-bottom:-1px;
         }
 
         .EditPage {
@@ -223,11 +226,11 @@
     <form id="form2" runat="server">
         <div class="appheader">
             <div style="display: inline; width: 97%;">
-                <asp:Label ID="LabelAppraisalTitle" runat="server" Text="Appraisal For Teacher" Height="30px"></asp:Label>
+                <asp:Label ID="LabelAppraisalTitle" runat="server" Text="Appraisal For Teacher" Height="25px"></asp:Label>
             </div>
 
             <div style="display: inline; float: right; width: 3%; text-align: right;">
-                <img id="closeMe" src="../images/close.png" style="height: 28px; width: 28px;" />
+                <img id="closeMe" src="../images/close.png" style="height: 25px; width: 25px;" />
             </div>
             <br />
             <div style="display: inline; float: left; width: 35%; text-align: left;">
@@ -254,49 +257,6 @@
 
                 </div>
             </div>
-
-
-            <%--      <div id="ProgressSteps">
-                <table id="ProgressStepsShow" runat="server" title="Clcik to hidden progress bar." style="width: 100%; border: 0px;" cellspacing="0" cellpadding="0">
-                    <tr id="ProgressStepsShowTR" runat="server">
-                                          <td id="step1">
-                            <asp:Label ID="Label1" runat="server" Text="Label 1. Step" CssClass="stepLabel"></asp:Label>
-                        </td>
-                        <td id="step1imgTD" class="imgTCcell">
-                            <img id="pgBar1a" runat="server" src="../images/pgBar1a.png" />
-                        </td>
-                        <td id="step2">
-                            <asp:Label ID="Label3" runat="server" Text="Label 2. Step" CssClass="stepLabel"></asp:Label>
-
-                        </td>
-                       <td id="step2imgTD" class="imgTCcell">
-                            <img id="pgBar2a" runat="server" src="../images/pgBar12a.png" />
-                        </td>
-                        <td id="step3">
-                            <asp:Label ID="Label4" runat="server" Text="Label 3. Step" CssClass="stepLabel"></asp:Label></td>
-                        <td id="step3imgTD" class="imgTCcell">
-                            <img id="pgBar3a" runat="server" src="../images/pgBar23a.png" />
-                        </td>
-
-                        <td id="step4">
-                            <asp:Label ID="Label5" runat="server" Text="Label 4. Step" CssClass="stepLabel"></asp:Label></td>
-                       <td id="step4imgTD" class="imgTCcell">
-                            <img id="pgBar4a" runat="server" src="../images/pgBar3a.png" />
-                        </td>
-                        <td id="step5">
-                            <asp:Label ID="Label6" runat="server" Text="Label 5. Step" CssClass="stepLabel"></asp:Label></td>
-                        <td id="step5imgTD" class="imgTCcell">
-                            <img id="pgBar5a" runat="server" src="../images/pgBar3a.png" />
-                        </td>
-                        <td id="step6">
-                            <asp:Label ID="Label7" runat="server" Text="Label 6. Step" CssClass="stepLabel"></asp:Label></td>
-                       <td id="step6imgTD" class="imgTCcell">
-                            <img id="pgBar6a" runat="server" src="../images/pgBar3e.png" title="Hidden Progress bar" />
-                        </td>
-                    </tr>
-                </table>
-
-            </div>--%>
         </div>
 
         <div class="TopMessagebar" style="display: inline-block">

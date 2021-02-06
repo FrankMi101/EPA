@@ -7,20 +7,24 @@
 <head runat="server">
     <title>Loading Page</title>
     <style>
-        div {
-            height: 99%;
-            width: 99%;
-            text-align: center;
-            margin:auto;
-            padding-top: 15%;
+        .Container {
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+
+        .LoadImage {
+            margin: auto;
         }
     </style>
 </head>
 <body>
-    <div>
-        <img src="../images/Loading.gif" />
-        <a id="PageURL" runat="server" href='#' target="_self">Loading ...... Appraisal</a>
+     <div class="Container">
+        <div class ="LoadImage">
+            <img src="../images/Loading.gif" />
+            <a id="PageURL" runat="server" href='#' target="_self">Loading ...... Appraisal</a>
 
+        </div>
     </div>
 
     <script type="text/javascript">

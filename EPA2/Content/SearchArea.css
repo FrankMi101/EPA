@@ -1,0 +1,61 @@
+﻿.SearchAreaRow {
+    margin-top:8px;
+    height:22px;
+}
+.SearchAreaDIV {
+    display: inline;
+}
+.term {
+    display: inline-block;
+    float: right;
+}
+.imgHelp {
+    width: 23px;
+    height: 23px;
+    margin-top: -10px;
+}
+
+#alphabateSearch .alphabateKey {
+    list-style-type: none;
+    display: inline;
+    padding-right: 15px;
+}
+
+#alphabateSearch ul {
+    margin-top: -20px;
+}
+
+#TextSearch {
+    margin-bottom: -5px;
+}
+
+#btnSearchGo {
+    margin-bottom: -5px;
+    border: 2px solid lightblue;
+    border-radius: 10px;
+    height: 20px;
+    width: 40px;
+}
+
+    #btnSearchGo:hover {
+        border: 2px ridge dodgerblue;
+      /*  filter: grayscale(20%) blur(1px);*/
+        filter: contrast(200%);
+    }
+.Gobutton {
+    display: inline;
+    padding-top: 0px;
+    margin-bottom: -5px;
+}
+
+#btnSearch:hover {
+    color: white;
+    background-color: dodgerblue;
+    cursor: pointer;
+} 
+
+#SearchBar {
+    position: absolute;
+    top: 22px;
+    left: 1000px;
+} 

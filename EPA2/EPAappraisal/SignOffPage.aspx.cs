@@ -31,6 +31,7 @@ namespace EPA2.EPAappraisal
             hfEmployeeID.Value = WorkingAppraisee.EmployeeID;
             hfAppraiseeUserID.Value = WorkingAppraisee.UserID;
             hfAppraiserUserID.Value = WorkingAppraisee.AppraiserID;
+            hfApprPhase.Value = WorkingAppraisee.AppraisalPhase;
             hfSignOffType.Value = SignOffType;
             AppraisalPage.SetPageAttribute(Page);
 
@@ -417,7 +418,7 @@ namespace EPA2.EPAappraisal
                                 hfSignOffAction.Value = "Authorize Undo Sign Off";
                             }
                         }
-                       
+
                     }
                     if (ActionRole == "Appraiser")
                     {
@@ -449,7 +450,7 @@ namespace EPA2.EPAappraisal
                 else
                 { showText = "Undo Sign Off"; }
             }
- 
+
             btnSignOff.Text = showText;
             LabelSignOffTitle.Text = showText + " - Verify User";
             hfSignOffAction.Value = showText;
@@ -504,9 +505,10 @@ namespace EPA2.EPAappraisal
                 EmployeeID = hfEmployeeID.Value,
                 SessionID = hfApprSession.Value,
                 Category = hfCategory.Value,
+                Phase = hfApprPhase.Value,
                 Area = hfArea.Value,
                 ItemCode = hfCode.Value,
-                Value = btnYesNo.SelectedValue,
+                Value = btnYesNo.SelectedValue
             };
 
             string selectValue = AppraisalData.NotesContentSave(parameter);
@@ -550,6 +552,7 @@ namespace EPA2.EPAappraisal
                     EmployeeID = hfEmployeeID.Value,
                     SessionID = hfApprSession.Value,
                     Category = hfCategory.Value,
+                    Phase = hfApprPhase.Value,
                     ItemCode = hfCode.Value,
                     UserRole = WorkingProfile.UserRole,
                     SignOffName = hfCurrentUserName.Value,
@@ -670,12 +673,14 @@ namespace EPA2.EPAappraisal
                 string signOffDate = TextSignOffDateSupervisory.Text;
                 if (actionRole == "Appraisee")
                 {
+
                     signOffDate = TextSignOffDateAppraisee.Text;
                 }
                 if (actionRole == "Appraiser")
                 {
                     signOffDate = TextSignOffDateAppraiser.Text;
                 }
+                string ToUserID = UserProfile.ToUserID(actionRole, User.Identity.Name, hfEmployeeID.Value);
                 string noticeDate = DateTime.Now.ToString("yyyy/MM/dd");
                 if (signOffDate == "")
                 {
@@ -696,6 +701,8 @@ namespace EPA2.EPAappraisal
                     NoticeArea = noticeArea,
                     NoticeDate = DateTime.Now.ToString("yyyy/MM/dd"),
                     DeadLineDate = DateTime.Now.ToString("yyyy/MM/dd"),
+                    ToUserID = ToUserID,
+                    AppraiseeName = WorkingAppraisee.AppraiserName
                 };
 
                 string permission = Page.Request.QueryString["permission"];
@@ -749,6 +756,8 @@ namespace EPA2.EPAappraisal
                 {
                     signOffDate = TextSignOffDateAppraiser.Text;
                 }
+                string ToUserID = UserProfile.ToUserID(actionRole, User.Identity.Name, hfEmployeeID.Value);
+
                 string noticeDate = DateTime.Now.ToString("yyyy/MM/dd");
                 if (signOffDate == "")
                 {
@@ -763,12 +772,15 @@ namespace EPA2.EPAappraisal
                     SchoolCode = hfApprSchool.Value,
                     EmployeeID = hfEmployeeID.Value,
                     SessionID = hfApprSession.Value,
+                    Phase = hfApprPhase.Value,
                     Category = hfCategory.Value,
                     NoticeRole = actionRole,
                     NoticeType = noticeType,
                     NoticeArea = noticeArea,
                     NoticeDate = DateTime.Now.ToString("yyyy/MM/dd"),
                     DeadLineDate = DateTime.Now.ToString("yyyy/MM/dd"),
+                    ToUserID = ToUserID,
+                    AppraiseeName = WorkingAppraisee.AppraiserName
                 };
                 string permission = Page.Request.QueryString["permission"];
                 string subject = GetNoticeFile.GetEmailBodyInfo("GetSubjectHR", hfSignOffAction.Value, signOffDate, permission, parameter);

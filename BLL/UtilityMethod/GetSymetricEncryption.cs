@@ -11,15 +11,14 @@ public class GetMySymetricEncryption
 { 
     public static string GetMyEncryptedValue(string inputValue)
     {
-       return SymetricEncryption.GetEncryptedValue(inputValue);
+        return EncryptionSTR.SymetricEncrypt.GetEncryptedValue(inputValue);  // SymetricEncryption.GetEncryptedValue(inputValue);
     }
 
     public static string GetMyDecryptedValue(string inputValue)
     {
-        return SymetricEncryption.GetDecryptedValue(inputValue);
+        return EncryptionSTR.SymetricEncrypt.GetDecryptedValue(inputValue);  // SymetricEncryption.GetDecryptedValue(inputValue);
 
     }
  
-
 }
 

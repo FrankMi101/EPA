@@ -86,20 +86,26 @@ namespace EPA2
             {
                 string sectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
                 var mybutton = (Button)myPage.FindControl("btnPrevious");
-                if (sectionStartPage.IndexOf(WorkingAppraisee.AppraisalCode) == -1)
-                { mybutton.Enabled = true; }
-                else
+                if (mybutton != null)
                 {
-                    mybutton.Enabled = false;
-                }
-                mybutton = (Button)myPage.FindControl("btnNext");
-                if (WorkingAppraisee.AppraisalCode == "99")
-                { mybutton.Enabled = false; }
-                else
-                {
-                    mybutton.Enabled = true;
+                    if (sectionStartPage.IndexOf(WorkingAppraisee.AppraisalCode) == -1)
+                    { mybutton.Enabled = true; }
+                    else
+                    {
+                        mybutton.Enabled = false;
+                    }
                 }
 
+                mybutton = (Button)myPage.FindControl("btnNext");
+                if (mybutton != null)
+                {
+                    if (WorkingAppraisee.AppraisalCode == "99")
+                    { mybutton.Enabled = false; }
+                    else
+                    {
+                        mybutton.Enabled = true;
+                    }
+                }
             }
             catch
             { }
@@ -219,13 +225,13 @@ namespace EPA2
                 else
                 {
                     if (imgCommentsMenu != null) imgCommentsMenu.Visible = true;
-                 
+
                     if (pageRecover == "Y")
                     { if (imgRecovery != null) imgRecovery.Visible = true; }
                 }
                 if (pageEp == "Y")
                 {
-                   if (imgEp != null)  imgEp.Visible = true;
+                    if (imgEp != null) imgEp.Visible = true;
                 }
             }
             catch
@@ -314,7 +320,7 @@ namespace EPA2
         {
             try
             {
-               // parameter.Operate = type;
+                // parameter.Operate = type;
                 parameter.ContentType = type;
                 myTitle.Text = BLL.HelpTitleMessage.GetContent(parameter);
                 if (myTitle.Text.Length == 0)
@@ -327,8 +333,27 @@ namespace EPA2
 
                 throw;
             }
-
-
+        }
+        public static string GetTextTitle( string userId, string category, string area, string code)
+        {
+            try
+            {
+                var parameter = new TitleHelp()
+                {
+                    Operate = "Read",
+                    UserID = userId,
+                    Category = category,
+                    Area = area,
+                    Code = code,
+                    ContentType = "Title"
+                };
+              return  BLL.HelpTitleMessage.GetContent(parameter);  
+             
+            }
+            catch (System.Exception)
+            {
+                return "";
+            }
         }
         public static void BuildingTextTitle(ref Label myTitle, string type, string userId, string category, string area, string code)
         {
@@ -352,11 +377,8 @@ namespace EPA2
             }
             catch (System.Exception)
             {
-
                 throw;
             }
-
-
         }
         public static void BuildingTitleTab(ref HtmlGenericControl myDiv, TitleHelp parameter)
         {
@@ -397,7 +419,59 @@ namespace EPA2
 
             myDiv.Controls.Add(img);
         }
+        public static void BuildingTab(System.Web.UI.HtmlControls.HtmlGenericControl myDIVTab, object parameter, string cTab)
+        {
 
+            var gradeList = GeneralList<CommonList>("GeneralList", "ApprType", parameter);
+            var UL = new HtmlGenericControl("ul");
+            try
+            {
+                foreach (var item in gradeList)
+                {
+                    var a = getALink(item.Code, item.Name, cTab);
+                    var li = getLi(item.Code, item.Name, cTab);
+
+                    li.InnerText = "";
+                    li.Controls.Add(a);
+                    UL.Controls.Add(li);
+
+                }
+                myDIVTab.InnerHtml = "";
+                myDIVTab.Controls.Add(UL);
+
+            }
+            catch (System.Exception ex)
+            {
+                var em = ex.Message;
+                throw;
+            }
+        }
+
+        private static HtmlAnchor getALink(string code, string name, string cTab)
+        {
+            var a = new HtmlAnchor();
+            a.InnerText = name;
+            a.ID = code;
+            a.HRef = "#";
+            string classAdd = code == cTab ? "aLinkTabHS" : "aLinkTabH";
+            a.Attributes.Add("class", classAdd);
+            return a;
+        }
+        private static HtmlGenericControl getLi(string code, string name, string cTab)
+        {
+            var li = new HtmlGenericControl("li");
+            li.ID = "GT_" + code;
+            string classAdd = code == cTab ? "liTabHS" : "liTabH";
+            li.Attributes.Add("class", classAdd);
+
+            if (name.Length > 9)
+                li.Style.Add("width", "100");
+            else if (name.Length > 8)
+                li.Style.Add("width", "80");
+            else
+                li.Style.Add("width", "80");
+            return li;
+        }
         public static void SetListValue(System.Web.UI.WebControls.ListControl myListControl, object value)
         {
             AssemblingList.SetValue(myListControl, value);
@@ -528,7 +602,7 @@ namespace EPA2
                 Operate = operate,
                 UserID = userID
             };
-            return GeneralValue<string>("AppraisalGeneral","WorkingItemLink", parameter);
+            return GeneralValue<string>("AppraisalGeneral", "WorkingItemLink", parameter);
         }
     }
 

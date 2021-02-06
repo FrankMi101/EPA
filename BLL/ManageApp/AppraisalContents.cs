@@ -99,7 +99,14 @@ namespace BLL
         {
             return CommonValue<string>("NotesContentSave", parameter);
         }
-
+        public static string AppraisalNotes(object parameter)
+        {
+            return CommonValue<string>("AppraisalNotes", parameter);
+        }
+        public static string AppraisalNotesSave(object parameter)
+        {
+            return CommonValue<string>("AppraisalNotesSave", parameter);
+        }
         public static string RatingListContent(object parameter)
         {
             return CommonValue<string>("RatingListContent", parameter);
@@ -146,14 +153,18 @@ namespace BLL
                     return "dbo.EPA_Appr_AppraisalData_TextBPA" + parameters1 + ",@SeqNo,@Value";
                 case "AppraisalRate":
                     return "dbo.EPA_Appr_AppraisalData_Rate" + parameters1;
-                case "NotesContent":
-                    return "dbo.EPA_Appr_AppraisalData_Notes" + parameters1;
                 case "IsTwoSatisfactory":
                     return "dbo.EPA_Appr_AppraisalData_TwoSatisfactory" + parameters1;
                 case "IsPrincipalInitialSTR":
                     return "dbo.EPA_Appr_AppraisalData_PrincipalInitialSTR" + parameters1;
+                case "NotesContent":
+                    return "dbo.EPA_Appr_AppraisalData_Notes" + parameters1;
                 case "NotesContentSave":
                     return "dbo.EPA_Appr_AppraisalData_Notes" + parameters1 + ",@Value";
+                case "AppraisalNotes":
+                    return "dbo.EPA_Appr_AppraisalData_NotesComments" + parameters;
+                case "AppraisalNotesSave":
+                    return "dbo.EPA_Appr_AppraisalData_NotesComments" + parameters + ",@Value";
 
                 case "RatingListContent":
                     return "dbo.EPA_Appr_AppraisalData_ListRate" + parameters1;

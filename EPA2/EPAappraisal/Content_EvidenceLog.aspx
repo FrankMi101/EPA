@@ -142,7 +142,10 @@
                         <SortedDescendingHeaderStyle BackColor="#33276A" />
                     </asp:GridView>
                 </div>
+                <div style ="margin-top:-20px; margin-bottom:10px; color:red; font-size:10px; ">
                 <asp:Label runat="server" Font-Size="X-Small" ForeColor="Red" ID="remaind22" Text="* Click on the recover button or comments to add selected comments to Notes box. "> </asp:Label>
+
+                </div>
 
             </div>
         </div>

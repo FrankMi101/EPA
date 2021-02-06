@@ -38,7 +38,7 @@
             float: left;
             width: 80%;
             height: 100%;
-            border: 1px solid lightsalmon;
+            border: 0px solid lightsalmon; 
             margin: -1px;
         }
 
@@ -47,6 +47,7 @@
             width: 100%;
             height: 100%;
             border: 0px solid green;
+            margin:auto;
         }
 
         .HighLightItem {
@@ -62,6 +63,9 @@
             cursor: default;
             text-decoration: none;
             opacity: 0.3;
+        }
+        .MenulistPanel {
+            border-right: 1px solid lightsalmon;
         }
     </style>
 </head>

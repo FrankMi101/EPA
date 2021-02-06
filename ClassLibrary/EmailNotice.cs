@@ -29,6 +29,7 @@ namespace ClassLibrary
         public string SchoolCode { get; set; }
         public string EmployeeID { get; set; }
         public string SessionID { get; set; }
+        public string Phase { get; set; }
         public string NoticeType { get; set; }
         public string Category { get; set; }
         public string NoticeArea { get; set; }
@@ -43,9 +44,10 @@ namespace ClassLibrary
         public string Template { get; set; }
         public string TemplateType { get; set; }
         public string AutoNotice { get; set; }
-         
-
+      
+        public string ToUserID { get; set; }
+        public string AppraiseeName { get; set; }
     }
-     
+
 
 }

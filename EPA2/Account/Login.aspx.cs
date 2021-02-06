@@ -24,13 +24,32 @@ namespace EPA2
 
                 var windowsCurrent = WindowsIdentity.GetCurrent();// System.Net.CredentialCache.DefaultCredentials.ToString();
 
+                string queryString = Page.Request.QueryString["appPara"];
+
+                if (queryString != null)
+                {
+                    string decrypedPara = GetMySymetricEncryption.GetMyDecryptedValue(queryString);
+                    if (decrypedPara != "")
+                    {
+                        IDictionary<string, string> keyValueList = StringUtility.GetQueryStringDictionary(decrypedPara);
+                        string userID = StringUtility.GetValueFromQueryString("UserID", keyValueList);
+                        if (userID != "")
+                        {
+                            txtUserName.Text = userID;
+                            string role = UserProfile.UserLoginRole(userID);
+                            CreateauTicket(role);
+                            return;
+                        }
+                    }
+                }
+
                 if (windowsCurrent.IsAuthenticated)
                 {
-                   // txtDomain.Text = Authentication.GetCurrentUserName("Domain", windowsCurrent.Name);
+                    // txtDomain.Text = Authentication.GetCurrentUserName("Domain", windowsCurrent.Name);
                     txtUserName.Text = Authentication.GetCurrentUserName("Name", windowsCurrent.Name);
                     var cUserRole = UserProfile.UserLoginRole(txtUserName.Text);
-                    if (cUserRole != "Admin") txtUserName.ReadOnly = true ;
-                   
+                    if (cUserRole != "Admin") txtUserName.ReadOnly = true;
+
                 }
 
                 if (txtUserName.Text == "")
@@ -128,6 +147,6 @@ namespace EPA2
 
         }
 
-  
+
     }
 }

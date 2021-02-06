@@ -870,6 +870,15 @@ namespace EPA2.EPAappraisal
         protected global::System.Web.UI.WebControls.HiddenField hfApprYear;
 
         /// <summary>
+        /// hfApprPhase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfApprPhase;
+
+        /// <summary>
         /// hfApprSchool control.
         /// </summary>
         /// <remarks>

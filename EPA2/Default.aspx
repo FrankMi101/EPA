@@ -10,7 +10,7 @@
     <meta http-equiv="Cache-Control" content="no-Store,no-Cache" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="Content/DeviceMedia.css" rel="stylesheet" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
@@ -34,22 +34,22 @@
 
         /*.iFrameDIV {
             height: 100%;
-            width: 100%;
-            float: left;
-            table-layout: auto;
-            margin-bottom:-15px; 
+            width: 100%;*/  
+       /*  margin-bottom:-15px;  */
+         /*overflow:auto;
         }*/
 
         #GoList {
             font-size: small;
-            font-family: Arial;
-            table-layout: auto;
-            height: 100%;
+            font-family: Arial;/*
+            table-layout: auto;*/
+            height: 100vh;
             width: 100%;
             border: 0px solid red;
             margin: auto;
-          /*  margin-bottom: -20px;
-            margin-top: -5px;*/
+            overflow:auto;
+        /*    margin-bottom: -50px;
+            margin-top: -5px; */
         }
 
         .CenterDIV {
@@ -93,7 +93,11 @@
             text-decoration: underline;
             color: purple;
         }
+        #LoginUserIcon:hover {
+            
+            filter: drop-shadow(16px 16px 20px red) invert(75%);
 
+        }
         #MobileMenu {
             margin-top: 0px;
             margin-bottom: 1px;
@@ -116,13 +120,17 @@
         .hideme {
             display: none;
         }
-        .LinkCell
-        {
-             font-size: 0.8em;
+
+        .LinkCell {
+            font-size: 0.8em;
         }
-        #LinkBtnWorkingOn 
-        {
-             font-size: 0.8em;
+
+        #LinkBtnWorkingOn {
+            font-size: 0.8em;
+        }
+
+        .loginManu {
+            text-align: left;
         }
     </style>
 
@@ -132,23 +140,21 @@
 <body>
     <form id="form2" runat="server">
         <header>
+
             <div class="appheader">
-                <div id="LogoCol" style="display: inline;  float: left;" class="pull-left visible-sm visible-md visible-lg">
-                    <%-- <a href="default.aspx" class="pull-left visible-md visible-lg">
-                                    <div id="logo-img"></div>
-                                </a>--%>
+                <div id="LogoCol" style="display: inline; float: left;" class="pull-left invisible-sm visible-md visible-lg">
                     <img id="Image3" src="images/boardLogo.gif" alt="TCDSB Logo" border="0" style="width: 160px; height: 80px" />
                 </div>
-                <div id="messageCol" style="display: inline; text-align: center; float: left" class=" invisible-sm visible-md visible-lg">
+                <div id="messageCol" style="display: inline; text-align: center; float: left" class="invisible-sm visible-md visible-lg">
 
                     <asp:Button ID="btnLogout" CssClass="inVisibleBtn" runat="server" Text="" OnClick="btnLogout_Click" Visible="true" Height="0px" Width="0px" />
                     <asp:Label ID="LabelTrain" runat="server" Height="20px" Visible="False"
                         Font-Size="Large" ForeColor="#00C000"> Training</asp:Label>
 
                     <br />
-                    <br /> 
-                    <div style=" font-size: xx-small; vertical-align:baseline "> &nbsp </div>
-                    <div style="font-size: 0.75em; vertical-align:baseline ">
+                    <br />
+                    <div style="font-size: xx-small; vertical-align: baseline">&nbsp </div>
+                    <div style="font-size: 0.75em; vertical-align: baseline" class="invisible-sm invisible-md visible-lg">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
                         <a href="javascript:openParameter();">School Year:</a>
                         <asp:Label ID="LabelSchoolYear" runat="server" BackColor="Transparent"
@@ -159,7 +165,7 @@
                             ForeColor="purple"> </asp:Label>
                         <asp:Label ID="LabelSchool" runat="server" BackColor="Transparent"
                             ForeColor="purple"> </asp:Label>
-                         <asp:Label ID="Labelitem" runat="server" Text="" ForeColor="red" Visible="false"></asp:Label>
+                        <asp:Label ID="Labelitem" runat="server" Text="" ForeColor="red" Visible="false"></asp:Label>
                     </div>
 
                 </div>
@@ -171,9 +177,9 @@
                                 <img height="30" src="images/curve.png" width="50" alt="" />
                             </td>
 
-                            <td class="LinkCell" >
-                                <asp:LinkButton ID="LinkBtnWorkingOn" runat="server" ToolTip="click on to switch to PPA" OnClick="LinkBtnWorkingOn_Click" Visible="false" >Go PPA</asp:LinkButton> 
-                                <ul id="navlistLink" style="margin-right: 10px;">
+                            <td class="LinkCell">
+                                <asp:LinkButton ID="LinkBtnWorkingOn" runat="server" ToolTip="click on to switch to PPA" OnClick="LinkBtnWorkingOn_Click" Visible="false">Go PPA</asp:LinkButton>
+                                <ul id="navlistLink">
                                     <li>
                                         <img id="LoginUserIcon" style="margin-bottom: 5px" src="images/user.png" width="20" height="20" />
                                         <a href="#" id="LoginUserRole" runat="server">UserRole </a>
@@ -185,8 +191,10 @@
                                     <li><a href="javascript:logoutApp()" id="Logout" runat="server">Log out </a>
 
                                     </li>
-
                                 </ul>
+                                <div id="LoginAsDIV" class="bubble epahide loginManu">
+                                    <asp:RadioButtonList ID="rblLoginAS" runat="server" AutoPostBack="true" Height="150px" OnSelectedIndexChanged="rblLoginAS_SelectedIndexChanged"></asp:RadioButtonList>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -200,14 +208,9 @@
                                 <asp:Label ID="lblVersion" runat="server" Text=" (Version 1.0.1 )" ToolTip="Edit Application Support" Font-Size="small"></asp:Label>
                             </td>
                         </tr>
-                        <%-- <tr class=" visible-sm visible-md visible-lg">
-                            <td>&nbsp;</td>
-                        </tr>--%>
                     </table>
                 </div>
-                <div id="LoginAsDIV" class="bubble epahide">
-                    <asp:RadioButtonList ID="rblLoginAS" runat="server" AutoPostBack="true" Height="150px" OnSelectedIndexChanged="rblLoginAS_SelectedIndexChanged"></asp:RadioButtonList>
-                </div>
+
             </div>
 
             <div class="TopMenubar">
@@ -233,10 +236,26 @@
         </header>
 
 
-        <section style="text-align: center;">
+        <section >
             <div class="iFrameDIV">
-                <iframe id="GoList" name="GoList" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server" style="border: 1px, red,solid"></iframe>
+                <iframe id="GoList" name="GoList" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
             </div>
+        </section>
+        <div>
+            <asp:HiddenField ID="hfUserID" runat="server" />
+            <asp:HiddenField ID="hfPageID" runat="server" />
+            <asp:HiddenField ID="hfUserLoginRole" runat="server" />
+            <asp:HiddenField ID="hfRunningModel" runat="server" />
+            <asp:HiddenField ID="hfApprYear" runat="server" />
+            <asp:HiddenField ID="hfApprSchool" runat="server" />
+            <asp:HiddenField ID="hfApprEmployeeID" runat="server" />
+            <asp:HiddenField ID="hfTeacherName" runat="server" />
+            <asp:HiddenField ID="hfSchoolArea" runat="server" />
+            <asp:HiddenField ID="hfWorkingOn" runat="server" />
+            <asp:HiddenField ID="hfGoPageDirect" runat="server" />
+
+        </div>
+        <div class="POPUP page area">
             <div id="EditDIV" runat="server" class="EditDIV bubble epahide">
                 <div class="editTitle">
                     <table>
@@ -252,7 +271,7 @@
                 <iframe class="EditPage" id="editiFrame" name="editiFrame" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
             </div>
             <div style="width: 100%; height: 100%; align-content: center">
-                <div id="ApprDIV" runat="server" class="ApprDIV bubble epahide" tabindex="998" style="height: 748px; width: 1024px; text-align: center">
+                <div id="ApprDIV" runat="server" class="ApprDIV bubble epahide" tabindex="998" style="height: 710px; width: 1024px; text-align: center">
 
                     <iframe class="ApprPage" id="appriFrame" name="appriFrame" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server" style="height: 100%"></iframe>
                 </div>
@@ -262,29 +281,16 @@
             <div id="ActionPOPDIV" class="bubble epahide">
                 <div class="editTitle" style="display: block">
                     <div id="ActionTitle" style="display: inline; float: left; width: 92%; font-weight: 600;"></div>
-                    <div style="display: inline;float: right; width:30px;">
+                    <div style="display: inline; float: right; width: 30px;">
                         <img id="closeActionPOP" src="images/close.ico" style="height: 25px; width: 25px; margin: -3px 0 -3px 0" />
                     </div>
                 </div>
                 <iframe id="ActioniFramePage" name="ActioniFramePage" style="height: 420px; width: 99%" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
             </div>
-
-
-        </section>
-        <div>
-            <asp:HiddenField ID="hfUserID" runat="server" />
-            <asp:HiddenField ID="hfPageID" runat="server" />
-            <asp:HiddenField ID="hfUserLoginRole" runat="server" />
-            <asp:HiddenField ID="hfRunningModel" runat="server" />
-            <asp:HiddenField ID="hfApprYear" runat="server" />
-            <asp:HiddenField ID="hfApprSchool" runat="server" />
-            <asp:HiddenField ID="hfApprEmployeeID" runat="server" />
-            <asp:HiddenField ID="hfTeacherName" runat="server" />
-            <asp:HiddenField ID="hfSchoolArea" runat="server" />
-            <asp:HiddenField ID="hfWorkingOn" runat="server" />
-
         </div>
+
     </form>
+
 </body>
 </html>
 
@@ -296,13 +302,13 @@
 
 </script>
 <script>
- 
+
     $(document).ready(function () {
 
         var vHeight = window.innerHeight - 140;
         //var vWidth = screen.width;
         //var vHeight = window.innerHeight - apprScreenH1;
-        $("#GoList").css("height", vHeight);
+         $("#GoList").css("height", vHeight);
 
         $("#LoginUserRole").click(function (event) {
             OpenLoginUserRolePage();
@@ -321,7 +327,7 @@
 
         });
         $("#MobileMenu").click(function (event) {
-  
+
             if ($("#GoList").attr("src") === "iBlankPage.html") {
                 $("#TopNavM").hide();
                 $("#GoList").attr("src", "DefaultSummary.aspx");

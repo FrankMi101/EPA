@@ -17,15 +17,16 @@
         html, body {
             width: 100%;
             height: 100%;
-            margin-left: 0px;
+            margin:auto;
+         /*   margin-left: 0px;
             margin-top: 0px;
             margin-right: 0px;
-            margin-bottom: -5px;
+            margin-bottom: -5px;*/
         }
 
         .appheader {
             margin: auto;
-            height: 80px;
+            height: 50px;
             width: 100%;
             display: block;
             float: left;
@@ -66,7 +67,7 @@
 
         #iFrameGoManage {
             width: 100%;
-            height: 380px;
+            height: 400px;
             margin: auto;
             border: 0px;
         }
@@ -100,76 +101,9 @@
             /*margin:-3px;*/
         }
 
-        /*#LeftMenuShow {
-            height: 25px;
-            width: 25px;
-            margin-bottom: -8px;
-            margin-top: -3px;
-        }*/
-
-
-
-
-
-        /*#ProgressSteps a {
-            height: 25px !important;
-            width: 200px !important;
-            background-image: url(../images/pgBar1.png);
-            margin-top: -5px;
-            border: 0px;
-        }*/
-
-
-
-        /*.stepLabel {
-            height: 25px;
-            width: 180px;
-            margin: 0px;
-            padding-left: 3px;
-        }
-
-        #ProgressSteps td {
-            margin: -1px;
-            border: 0px;
-            height: 25px;
-        }*/
-
-        /*#ProgressSteps #step1 {
-            background-image: url(../images/pgBar1.png);
-        }
-
-        #ProgressSteps #step2 {
-            background-image: url(../images/pgBar1.png);
-        }
-
-        #ProgressSteps #step3 {
-            background-image: url(../images/pgBar2.png);
-        }
-
-        #ProgressSteps #step4 {
-            background-image: url(../images/pgBar3.png);
-        }
-
-        #ProgressSteps #step5 {
-            background-image: url(../images/pgBar3.png);
-        }
-
-        #ProgressSteps #step6 {
-            background-image: url(../images/pgBar3.png);
-        }*/
+      
     </style>
-    <%--<script type="text/javascript">
-        function getResolution() {
-            try {
-                var screenWidth = screen.width;
-                var screenHeight = screen.height;
-                var elem = document.elements['txtResolution'];
-                elem.value = screenWidth + "x" + screenHeight;
-            }
-            catch (err) {
-            }
-        }
-    </script>--%>
+    
 </head>
 <body onkeydown="if(event.keyCode==8 &amp;&amp; (!(event.srcElement.tagName=='INPUT' || event.srcElement.tagName=='TEXTAREA'))){return false}">
     <form id="form2" runat="server">

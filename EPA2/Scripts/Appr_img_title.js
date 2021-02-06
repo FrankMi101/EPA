@@ -1,6 +1,6 @@
 ﻿var apprScreenH = 30;
-var apprScreenH1 = 5;
-var apprScreenH2 = 130;
+var apprScreenH1 = 10;
+var apprScreenH2 = 95;
 var apprScreenH3 = 150;
 $(".imgCommentsMenu").mouseenter(function (event) {
 

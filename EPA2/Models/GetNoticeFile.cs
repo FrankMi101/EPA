@@ -180,6 +180,12 @@ namespace EPA2
                         cBody = cBody.Replace("{{PlaceHolder:TestEmailCC}}", "");
                     }
                 }
+                string appPara = "GoPage=SignOff&UserID=" + apprBase.ToUserID + "&type=" + apprBase.Category + "&Area=" + apprBase.NoticeArea + "&Action=" + noticeAction + "&NoticeType=" + noticeType + "&yID=" + apprBase.SchoolYear + "&cID=" + apprBase.SchoolCode + "&sID=" + apprBase.SessionID + "&tID=" + apprBase.EmployeeID + "&phase=" + apprBase.Phase + "&tName=" + apprBase.AppraiseeName ;
+                string encryptionPara = GetMySymetricEncryption.GetMyEncryptedValue(appPara);
+                string appSiteLink = WebConfig.getValuebyKey("AppSiteLink") + "?appPara=" + encryptionPara;
+
+                cBody = cBody.Replace("{{PlaceHolder:AppSiteLink}}", appSiteLink);
+
                 return cBody;
             }
             catch

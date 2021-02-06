@@ -61,8 +61,10 @@ namespace BLL
                     return "dbo.EPA_sys_getSchoolList"; //  + parameter;
                 case "WorkingItemLink":
                     return "dbo.EPA_sys_getLastWorkingLink @Operate, @UserID";
+                case "ApprType":
+                    return "dbo.EPA_sys_getListsValuePara";
                 default:
-                    return "";
+                    return action;
 
             }
 

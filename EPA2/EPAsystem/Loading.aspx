@@ -8,10 +8,10 @@
     <title>Loading Page</title>
     <style>
         div {
-            height: 100%;
-            width: 100%;
+/*            height: 100%;
+            width: 100%;*/
             text-align: center;
-            margin: 0 auto;
+            margin: auto;
             padding-top: 15%;
         }
     </style>

@@ -39,15 +39,19 @@ namespace EPA2.EPAappraisal
 
             AppraisalPage.BuildingTitleTab(ref PageTitle, User.Identity.Name, category, area, code);
             AppraisalPage.BuildingTextTitle(ref labelTitle, "Title", User.Identity.Name, category, area, code);
-            AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
-            AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
-            AppraisalPage.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
-            AppraisalPage.BuildingTextTitle(ref labelTitle4, "Title", User.Identity.Name, category, area, code + "4");
-            AppraisalPage.BuildingTextTitle(ref labelTitle5, "Title", User.Identity.Name, category, area, code + "5");
-            AppraisalPage.BuildingTextTitle(ref labelTitle6, "Title", User.Identity.Name, category, area, code + "6");
+            //AppraisalPage.BuildingTextTitle(ref labelTitle1, "Title", User.Identity.Name, category, area, code + "1");
+            //AppraisalPage.BuildingTextTitle(ref labelTitle2, "Title", User.Identity.Name, category, area, code + "2");
+            //AppraisalPage.BuildingTextTitle(ref labelTitle3, "Title", User.Identity.Name, category, area, code + "3");
+            //AppraisalPage.BuildingTextTitle(ref labelTitle4, "Title", User.Identity.Name, category, area, code + "4");
+            //AppraisalPage.BuildingTextTitle(ref labelTitle5, "Title", User.Identity.Name, category, area, code + "5");
+            //AppraisalPage.BuildingTextTitle(ref labelTitle6, "Title", User.Identity.Name, category, area, code + "6");
+            labelTitle21.InnerText = AppraisalPage.GetTextTitle(User.Identity.Name, category, area, code + "1");
+            labelTitle22.InnerText = AppraisalPage.GetTextTitle(User.Identity.Name, category, area, code + "2");
+            labelTitle23.InnerText = AppraisalPage.GetTextTitle(User.Identity.Name, category, area, code + "3");
+            labelTitle24.InnerText = AppraisalPage.GetTextTitle(User.Identity.Name, category, area, code + "4");
+            labelTitle25.InnerText = AppraisalPage.GetTextTitle(User.Identity.Name, category, area, code + "5");
+            labelTitle26.InnerText = AppraisalPage.GetTextTitle(User.Identity.Name, category, area, code + "6");
 
-            //    AppraisalPage.BuildingTextTitle(ref labelSubTitle, "SubTitle", User.Identity.Name, category, area, code);
-            //    AppraisalPage.BuildingTextMessage(ref labelMessage, "Message", User.Identity.Name, category, area, code);
 
             string sectionStartPage = WebConfig.getValuebyKey("SectionStartPage");//  " ALP11,AGP11,STR11";
             if (sectionStartPage.IndexOf(code) == -1)

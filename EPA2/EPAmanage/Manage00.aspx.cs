@@ -20,9 +20,10 @@ namespace EPA2.EPAmanage
                 string sessionid = Page.Request.QueryString["sID"];
                 string phase = Page.Request.QueryString["phase"];
                 string task = Page.Request.QueryString["task"];
+                string category = Page.Request.QueryString["type"];
                 string tName = Page.Request.QueryString["tName"];
                 string ds = Page.Request.QueryString["IDs"];
-                string parameter = "?yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + tName + "&IDs=" + ds + "&phase=" + phase;
+                string parameter = "?yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + tName + "&IDs=" + ds + "&phase=" + phase + "&type=" + category;
                 LabelAppraisalTitle.Text = GetTitle(task)  + " for " + tName;
               //  LabelEmployeeName.Text = tName;
 
@@ -36,6 +37,9 @@ namespace EPA2.EPAmanage
         {
             switch (goPage)
             {
+                case "AppraisalAdjustment":
+                    goPage = "AppraisalAdjustment.aspx";            //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
+                    break;
                 case "AppraisalProfile":
                     goPage = "EditAppraisalProfile.aspx";            //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
                     break;
@@ -58,6 +62,8 @@ namespace EPA2.EPAmanage
         {
             switch (goPage)
             {
+                case "AppraisalAdjustment":
+                    return "Appraisal Adjustment";            //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
                 case "AppraisalProfile":
                     return "Appraisal Profile Edit ";            //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
                   case "NotesEdit":

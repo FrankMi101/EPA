@@ -15,7 +15,9 @@ img {
     margin-bottom: -5px;
 }
 
-
+    .imgHelp:hover {
+       filter: contrast(200%)
+    }
 .imgChat {
     height: 25px;
     width: 25px;
@@ -55,15 +57,26 @@ section {
     margin-top: -5px;
     padding-left: 5px;
 }
-
+.actionButton {
+    background-color:transparent;
+    border: 2px solid lightBlue;
+    border-radius: 10px;
+}
+    .actionButton:hover {
+        border: 2px solid dodgerblue;
+  /*      background: dodgerblue;*/
+     /*   color: white;*/
+        cursor: pointer;
+    }
 .saveButton {
     width: 120px;
     margin-right: 20px;
 }
 
-    .saveButton:hover {
+    .saveButton:hover{
         background-color: coral;
         color: white;
+        cursor: pointer;
     }
 .saveButtonDisable {
     width: 120px;

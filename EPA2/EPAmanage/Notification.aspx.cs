@@ -40,6 +40,8 @@ namespace EPA2.EPAmanage
             hfRunningModel.Value = WebConfig.RunningModel();
             try
             {
+                if (Session["NoticeType"] == null) Session["NoticeType"] = "ALP";
+
                 if (Session["NoticeType"].ToString() == "ALP")
                 { rblNoticeType.SelectedIndex = 0; }
                 if (Session["NoticeType"].ToString() == "EPA")
@@ -65,7 +67,7 @@ namespace EPA2.EPAmanage
             {
                 LableDeadLine.Text = "Classroom Obervation Date:";
             }
-        
+
             myText.Text = GetBodyByType();
             TextSubject.Text = GetDefaultSubjectbyNoticeType();
             myText.Text = myText.Text.Replace("{{PlaceHolder:WebSite}}", webSite);
@@ -96,8 +98,8 @@ namespace EPA2.EPAmanage
         {
 
             string noticeArea = rblNoticeType.SelectedValue;
-    
-            string noticeType = "AppraisalStart"; 
+
+            string noticeType = "AppraisalStart";
             string eMailBody = GetEmailBody(); //  myText.Text;        
             string eMailBodySave = eMailBody.Replace(webSite, " <a href=' " + webSite + "' target='_blank'>  Teacher Performance Appraisal </a>");
 
@@ -120,7 +122,7 @@ namespace EPA2.EPAmanage
 
             string result = MailNotification.NotificationeMailSave(parameter);//"Appraiser", User.Identity.Name, hfApprYear.Value, hfApprSchool.Value, hfApprEmployeeID.Value, hfApprSession.Value, noticeType, noticeArea, noticeDate, DeadLineDate.Value, eMailSubject, eMailBodySave);
 
-           var eMailPara = new EmailNotice()
+            var eMailPara = new EmailNotice()
             {
                 EmailTo = MailNotification.NotificationeMailUser("NoticeUser", parameter),
                 EmailCC = MailNotification.NotificationeMailUser("CCUser", parameter),
@@ -131,12 +133,12 @@ namespace EPA2.EPAmanage
                 EmailFormat = "HTML"
             };
 
- 
+
 
             if (chbICalendar.Checked) // rblNoticeType.SelectedValue == "OBS")
             {
                 System.Net.Mail.Attachment iCalendar = GetiCalendar();
-                result = MailNotification.SendMailWithiCalendar( eMailPara,iCalendar);
+                result = MailNotification.SendMailWithiCalendar(eMailPara, iCalendar);
             }
             else
             {
@@ -162,7 +164,7 @@ namespace EPA2.EPAmanage
             byte[] calendarBytes = iCalendar.getiCalendarbyStringBuiding(User.Identity.Name, sDate, eDate, teacherName, subject, description, location, toMail, appraiser);
             MemoryStream ms = new MemoryStream(calendarBytes);
             return new System.Net.Mail.Attachment(ms, "event.ics", "text/calendar");
-          
+
         }
         private string GetEmailBody()
         {

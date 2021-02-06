@@ -70,7 +70,7 @@
 
         <div>
               <div class="ContentTextarea">
-                <asp:TextBox ID="myText" runat="server"   OnTextChanged="MyText_TextChanged" Height="320px" MaxLength="2000" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                <asp:TextBox ID="myText" runat="server"   OnTextChanged="MyText_TextChanged" Height="380px" MaxLength="2000" TextMode="MultiLine" Width="99%"></asp:TextBox>
             </div>
 
 

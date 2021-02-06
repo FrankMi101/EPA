@@ -118,7 +118,15 @@ namespace BLL
 		{
 			return CommonValue<string>("AppraiseeCopyToNew", parameter);
 		}
-		
+
+		public static string AppraisalNotes(object parameter)
+		{
+			return CommonValue<string>("AppraisalNotes", parameter);
+		}
+		public static string AppraisalNotesSave(object parameter)
+		{
+			return CommonValue<string>("AppraisalNotesSave", parameter);
+		}
 		private static string GetSPInClass(string action)
 		{
 
@@ -158,7 +166,7 @@ namespace BLL
 				case "AppraiseeDelete":
 					return "dbo.EPA_Appr_AppraiseeProfileEdit" + parameterE + ",@SchoolYear,@SchoolCode";
  				case "AppraisalStaffs":
-					return "dbo.EPA_Appr_AppraisalStaffList"  + parameters + ",@Searchby,@SearchValue,@WorkingOn";
+					return "dbo.EPA_Appr_AppraisalStaffList"  + parameters + ",@Searchby,@SearchValue,@WorkingOn,@UserRole";
 				case "AppraisalStaffsNotice":
 					return "dbo.EPA_Appr_AppraisalStaffListNotice"  + parameters + ",@SearchBy,@SearchValue,@NoticeType,@NoticeArea";
 				case "AppraisalStaffHistory":
@@ -169,6 +177,10 @@ namespace BLL
 					return "dbo.EPA_Appr_AppraisalProcess_RollOver @Operate, @UserID, @FromSchoolYear, @ToSchoolYear, @SchoolCode";
 				case "RollOver":
 					return "dbo.EPA_Appr_AppraisalProcess_RollOver @Operate, @UserID, @FromSchoolYear, @ToSchoolYear, @SchoolCode";
+				case "AppraisalNotes":
+					return "dbo.EPA_Appr_AppraisalData_NotesComments" + parameters + ",@Category"	;
+				case "AppraisalNotesSave":
+					return "dbo.EPA_Appr_AppraisalData_NotesComments" + parameters + ",@Category,@Value";
 
 				default:
 					return action;

@@ -79,7 +79,7 @@ function OpenALP(employeeID, schoolYear, schoolCode, apprType, apprPhase, teache
     category = apprType;
     phase = apprPhase;
     var goPage = "EPAappraisal/Loading.aspx?pID=Appraisal"; //&yID=" + schoolYear + "&dID=" + schoolCode + "&eID=" + employeeID + "&phase=" + apprPhase;
-    var vHeight = screen.height-  210;
+    var vHeight = screen.height-  250;
     var vWidth = screen.width-25;// - 500;
     var pTitle = "Appraisal Annual Learnning Plan";
     openEditPage2(vHeight, vWidth, goPage, pTitle);
@@ -92,7 +92,7 @@ function OpenAppraisal(employeeID, schoolYear, schoolCode, apprType, apprPhase, 
     category = apprType;
     phase = apprPhase;
     var goPage = "EPAappraisal/Loading.aspx?pID=Appraisal"; //&yID=" + schoolYear + "&dID=" + schoolCode + "&eID=" + employeeID + "&phase=" + apprPhase;
-    var vHeight = screen.height- 210;
+    var vHeight = screen.height- 250;
     var vWidth = screen.width-25;// - 500;
     var pTitle = "Appraisal";
     openEditPage2(vHeight, vWidth, goPage, pTitle);
@@ -117,6 +117,14 @@ function OpenStaffEdit(employeeID, schoolYear, schoolCode, teacherName) {
     var pTitle = "Staff Profile Edit";
     openEditPage3(vHeight, vWidth, goPage, pTitle);
 }
+
+function OpenAppraisalAdjustment() { 
+    var goPage = "../EPAManage/Loading.aspx?pID=AppraisalAdjustment"; //+ "&eID=" + employeeID + "&IDs=" + IDs + "&tName=" + tName + "&cID=" + cID;
+    var vHeight = 470;
+    var vWidth = 650;
+    var pTitle = "Appraisal Adjustment";
+    openEditPage3(vHeight, vWidth, goPage, pTitle);
+}
 function OpenMenu(id,employeeID, schoolYear, schoolCode, apprType, apprPhase,sessionID, teacherName) {
     teachername = teacherName;
     schoolyear = schoolYear;
@@ -126,6 +134,12 @@ function OpenMenu(id,employeeID, schoolYear, schoolCode, apprType, apprPhase,ses
     category = apprType;
     phase = apprPhase;
     myIDs = id;
+    CopyKeyIDToClipboard(employeeID + " " + teacherName);
+    if ($("#hfUserRole").val() == "Admin")
+        $("#submenu7").show();
+    else
+        $("#submenu7").hide();
+
     if (currentListPage == "StaffList") {
         if (category === "TPA") {
             $("#submenu5").show();
@@ -179,7 +193,8 @@ function IECompatibility() {
 function openEditPage(vHeight, vWidth, goPage, pTitle) {
     var vLeft = (screen.width / 2) - (vWidth / 2) - 100;
     var vTop = (screen.height / 2) - (vHeight / 2) - 100;
-    goPage = goPage  + "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&phase=" + phase + "&tName=" + teachername + "&type=" + category;
+    var parameters = "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&phase=" + phase + "&tName=" + teachername + "&type=" + category;
+    goPage = goPage + parameters;
     $(document).ready(function () {
         try {
             $("#editiFrame", parent.document).attr('src', goPage);
@@ -218,8 +233,8 @@ function openEditPage2(vHeight1, vWidth1, goPage, pTitle) {
     }
     else
     { vWidth = 1024;}
-
-    goPage = goPage + "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&phase=" + phase + "&tName=" + teachername + "&type=" + category;
+    var parameters = "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&phase=" + phase + "&tName=" + teachername + "&type=" + category;
+    goPage = goPage + parameters;
     $(document).ready(function () {
         try {
             $("#appriFrame", parent.document).attr('src', goPage);
@@ -252,7 +267,8 @@ function openEditPage2(vHeight1, vWidth1, goPage, pTitle) {
 function openEditPage3(vHeight, vWidth, goPage, pTitle) {
     var vLeft = (screen.width / 2) - (vWidth / 2) - 100;
     var vTop = (screen.height / 2) - (vHeight / 2) - 100;
-    goPage = goPage + "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + teachername + "&IDs=" + myIDs + "&phase=" + phase ;
+    var parameters = "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + teachername + "&IDs=" + myIDs + "&phase=" + phase + "&type=" + category;
+    goPage = goPage + parameters;
       try {
 
             $("#ActionMenuDIV").hide();
@@ -287,7 +303,8 @@ function openEditPage3(vHeight, vWidth, goPage, pTitle) {
 function openEditPage5(vHeight, vWidth, goPage, pTitle) {
     var vLeft = (screen.width / 2) - (vWidth / 2) - 100;
     var vTop = (screen.height / 2) - (vHeight / 2) - 100;
-    goPage = goPage + "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + teachername;
+    var parameters = "&yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeid + "&sID=" + sessionid + "&tName=" + teachername;
+    goPage = goPage + parameters;
     try {
 
         $("#ActionMenuDIV").hide();
@@ -317,4 +334,36 @@ function openEditPage5(vHeight, vWidth, goPage, pTitle) {
         window.alert(e.mess);
     }
   
+}
+// 
+function CopyKeyIDToClipboard(vID) {
+    try {
+        $("#clipboardText").val(vID); 
+        var copyText = document.querySelector("#clipboardText");  
+        copyText.select(); 
+        document.execCommand("copy");
+    }
+    catch (e) {
+        alert("Action Error!");}
+}
+//** only works on IE 
+function CopyKeyIDToClipboardIE(vID) {
+    try {
+        window.clipboardData.clearData();
+        window.clipboardData.setData("Text", vID);
+
+        if (window.clipboardData) {
+            window.clipboardData.clearData();
+            window.clipboardData.setData("Text", vID);
+
+        }
+        else if (navigator.userAgent.indexOf("Opera") != -1) { window.location = vID; }
+        else if (window.netscape) {
+            try {
+                netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+            }
+            catch (e) { }
+        }
+    }
+    catch (e) { }
 }

@@ -8,8 +8,8 @@
     <title>Loading Page</title>
     <style>
         div {
-            height: 99%;
-            width: 99%;
+     /*       height: 99%;
+            width: 99%;*/
             text-align: center;
             margin:auto;
             padding-top: 15%;

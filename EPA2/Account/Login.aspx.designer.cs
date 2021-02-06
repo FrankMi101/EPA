@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPA2 {
-    
-    
-    public partial class Login {
-        
+namespace EPA2
+{
+
+
+    public partial class Login
+    {
+
         /// <summary>
         /// Head1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-        
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// LabelTrain control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelTrain;
-        
+
         /// <summary>
         /// TableVersion control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable TableVersion;
-        
+
         /// <summary>
         /// lblApplication control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblApplication;
-        
+
         /// <summary>
         /// appLink control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor appLink;
-        
+
         /// <summary>
         /// lblTCDSB control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTCDSB;
-        
+
         /// <summary>
         /// lblVersion control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblVersion;
-        
+
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// HostName control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl HostName;
-        
+
         /// <summary>
         /// LabelAppName control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelAppName;
-        
+
         /// <summary>
         /// txtDomain control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDomain;
-        
+
         /// <summary>
         /// txtUserName control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUserName;
-        
+
         /// <summary>
         /// rfUserName control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfUserName;
-        
+
         /// <summary>
         /// txtPassword control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
+
         /// <summary>
         /// rfPassword control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfPassword;
-        
+
         /// <summary>
         /// chkPersist control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkPersist;
-        
+
         /// <summary>
         /// Submit1 control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Submit1;
-        
+
         /// <summary>
         /// errorlabel control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace EPA2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label errorlabel;
-        
+
         /// <summary>
         /// txtResolution control.
         /// </summary>

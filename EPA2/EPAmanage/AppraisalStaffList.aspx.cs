@@ -17,7 +17,8 @@ namespace EPA2.EPAmanage
                 Page.Response.Expires = 0;
                 SetPageAttribution();
                 AssemblePage();
-                await BindGridViewData();
+
+                 await BindGridViewData();
             }
         }
         private void SetPageAttribution()
@@ -33,8 +34,15 @@ namespace EPA2.EPAmanage
             UserLastWorking.AppraisalType = "EPA";
             UserLastWorking.AppraisalArea = "StaffList";
             Session["HomePage"] = "EPAmanage/Loading.aspx?pID=AppraisalStaffList";
-
-        }
+            hfSelectedTab.Value = "Evaluation";
+            if (hfRunningModel.Value != "Design")
+            {
+                GridView1.Columns[12].Visible = false;
+                GridView1.Columns[13].Visible = false;
+            }
+            else
+            { }
+       }
         private void AssemblePage()
         {
             var parameters = new CommonListParameter() { Operate = "", UserID = User.Identity.Name, Para1 = WorkingProfile.UserRole, Para2 = WorkingProfile.SchoolArea, Para3 = WorkingProfile.SchoolYear };
@@ -76,6 +84,7 @@ namespace EPA2.EPAmanage
             TextSearch.Visible = true;
             ddlSearch.Visible = false;
             // ddlSearchby.Items[0].Selected = true;
+            Assembing_Tab();
         }
         protected async void ddlSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -113,6 +122,7 @@ namespace EPA2.EPAmanage
 
         protected void ddlSearchBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Assembing_Tab();
             TextSearch.Visible = false;
             ddlSearch.Visible = true;
             if (ddlSearchby.SelectedValue == "Teacher")
@@ -128,7 +138,8 @@ namespace EPA2.EPAmanage
 
         protected async void ddlSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            await BindGridViewData();
+           
+               await BindGridViewData();
         }
 
         protected async void btnSearch_Click(object sender, EventArgs e)
@@ -141,7 +152,7 @@ namespace EPA2.EPAmanage
           //  List < AppraisalList > listDataSource = await Task.Run(() => GetDataSource());
             try
             {
-                //string schoolyear = ddlSchoolYear.SelectedValue;
+           //string schoolyear = ddlSchoolYear.SelectedValue;
                 //string schoolcode = ddlSchool.SelectedValue;
                 //string searchby = ddlSearchby.SelectedValue;
                 //string searchvalue = ddlSearch.SelectedValue;
@@ -154,8 +165,8 @@ namespace EPA2.EPAmanage
                 //  AppraisalGridViewData.BindMyGridView(ref GridView1, "AppraisalStaffList", "dList", User.Identity.Name, schoolyear, schoolcode, searchby, searchvalue);
                 GridView1.DataSource = await Task.Run(() => GetDataSource());
                 GridView1.DataBind();
-
-            }
+                      Assembing_Tab();
+           }
             catch (Exception ex)
             {
                 var em = ex.Message;
@@ -181,12 +192,13 @@ namespace EPA2.EPAmanage
             }
             var parameter = new
             {
-                Operate = role,
+                Operate = hfSelectedTab.Value,
                 UserID = User.Identity.Name,
+                UserRole = role,
                 SchoolYear = schoolyear,
                 SchoolCode = schoolcode,
                 SearchBy = searchby,
-                Searchvalue = searchvalue,
+                SearchValue = searchvalue,
                 WorkingOn = workingOn
             };
 
@@ -204,13 +216,46 @@ namespace EPA2.EPAmanage
 
           //  var apprList = BaseData.GeneralList<AppraisalList>("AppraisalManage", "AppraisalStaffs", parameter, btnSearch);
             //var para = BaseData.GetParaStrFromParameterObj(parameter);
-            var apprList = BaseData.GeneralList<AppraisalList>("dbo.EPA_Appr_AppraisalStaffList" , parameter, btnSearch);
+            var apprList = BaseData.GeneralList<AppraisalList>("dbo.EPA_Appr_AppraisalStaffList" , parameter, btnSearchGo);
             return apprList;
         }
 
         private Parameters NewPara(int seq, string key, object value)
         {
             return new Parameters() { Seq = seq, Key = key, Value = value };
+        }
+        protected async void BtnGradeTab_Click(object sender, EventArgs e)
+        {
+            string selectTab = hfSelectedTab.Value;
+            if (selectTab != "")
+            {
+              //  AppraisalPage.SetListValue(ddlSearchby, "ApprType");
+              //  AppraisalPage.SetListValue(ddlSearch, selectTab);
+              //  string searchby = ddlSearchby.SelectedValue;
+              //  string searchvalue = selectTab;
+
+                await  BindGridViewData();
+                 Assembing_Tab();
+            }
+
+        }
+        private   void Assembing_Tab()
+        {
+            var parameters = new
+            {
+                Operate = "ApprType",
+                UserID = User.Identity.Name,
+                Para1 = ddlSchoolYear.SelectedValue,
+                Para2 = ddlSchool.SelectedValue,
+                Para3 = hfWorkingOn.Value
+        };
+            var selectedTab = hfSelectedTab.Value; ;
+            AppraisalPage.BuildingTab(GradeTab, parameters, selectedTab);
+
+
+            //    await BindGridViewListData();
+
+
         }
     }
 }

@@ -37,7 +37,7 @@
             color: blue;
             table-layout: auto;
             display: block;
-            height: 99%;
+            width: 99%;
         }
 
 
@@ -145,7 +145,7 @@
         }
 
         .hfmyKey {
-            display: none;
+            display: none; 
         }
 
         .btnTab {
@@ -158,6 +158,9 @@
         }
 
         .editText {
+        }
+        img  {
+            margin-top: 7px;
         }
     </style>
 
@@ -174,7 +177,7 @@
 
 
         <div class="ContentLookForsList" runat="server">
-            <div id="DivRoot" style="width: 100%; height: 500px;">
+            <div id="DivRoot" style="width: 100%; height: 100%;">
                 <div id="DivHeaderRow" style="overflow: hidden;">
                     <table id="GridView2" style="border: 1px ridge gray; width: 99%; height: 100%; background-color: white;" rules="all" cellspacing="1" cellpadding="1">
                     </table>
@@ -184,27 +187,32 @@
                     <asp:GridView ID="GridView1" runat="server" CellPadding="1" Height="100%" Width="99%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="1" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
                         <Columns>
                             <asp:BoundField DataField="RowNo" HeaderText="No." ItemStyle-CssClass="myRowNo">
-                                <ItemStyle Width="30px" />
+                                <ItemStyle Width="3%" />
                             </asp:BoundField>
-                            <asp:TemplateField HeaderText="Notice">
+                            <asp:TemplateField HeaderText="Select">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="LogCheck" Checked='<%# Bind("LogCheck") %>' runat="server" CssClass="myCheck"></asp:CheckBox>
                                 </ItemTemplate>
-                                <ItemStyle Width="50px" Wrap="False" HorizontalAlign="Center" />
+                                <ItemStyle Width="8%" Wrap="False" HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:BoundField DataField="LogDate" HeaderText="Due Date" ItemStyle-CssClass="myDate">
-                                <ItemStyle Width="100px" />
+                                <ItemStyle Width="8%" />
                             </asp:BoundField>
                             <%-- <asp:BoundField DataField="LookFors" HeaderText="Look Fors">
                                 <ItemStyle Width="85%" />
                             </asp:BoundField>--%>
                             <asp:TemplateField HeaderText="Look Fors">
-                                <ItemStyle Width="80%" Wrap="True" />
+                                <ItemStyle Width="76%" Wrap="True" />
                                 <ItemTemplate>
                                     <asp:TextBox ID="editText" runat="server" Text='<%# Eval("LookFors") %>' CssClass="myCommentsText" Width="100%" TextMode="MultiLine" ReadOnly="true">  </asp:TextBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
-
+                            <asp:TemplateField HeaderText="Action" ItemStyle-CssClass="myAction">
+                                <ItemTemplate>
+                                    <asp:Label ID="Action" runat="server" Text='<%# Bind("Action") %>' Height="100%" CssClass="myAction"> </asp:Label>
+                                </ItemTemplate>
+                                <ItemStyle Width="5%" Wrap="False" HorizontalAlign="center" VerticalAlign="middle" />
+                            </asp:TemplateField>
                             <asp:BoundField DataField="LookForsID" ReadOnly="True" ItemStyle-CssClass="hfmyKey">
                                 <ItemStyle Width="0px" />
                             </asp:BoundField>
@@ -220,7 +228,9 @@
                         <SortedDescendingCellStyle BackColor="#CAC9C9" />
                         <SortedDescendingHeaderStyle BackColor="#33276A" />
                     </asp:GridView>
+
                 </div>
+                <div style="margin-top: -20px; margin-bottom: 8px; color: red; font-size: 10px;">* To select the lookfors click on the check box of select column</div>
                 <asp:Button ID="btnAddNew" runat="server" Text="Add New Log" OnClick="BtnAddNew_Click" Enabled="false" />
 
             </div>
@@ -258,7 +268,8 @@
 </html>
 
 <script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/Appr_img_title.js"></script> <script src="../Scripts/Appr_Help.js"></script>
+<script src="../Scripts/Appr_img_title.js"></script>
+<script src="../Scripts/Appr_Help.js"></script>
 <script src="../Scripts/Appr_textEdit.js"></script>
 <script src="../Scripts/Appr_textPage.js"></script>
 <script src="../Scripts/GridView.js"></script>
@@ -311,15 +322,19 @@
                     $(this).addClass("HideColumn");
                 }
             })
+
             $("#GridView2 th").each(function () {
                 var headText = $(this).text();
                 if (headText.length == 1) {
                     $(this).addClass("HideColumn");
                 }
             })
+            var vHeight = 380;
+            if (DomainID == "1") vHeight = 340;
+            if (DomainID == "3") vHeight = 320;
+            if (DomainID == "5") vHeight = 420;
 
-            if (DomainID == "1" || DomainID == "3") { MakeStaticHeader("GridView1", 330, 700, 22, false); }
-            else { MakeStaticHeader("GridView1", 380, 700, 22, false); }
+            MakeStaticHeader("GridView1", vHeight, 700, 22, false);
 
             // var vHeight = screen.height - 150 - 110 - 70;
             if (Para.ObjRole == Para.ActionRole) { SetGridViewEdit("Yes"); }
@@ -347,8 +362,9 @@
                 Para.LogDate = logDate;
                 Para.Comments = comments;
 
-                SaveLookForsListLOGComments();
+                SaveLookForsListLOGComments("Check Box action");
             });
+
             $('td > .myCommentsText').change(function (event) {
                 var eventCell = $(this);
                 var lookForsID = $(this).closest('tr').find('td.hfmyKey').text();
@@ -359,11 +375,47 @@
                 Para.LogCheck = logCheck;
                 Para.LogDate = logDate;
                 Para.Comments = comments;
+                SaveLookForsListLOGComments("Change Comments");
+            });
 
-                SaveLookForsListLOGComments();
+            $("td.myRowNo").click(function (event) {
+                var lookForsID = $(this).closest('tr').find('td.hfmyKey').text();
+                if (lookForsID > 200) {
+                    var result = confirm("Are you sure yo want to delete this comment?");
+                    if (result) {
+                        Para.Operate = "Delete";
+                        Para.LookForsID = lookForsID;
+                        Para.LogCheck = false;
+                        Para.LogDate = $(this).closest('tr').find('td.myDate').text();
+                        Para.Comments = "";
+                        SaveLookForsListLOGComments("Delete");
+                        location.reload();
+                        //   alert(lookForsID);
+                    }
+                }
+            });
+            $('td > .myAction').click(function (event) {
+                try {
+                    var lookForsID = $(this).closest('tr').find('td.hfmyKey').text();
+                    if (lookForsID > 200) {
+                        var result = confirm("Are you sure yo want to delete this comment?");
+                        if (result) {
+                            Para.Operate = "Delete";
+                            Para.LookForsID = lookForsID;
+                            Para.LogCheck = false;
+                            Para.LogDate = $(this).closest('tr').find('td.myDate').text();
+                            Para.Comments = "";
+                            SaveLookForsListLOGComments("Delete");
+                            location.reload();
+                        }
+                    }
+                }
+                catch (ex) { }
+
             });
         });
     }
+
     function openDateCellEdit(vKey, vTop, vLeft, vHeight, vWidth) {
         $("#cellEditDateDiv").css({
             top: vTop,
@@ -399,14 +451,14 @@
     }
 
 
-    function SaveLookForsListLOGComments() {
+    function SaveLookForsListLOGComments(action) {
         var allowView = $("#hfAllowView").val();
         if (Para.ActionRole == "Appraiser" && Para.ObjRole == "Appraiser") { allowView = "1"; }
         else {
             if (allowView == "") { allowView = "0"; }
         }
         Para.AllowView = allowView;
-
+    
         // string operation, string userId, string schoolYear,string schoolCode, string employeeId, string sessionId,  string categoryId, string areaId, string itemCode, string domainId, string competencyId, string lookForsId, string actionRole, string objRole, string mydate, bool mycheck, string allowview, string comments
         //  var result = EPA2.Models.WebService1.SaveLookForsChoseLog("Save", Para.UserID,Para.SchoolYear,Para.SchoolCode,Para.EmployeeID,Para.SessionID, Para.Category, Para.Area, Para.ItemCode,Para.DomainID,Para.CompetencyID,Para.LookForsID,Para.ActionRole,Para.ObjRole,Para.LogDate,Para.LogCheck,Para.AllowView,Para.Comments, onSuccess, onFailure);
         var result = EPA2.Models.WebService1.SaveEvidenceLogLookForsChose("Save", Para, onSuccess, onFailure);
@@ -416,7 +468,7 @@
 
     }
     function onFailure(result) {
-        window.alert(result);
+        window.alert("Web service Call Failed:" + result);
     }
 
 </script>

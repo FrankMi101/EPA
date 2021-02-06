@@ -20,7 +20,8 @@ namespace EPA2.EPAmanage
                 string ds = Page.Request.QueryString["IDs"];
                 string tName = Page.Request.QueryString["tName"];
                 string phase = Page.Request.QueryString["phase"];
-                string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeId + "&sID=" + sessionId + "&tName=" + tName + "&phase=" + phase;
+                string category = Page.Request.QueryString["type"];
+                string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeId + "&sID=" + sessionId + "&tName=" + tName + "&phase=" + phase + "&type=" + category;
                 WorkingAppraisee.AppraisalYear = schoolyear;
                 WorkingAppraisee.EmployeeID = employeeId;
                 WorkingAppraisee.AppraisalCategory = GetCategorybyPhase(phase);
@@ -44,6 +45,9 @@ namespace EPA2.EPAmanage
                 {
                     switch (goPage)
                     {
+                        case "AppraisalAdjustment":
+                            goPage = "Manage00.aspx?" + parameter  + "&task=AppraisalAdjustment"; // employeeID + "&yID=" + schoolyear + "&cID=" + schoolcode + "&IDs=" + IDs + "&tName=" + tName + "&task=AppraisalProfile";                                                                                             //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
+                            break;
                         case "AppraisalProfile":
                             goPage = "Manage00.aspx?" + parameter + "&IDs=" + ds + "&task=AppraisalProfile"; // employeeID + "&yID=" + schoolyear + "&cID=" + schoolcode + "&IDs=" + IDs + "&tName=" + tName + "&task=AppraisalProfile";                                                                                             //  GoPage = "EditAppraisalProfile.aspx?" + parameter;
                             break;

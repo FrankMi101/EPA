@@ -17,10 +17,11 @@ namespace EPA2.EPAmanage
                 string schoolcode = Page.Request.QueryString["cID"];
                 string employeeId = Page.Request.QueryString["tID"];
                 string sessionId = Page.Request.QueryString["sID"];
-                string ds = Page.Request.QueryString["IDs"];
+                string Ids = Page.Request.QueryString["IDs"];
                 string tName = Page.Request.QueryString["tName"];
                 string phase = Page.Request.QueryString["phase"];
-                string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeId + "&sID=" + sessionId + "&tName=" + tName + "&phase=" + phase;
+                string category = Page.Request.QueryString["type"];
+                string parameter = "yID=" + schoolyear + "&cID=" + schoolcode + "&tID=" + employeeId + "&sID=" + sessionId + "&tName=" + tName + "&phase=" + phase + "&type=" + category;
 
 
                 switch (goPage)
@@ -43,9 +44,7 @@ namespace EPA2.EPAmanage
                     case "ManageStaffList":
                         goPage = "ManageStaffList.aspx";
                         break;
-                    case "EditStaffProfile":
-                        goPage = "Manage00.aspx?" + parameter + "&task=ProfileEdit";
-                        break;
+
                     case "ALPBatchPrint":
                         goPage = "AppraisalNoticeList.aspx?nType=ALPBatch";
                         break;

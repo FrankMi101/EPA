@@ -125,7 +125,7 @@
 
         #Iframe1, #Iframe2, #Iframe3, #Iframe4 {
             width: 99%;
-            height: 300px;
+            height:250px;
         }
     </style>
 </head>
@@ -148,10 +148,8 @@
         <asp:HiddenField ID="hfCode" runat="server" />
         <asp:HiddenField ID="hfParameters" runat="server" />
 
-        <div class="container visible-xs visible-sm visible-md visible-lg"></div>
+        <div class="container centralArea visible-xs visible-sm visible-md visible-lg">
         <div class="row" style="width: 100%">
-
-
             <div class="col-xs-12 col-sm-6 col-md-4  col-lg-4" style="display: inline; float: left; border: 0px solid lightsalmon; margin: -1px">
                 <%--   <div style="display: inline; width: 40%; float: left; border: 0px solid lightsalmon; margin: -1px">--%>
                 <div class="AreaSubTitle">Appraisal Summary  </div>
@@ -271,7 +269,7 @@
             </div>
         </div>
 
-
+</div>
 
 
 
@@ -392,10 +390,10 @@
     $(document).ready(function () {
         //var vHeight = screen.height - 260;// window.screenY
         //var vWidth = screen.width;
-        //$("body").css({
-        //    height: vHeight,
+        // $("body").css({
+        //   height: vHeight,
         //    width: vWidth
-        //})
+        // })
 
         $(".imgHelp1").mouseenter(function (event) {
 

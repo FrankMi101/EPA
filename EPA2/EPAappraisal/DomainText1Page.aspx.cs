@@ -57,7 +57,7 @@ namespace EPA2.EPAappraisal
 
             _competencyId = hfCompetencyID.Value;
             string itemCount = CompetencyList.ListCount(User.Identity.Name, hfApprYear.Value, hfApprSession.Value, hfApprEmployeeID.Value, hfApprSchool.Value, category, _domainId);
-            myText.Height = GetTextHeightByCount(itemCount);
+            myText.Height =  GetTextHeightByCount(itemCount);
 
         }
         private string CurrerntCompetencyId()
@@ -114,16 +114,28 @@ namespace EPA2.EPAappraisal
                     xUnit = (category == "TPA") ? 400 : 400;
                     break;
                 case "2":
-                    xUnit = (category == "TPA") ? 350 : 380;
+                    xUnit = (category == "TPA") ? 370 : 380;
                     break;
                 case "3":
-                    xUnit = (category == "TPA") ? 330 : 350;
+                    xUnit = (category == "TPA") ? 350 : 350;
                     break;
                 case "4":
                     xUnit = (category == "TPA") ? 330 : 330;
                     break;
                 case "5":
-                    xUnit = (category == "TPA") ? 280 : 300;
+                    xUnit = (category == "TPA") ? 300 : 280;
+                    break;
+                case "6":
+                    xUnit = (category == "TPA") ? 280 : 260;
+                    break;
+                case "7":
+                    xUnit = (category == "TPA") ? 260 : 250;
+                    break;
+                case "8":
+                    xUnit = (category == "TPA") ? 250 : 250;
+                    break;
+                case "9":
+                    xUnit = (category == "TPA") ? 240 : 250;
                     break;
                 default:
                     xUnit = 500;

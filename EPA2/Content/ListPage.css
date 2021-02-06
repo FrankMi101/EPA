@@ -41,13 +41,26 @@ table tbody tr:nth-child(odd) {
     background: -moz-linear-gradient(dodgerblue, lightblue); /* For Firefox 3.6 to 15 */
     background: linear-gradient(dodgerblue, lightblue); /* Standard syntax */
 }
-#GridView2 tr th {
-    border: 1px solid #e1d9d9;
-    font-family: Arial, sans-serif;
-    font-size: x-small;
-    text-align: center;
-}
 
+    #GridView2 tr th {
+        border: 1px solid #e1d9d9;
+        font-family: Arial, sans-serif;
+        font-size: x-small;
+        text-align: center;
+    }
+ 
+
+#GridView1 tr:hover {
+    background: lightblue; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(skyblue, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(skyblue, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(skyblue, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(skyblue, white); /* Standard syntax */
+}
+#GridView1 img:hover {
+  /*  filter: brighness(0.9);*/
+    filter: contrast(200%);
+}
 
 #DivRoot {
     width: 100%;
@@ -57,18 +70,25 @@ table tbody tr:nth-child(odd) {
 
 
 #btnSearch, #btApplicant, #Button1, .GoButton {
-    background-color: dodgerblue;
-    color: white;
+    background-color: transparent;
+    color: dodgerblue;
     font-weight: 600;
     height: 22px;
     width: 40px;
 }
+
+#btnSearch:hover {
+        color: white;
+        background-color: dodgerblue;
+        cursor: pointer;
+    }
+
 .HideColumn {
     display: none;
 }
-.iFrameDIV
-{
-    height:95%;
+
+.iFrameDIV {
+    height: 95%;
 }
 
 .highlightBoard {

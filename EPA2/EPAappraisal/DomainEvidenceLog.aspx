@@ -17,7 +17,7 @@
 
     <style>
         body {
-            height: 99%;
+            height: 99.5%;
             width: 99.5%;
             font-size: x-small;
         }
@@ -184,10 +184,9 @@
                 </ul>
             </div>
            
-            
         </div>
-            <div class="ContentLookForsList" runat="server">
-                <iframe id="IframeLookFors" name="IframeLookFors" style="height: 440px; width: 99.5%"   src="iBlankPage.html" runat="server"></iframe>
+            <div class="ContentLookForsList" runat="server" style="height:440px">
+                <iframe id="IframeLookFors" name="IframeLookFors" style="height:100%; width: 99.5%"   src="iBlankPage.html" runat="server"></iframe>
 
             </div>
         </section>
@@ -285,6 +284,12 @@
              allowview = "0";
             if ($("#chbAllowAppraiser").prop('checked'))
             { allowview = "1"; }
+
+            var vHeight = 440;
+            if (DomainID == "1") vHeight = 390;
+            if (DomainID == "3") vHeight = 390;
+            if (DomainID == "5") vHeight = 480;
+            $(".ContentLookForsList").css("height", vHeight); 
 
             if (objRole == "Appraisee")
             {

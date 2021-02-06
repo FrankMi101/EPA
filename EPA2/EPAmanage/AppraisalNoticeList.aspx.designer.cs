@@ -114,13 +114,22 @@ namespace EPA2.EPAmanage
         protected global::System.Web.UI.WebControls.DropDownList ddlSearch;
 
         /// <summary>
-        /// btnSearch control.
+        /// btnSearchGo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.ImageButton btnSearchGo;
+
+        /// <summary>
+        /// chbAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chbAll;
 
         /// <summary>
         /// rblNoticeType control.
@@ -148,15 +157,6 @@ namespace EPA2.EPAmanage
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText deadlineDate;
-
-        /// <summary>
-        /// chbAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chbAll;
 
         /// <summary>
         /// btnSendNotification control.
@@ -211,15 +211,6 @@ namespace EPA2.EPAmanage
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
-
-        /// <summary>
-        /// remaind22 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label remaind22;
 
         /// <summary>
         /// HelpTextContent control.

@@ -14,15 +14,16 @@
     <link href="../Content/BubbleHelp.css" rel="stylesheet" />
     <link href="../Content/ListPage.css" rel="stylesheet" />
     <link href="../Content/ContentPage.css" rel="stylesheet" />
+     <link href="../Content/SearchArea.css" rel="stylesheet" />
     <link href="../Scripts/JQueryUI/jquery-ui.min.css" rel="stylesheet" />
     <link href="../Scripts/JQueryUI/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
     <link href="../Scripts/JQueryUI/jquery-ui.structure.min.css" rel="stylesheet" />
 
     <style type="text/css">
         body {
-            height: 99.5%;
-            width: 99.5%;
-            font-size: x-small;
+            height: 99%;
+             width: 99%;
+             font-size: x-small;
         }
 
         div {
@@ -92,9 +93,9 @@
 
         img {
             border-color: yellow;
-            
         }
-         .imgHelp {
+
+        .imgHelp {
             width: 23px;
             height: 23px;
             margin-top: -10px;
@@ -103,12 +104,21 @@
         #EmailTemplateDIV {
             border: 2px solid #00c2ff;
         }
+
         .ui-datepicker-trigger {
-        margin-top:-11px;
-        height:20px;
-        width:22px;
+            margin-top: -11px;
+            height: 20px;
+            width: 22px;
         }
-       
+        .topmargin { 
+           margin-top:5px;
+           margin-bottom:-10px;
+        }
+        .btnGo:hover {
+         color: dodgerblue;
+         background-color:white;
+        }
+     
     </style>
 </head>
 <body>
@@ -122,7 +132,7 @@
         <div>
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
-                     <img class="imgHelp" src="../images/help2.png" title="Help Content" />
+                    <img class="imgHelp" src="../images/help2.png" title="Help Content" />
                     <asp:Label ID="Label3" runat="server" Text="School Year: "></asp:Label>
                     <asp:DropDownList ID="ddlSchoolYear" runat="server" Width="90px" AutoPostBack="True" OnSelectedIndexChanged="ddlSchoolYear_SelectedIndexChanged">
                     </asp:DropDownList>
@@ -142,16 +152,20 @@
                         <asp:ListItem Value="Process">Appraisal Process</asp:ListItem>
                     </asp:DropDownList>
 
-                    <asp:TextBox ID="TextSearch" runat="server" Width="150px" placeholder="Search by Surname"></asp:TextBox>
+                    <asp:TextBox ID="TextSearch" runat="server" Width="120px" Height="18px" placeholder="Search by Surname"></asp:TextBox>
 
                     <asp:DropDownList ID="ddlSearch" runat="server" Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddlSearch_SelectedIndexChanged">
                     </asp:DropDownList>
-                    <asp:Button ID="btnSearch" runat="server" Text="Go" OnClick="btnSearch_Click" />
+                    <%--<asp:Button ID="btnSearch" runat="server" Text="Go" OnClick="btnSearch_Click" CssClass="btnGo" />--%>
+                      <asp:ImageButton ID="btnSearchGo" runat="server" ToolTip="Search ..." ImageUrl="../images/Go.png" OnClick="btnSearch_Click" />
                     <div class="NoticeButton">
                         <table style="font-size: small;">
                             <tr>
                                 <td>
-                                    <asp:RadioButtonList ID="rblNoticeType" AutoPostBack="true" runat="server" OnSelectedIndexChanged="rblNoticeType_SelectedIndexChanged" RepeatDirection="Horizontal" Width="400px" Enabled="false">
+                                    <asp:CheckBox ID="chbAll" runat="server"   Text="Select All" CssClass="checkAll topmargin" Width="80px"  /></td>
+
+                                <td>
+                                    <asp:RadioButtonList ID="rblNoticeType" CssClass="topmargin" AutoPostBack="true" runat="server" OnSelectedIndexChanged="rblNoticeType_SelectedIndexChanged" RepeatDirection="Horizontal" Width="400px" Enabled="false">
                                         <asp:ListItem Value="ALP" Selected="True">ALP Notice</asp:ListItem>
                                         <asp:ListItem Value="EPA">Performance Appraisal Notice</asp:ListItem>
                                         <asp:ListItem Value="OBS">Classroom Observation Notice</asp:ListItem>
@@ -160,12 +174,10 @@
                                 <td>
                                     <asp:Label ID="Label1" runat="server" Text="Due Date:"></asp:Label>
                                     <input runat="server" type="text" id="deadlineDate" size="10" /></td>
-
                                 <td>
-                                    <asp:CheckBox ID="chbAll" runat="server" Text="Select All" CssClass="checkAll" /></td>
-                                <td>
-                                    <asp:Button ID="btnSendNotification" runat="server" Text="Send Notification"  Height="20px"/>
-                                    <asp:Button ID="btnBatchPrint" runat="server" Text="Batch Print ALP"   Height="20px" />
+                                    <asp:Button ID="btnSendNotification" runat="server" Text="Send Notification" CssClass="actionButton"   />
+                                    <asp:Button ID="btnBatchPrint" runat="server" Text="Batch Print ALP"  CssClass="actionButton"  />
+                                 
                                 </td>
                                 <td style="width: 30%">
                                     <div id="Div1" runat="server" style="display: inline;">
@@ -177,108 +189,106 @@
                                         </asp:UpdateProgress>
                                     </div>
                                 </td>
+
                             </tr>
                         </table>
-
-
                     </div>
-
-
+                  
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
 
-        <div>
+       <div id="DivRoot" style="width: 100%;height:100%">  
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <div id="DivRoot" style="width: 100%; height: 550px;">
-                        <div style="overflow: hidden;" id="DivHeaderRow">
-                            <table id="GridView2" style="border: 1px ridge gray; width: 100%; height: 100%; background-color: white;" rules="all" cellpadding="1" gridlines="Both">
-                            </table>
-                        </div>
+                    <%--<div id="DivRoot" style="width: 100%; height: 550px;">   </div>--%>
 
-                        <div style="overflow: scroll; width: 100%; height: 100%" onscroll="OnScrollDiv(this)" id="DivMainContent">
-                            <asp:GridView ID="GridView1" runat="server" CellPadding="1" Height="100%" Width="100%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="1" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
-                                <Columns>
-                                    <asp:BoundField DataField="RowNo" HeaderText="No." ItemStyle-CssClass="myRowNo">
-                                        <ItemStyle Width="2%" />
-                                    </asp:BoundField>
-                                    <asp:TemplateField HeaderText="Notice">
-                                        <ItemTemplate>
-                                            <asp:CheckBox ID="cbSelect" Checked='<%# Bind("SelectedC") %>' runat="server" CssClass="myCheck"></asp:CheckBox>
-                                        </ItemTemplate>
-                                        <ItemStyle Width="2%" Wrap="False" HorizontalAlign="Center" />
-                                    </asp:TemplateField>
-                                    <asp:BoundField DataField="DueDate" HeaderText="Due Date" ItemStyle-CssClass="myDate">
-                                        <ItemStyle Width="4%" />
-                                    </asp:BoundField>
-                                    <asp:TemplateField HeaderText="Action" ItemStyle-CssClass="myAction">
-                                        <ItemTemplate>
-                                            <asp:HyperLink ID="Link1" runat="server" Text='<%# Bind("Action") %>'>  </asp:HyperLink>
-                                        </ItemTemplate>
-                                        <ItemStyle Width="2%" Wrap="False" />
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="ALP" ItemStyle-CssClass="myALP">
-                                        <ItemTemplate>
-                                            <asp:HyperLink ID="Link2" runat="server" Text='<%# Bind("ALP") %>'>  </asp:HyperLink>
-                                        </ItemTemplate>
-                                        <ItemStyle Width="2%" Wrap="False" />
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="EPA" ItemStyle-CssClass="myEPA">
-                                        <ItemTemplate>
-                                            <asp:HyperLink ID="Link3" runat="server" Text='<%# Bind("EPA") %>'>  </asp:HyperLink>
-                                        </ItemTemplate>
-                                        <ItemStyle Width="2%" Wrap="False" />
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Teacher Name" ItemStyle-CssClass="myName">
-                                        <ItemTemplate>
-                                            <asp:HyperLink ID="Link4" runat="server" Text='<%# Bind("TeacherNameL") %>'>  </asp:HyperLink>
-                                        </ItemTemplate>
-                                        <ItemStyle Width="15%" />
-                                    </asp:TemplateField>
-
-                                    <asp:BoundField DataField="AppraisalPhase" HeaderText="Appraisal Phase">
-                                        <ItemStyle Width="10%" />
-                                    </asp:BoundField>
-
-                                    <asp:BoundField DataField="Assignment" HeaderText="Assignment">
-                                        <ItemStyle Width="10%" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="Appraiser" HeaderText="Apprailser" ItemStyle-CssClass="myApprailser">
-                                        <ItemStyle Width="10%" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="Mentor" HeaderText="Mentor" ItemStyle-CssClass="myMentor">
-                                        <ItemStyle Width="10%" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="NoticeDate" HeaderText="Notice Date" ItemStyle-CssClass="myDateNotice">
-                                        <ItemStyle Width="4%" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="Comments" HeaderText="Comments">
-                                        <ItemStyle Width="17%" />
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="myKey" ReadOnly="True" ItemStyle-CssClass="hfmyKey" Visible="false" />
-
-                                </Columns>
-
-                                <FooterStyle BackColor="#C6C3C6" ForeColor="Black" />
-                                <HeaderStyle BackColor="cornflowerblue" ForeColor="white" Height="25px" />
-                                <PagerStyle BackColor="#C6C3C6" ForeColor="Black" HorizontalAlign="Right" />
-
-                                <SelectedRowStyle BackColor="#9471DE" Font-Bold="True" ForeColor="White" />
-                                <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                                <SortedAscendingHeaderStyle BackColor="#594B9C" />
-                                <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                                <SortedDescendingHeaderStyle BackColor="#33276A" />
-                            </asp:GridView>
-                        </div>
+                    <div style="overflow: hidden;" id="DivHeaderRow">
+                        <table id="GridView2" style="border: 1px ridge gray; width: 100%; height: 100%; background-color: white;" rules="all" cellpadding="1" gridlines="Both">
+                        </table>
                     </div>
+
+                    <div style="overflow: scroll; width: 100%; height: 100%" onscroll="OnScrollDiv(this)" id="DivMainContent">
+                        <asp:GridView ID="GridView1" runat="server" CellPadding="1" Height="100%" Width="100%" GridLines="Both" AutoGenerateColumns="False" BackColor="White" BorderColor="gray" BorderStyle="Ridge" BorderWidth="1px" CellSpacing="1" EmptyDataText="No Appraisal Staff in current search condition" EmptyDataRowStyle-CssClass="emptyData" ShowHeaderWhenEmpty="true">
+                            <Columns>
+                                <asp:BoundField DataField="RowNo" HeaderText="No." ItemStyle-CssClass="myRowNo">
+                                    <ItemStyle Width="2%" />
+                                </asp:BoundField>
+                                <asp:TemplateField HeaderText="Notice">
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="cbSelect" Checked='<%# Bind("SelectedC") %>' runat="server" CssClass="myCheck"></asp:CheckBox>
+                                    </ItemTemplate>
+                                    <ItemStyle Width="2%" Wrap="False" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="DueDate" HeaderText="Due Date" ItemStyle-CssClass="myDate">
+                                    <ItemStyle Width="4%" />
+                                </asp:BoundField>
+                                <asp:TemplateField HeaderText="Action" ItemStyle-CssClass="myAction">
+                                    <ItemTemplate>
+                                        <asp:HyperLink ID="Link1" runat="server" Text='<%# Bind("Action") %>'>  </asp:HyperLink>
+                                    </ItemTemplate>
+                                    <ItemStyle Width="2%" Wrap="False" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="ALP" ItemStyle-CssClass="myALP">
+                                    <ItemTemplate>
+                                        <asp:HyperLink ID="Link2" runat="server" Text='<%# Bind("ALP") %>'>  </asp:HyperLink>
+                                    </ItemTemplate>
+                                    <ItemStyle Width="2%" Wrap="False" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="EPA" ItemStyle-CssClass="myEPA">
+                                    <ItemTemplate>
+                                        <asp:HyperLink ID="Link3" runat="server" Text='<%# Bind("EPA") %>'>  </asp:HyperLink>
+                                    </ItemTemplate>
+                                    <ItemStyle Width="2%" Wrap="False" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Teacher Name" ItemStyle-CssClass="myName">
+                                    <ItemTemplate>
+                                        <asp:HyperLink ID="Link4" runat="server" Text='<%# Bind("TeacherNameL") %>'>  </asp:HyperLink>
+                                    </ItemTemplate>
+                                    <ItemStyle Width="15%" />
+                                </asp:TemplateField>
+
+                                <asp:BoundField DataField="AppraisalPhase" HeaderText="Appraisal Phase">
+                                    <ItemStyle Width="10%" />
+                                </asp:BoundField>
+
+                                <asp:BoundField DataField="Assignment" HeaderText="Assignment">
+                                    <ItemStyle Width="10%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Appraiser" HeaderText="Apprailser" ItemStyle-CssClass="myApprailser">
+                                    <ItemStyle Width="10%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Mentor" HeaderText="Mentor" ItemStyle-CssClass="myMentor">
+                                    <ItemStyle Width="10%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="NoticeDate" HeaderText="Notice Date" ItemStyle-CssClass="myDateNotice">
+                                    <ItemStyle Width="4%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Comments" HeaderText="Comments">
+                                    <ItemStyle Width="17%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="myKey" ReadOnly="True" ItemStyle-CssClass="hfmyKey" Visible="false" />
+
+                            </Columns>
+
+                            <FooterStyle BackColor="#C6C3C6" ForeColor="Black" />
+                            <HeaderStyle BackColor="cornflowerblue" ForeColor="white" Height="25px" />
+                            <PagerStyle BackColor="#C6C3C6" ForeColor="Black" HorizontalAlign="Right" />
+
+                            <SelectedRowStyle BackColor="#9471DE" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#594B9C" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#33276A" />
+                        </asp:GridView>
+
+                    </div>
+
                 </ContentTemplate>
             </asp:UpdatePanel>
 
         </div>
-        <div style="color: Red; font-size: x-small; height: 20%">
-            <asp:Label runat="server" ID="remaind22" Text="* Click on the Apply button to see interview candidate list "> </asp:Label>
-        </div>
+
         <div id="HelpDIV" class="bubble epahide">
             <asp:TextBox ID="HelpTextContent" runat="server" TextMode="MultiLine" CssClass="HelpTextBox"></asp:TextBox>
         </div>
@@ -378,7 +388,7 @@
     var UserID = $("#hfUserID").val();
     var CategoryID = "TPA";
     var AreaID = "NoticeList";
-    var ItemCode = "Notice-" +  $("#hfNoticeType").val() ;
+    var ItemCode = "Notice-" + $("#hfNoticeType").val();
     var rowNo;
     var teachername;
     var schoolyear;
@@ -390,11 +400,14 @@
     var noticeArea;
     var deadlineDate;
     var eventCell;
+
     function pageLoad(sender, args) {
 
         $(document).ready(function () {
-            MakeStaticHeader("GridView1", 600, 1400, 20, false);
-          //  noticeType = $("#hfNoticeType").val();
+
+            var vHeight = window.innerHeight - 80;
+            MakeStaticHeader("GridView1", vHeight, 1350, 20, false);
+            //  noticeType = $("#hfNoticeType").val();
             noticeType = $("#rblNoticeType").find('input[type=radio]:checked').val();
 
             $("#GridView1 tr").mouseenter(function (event) {

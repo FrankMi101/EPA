@@ -43,7 +43,7 @@ namespace BLL
             var sp = GetSPFromClassAction(className, action);
             return CommonExecute<T>.ValueOfT(sp, parameter);
         }
-        public static string GetSPFromClassAction(String className, string action)
+        public static string GetSPFromClassAction(string className, string action)
         {
             try
             {
@@ -74,6 +74,8 @@ namespace BLL
                     case "AppraisalPageHelp":
                         return AppraisalPageHelp.GetSP(action);
                     case "AppraisalGeneral":
+                        return AppraisalGeneral.GetSP(action);
+                    case "GeneralList":
                         return AppraisalGeneral.GetSP(action);
                     default:
                         return action;

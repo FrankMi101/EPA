@@ -62,13 +62,27 @@ html body form {
     color: Black;
     padding: 10px 0px 10px 8px;
     background-color: transparent;
-    background-image: url(../images/OrangeExplorerV.png);
+  /*  background-image: url(../images/OrangeExplorerV.png);*/
+    background: lightblue; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(skyblue, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(skyblue, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(skyblue, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(skyblue, white); /* Standard syntax */
     display: block;
     /*direction: rtl;*/
     border-top-left-radius: 9px;
     border-bottom-left-radius: 9px;
     border-radius: 9px 0px 0px 9px; /* work for IE7 IE8 */
     behavior: url(PIE/PIE.htc); /* work for IE7 IE8 */
+}
+ 
+
+#GridView1 tr:hover {
+    background: lightblue; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(skyblue, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(skyblue, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(skyblue, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(skyblue, white); /* Standard syntax */
 }
 
 .Vertical_Tab ul li a:visited {
@@ -142,22 +156,34 @@ html body form {
 
 .aLinkTabHS /*Vertical_Tab ul li a*/ {
     margin: 0px;
-    /*font-weight:bold ;*/
+    font-weight: bold;
     text-decoration: none;
-    color: Black;
+    color: white;
     padding: 2px 10px 2px 20px;
     background-color: transparent;
-    background-image: url(../images/OrangeExplorerH.png);
+    /*    background-image: url(../images/OrangeExplorerH.png);*/
+    /*background: orange;*/ /* For browsers that do not support gradients */
+    /*background: -webkit-linear-gradient(orange, white);*/ /* For Safari 5.1 to 6.0 */
+    /*background: -o-linear-gradient(orange, white);*/ /* For Opera 11.1 to 12.0 */
+    /*background: -moz-linear-gradient(orange, white);*/ /* For Firefox 3.6 to 15 */
+    /*background: linear-gradient(orange, white);*/ /* Standard syntax */
+    background: lightblue; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(lightblue,dodgerblue );
+    background: -o-linear-gradient(lightblue,dodgerblue );
+    background: -moz-linear-gradient(lightblue,dodgerblue );
+    background: linear-gradient(lightblue,dodgerblue );
     display: inline;
     /*direction: rtl;*/
+    border: 1px solid dodgerblue;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
     border-radius: 9px 9px 0px 0px; /* work for IE7 IE8 */
-   /*  behavior: url(PIE/PIE.htc); work for IE7 IE8 */
+    /*  behavior: url(PIE/PIE.htc); work for IE7 IE8 */
+     
 }
 
 .Horizontal_Tab ul li a:visited {
-    color: Purple;
+ /*   color: Purple;*/
 }
 
 .Horizontal_Tab ul li a:hover, .Horizontal_Tab ul li .current {

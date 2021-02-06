@@ -82,6 +82,10 @@ namespace EPA2
         {
             return CommonExecute<string>.ValueOfT("dbo.EPA_sys_LoginUserProfile @Operate, @UserID", new { Operate = "Role",UserID = userId});
         }
+        public static string ToUserID(string actionRole, string userId, string employeeId)
+        {
+            return CommonExecute<string>.ValueOfT("dbo.EPA_sys_LoginUserProfile @Operate, @UserID,@EmployeeID,@ActionRole", new { Operate = "ToUserID", UserID = userId, EmployeeID = employeeId,ActoinRole = actionRole });
+        }
     }
    
 }

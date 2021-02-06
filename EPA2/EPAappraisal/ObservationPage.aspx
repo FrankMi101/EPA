@@ -93,6 +93,13 @@
         {
             text-align:center;
         }
+        #GridView1 .myCommentsText:focus {
+            border:2px dotted dodgerblue;
+        }
+        .domainTitle {
+            background-color:lightblue;
+            height:25px;
+        }
     </style>
 </head>
 <body>
@@ -122,9 +129,9 @@
 
             </div>
 
-            <div class="ContentTitleLeft" style="display: block; text-align: center">
+            <div class="ContentTitleLeft" style="display: block; text-align: right">
                 <asp:Label ID="labelTitle1" runat="server" CssClass="labelTitleX">Text Box Title</asp:Label>
-                <input runat="server" type="text" id="dateObservation" name="Observation" size="9" />
+                <input runat="server" type="text" id="dateObservation" name="Observation" size="8" />
             </div>
             <br />
             <div class="ContentTitleLeft" style="display: block;">
@@ -148,17 +155,17 @@
 
 
                                 <asp:BoundField DataField="CompetencyName" HeaderText="Competencies" ItemStyle-CssClass="myCompetencyName">
-                                    <ItemStyle Width="50%" />
+                                    <ItemStyle Width="45%" />
                                 </asp:BoundField>
-                                <asp:TemplateField HeaderText="Obeservation" ItemStyle-CssClass="myObservation">
+                                <asp:TemplateField HeaderText="Select" ItemStyle-CssClass="myObservation">
                                     <ItemTemplate>
                                         <asp:CheckBox ID="cbSelect" Checked='<%# Convert.ToBoolean(Eval("SelectedC"))%>' runat="server" CssClass="myCheck"></asp:CheckBox>
                                     </ItemTemplate>
-                                    <ItemStyle Width="5%" Wrap="False" />
+                                    <ItemStyle Width="3%" Wrap="False" />
                                 </asp:TemplateField>
 
                                 <asp:TemplateField HeaderText="Obeservation Notes">
-                                    <ItemStyle Width="45%" Wrap="True" />
+                                    <ItemStyle Width="50%" Wrap="True" />
                                     <ItemTemplate>
                                         <%--<asp:Label ID="editText" runat="server" Text='<%# Eval("Comments") %>' CssClass="myCommentsText" Width="100%" TextMode="MultiLine">  </asp:Label>--%>
                                         <asp:TextBox ID="editText" runat="server" Text='<%# Eval("Comments") %>' CssClass="myCommentsText" Width="100%" TextMode="MultiLine" ReadOnly="true">  </asp:TextBox>
@@ -319,26 +326,29 @@
 
         $("#GridView1 tr").each(function () {
             try {
-               // var domain = $(this).find('td.myCompetency').text();
-                var domain = $(this).find('td.myCompetency').text();
-                var editTextColumn = $(this).find('td > .myCommentsText');
+               
+                var domain = $(this).find('.myCompetency').text();
+                var editTextColumn = $(this).find('.myCommentsText');
 
                 if (domain == "0") {
                     //$(this).find('td.myCompetencyName').css("color", "#75ab75");
-                    $(this).find('td.myCompetencyName').css("font-size", "1.1em");
-                    // $(this).find('td.myCompetencyName').css("font-weight", "500");
-                    $(this).find('td.myObservation').attr('disabled', true);
-                    $(this).find('td.myCommentsText').attr('disabled', true);
+                    $(this).find('.myCompetencyName').css("font-size", "1.1em");
+                    // $(this).find('td .myCompetencyName').css("font-weight", "500");
+                    $(this).find('.myCheck').attr('disabled', true);
+                    $(this).find('.myCommentsText').attr('disabled', true);
+                    $(this).find('.myCheck').hide();
+                    $(this).addClass("domainTitle");
+
                 }
                 if ($("#hfSignOff").val() == "Complete")
                 {
-                    $(this).find('td.myObservation').attr('disabled', true);
-                    $(this).find('td.myCommentsText').attr('disabled', true);
-                    $(this).find('td.myCheck').attr('disabled', true);  
+                    $(this).find('td .myObservation').attr('disabled', true);
+                    $(this).find('td .myCommentsText').attr('disabled', true);
+                    $(this).find('td .myCheck').attr('disabled', true);  
                 }
                 else
                 {
-                    var observationcheck = $(this).find('td > .myCheck');
+                    var observationcheck = $(this).find('.myCheck');
                     if (observationcheck[0].childNodes[0].checked) {
                         editTextColumn[0].readOnly = false;
                     }

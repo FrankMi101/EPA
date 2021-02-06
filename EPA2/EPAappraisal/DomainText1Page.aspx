@@ -33,6 +33,7 @@
 
         .ContentRubric, .ContentCompetency {
             width: 100%;
+            font-family:Arial, Helvetica, sans-serif;
         }
 
         #ContentCompetency, #ContentCompetency li {

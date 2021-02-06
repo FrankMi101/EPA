@@ -4,6 +4,7 @@ using DataAccess;
 using EPA2.Generic.LIB;
 using System.Collections.Generic;
 using System.Data;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -213,13 +214,14 @@ namespace EPA2
 
             if (action == "Get" || action == "RollOver")
             {
-                myText.Text = AppraisalContents.AppraisalText(parameter);// AppraisalExecute.ValueofT<AppraisalComment>(paramaters, action);// AppraisalExecute.Comments(comm);
+                var myvalue =  AppraisalContents.AppraisalText(parameter);
+                myText.Text = HttpContext.Current.Server.HtmlEncode(myvalue);  // AppraisalExecute.ValueofT<AppraisalComment>(paramaters, action);// AppraisalExecute.Comments(comm);
                                                                          // myText.Text = AppraisalExecute<AppraisalComment>.AnyValueofT(comm);// AppraisalExecute.Comments(comm);
                 myCount.Value = (textLength - myText.Text.Length).ToString();
             }
             else
             {
-                parameter.Value = myText.Text;
+                parameter.Value = HttpContext.Current.Server.HtmlDecode( myText.Text);
                 string result = AppraisalContents.AppraisalTextSave(parameter);// AppraisalExecute.ValueofT<AppraisalComment>(paramaters, action);//AppraisalExecute.Comments(comm);
             }
         }
@@ -848,15 +850,15 @@ namespace EPA2
 
         public static void NotesContent(ref TextBox myText, string action, string userId, string appraisalYear, string appraisalSchool, string appraisalSession, string employeeId, string apprRole)
         {
-
             if (action == "Get")
             {
-                myText.Text = AppraisalDataAC.NotesContent(action, userId, appraisalYear, appraisalSchool, employeeId, appraisalSession, apprRole);
+              var paramerters = new { Operate = action, UserID = userId, SchoolYear = appraisalYear, SchoolCode = appraisalSchool, EmployeeID = employeeId,SessionID = appraisalSession,  Category = apprRole};
+              myText.Text = AppraisalContents.AppraisalNotes(paramerters);
             }
             else
             {
-                string value = myText.Text;
-                string result = AppraisalDataAC.NotesContent(action, userId, appraisalYear, appraisalSchool, employeeId, appraisalSession, apprRole, value);
+                var paramerters = new { Operate = action, UserID = userId, SchoolYear = appraisalYear, SchoolCode = appraisalSchool, EmployeeID = employeeId,SessionID = appraisalSession,  Category = apprRole, Value = myText.Text };   
+                string result = AppraisalContents.AppraisalNotesSave(paramerters);
             }
         }
         public static void NotificationContent(ref TextBox myText, string action, string userId, string category, string noticeType, string noticeArea, string noticeGo, string noticeFrom, string subject)
