@@ -201,7 +201,7 @@
                             <td></td>
                             <td style="text-align: left">
 
-                                <asp:Button ID="Submit1" OnClick="Login_Click" Text="Log On" Width="130px" ForeColor="darkred"
+                                <asp:Button ID="Submit1" OnClick="Login_Click" Text="Log On" Width="128px" ForeColor="darkred"
                                     runat="server" />
                             </td>
                             <td></td>

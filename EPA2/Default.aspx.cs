@@ -93,7 +93,8 @@ namespace EPA2
                 else
                 {
                     if (pId == "Summary")
-                    { pId = "Loading.aspx?pID=Summary"; }
+                    { pId = "Loading.aspx?pID=Summary";
+                    }
                     else
                     {
                         if (Session["HomePage"] != null)

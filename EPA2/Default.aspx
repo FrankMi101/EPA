@@ -21,6 +21,9 @@
     <link href="Content/TopNavListM.css" rel="stylesheet" />
     <link href="Content/DefaultPage.css" rel="stylesheet" />
 
+    <link href="Content/iconStyle.css" rel="stylesheet" />
+    <link href="Content/collapsible.css" rel="stylesheet" />
+
     <script src="Scripts/jquery-3.2.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/NavTopList.js"></script>
@@ -34,21 +37,21 @@
 
         /*.iFrameDIV {
             height: 100%;
-            width: 100%;*/  
-       /*  margin-bottom:-15px;  */
-         /*overflow:auto;
+            width: 100%;*/
+        /*  margin-bottom:-15px;  */
+        /*overflow:auto;
         }*/
 
         #GoList {
             font-size: small;
-            font-family: Arial;/*
+            font-family: Arial; /*
             table-layout: auto;*/
             height: 100vh;
             width: 100%;
             border: 0px solid red;
             margin: auto;
-            overflow:auto;
-        /*    margin-bottom: -50px;
+            overflow: auto;
+            /*    margin-bottom: -50px;
             margin-top: -5px; */
         }
 
@@ -66,7 +69,7 @@
             /*height: 100px;*/
             width: 100%;
             border-top: 2px solid #56c0e9;
-            height: 80px;
+            /* height: 80px;*/
         }
 
         #appriFrame {
@@ -93,11 +96,11 @@
             text-decoration: underline;
             color: purple;
         }
-        #LoginUserIcon:hover {
-            
-            filter: drop-shadow(16px 16px 20px red) invert(75%);
 
+        #LoginUserIcon:hover {
+            filter: drop-shadow(16px 16px 20px red) invert(75%);
         }
+
         #MobileMenu {
             margin-top: 0px;
             margin-bottom: 1px;
@@ -141,11 +144,11 @@
     <form id="form2" runat="server">
         <header>
 
-            <div class="appheader">
-                <div id="LogoCol" style="display: inline; float: left;" class="pull-left invisible-sm visible-md visible-lg">
-                    <img id="Image3" src="images/boardLogo.gif" alt="TCDSB Logo" border="0" style="width: 160px; height: 80px" />
+            <div class="appheader hide-xs">
+                <div id="LogoCol" style="display: inline; float: left;" class="pull-left hide-xs hide-sm">
+                    <img id="Image3" src="images/boardLogo.gif" alt="TCDSB Logo" border="0" class="hide-xs hide-sm" style="width: 160px; height: 80px" />
                 </div>
-                <div id="messageCol" style="display: inline; text-align: center; float: left" class="invisible-sm visible-md visible-lg">
+                <div id="messageCol" style="display: inline; text-align: center; float: left" class="hide-xs hide-sm">
 
                     <asp:Button ID="btnLogout" CssClass="inVisibleBtn" runat="server" Text="" OnClick="btnLogout_Click" Visible="true" Height="0px" Width="0px" />
                     <asp:Label ID="LabelTrain" runat="server" Height="20px" Visible="False"
@@ -154,7 +157,7 @@
                     <br />
                     <br />
                     <div style="font-size: xx-small; vertical-align: baseline">&nbsp </div>
-                    <div style="font-size: 0.75em; vertical-align: baseline" class="invisible-sm invisible-md visible-lg">
+                    <div style="font-size: 0.75em; vertical-align: baseline" class="hide-xs hide-sm">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
                         <a href="javascript:openParameter();">School Year:</a>
                         <asp:Label ID="LabelSchoolYear" runat="server" BackColor="Transparent"
@@ -173,8 +176,8 @@
                     <table cellspacing="0" cellpadding="0" width="400px" align="right" style="display: inline-table;"
                         border="0" id="TableVersion" runat="server">
                         <tr style="height: 30px;">
-                            <td style="text-align: right; vertical-align: top; width: 30px" class="visible-sm visible-md visible-lg">
-                                <img height="30" src="images/curve.png" width="50" alt="" />
+                            <td style="text-align: right; vertical-align: top; width: 30px" class="hide-xs">
+                                <img height="30" src="images/curve.png" width="50" alt="" class="hide-xs" />
                             </td>
 
                             <td class="LinkCell">
@@ -197,7 +200,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="hide-xs">
 
                             <td style="height: 20px; margin-right: 20px; text-align: right; color: #cc0033; font-size: large;" colspan="3">
 
@@ -213,13 +216,20 @@
 
             </div>
 
-            <div class="TopMenubar">
-                <nav id="TopNav" class="pull-left visible-sm visible-md visible-lg">
+            <div class="TopMenubar nav collapsible">
+                 
+                <label class="nav__toggler_title" > Teacher Performance Appraisal </label>
+                     <svg class="icon--small icon--tcdsb nav__toggler">
+                        <use xlink:href="images/sprite.svg#menu"></use>
+                    </svg>
+                <nav id="TopNav"  class="nav__list" >
                 </nav>
 
-                <div class="navbar-header pull-left visible-xs hideme">
-
-                    <button id="MobileMenu" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+                 <%--  <div class="menu-mobil hide-sm hide-md hide-lg ">
+                   
+                     <asp:Label ID="Label1" runat="server" ForeColor="#cc0033" Text="Teacher Performance Appraisal"></asp:Label>
+                   
+                <button id="MobileMenu" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
 
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -229,14 +239,14 @@
                         <nav id="TopNavM">
                         </nav>
                     </div>
-                </div>
+                </div>--%>
 
             </div>
 
         </header>
 
 
-        <section >
+        <section>
             <div class="iFrameDIV">
                 <iframe id="GoList" name="GoList" frameborder="0" scrolling="auto" src="iBlankPage.html" runat="server"></iframe>
             </div>
@@ -302,13 +312,20 @@
 
 </script>
 <script>
-
+    const collapsibles = document.querySelectorAll(".collapsible");
+    collapsibles.forEach((item) =>
+        item.addEventListener("click", function () {
+            this.classList.toggle("collapsible--expanded");
+        })
+    );
     $(document).ready(function () {
+
+    
 
         var vHeight = window.innerHeight - 140;
         //var vWidth = screen.width;
         //var vHeight = window.innerHeight - apprScreenH1;
-         $("#GoList").css("height", vHeight);
+        $("#GoList").css("height", vHeight);
 
         $("#LoginUserRole").click(function (event) {
             OpenLoginUserRolePage();

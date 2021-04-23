@@ -42,6 +42,7 @@ namespace EPA2.EPAmanage
             }
             else
             { }
+
        }
         private void AssemblePage()
         {
@@ -148,7 +149,13 @@ namespace EPA2.EPAmanage
         }
         private async Task BindGridViewData()
         {
-             
+
+            if (hfSelectedTab.Value == "Evaluation")
+            {
+                GridView1.Columns[2].Visible = true;
+            }
+            else
+            { GridView1.Columns[2].Visible = false; }
           //  List < AppraisalList > listDataSource = await Task.Run(() => GetDataSource());
             try
             {
@@ -249,7 +256,7 @@ namespace EPA2.EPAmanage
                 Para2 = ddlSchool.SelectedValue,
                 Para3 = hfWorkingOn.Value
         };
-            var selectedTab = hfSelectedTab.Value; ;
+            var selectedTab = hfSelectedTab.Value;
             AppraisalPage.BuildingTab(GradeTab, parameters, selectedTab);
 
 

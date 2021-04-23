@@ -1,4 +1,16 @@
-﻿body {
+﻿:root {
+    --color-primary: #2584ff;
+    --color-secondary: #00d9ff;
+    --color-accent: #ff3400;
+    --color-headings: #1b0760;
+    --color-body: #918ca4;
+    --color-body-darker: #5c5577;
+    --color-border: #ccc;
+    --border-radius: 30px;
+}
+
+
+body {
     margin: 0 0 0 0;
     padding: 0;
     font-family: verdana, arial, sans-serif;
@@ -66,12 +78,7 @@ div {
     border: 2px lightblue outset;
     padding: 1px;
 }
-#logo-img {
-  background: url('../images/boardLogo.gif') no-repeat;
-  width: 300px;
-  height: 95px;
-  margin: 5px 5px 5px 0;
-}
+ 
 
 .navbar-header button.navbar-toggle, .navbar-header .icon-bar {
   border: 1px solid #ad104a;

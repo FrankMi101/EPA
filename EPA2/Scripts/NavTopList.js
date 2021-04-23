@@ -534,9 +534,9 @@ function myTopNav(myMenuList) {
     var menulist = myTopNavLoopRecurse(myMenuList, "N");
     $("#TopNav").html("");
     $("#TopNav").html(menulist);
-    var menulistM = myTopNavLoopRecurse(myMenuList, "M");
-    $("#TopNavM").html("");
-    $("#TopNavM").html(menulistM);
+    //var menulistM = myTopNavLoopRecurse(myMenuList, "M");
+    //$("#TopNavM").html("");
+    //$("#TopNavM").html(menulistM);
 
 }
 function myTopNavM(myMenuList) {
@@ -653,7 +653,7 @@ function NodeStrRecursion(id, myMenuList, mobile, level) {
 }
 
 function GetUL(classLevel, id, mobile) {
-    if (classLevel === "Level-1")
+    if (classLevel === "Level-1") 
         return '<ul class="' + classLevel + '" id="' + mobile + 'UA0' + '" > ';
     else
         return '<ul class="' + getULclass(classLevel, mobile, 'UA' + id) + '" id="' + mobile + 'UA-' + id + '" > ';
@@ -716,9 +716,10 @@ function getShortLevel(myClass) {
 }
 
 function getMyALink(myArray, index, mobile) {
-    var myString = ' <li id="TopItem_' + myArray[index].ID + '" class= "TopMenuItem" > '
-        + '<a ' + 'id="' + getShortLevel(myArray[index].myClass) + '-' + myArray[index].ID + '" '
-        + 'class="' + myArray[index].myClass + '" '
+    var tClass = myArray[index].myClass;
+    var myString = ' <li id="TopItem_' + myArray[index].ID + '" class="' + tClass + '-li">'
+        + '<a ' + 'id="' + getShortLevel(tClass) + '-' + myArray[index].ID + '" '
+        + 'class="' + tClass + '-a" '
         + 'href="' + getUrl(myArray[index].url, myArray[index].subItems, mobile) + '" '
         + 'target="' + getTarget(myArray[index].target, myArray[index].subItems, mobile) + '" >'
         + myArray[index].display + '</a> ';
@@ -727,11 +728,10 @@ function getMyALink(myArray, index, mobile) {
         myString += '</li> ';
     }
     else {
-        if (myArray[index].myClass === "Level-2") {
+        if (tClass === "Level-2") {
             myString += ' <img style ="height:25px; width:30px; float:right; padding-top:-3px;" src="images/submenu.png" /> ';
         }
     }
-
     return myString;
 }
 

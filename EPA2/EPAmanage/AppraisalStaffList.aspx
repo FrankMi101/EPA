@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link href="../Content/normalize.css" rel="stylesheet" />
+    <link href="../Content/DeviceMedia.css" rel="stylesheet" />
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <link href="../Content/BubbleHelp.css" rel="stylesheet" />
     <link href="../Content/ListPage.css" rel="stylesheet" />
@@ -31,55 +32,6 @@
             font-size: small;
         }
 
-        .DataContentTile {
-            font-family: Arial;
-            font-size: small;
-            font-weight: 300;
-            color: blue;
-            table-layout: auto;
-            display: block;
-            height: 99%;
-        }
-
-        .SubstituedCell {
-            color: red;
-            text-decoration: underline;
-        }
-
-        .emptyData {
-            font-size: xx-large;
-            text-align: center;
-            color: blue;
-        }
-
-
-        .FixedHeader {
-            position: absolute;
-            font-weight: bold;
-            /*  width: 100%;*/
-            /*   display: block;*/
-        }
-
-
-
-        .defaultBoard {
-            border: 1px blue none;
-        }
-
-        /*#ActionMenuDIV {
-            border: 2px lightblue ridge;
-            height: 180px;
-            width: 210px;
-            background: lightblue;*/ /* For browsers that do not support gradients */
-            /*background: -webkit-linear-gradient(lightblue, white);*/ /* For Safari 5.1 to 6.0 */
-            /*background: -o-linear-gradient(lightblue, white);*/ /* For Opera 11.1 to 12.0 */
-            /*background: -moz-linear-gradient(lightblue, white);*/ /* For Firefox 3.6 to 15 */
-            /*background: linear-gradient(lightblue, white);*/ /* Standard syntax */
-        /*}
-
-            #ActionMenuDIV li {
-                height: 25px;
-            }*/
 
         .hfSchoolYear, .hfSchoolCode, .hfEmployeeID, .hfTeacherName, .hfmyKey, .hfIDs {
             display: none;
@@ -89,52 +41,24 @@
         img {
             border-color: yellow;
         }
-
-        .imgHelp {
-            width: 23px;
-            height: 23px;
-            margin-top: -10px;
-        }
-
-        .label1 {
-            font-family: Arial;
-            font-size: 13px;
-        }
-
-        .Gobutton {
-            display: inline;
-        }
-
+ /*
         #TextSearch {
             margin-bottom: -5px;
-        }
+        }*/
 
-        #SearchBar {
+        #SearchIndicator {
             position: absolute;
             top: 250px;
             left: 600px;
         }
 
-        #HelpTextBox {
-            width: 100%;
-            height: 100%;
-        }
 
-        .top5Row {
-            border-top: 5px solid darkcyan;
-        }
 
-        .HeaderRow {
-            background-color: azure;
-        }
-
- 
         .HideButton {
             margin: 0px;
             padding: 0px;
             border: 0px;
         }
-       
     </style>
 
 </head>
@@ -144,71 +68,86 @@
         <asp:ScriptManager runat="server">
             <Services>
                 <asp:ServiceReference Path="~/Models/WebService1.asmx" />
-
             </Services>
         </asp:ScriptManager>
-        <div class="SearchAreaRow">
+        <div class="SearchArea">
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
-                    <div style="display: inline;">
+
+                    <div id="schoolyearDiv" class="SearchArea_sub">
                         <img class="imgHelp" src="../images/help2.png" title="Help Content" />
-                        <asp:Label ID="Label3" runat="server" Text="School Year: " CssClass="label1"></asp:Label>
+                        <label for="ddlSchoolYear">School Year: </label>
                         <asp:DropDownList ID="ddlSchoolYear" runat="server" Width="90px" AutoPostBack="True" OnSelectedIndexChanged="ddlSchoolYear_SelectedIndexChanged">
                         </asp:DropDownList>
-                        <asp:Label ID="Label1" runat="server" Text="Area: " CssClass="label1"></asp:Label>
+                        <label for="ddlSchoolArea">Area: </label>
                         <asp:DropDownList ID="ddlSchoolArea" runat="server" Width="100px" AutoPostBack="True" OnSelectedIndexChanged="ddlSchoolArea_SelectedIndexChanged">
                         </asp:DropDownList>
-                        <asp:Label ID="Label2" runat="server" Text="School" CssClass="label1"></asp:Label>
+
+                    </div>
+                   
+                    <div id="schoolDiv" class="SearchArea_sub">
+                        <label for="ddlSchool">School: </label>
                         <asp:DropDownList ID="ddlSchoolCode" runat="server" Width="60px" AutoPostBack="True" OnSelectedIndexChanged="ddlSchoolCode_SelectedIndexChanged">
                         </asp:DropDownList>
                         <asp:DropDownList ID="ddlSchool" runat="server" Width="300px" AutoPostBack="True" OnSelectedIndexChanged="ddlSchool_SelectedIndexChanged">
                         </asp:DropDownList>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    <asp:Label ID="Searchby" runat="server" Text="Search by" CssClass="label1"></asp:Label>
 
+                    </div>
 
-                        <asp:DropDownList ID="ddlSearchby" runat="server" Width="120px" AutoPostBack="true" OnSelectedIndexChanged="ddlSearchBy_SelectedIndexChanged">
-                            <asp:ListItem Value="Teacher" Selected="True"> Teacher</asp:ListItem>
-                            <asp:ListItem Value="Phase">Appraisal Phase</asp:ListItem>
-                        <%--    <asp:ListItem Value="ApprType">Appraisal Type</asp:ListItem>--%>
-                            <asp:ListItem Value="ALP">Annual Learnning Plan</asp:ListItem>
-                            <asp:ListItem Value="Process">Appraisal Process</asp:ListItem>
-                        </asp:DropDownList>
-
-                        <asp:TextBox ID="TextSearch" runat="server" Height="20px" Width="100px" placeholder="Search by Surname"></asp:TextBox>
+                    <div id="searchDiv" class="SearchArea_sub">
+                        <asp:TextBox ID="TextSearch" runat="server" Height="18px"   Width="125px" placeholder="Search by Surname"></asp:TextBox>
 
                         <asp:DropDownList ID="ddlSearch" runat="server" Width="150px" AutoPostBack="false" OnSelectedIndexChanged="ddlSearch_SelectedIndexChanged">
                         </asp:DropDownList>
-                        <%--<asp:Button ID="btnSearch" runat="server" Text="Go" OnClick="btnSearch_Click" CssClass="Gobutton" />--%>
-                          <asp:ImageButton ID="btnSearchGo" runat="server" ToolTip="Search ..." ImageUrl="../images/Go.png" OnClick="btnSearch_Click" />
-                         <asp:Button ID="btnGradeTab" runat="server" Text="" Height="0px" Width="0px" CssClass="HideButton" OnClick="BtnGradeTab_Click" />
-                        <div id="SearchBar">
-                            <asp:UpdateProgress ID="UpdateProgress1" runat="server">
-                                <ProgressTemplate>
-                                    <img src="../images/indicator.gif" alt="" />
-                                    <%-- <img src="../images/LoadingPage.jpg" alt="" height="50" width="50" />--%>
+                        <asp:ImageButton ID="btnSearchGo" runat="server" ToolTip="Search ..." ImageUrl="../images/Go.png" OnClick="btnSearch_Click" />
+                    </div>
+
+                    <asp:Button ID="btnGradeTab" runat="server" Text="" Height="0px" Width="0px" CssClass="HideButton" OnClick="BtnGradeTab_Click" />
+                    <div id="SearchIndicator">
+                        <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                            <ProgressTemplate>
+                                <img src="../images/indicator.gif" alt="" />
+                                <%-- <img src="../images/LoadingPage.jpg" alt="" height="50" width="50" />--%>
                                 Loading.....
-                                </ProgressTemplate>
-                            </asp:UpdateProgress>
+                            </ProgressTemplate>
+                        </asp:UpdateProgress>
+                    </div>
+                    <asp:Label ID="Label4" runat="server" Text="" Visible="false"></asp:Label>
+
+
+                </ContentTemplate>
+
+            </asp:UpdatePanel>
+        </div>
+        <div class="TabArea">
+            <div class="TabArea__tab hide-xs">
+                <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                    <ContentTemplate>
+                        <div class="Horizontal_Tab" id="GradeTab" runat="server">
                         </div>
-                        <asp:Label ID="Label4" runat="server" Text="" Visible="false"></asp:Label>
+                        <asp:HiddenField ID="hfSelectedTab" runat="server" />
+                        <asp:HiddenField ID="hfSelectedTabL" runat="server" />
 
-                    </div>
-                </ContentTemplate>
 
-            </asp:UpdatePanel>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+            <div class="TabArea__ddl hide-sm hide-md hide-lg">
+                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                    <ContentTemplate>
+                        <label for="ddlSearchby">Search by:</label>
+                        <asp:DropDownList ID="ddlSearchby" runat="server" Width="120px" AutoPostBack="true" OnSelectedIndexChanged="ddlSearchBy_SelectedIndexChanged">
+                            <asp:ListItem Value="Teacher" Selected="True"> Teacher</asp:ListItem>
+                            <asp:ListItem Value="Phase">Appraisal Phase</asp:ListItem>
+                            <%--    <asp:ListItem Value="ApprType">Appraisal Type</asp:ListItem>--%>
+                            <asp:ListItem Value="ALP">Annual Learnning Plan</asp:ListItem>
+                            <asp:ListItem Value="Process">Appraisal Process</asp:ListItem>
+                        </asp:DropDownList>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
         </div>
-        <div>
-            <asp:UpdatePanel ID="UpdatePanel6" runat="server">
-                <ContentTemplate>
-                    <div class="Horizontal_Tab" id="GradeTab" runat="server">
 
-                    </div>
-                    <asp:HiddenField ID="hfSelectedTab" runat="server" />
-                    <asp:HiddenField ID="hfSelectedTabL" runat="server" />
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
 
         <div id="DivRoot" style="width: 100%; height: 100%; overflow: auto">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -250,26 +189,26 @@
                                     <ItemStyle Width="10%" />
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Type" ItemStyle-CssClass="myType">
+                                <asp:TemplateField HeaderText="Type" ItemStyle-CssClass="myType hide-xs" HeaderStyle-CssClass="hide-xs">
                                     <ItemTemplate>
                                         <asp:HyperLink ID="Link5" runat="server" Text='<%# Bind("AppraisalType") %>'>  </asp:HyperLink>
                                     </ItemTemplate>
                                     <ItemStyle Width="2%" />
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="AppraisalStatus" HeaderText="Status" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:BoundField DataField="AppraisalStatus" HeaderText="Status" ItemStyle-CssClass="hide-xs" HeaderStyle-CssClass="hide-xs">
                                     <ItemStyle Width="2%" Wrap="False" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="AppraisalPhase" HeaderText="Appraisal Phase">
                                     <ItemStyle Width="9%" Wrap="false" />
                                 </asp:BoundField>
 
-                                <asp:BoundField DataField="Assignment" HeaderText="Assignment" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:BoundField DataField="Assignment" HeaderText="Assignment" ItemStyle-CssClass="hide-xs hide-sm" HeaderStyle-CssClass="hide-xs hide-sm">
                                     <ItemStyle Width="9%" Wrap="True" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Appraiser" HeaderText="Apprailser" ItemStyle-CssClass="myApprailser visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:BoundField DataField="Appraiser" HeaderText="Apprailser" ItemStyle-CssClass="myApprailser hide-xs" HeaderStyle-CssClass="hide-xs">
                                     <ItemStyle Width="6%" Wrap="true" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Mentor" HeaderText="Mentor" ItemStyle-CssClass="myMentor visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:BoundField DataField="Mentor" HeaderText="Mentor" ItemStyle-CssClass="myMentor hide-xs hide-sm" HeaderStyle-CssClass="hide-xs hide-sm">
                                     <ItemStyle Width="6%" Wrap="true" />
                                 </asp:BoundField>
                                 <asp:TemplateField HeaderText="Outcome">
@@ -278,39 +217,39 @@
                                     </ItemTemplate>
                                     <ItemStyle Width="6%" Wrap="true" />
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="CurrentSession" HeaderText="cSession" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:BoundField DataField="CurrentSession" HeaderText="cSession" ItemStyle-CssClass="hide-xs hide-sm" HeaderStyle-CssClass="hide-xs hide-sm">
                                     <ItemStyle Width="6%" Wrap="False" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="AppraisalProcess" HeaderText="process" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:BoundField DataField="AppraisalProcess" HeaderText="process" ItemStyle-CssClass="hide-xs hide-sm" HeaderStyle-CssClass="hide-xs hide-sm">
                                     <ItemStyle Width="6%" Wrap="true" />
                                 </asp:BoundField>
-                                <asp:TemplateField HeaderText="Appraisal 1" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:TemplateField HeaderText="Appraisal 1" ItemStyle-CssClass="hide-xs" HeaderStyle-CssClass="hide-xs">
                                     <ItemTemplate>
                                         <asp:HyperLink ID="Link6" runat="server" Text='<%# Bind("Appraisal1") %>'>  </asp:HyperLink>
                                     </ItemTemplate>
                                     <ItemStyle Width="6%" Wrap="True" />
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Appraisal 2" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:TemplateField HeaderText="Appraisal 2" ItemStyle-CssClass="hide-xs hide-sm" HeaderStyle-CssClass="hide-xs hide-sm">
                                     <ItemTemplate>
                                         <asp:HyperLink ID="Link7" runat="server" Text='<%# Bind("Appraisal2") %>'>  </asp:HyperLink>
                                     </ItemTemplate>
                                     <ItemStyle Width="6%" Wrap="True" />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Appraisal 3" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:TemplateField HeaderText="Appraisal 3" ItemStyle-CssClass="hide-xs hide-sm" HeaderStyle-CssClass="hide-xs hide-sm">
                                     <ItemTemplate>
                                         <asp:HyperLink ID="Link8" runat="server" Text='<%# Bind("Appraisal3") %>'>  </asp:HyperLink>
                                     </ItemTemplate>
                                     <ItemStyle Width="6%" Wrap="True" />
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Appraisal 4" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:TemplateField HeaderText="Appraisal 4" ItemStyle-CssClass="hide-xs hide-sm" HeaderStyle-CssClass="hide-xs hide-sm">
                                     <ItemTemplate>
                                         <asp:HyperLink ID="Link9" runat="server" Text='<%# Bind("Appraisal4") %>'>  </asp:HyperLink>
                                     </ItemTemplate>
                                     <ItemStyle Width="6%" Wrap="True" />
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="Comments" HeaderText="Comments" ItemStyle-CssClass="visible-sm visible-md visible-lg" HeaderStyle-CssClass="visible-sm visible-md visible-lg">
+                                <asp:BoundField DataField="Comments" HeaderText="Comments" ItemStyle-CssClass="hide-xs hide-sm" HeaderStyle-CssClass="hide-xs hide-sm">
                                     <ItemStyle Width="6%" Wrap="True" />
                                 </asp:BoundField>
 
@@ -340,7 +279,7 @@
             <%-- <div id="textHelp"></div>--%>
         </div>
 
-        <div id="ActionMenuDIV" class="bubble epahide">
+        <div id="ActionMenuDIV" class="bubble epahide List-Action-Menu">
             <asp:Label runat="server" ID="LabelTeacherName" Text=""> </asp:Label>
             <ul>
                 <li id="submenu1"><a class="menuLink" href="javascript:openEditPage3('500','700','./EPAmanage/Loading2.aspx?pID=Notes','Write Appraisal Notes');">Write Appraisal Notes </a></li>
@@ -371,84 +310,85 @@
             <asp:HiddenField ID="hfUserLoginRole" runat="server" />
             <asp:HiddenField ID="hfRunningModel" runat="server" />
             <asp:HiddenField ID="hfWorkingOn" runat="server" />
-            <input id ="clipboardText" type ="text" style="position:absolute;top:150px;left:150px; z-index:-100" />
+            <input id="clipboardText" type="text" style="position: absolute; top: 150px; left: 150px; z-index: -100" />
         </div>
     </form>
+    <script src="../Scripts/jquery-3.2.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/GridView.js"></script>
+    <script src="../Scripts/Appr_ListPage.js"></script>
+    <script src="../Scripts/Appr_Help.js"></script>
+    <script src="../Scripts/Appr_textEdit.js"></script>
+
+    <script type="text/javascript">
+        var UserID = $("#hfUserID").val();
+        var CategoryID = "TPA";
+        var AreaID = "ManageList";
+        var ItemCode = $("#hfCode").val();;
+
+        var rowNo;
+        var teachername;
+        var schoolyear;
+        var schoolcode;
+        var employeeid;
+        var sessionid;
+        var phase;
+        var category;
+        var myKey;
+        var myIDs;
+        var currentListPage = "StaffList";
+
+        function pageLoad(sender, args) {
+            var vHeight = window.innerHeight - 80;
+            $("#Label4").text(vHeight);
+            MakeStaticHeader("GridView1", vHeight, 1350, 20, false);
+            $(document).ready(function () {
+                ChangeHeaderSchoolName();
+                var rowIndex = 1;
+                $("#GridView1 tr").mouseenter(function (event) {
+                    //if (currentTR != undefined) { currentTR.removeClass("highlightRow"); }
+                    //currentTR = $(this);
+                    ////  $(this).addClass("highlightBoard");
+                    //currentTR.addClass("highlightRow");
+                });
+                $("#GradeTab").click(function (e) {
+                    var cEvantID = e.originalEvent.srcElement.id;
+                    $("#hfSelectedTab").val(cEvantID);
+                    $("#hfSelectedTabL").val(e.originalEvent.srcElement.parentNode.id);
+                    $("#btnGradeTab").click();
+                    preaLinkID = $("#hfSelectedTabL").val();
+                });
+
+            });
+        }
+        function ChangeHeaderSchoolName() {
+            var schoolcode = $("#ddlSchool").val();
+            var schoolName = $("#ddlSchool option:selected").text();
+            $("#LabelSchool", parent.document).text(schoolName);
+            $("#LabelSchoolCode", parent.document).text(schoolcode);
+            $("#LabelSchoolYear", parent.document).text($("#ddlSchoolYear").val());
+        }
+        function BuildSearchValueDDLList(objData) {
+            $("#ddlSearch").html("");
+            var list = "";
+            for (x in objData) {
+                list += "<option value ='" + objData[x].Code + "'>" + objData[x].Name + "</option>";
+            }
+            $("#ddlSearch").html(list);
+            $("#ddlSearch").show();
+
+        }
+
+        function onSuccessMenu(result) {
+            BuildSearchValueDDLList(result);
+        }
+
+        function onFailure() {
+            alert("Get DDL List Failed!");
+        }
+
+    </script>
+
+
 </body>
 </html>
-<script src="../Scripts/jquery-3.2.1.min.js"></script>
-<script src="../Scripts/bootstrap.min.js"></script>
-<script src="../Scripts/GridView.js"></script>
-<script src="../Scripts/Appr_ListPage.js"></script>
-<script src="../Scripts/Appr_Help.js"></script>
-<script src="../Scripts/Appr_textEdit.js"></script>
-
-<script type="text/javascript">
-    var UserID = $("#hfUserID").val();
-    var CategoryID = "TPA";
-    var AreaID = "ManageList";
-    var ItemCode = $("#hfCode").val();;
-
-    var rowNo;
-    var teachername;
-    var schoolyear;
-    var schoolcode;
-    var employeeid;
-    var sessionid;
-    var phase;
-    var category;
-    var myKey;
-    var myIDs;
-    var currentListPage = "StaffList";
-
-    function pageLoad(sender, args) {
-        var vHeight = window.innerHeight - 80;
-        $("#Label4").text(vHeight);
-       MakeStaticHeader("GridView1", vHeight, 1350, 20, false);
-        $(document).ready(function () {
-            ChangeHeaderSchoolName();
-            var rowIndex = 1;
-            $("#GridView1 tr").mouseenter(function (event) {
-                //if (currentTR != undefined) { currentTR.removeClass("highlightRow"); }
-                //currentTR = $(this);
-                ////  $(this).addClass("highlightBoard");
-                //currentTR.addClass("highlightRow");
-            });
-            $("#GradeTab").click(function (e) {
-                var cEvantID = e.originalEvent.srcElement.id;
-                $("#hfSelectedTab").val(cEvantID);
-                $("#hfSelectedTabL").val(e.originalEvent.srcElement.parentNode.id);
-                $("#btnGradeTab").click();
-                preaLinkID = $("#hfSelectedTabL").val();
-            });
- 
-        });
-    }
-    function ChangeHeaderSchoolName() {
-        var schoolcode = $("#ddlSchool").val();
-        var schoolName = $("#ddlSchool option:selected").text();
-        $("#LabelSchool", parent.document).text(schoolName);
-        $("#LabelSchoolCode", parent.document).text(schoolcode);
-        $("#LabelSchoolYear", parent.document).text($("#ddlSchoolYear").val());
-    }
-    function BuildSearchValueDDLList(objData) {
-        $("#ddlSearch").html("");
-        var list = "";
-        for (x in objData) {
-            list += "<option value ='" + objData[x].Code + "'>" + objData[x].Name + "</option>";
-        }
-        $("#ddlSearch").html(list);
-        $("#ddlSearch").show();
-
-    }
-
-    function onSuccessMenu(result) {
-        BuildSearchValueDDLList(result);
-    }
-
-    function onFailure() {
-        alert("Get DDL List Failed!");
-    }
-
-</script>
-

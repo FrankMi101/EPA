@@ -1,16 +1,17 @@
 ﻿A:link {
     text-decoration: none;
-    color: purple;
+    color: #000;
 }
 
 A:visited {
     text-decoration: none;
-    color: #333399;
+    color: #000;
+
 }
 
 A:active {
     text-decoration: none;
-    color: #333399;
+    color:  #000;
 }
 
 A:hover {

@@ -41,12 +41,12 @@ namespace BLL
         }
         private static string CheckSP(string SP, object parameter)
         {
-            return SP;
- 
-            //if (SP.Contains("@"))
-            //    return SP;
-            //else
-            //    return AppraisalCommon.GetParamerters(SP, parameter);
+           // return SP;
+
+            if (SP.Contains("@"))
+                return SP;
+            else
+                return AppraisalCommon.GetParamerters(SP, parameter);
         }
 
     }

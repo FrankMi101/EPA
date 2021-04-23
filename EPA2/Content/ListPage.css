@@ -23,6 +23,16 @@ table tbody tr:nth-child(odd) {
     font-size: large;
 }
 
+.emptyData {
+    font-size: xx-large;
+    text-align: center;
+    color: blue;
+}
+
+
+.top5Row {
+    border-top: 5px solid darkcyan;
+}
 
 #GridView1 td {
     border: 1px solid #e1d9d9;

@@ -38,7 +38,7 @@ namespace EPA2
                         goPage = "LoadingDashBoard.aspx?pID=EPA";
                         break;
                      default:
-                        goPage = "DefaultSummary.aspx";
+                        goPage = "iBlankPage.html"; //   "DefaultSummary.aspx";
                         break;
                 }
 

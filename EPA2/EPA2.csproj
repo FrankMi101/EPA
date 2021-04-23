@@ -126,10 +126,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\BubbleHelp.css" />
+    <Content Include="Content\collapsible.css" />
     <Content Include="Content\ContentPage.css" />
     <Content Include="Content\ContentPage_tab.css" />
     <Content Include="Content\DefaultPage.css" />
     <Content Include="Content\DeviceMedia.css" />
+    <Content Include="Content\iconStyle.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\LeftMenuList.css" />
     <Content Include="Content\LeftNovList.css" />
@@ -145,6 +147,8 @@
     <Content Include="Content\TopLink.css" />
     <Content Include="Content\TopNavListM.css" />
     <Content Include="Content\TopNavList.css" />
+    <Content Include="images\popular.svg" />
+    <Content Include="images\sprite.svg" />
     <Content Include="Index.css" />
     <Content Include="CSSGrid.aspx" />
     <Content Include="CSSGrid.css" />

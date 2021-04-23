@@ -1,0 +1,36 @@
+﻿/* Icons */
+
+.icon {
+    width: 40px;
+    height: 40px;
+}
+
+.icon--small {
+    width: 25px;
+    height: 25px;
+}
+
+.icon--primary {
+    fill: var(--color-primary);
+}
+
+.icon--white {
+    fill: #fff;
+}
+
+.icon--tcdsb {
+    fill: #950909
+}
+.icon-container {
+    background: #f3f9fa;
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-container--accent {
+    background: var(--color-accent);
+}
