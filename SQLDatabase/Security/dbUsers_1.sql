@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [dbUsers]
+    WITH PASSWORD = N'6g{|zmhpehifhf7iq2eimEljmsFT7_&#$!~<bHcaay{4gdzP', SID = 0x6C46930EC4DF0541888B4960D34B1C2C, DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

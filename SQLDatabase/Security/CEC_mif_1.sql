@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [CEC\mif]
+    FROM WINDOWS WITH DEFAULT_LANGUAGE = [us_english];
+

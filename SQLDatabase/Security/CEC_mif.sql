@@ -1,0 +1,2 @@
+﻿CREATE USER [CEC\mif] FOR LOGIN [CEC\mif];
+

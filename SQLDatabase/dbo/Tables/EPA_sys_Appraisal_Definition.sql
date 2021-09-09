@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[EPA_sys_Appraisal_Definition] (
+    [IDs]                INT           IDENTITY (1, 1) NOT NULL,
+    [Appraisal_Category] VARCHAR (10)  NOT NULL,
+    [Appraisal_Area]     VARCHAR (20)  NOT NULL,
+    [Appraisal_Code]     VARCHAR (10)  NOT NULL,
+    [Area_Step]          INT           NULL,
+    [TreeLevel]          NCHAR (1)     NULL,
+    [MenuShow]           NCHAR (1)     NULL,
+    [CheckShow]          NCHAR (1)     NULL,
+    [StepCheck]          NCHAR (1)     NULL,
+    [ViewPermission]     VARCHAR (10)  NULL,
+    [CheckCode]          VARCHAR (10)  NULL,
+    [Appraisal_Text]     VARCHAR (500) NULL,
+    [Content_Page]       VARCHAR (30)  NULL,
+    [Content_Type]       VARCHAR (20)  NULL,
+    [Content_For]        VARCHAR (10)  NULL,
+    [Help]               NCHAR (10)    NULL,
+    [Recover]            NCHAR (10)    NULL,
+    [Effective_Practice] NCHAR (10)    NULL,
+    [ReportName]         VARCHAR (100) NULL,
+    [lu_function]        VARCHAR (50)  NULL,
+    [lu_date]            SMALLDATETIME NULL,
+    [lu_user]            VARCHAR (20)  NULL,
+    CONSTRAINT [PK_upa_sys_Appraisal_Definition] PRIMARY KEY CLUSTERED ([Appraisal_Category] ASC, [Appraisal_Area] ASC, [Appraisal_Code] ASC)
+);
+
