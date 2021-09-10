@@ -12,25 +12,25 @@ namespace DataAccess
     {
         public static string myDBConStr
         {
-            get { return MyCommon.DataDB.dbConnectionSTR; }
-            set { MyCommon.DataDB.dbConnectionSTR = value; }
+            get { return MyADO.DataDB.dbConnectionSTR; }
+            set { MyADO.DataDB.dbConnectionSTR = value; }
 
         }
 
         public static string myApplication
         {
-            get { return MyCommon.DataDB.applicationName; }
-            set { MyCommon.DataDB.applicationName = value; }
+            get { return MyADO.DataDB.applicationName; }
+            set { MyADO.DataDB.applicationName = value; }
         }
 
-        public static void setParameterArray(MyCommon.MyParameterDB[] _ParaArray, System.Data.DbType _Type, int X, int _Leng, string _Name, object _Value)
+        public static void setParameterArray(MyADO.MyParameterDB[] _ParaArray, System.Data.DbType _Type, int X, int _Leng, string _Name, object _Value)
         {
             try
             {
                 //**************** This block is using Web services get data*******************************
                 //_ParaArray(X) = new DataAccessWebService.MyParameter;
                 // ****************Base classs get data************************************************
-                //  MyCommon.MyParameter[]  _ParaArray1 = new  MyCommon.MyParameter() ; //  New TCDSB.Student.Data.MyParameter  ' may 2 
+                //  MyADO.MyParameter[]  _ParaArray1 = new  MyADO.MyParameter() ; //  New TCDSB.Student.Data.MyParameter  ' may 2 
 
                 _ParaArray[X].pName = _Name;
                 _ParaArray[X].pType = _Type;
@@ -40,14 +40,14 @@ namespace DataAccess
             catch (Exception e)
             { string eMsg = e.Message; }
         }
-        public static void setParameterArray1(MyCommon.MyParameterSQL[] _ParaArray, System.Data.SqlDbType _Type, int X, int _Leng, string _Name, object _Value)
+        public static void setParameterArray1(MyADO.MyParameterSQL[] _ParaArray, System.Data.SqlDbType _Type, int X, int _Leng, string _Name, object _Value)
         {
             try
             {
                 //**************** This block is using Web services get data*******************************
                 //_ParaArray(X) = new DataAccessWebService.MyParameter;
                 // ****************Base classs get data************************************************
-                //  MyCommon.MyParameter[]  _ParaArray1 = new  MyCommon.MyParameter() ; //  New TCDSB.Student.Data.MyParameter  ' may 2 
+                //  MyADO.MyParameter[]  _ParaArray1 = new  MyADO.MyParameter() ; //  New TCDSB.Student.Data.MyParameter  ' may 2 
 
                 _ParaArray[X].pName = _Name;
                 _ParaArray[X].pType = _Type;
@@ -57,14 +57,14 @@ namespace DataAccess
             catch (Exception e)
             { string eMsg = e.Message; }
         }
-        public static System.Data.DataSet getMyDataSet(string _SP, MyCommon.MyParameterDB[] _myParameter)
+        public static System.Data.DataSet getMyDataSet(string _SP, MyADO.MyParameterDB[] _myParameter)
         {
             try
             {  //**************** This block is using Web services get data*******************************
                 //  DataAccessWebService.DataWS ws1 ; '  DataAccessWebService2.DataWS
                 // Return ws1.WSDataSet(_sp, mypara1);
                 // ****************Base classs get data************************************************
-                return MyCommon.DataDB.myDataSet(_SP, _myParameter);
+                return MyADO.DataDB.myDataSet(_SP, _myParameter);
 
             }
             catch (Exception ex)
@@ -73,14 +73,14 @@ namespace DataAccess
                 return null;
             }
         }
-        public static System.Data.DataSet getMyDataSet(string _SP, MyCommon.MyParameterDB[] _myParameter, Int16 _Timeout)
+        public static System.Data.DataSet getMyDataSet(string _SP, MyADO.MyParameterDB[] _myParameter, Int16 _Timeout)
         {
             try
             {  //**************** This block is using Web services get data*******************************
                 //  DataAccessWebService.DataWS ws1 ; '  DataAccessWebService2.DataWS
                 // Return ws1.WSDataSet(_sp, mypara1);
                 // ****************Base classs get data************************************************
-                return MyCommon.DataDB.myDataSet(_SP, _myParameter,_Timeout );
+                return MyADO.DataDB.myDataSet(_SP, _myParameter,_Timeout );
 
             }
             catch (Exception ex)
@@ -89,14 +89,14 @@ namespace DataAccess
                 return null;
             }
         }
-        public static System.Data.IDataReader getMyDataList(string _SP, MyCommon.MyParameterDB[] _myParameter)
+        public static System.Data.IDataReader getMyDataList(string _SP, MyADO.MyParameterDB[] _myParameter)
         {
             try
             {  //**************** This block is using Web services get data*******************************
                 //  DataAccessWebService.DataWS ws1 ; '  DataAccessWebService2.DataWS
                 // Return ws1.WSDataSet(_sp, mypara1);
                 // ****************Base classs get data************************************************
-                return MyCommon.DataDB.myDataReader (_SP, _myParameter,0);
+                return MyADO.DataDB.myDataReader (_SP, _myParameter,0);
 
             }
             catch (Exception ex)
@@ -105,14 +105,14 @@ namespace DataAccess
                 return null;
             }
         }
-        public static System.Data.IDataReader  getMyDataList(string _SP, MyCommon.MyParameterDB[] _myParameter, Int16 _Timeout)
+        public static System.Data.IDataReader  getMyDataList(string _SP, MyADO.MyParameterDB[] _myParameter, Int16 _Timeout)
         {
             try
             {  //**************** This block is using Web services get data*******************************
                 //  DataAccessWebService.DataWS ws1 ; '  DataAccessWebService2.DataWS
                 // Return ws1.WSDataSet(_sp, mypara1);
                 // ****************Base classs get data************************************************
-                return MyCommon.DataDB.myDataReader(_SP, _myParameter, _Timeout);
+                return MyADO.DataDB.myDataReader(_SP, _myParameter, _Timeout);
 
             }
             catch (Exception ex)
@@ -121,7 +121,7 @@ namespace DataAccess
                 return null;
             }
         }
-        public static string getMyDataValue(string _SP, MyCommon.MyParameterDB[] _myParameter)
+        public static string getMyDataValue(string _SP, MyADO.MyParameterDB[] _myParameter)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace DataAccess
                 // DataAccessWebService.DataWS ws1 ;
                 // return ws1.WSValue(_SP, mypara1);
                 // ****************Base classs get data************************************************
-                return MyCommon.DataDB.myValue(_SP, _myParameter);
+                return MyADO.DataDB.myValue(_SP, _myParameter);
 
                
 
@@ -141,7 +141,7 @@ namespace DataAccess
             }
 
         }
-        public static string getMyDataValue(string _SP, MyCommon.MyParameterDB[] _myParameter, Int16 _Timeout)
+        public static string getMyDataValue(string _SP, MyADO.MyParameterDB[] _myParameter, Int16 _Timeout)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace DataAccess
                 // DataAccessWebService.DataWS ws1 ;
                 // return ws1.WSValue(_SP, mypara1);
                 // ****************Base classs get data************************************************
-                return MyCommon.DataDB.myValue(_SP, _myParameter,_Timeout );
+                return MyADO.DataDB.myValue(_SP, _myParameter,_Timeout );
 
 
 
@@ -161,7 +161,7 @@ namespace DataAccess
             }
 
         }
-        public static DateTime  getMyDateTime(string _SP, MyCommon.MyParameterDB[] _myParameter)
+        public static DateTime  getMyDateTime(string _SP, MyADO.MyParameterDB[] _myParameter)
         {
             try
             {
@@ -169,7 +169,7 @@ namespace DataAccess
                 // DataAccessWebService.DataWS ws1 ;
                 // return ws1.WSValue(_SP, mypara1);
                 // ****************Base classs get data************************************************
-                return MyCommon.DataDB.myDateTime(_SP, _myParameter);
+                return MyADO.DataDB.myDateTime(_SP, _myParameter);
 
 
 
@@ -181,7 +181,7 @@ namespace DataAccess
             }
 
         }
-        public static Boolean  getMyBoolean(string _SP, MyCommon.MyParameterDB[] _myParameter)
+        public static Boolean  getMyBoolean(string _SP, MyADO.MyParameterDB[] _myParameter)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace DataAccess
                 // DataAccessWebService.DataWS ws1 ;
                 // return ws1.WSValue(_SP, mypara1);
                 // ****************Base classs get data************************************************
-                return MyCommon.DataDB.myBool(_SP, _myParameter);
+                return MyADO.DataDB.myBool(_SP, _myParameter);
 
 
 
@@ -201,7 +201,7 @@ namespace DataAccess
             }
 
         }
-        public static void SaveMyData(string _SP, MyCommon.MyParameterDB[] _myParameter)
+        public static void SaveMyData(string _SP, MyADO.MyParameterDB[] _myParameter)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace DataAccess
                 // DataAccessWebService.DataWS ws1 ;
                 // return ws1.WSValue(_SP, mypara1);
                 // ****************Base classs get data************************************************
-                MyCommon.DataDB.SaveData(_SP, _myParameter);
+                MyADO.DataDB.SaveData(_SP, _myParameter);
 
             }
             catch (Exception ex)
@@ -218,7 +218,7 @@ namespace DataAccess
                
             }
         }
-        public static void SaveMyData1(string _SP, MyCommon.MyParameterSQL[] _myParameter)
+        public static void SaveMyData1(string _SP, MyADO.MyParameterSQL[] _myParameter)
         {
             try
             {
@@ -226,7 +226,7 @@ namespace DataAccess
                 // DataAccessWebService.DataWS ws1 ;
                 // return ws1.WSValue(_SP, mypara1);
                 // ****************Base classs get data************************************************
-                MyCommon.DataSQL.SaveData(_SP, _myParameter);
+                MyADO.DataSQL.SaveData(_SP, _myParameter);
 
             }
             catch (Exception ex)
@@ -288,7 +288,7 @@ namespace DataAccess
                 //**************** This block is using Web services get data*******************************
               //  _ParaArray[X] = new DataAccessWebService.MyParameter;
                 // ****************Base classs get data************************************************
-                //  MyCommon.MyParameter[]  _ParaArray1 = new  MyCommon.MyParameter() ; //  New TCDSB.Student.Data.MyParameter  ' may 2 
+                //  MyADO.MyParameter[]  _ParaArray1 = new  MyADO.MyParameter() ; //  New TCDSB.Student.Data.MyParameter  ' may 2 
 
                 _ParaArray[X].pName = _Name;
                 _ParaArray[X].pType =  (DataAccessWebService.DbType) _Type;

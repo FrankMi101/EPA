@@ -19,7 +19,7 @@ namespace DataAccess
         //public static string AGPDate(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode)
         //{
         //    string SP = "dbo.EPA_Appr_AppraisalData_AGPDate";
-        //    MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+        //    MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
         //    myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
         //    return SetSQLParameter.getMyDataValue(SP, myPara);
         //}
@@ -27,7 +27,7 @@ namespace DataAccess
         //public static string AGPDate(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode, string Date)
         //{
         //    string SP = "dbo.EPA_Appr_AppraisalData_AGPDate";
-        //    MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[10];
+        //    MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[10];
         //    myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
         //    SetSQLParameter.setParameterArray(myPara, DbType.String, 9, 10, "@Date", Date);
  
@@ -36,7 +36,7 @@ namespace DataAccess
         //public static string AGPDate(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode, string Date, string Value)
         //{
         //    string SP = "dbo.EPA_Appr_AppraisalData_AGPDate";
-        //    MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[11];
+        //    MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[11];
         //    myBaseParameters.SetupBaseParameters(ref myPara, "Save", userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
         //    SetSQLParameter.setParameterArray(myPara, DbType.String, 9, 10, "@Date", Date);
         //    SetSQLParameter.setParameterArray(myPara, DbType.String, 10, 1000, "@Value", HttpContext.Current.Server.HtmlDecode(Value));
@@ -46,21 +46,21 @@ namespace DataAccess
        public static DataSet AGPWorkingList(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode )
         {
              string SP = "dbo.EPA_Appr_AppraisalData_AGPList";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             return SetSQLParameter.getMyDataSet(SP, myPara);
         }
         public static string AGPWorkingListContent(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode)
         {
             string SP = "dbo.EPA_Appr_AppraisalData_AGPList";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             return SetSQLParameter.getMyDataValue(SP, myPara);
         }
         public static string AGPWorkingListContent(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode, string SeqNo, string GoalItem, string Value)
         {
             string SP = "dbo.EPA_Appr_AppraisalData_AGPList";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[12];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[12];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 9, 10, "@SeqNo", SeqNo);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 10, 20, "@ActionItem", GoalItem);

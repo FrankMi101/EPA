@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
+    <Reference Include="Dapper">
+      <HintPath>..\..\DLLReferance\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\itextsharp.dll</HintPath>
@@ -40,9 +40,8 @@
     <Reference Include="itextsharp.pdfa">
       <HintPath>..\itextsharp.pdfa.dll</HintPath>
     </Reference>
-    <Reference Include="MyBaseClassC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\myBaseClass\BaseClassC\bin\Debug\MyBaseClassC.dll</HintPath>
+    <Reference Include="MyBaseClassC">
+      <HintPath>..\..\DLLReferance\MyBaseClassC.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

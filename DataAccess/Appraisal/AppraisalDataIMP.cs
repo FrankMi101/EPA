@@ -18,21 +18,21 @@ namespace DataAccess
         public static DataSet WorkingList(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode )
         {
             string SP = "dbo.EPA_Appr_AppraisalData_AIPList";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             return SetSQLParameter.getMyDataSet(SP, myPara);
         }
         public static string WorkingListContent(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode)
         {
             string SP = "dbo.EPA_Appr_AppraisalData_AIPList";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             return SetSQLParameter.getMyDataValue(SP, myPara);
         }
         public static string WorkingListContent(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode, string SeqNo, string GoalItem, string Value)
         {
             string SP = "dbo.EPA_Appr_AppraisalData_AIPList";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[12];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[12];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 9, 10, "@SeqNo", SeqNo);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 10, 20, "@ActionItem", GoalItem);
@@ -43,21 +43,21 @@ namespace DataAccess
         public static DataSet WorkingList2(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode)
         {
             string SP = "dbo.EPA_Appr_AppraisalData_AIPList2";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             return SetSQLParameter.getMyDataSet(SP, myPara);
         }
         public static string WorkingListContent2(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode)
         {
             string SP = "dbo.EPA_Appr_AppraisalData_AIPList2";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             return SetSQLParameter.getMyDataValue(SP, myPara);
         }
         public static string WorkingListContent2(string action, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string area, string itemCode, string SeqNo, string GoalItem, string Value)
         {
             string SP = "dbo.EPA_Appr_AppraisalData_AIPList2";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[12];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[12];
             myBaseParameters.SetupBaseParameters(ref myPara, action, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, area, itemCode);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 9, 10, "@SeqNo", SeqNo);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 10, 20, "@ActionItem", GoalItem);

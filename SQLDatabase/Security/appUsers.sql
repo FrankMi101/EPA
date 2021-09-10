@@ -1,3 +1,4 @@
-﻿CREATE USER [appUsers]
+﻿
+CREATE USER [appUsers]
     WITH DEFAULT_SCHEMA = [guest];
 

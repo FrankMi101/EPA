@@ -17,7 +17,7 @@ namespace DataAccess
             try
             {
                 string _SP = "dbo.EPA_sys_UploadFile";
-                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
+                MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[2];
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 0, 30, "@UserID", _UserID);
                 SetSQLParameter.setParameterArray(myPara, DbType.String, 1, 50, "@FileID", _filedID);
                 return SetSQLParameter.getMyDataSet(_SP, myPara);
@@ -177,7 +177,7 @@ namespace DataAccess
         {
             try
             {
-                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
+                MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[2];
                 myBaseParametersL.SetupBaseParameters(ref myPara, operate, userID);
                 return SetSQLParameter.getMyDataSet(SP, myPara);
             }
@@ -191,7 +191,7 @@ namespace DataAccess
         {
             try
             {
-                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[3];
+                MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[3];
                 myBaseParametersL.SetupBaseParameters(ref myPara, operate, userID, vPara1);
                 return SetSQLParameter.getMyDataSet(SP, myPara);
             }
@@ -203,14 +203,14 @@ namespace DataAccess
         }
         private static DataSet myListReader(string operate, string userID, string vPara1, string vPara2)
         {
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[4];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[4];
             myBaseParametersL.SetupBaseParameters(ref myPara, operate, userID, vPara1, vPara2);
             return SetSQLParameter.getMyDataSet(SP, myPara);
 
         }
         private static DataSet myListReader(string operate, string userID, string vPara1, string vPara2, string vPara3)
         {
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[5];
             myBaseParametersL.SetupBaseParameters(ref myPara, operate, userID, vPara1, vPara2, vPara3);
             return SetSQLParameter.getMyDataSet(SP, myPara);
 
@@ -322,7 +322,7 @@ namespace DataAccess
         {
             try
             {
-                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[2];
+                MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[2];
                 myBaseParametersL.SetupBaseParameters(ref myPara, operate, userID);
                 return SetSQLParameter.getMyDataSet(SP, myPara);
             }
@@ -336,7 +336,7 @@ namespace DataAccess
         {
             try
             {
-                MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[3];
+                MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[3];
                 myBaseParametersL.SetupBaseParameters(ref myPara, operate, userID, vPara1);
                 return SetSQLParameter.getMyDataSet(SP, myPara);
             }
@@ -348,14 +348,14 @@ namespace DataAccess
         }
         private static DataSet myListReader2(string operate, string userID, string vPara1, string vPara2)
         {
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[4];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[4];
             myBaseParametersL.SetupBaseParameters(ref myPara, operate, userID, vPara1, vPara2);
             return SetSQLParameter.getMyDataSet(SP, myPara);
 
         }
         private static DataSet myListReader2(string operate, string userID, string vPara1, string vPara2, string vPara3)
         {
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[5];
             myBaseParametersL.SetupBaseParameters(ref myPara, operate, userID, vPara1, vPara2, vPara3);
             return SetSQLParameter.getMyDataSet(SP, myPara);
 

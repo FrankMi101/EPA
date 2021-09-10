@@ -17,7 +17,7 @@ namespace DataAccess
         public static string SignOffAction(string RoleType,string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole)
         {
             string SP = "dbo.EPA_Appr_AppraisalProcess_SignOffAction";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             SetupThisParameters(ref myPara, RoleType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, itemCode, userRole);
             return SetSQLParameter.getMyDataValue(SP, myPara);
 
@@ -40,14 +40,14 @@ namespace DataAccess
 
         public static string SignOffName(string RoleType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole)
         {
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             SetupThisParameters(ref myPara, RoleType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, itemCode, userRole);
             return SetSQLParameter.getMyDataValue(SP, myPara);
 
         }
         public static string SignOffName(string RoleType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole,string signOffName, string signOffDate, string signOffAction)
         {
-             MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[12];
+             MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[12];
             SetupThisParameters(ref myPara, RoleType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, itemCode, userRole);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 9, 50, "@SignOffName", signOffName);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 10, 30, "@SignOffDate", signOffDate);
@@ -57,7 +57,7 @@ namespace DataAccess
         }
         public static string SignOffName(string RoleType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole, string signOffName, string signOffDate, string signOffAction,string enforceSignoff)
         {
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[13];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[13];
             SetupThisParameters(ref myPara, RoleType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, itemCode, userRole);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 9, 50, "@SignOffName", signOffName);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 10, 30, "@SignOffDate", signOffDate);
@@ -75,7 +75,7 @@ namespace DataAccess
         public static string SignOffDate(string RoleType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode,   string userRole)
         {
             string SP = "dbo.EPA_Appr_AppraisalProcess_SignOffDate";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             SetupThisParameters(ref myPara, RoleType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, itemCode, userRole);
              return SetSQLParameter.getMyDataValue(SP, myPara);
 
@@ -88,7 +88,7 @@ namespace DataAccess
         public static string SignOffComplete(string CheckType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole)
         {
             string SP = "dbo.EPA_Appr_AppraisalProcess_SignOffComplete";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[9];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[9];
             SetupThisParameters(ref myPara, CheckType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession, category, itemCode, userRole);
             return SetSQLParameter.getMyDataValue(SP, myPara);
         }
@@ -100,7 +100,7 @@ namespace DataAccess
         public static string NoticeDate(string CheckType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string noticeType, string noticeArea )
         {
             string SP = "dbo.EPA_Appr_AppraisalProcess_NoticeDate";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[8];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[8];
             myBaseParameters.SetupBaseParameters(ref myPara, CheckType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 6, 30, "@NoticeType", noticeType);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 7, 10, "@NoticeArea", noticeArea); 
@@ -109,7 +109,7 @@ namespace DataAccess
         public static string DigitalSignature(string Operate, string userID,  string employeeID )
         {
             string SP = "dbo.EPA_sys_UserDigitalSignature";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[3];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[3];
             myBaseParameters.SetupBaseParameters(ref myPara, Operate, userID );
             SetSQLParameter.setParameterArray(myPara, DbType.String, 2, 10, "@EmployeeID", employeeID);
             return SetSQLParameter.getMyDataValue(SP, myPara);
@@ -120,7 +120,7 @@ namespace DataAccess
         public static string DigitalSignature(string Operate, string userID, string employeeID, string createtime, string digitalKey)
         {
             string SP = "dbo.EPA_sys_UserDigitalSignature";
-            MyCommon.MyParameterDB[] myPara = new MyCommon.MyParameterDB[5];
+            MyADO.MyParameterDB[] myPara = new MyADO.MyParameterDB[5];
             myBaseParameters.SetupBaseParameters(ref myPara, Operate, userID);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 2, 10, "@EmployeeID", employeeID);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 3, 30, "@CreateTime", createtime);
@@ -130,7 +130,7 @@ namespace DataAccess
 
         }
  
-        private static void SetupThisParameters(ref MyCommon.MyParameterDB[] myPara, string RoleType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole)
+        private static void SetupThisParameters(ref MyADO.MyParameterDB[] myPara, string RoleType, string userID, string appraisalYear, string appraisalschool, string employeeID, string appraisalSession, string category, string itemCode, string userRole)
         {
             myBaseParameters.SetupBaseParameters(ref myPara, RoleType, userID, appraisalYear, appraisalschool, employeeID, appraisalSession);
             SetSQLParameter.setParameterArray(myPara, DbType.String, 6, 10, "@Category", category);
